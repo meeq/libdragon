@@ -235,7 +235,6 @@ endint:
 
 	.section .bss
 	.global __baseRegAddr
-	.long __baseRegAddr
 
 	.align 8
 	__baseRegAddr:
@@ -308,4 +307,3 @@ endint:
 	.lcomm saveFR30, 8
 	.lcomm saveFR31, 8
 	.lcomm exception_stack, 65*1024
-
