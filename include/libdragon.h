@@ -52,6 +52,7 @@
 #include "tpak.h"
 #include "display.h"
 #include "dma.h"
+#include "cart.h"
 #include "dragonfs.h"
 #include "eepromfs.h"
 #include "graphics.h"
