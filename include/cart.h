@@ -24,7 +24,7 @@ typedef enum cart_save_type_t
     SAVE_TYPE_SRAM_1MBIT     = 0x60,
     /** @brief 1 megabit FlashRAM present */
     SAVE_TYPE_FLASHRAM_1MBIT = 0x50,
-} cart_save_type_t; 
+} cart_save_type_t;
 
 typedef enum flashram_type_t
 {
@@ -59,12 +59,16 @@ extern "C" {
 cart_save_type_t cart_detect_save_type( void );
 flashram_type_t cart_detect_flashram( void );
 bool cart_detect_sram(uint32_t offset);
+bool cart_detect_sram_768kbit(uint8_t bank, uint32_t offset);
 
-void cart_dma_read(void * dest, uint32_t offset, uint32_t len);
-void cart_dma_write(const void * src, uint32_t offset, uint32_t len);
+void cart_rom_read(void * dest, uint32_t offset, uint32_t len);
+void cart_rom_write(const void * src, uint32_t offset, uint32_t len);
 
-void cart_dom2_dma_read(void * dest, uint32_t offset, uint32_t len);
-void cart_dom2_dma_write(const void * src, uint32_t offset, uint32_t len);
+void cart_ram_read(void * dest, uint32_t offset, uint32_t len);
+void cart_ram_write(const void * src, uint32_t offset, uint32_t len);
+
+void cart_sram_768kbit_read(void * dest, uint8_t bank, uint32_t offset, uint32_t len);
+void cart_sram_768kbit_write(const void * src, uint8_t bank, uint32_t offset, uint32_t len);
 
 #ifdef __cplusplus
 }

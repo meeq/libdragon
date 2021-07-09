@@ -58,7 +58,7 @@ volatile int dma_busy()
 /**
  * @brief Read from a peripheral
  * 
- * @deprecated Replaced by #cart_dma_read
+ * @deprecated Replaced by #cart_rom_read
  * 
  * @param[out] dest
  *             Pointer to a buffer to place read data
@@ -69,13 +69,13 @@ volatile int dma_busy()
  */
 void dma_read(void * dest, uint32_t address, uint32_t len)
 {
-    return cart_dma_read(dest, address, len);
+    return cart_rom_read(dest, address, len);
 }
 
 /**
  * @brief Write to a peripheral
  *
- * @deprecated Replaced by #cart_dma_write
+ * @deprecated Replaced by #cart_rom_write
  *
  * @param[in] src
  *            Pointer to a buffer to read data from
@@ -86,14 +86,14 @@ void dma_read(void * dest, uint32_t address, uint32_t len)
  */
 void dma_write(const void * src, uint32_t address, uint32_t len)
 {
-    return cart_dma_write(src, address, len);
+    return cart_rom_write(src, address, len);
 }
 
 /**
  * @brief Read from a peripheral
  *
  * This function should not be used directly unless you know what you're doing.
- * @see #cart_dma_read
+ * @see #cart_rom_read
  * @see #cart_dom2_dma_read
  *
  * @param[out] dest
@@ -126,7 +126,7 @@ void pi_dma_read(void * dest, uint32_t pi_address, uint32_t len)
  * @brief Write to a peripheral
  *
  * This function should not be used directly unless you know what you're doing.
- * @see #cart_dma_write
+ * @see #cart_rom_write
  * @see #cart_dom2_dma_write
  *
  * @param[in] src
