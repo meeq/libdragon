@@ -130,7 +130,7 @@ cart_save_type_t cart_detect_save_type( void )
  */
 flashram_type_t cart_detect_flashram( void )
 {
-    /* Tell the FlashRAM to identi fy itself */
+    /* Tell the FlashRAM to identify itself */
     io_write(CART_DOM2_ADDR2_START | FLASHRAM_OFFSET_COMMAND, FLASHRAM_COMMAND_SET_IDENTIFY_MODE) ;
 
     /* Read the identifiers */
@@ -148,7 +148,7 @@ flashram_type_t cart_detect_flashram( void )
  *
  * Unfortunately, the only way to check this is to actually perform a DMA write/read,
  * which is a destructive operation. This routine attempts to preserve the data before
- * clobbering it during the test, and writing back the original data if successful.
+ * clobbering it during the test, and writes back the original data if SRAM exists.
  *
  * @param[in] offset
  *            Offset of SRAM in bytes to check. SRAM potentially goes up to 1 megabit.
@@ -194,7 +194,7 @@ bool cart_detect_sram(uint32_t offset)
 }
 
 /**
- * @brief Determine whether the SRAM bank on the cartridge is writable at a given offset
+ * @brief Determine whether the SRAM bank on the cartridge is writable at a given offset.
  *
  * 768Kbit SRAM is implemented as three separate 256Kbit SRAM chips with a logic circuit
  * to determine which chip to access.
