@@ -25,6 +25,11 @@
  * practical reason why it might not make sense to use SRAM is if you want compatibility
  * with emulators that do not support SRAM larger than 256 kilobits, or wish to make
  * a reproduction cartridge (which typically only support up to 256 kilobit SRAM).
+ * 
+ * Only one published cartridge ever used the 768 kilobit SRAM configuration (Dezaemon 3D),
+ * which is actually implemented as a logic chip selecting between 3 256 kilobit SRAM banks.
+ * Emulator support for this save type is not widespread, and there are no reproduction
+ * cartridge boards that support SRAM bank switching, although flash carts do support it.
  *
  * For ROMs that need to store up to 1 megabit (128 kilobytes), the most widely-compatible
  * save type is FlashRAM. Unfortunately, it is significantly more complicated to write
@@ -34,9 +39,10 @@
  * If your ROM does not need to store more than 16 kilobits (2 kilobytes), you could use
  * EEPROM. In the age of emulators and flash carts, there is no real advantage to EEPROM
  * over SRAM. EEPROM is lower-capacity, slower to write, must be accessed in 8-byte blocks,
- * and cannot co-exist with the Real-Time Clock (on real hardware). The biggest reason why
- * you might consider using EEPROM is if you wanted to make a reproduction cartridge, which
- * may support EEPROM saving without needing any "donor chips" from another N64 cartridge.
+ * and should use parity bits or checksums to ensure consistency (on real hardware). The
+ * strongest reason why you might consider using EEPROM is if you wanted to make your own
+ * reproduction cartridge, since the boards often support EEPROM 4k/16k without needing
+ * to scavenge "donor chips" from a real N64 cartridge.
  *
  * @{
  */
@@ -62,7 +68,7 @@
 #define FLASHRAM_COMMAND_SET_ERASE_MODE    0x78000000
 #define FLASHRAM_COMMAND_SET_WRITE_OFFSET  0xA5000000
 #define FLASHRAM_COMMAND_SET_WRITE_MODE    0xB4000000
-#define FLASHRAM_COMMAND_EXECUTE           0xD2000000
+#define FLASHRAM_COMMAND_COMMIT            0xD2000000
 #define FLASHRAM_COMMAND_SET_IDENTIFY_MODE 0xE1000000
 #define FLASHRAM_COMMAND_SET_READ_MODE     0xF0000000
 
@@ -254,6 +260,7 @@ bool cart_detect_sram_768kbit(uint8_t bank, uint32_t offset)
  */
 void cart_rom_read(void * dest, uint32_t offset, uint32_t len)
 {
+    assert(offset < 0x04000000);
     assert(len > 1);
     uint32_t pi_address = ((offset & ROM_ADDRESS_MASK) | CART_DOM1_ADDR2_START);
     pi_dma_read(dest, pi_address, clamp(len, pi_address, CART_DOM1_ADDR2_END));
@@ -273,6 +280,7 @@ void cart_rom_read(void * dest, uint32_t offset, uint32_t len)
  */
 void cart_rom_write(const void * src, uint32_t offset, uint32_t len)
 {
+    assert(offset < 0x04000000);
     assert(len > 1);
     uint32_t pi_address = ((offset & ROM_ADDRESS_MASK) | CART_DOM1_ADDR2_START);
     pi_dma_write(src, pi_address, clamp(len, pi_address, CART_DOM1_ADDR2_END));
@@ -292,6 +300,7 @@ void cart_rom_write(const void * src, uint32_t offset, uint32_t len)
  */
 void cart_ram_read(void * dest, uint32_t offset, uint32_t len)
 {
+    assert(offset < 0x20000);
     assert(len > 1);
     uint32_t pi_address = ((offset & RAM_ADDRESS_MASK) | CART_DOM2_ADDR2_START);
     pi_dma_read(dest, pi_address, clamp(len, pi_address, CART_DOM2_ADDR2_END));
@@ -311,6 +320,7 @@ void cart_ram_read(void * dest, uint32_t offset, uint32_t len)
  */
 void cart_ram_write(const void * src, uint32_t offset, uint32_t len)
 {
+    assert(offset < 0x20000);
     assert(len > 1);
     uint32_t pi_address = ((offset & RAM_ADDRESS_MASK) | CART_DOM2_ADDR2_START);
     pi_dma_write(src, pi_address, clamp(len, pi_address, CART_DOM2_ADDR2_END));
@@ -334,6 +344,7 @@ void cart_ram_write(const void * src, uint32_t offset, uint32_t len)
 void cart_sram_768kbit_read(void * dest, uint8_t bank, uint32_t offset, uint32_t len)
 {
     assert(bank < 3);
+    assert(offset < 0x8000);
     assert(len > 1);
     uint32_t pi_address = (
         ((uint32_t)bank << 18) |
@@ -361,6 +372,7 @@ void cart_sram_768kbit_read(void * dest, uint8_t bank, uint32_t offset, uint32_t
 void cart_sram_768kbit_write(const void * src, uint8_t bank, uint32_t offset, uint32_t len)
 {
     assert(bank < 3);
+    assert(offset < 0x8000);
     assert(len > 1);
     uint32_t pi_address = (
         ((uint32_t)bank << 18) |
