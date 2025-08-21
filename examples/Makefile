@@ -1,3 +1,4 @@
+EXAMPLES += accessorytest
 EXAMPLES += audioplayer
 EXAMPLES += biosensortest
 EXAMPLES += brew-volley
