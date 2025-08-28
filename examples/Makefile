@@ -18,6 +18,7 @@ EXAMPLES += loadspritefromsd
 EXAMPLES += micro-ui
 EXAMPLES += mixertest
 EXAMPLES += overlays
+EXAMPLES += pakdetecttest
 EXAMPLES += pixelshader
 EXAMPLES += rdpqdemo
 EXAMPLES += rspqdemo
