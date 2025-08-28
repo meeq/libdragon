@@ -11,6 +11,7 @@
 #include "bio_sensor.h"
 #include "joybus_commands.h"
 #include "joybus_accessory_internal.h"
+#include "timer.h"
 
 /**
  * @addtogroup bio_sensor
@@ -70,6 +71,9 @@ typedef struct
 
 /** @brief Reference count tracking #bio_sensor_init vs #bio_sensor_close calls */
 static int bio_sensor_init_refcount = 0;
+
+/** @brief Timer handle for bio sensor reading timer */
+static timer_link_t *bio_sensor_timer = NULL;
 
 /** @brief Array of Bio Sensor reader contexts, one per controller port */
 static volatile bio_sensor_reader_t bio_sensor_readers[JOYPAD_PORT_COUNT] = {0};
@@ -139,13 +143,14 @@ static void bio_sensor_read_callback(uint64_t *out_dwords, void *ctx)
 }
 
 /**
- * @brief VI interrupt handler for periodic Bio Sensor reads
+ * @brief Timer callback for periodic Bio Sensor reads
  *
- * Called on every vertical interrupt (60Hz NTSC / 50Hz PAL) to initiate
- * asynchronous reads from all active Bio Sensor accessories. Ensures
- * continuous monitoring of heartbeat data across all controller ports.
+ * Called at 100Hz to initiate asynchronous reads from all active Bio Sensor
+ * accessories. This high frequency ensures we can accurately capture heartbeats
+ * up to 200 BPM. Ensures continuous monitoring of heartbeat data across all
+ * controller ports.
  */
-static void bio_sensor_vi_interrupt_callback(void)
+static void bio_sensor_timer_callback(int ovfl)
 {
     JOYPAD_PORT_FOREACH (port)
     {
@@ -174,7 +179,12 @@ void bio_sensor_init(void)
     // Just increment the refcount if already initialized
 	if (bio_sensor_init_refcount++ > 0) { return; }
 
-    register_VI_handler(bio_sensor_vi_interrupt_callback);
+    // Initialize timer subsystem if needed
+    timer_init();
+
+    // Create a 100Hz timer for bio sensor reads (10ms interval)
+    // This frequency ensures we can capture heartbeats up to 200 BPM
+    bio_sensor_timer = new_timer(TIMER_TICKS(10000), TF_CONTINUOUS, bio_sensor_timer_callback);
 }
 
 void bio_sensor_close(void)
@@ -182,8 +192,16 @@ void bio_sensor_close(void)
     // Do nothing if there are still dangling references.
 	if (--bio_sensor_init_refcount > 0) { return; }
 
-    unregister_VI_handler(bio_sensor_vi_interrupt_callback);
+    // Stop the bio sensor timer
+    if (bio_sensor_timer) {
+        delete_timer(bio_sensor_timer);
+        bio_sensor_timer = NULL;
+    }
+
     JOYPAD_PORT_FOREACH (port) { bio_sensor_read_stop(port); }
+
+    // Decrement timer subsystem refcount
+    timer_close();
 }
 
 void bio_sensor_read_start(joypad_port_t port)
