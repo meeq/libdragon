@@ -228,6 +228,68 @@ void test_accessory_write(joypad_port_t port, bool valid_checksum)
     wait_for_b_button();
 }
 
+void test_cpak_read(joypad_port_t port)
+{
+    console_clear();
+    wait_ms(100);
+    printf("Performing Controller Pak Read on Port %d\n\n", port + 1);
+
+    // Display header
+    printf("Controller Pak Bank 0:\n");
+    printf("Addr   00 01 02 03 04 05 06 07 08 09 0A 0B 0C 0D 0E 0F\n");
+    printf("       10 11 12 13 14 15 16 17 18 19 1A 1B 1C 1D 1E 1F     us\n");
+    printf("------------------------------------------------------   ----\n");
+
+    uint32_t total_time = 0;
+
+    // Read and display 8 chunks of 32 bytes each
+    for (int chunk = 0; chunk < 8; chunk++)
+    {
+        uint16_t addr = chunk * 32;
+        uint8_t data[32];
+
+        // Time the joybus_accessory_read operation
+        uint32_t start = get_ticks();
+        joybus_accessory_io_status_t status = joybus_accessory_read(port, addr, data);
+        uint32_t end = get_ticks();
+        uint32_t elapsed = end - start;
+        total_time += elapsed;
+
+        if (status != JOYBUS_ACCESSORY_IO_STATUS_OK)
+        {
+            printf("\nError reading at address 0x%04X: %s\n", addr, format_joybus_accessory_io_status(status));
+            printf("\nPress B to continue...");
+            console_render();
+            wait_for_b_button();
+            return;
+        }
+
+        // Display the address
+        printf("%04X:  ", addr);
+
+        // Display first 16 bytes
+        for (int i = 0; i < 16; i++)
+        {
+            printf("%02X ", data[i]);
+        }
+        printf("\n       ");
+
+        // Display second 16 bytes
+        for (int i = 16; i < 32; i++)
+        {
+            printf("%02X ", data[i]);
+        }
+        printf("  %u\n", TIMER_MICROS(elapsed));
+    }
+
+    printf("\nTotal execution time: %u microseconds\n", TIMER_MICROS(total_time));
+    printf("Average per 32-byte read: %u microseconds\n", TIMER_MICROS(total_time) / 8);
+
+    printf("\nPress B to continue...");
+    console_render();
+    wait_for_b_button();
+}
+
 void test_identify(joypad_port_t port)
 {
     console_clear();
@@ -310,6 +372,7 @@ int main(void)
         printf("C-Left  | Accessory Read (Invalid Address Checksum)\n");
         printf("C-Right | Accessory Write (Valid Address Checksum)\n");
         printf("C-Up    | Accessory Write (Invalid Address Checksum)\n");
+        printf("L       | Controller Pak Read (Bank 0)\n");
         printf("\n");
 
         joypad_inputs_t inputs = joypad_read_n64_inputs(JOYPAD_PORT_1);
@@ -333,6 +396,10 @@ int main(void)
         else if (inputs.btn.c_up)
         {
             test_accessory_write(JOYPAD_PORT_1, false);
+        }
+        else if (inputs.btn.l)
+        {
+            test_cpak_read(JOYPAD_PORT_1);
         }
 
         console_render();

@@ -76,11 +76,85 @@ void print_joypad_inputs(joypad_inputs_t inputs)
     );
 }
 
+void cpak_read_test_mode(joypad_port_t port)
+{
+    joypad_buttons_t btn;
+    uint8_t cpak_buffer[256];
+    uint32_t start_ticks, end_ticks;
+    int result;
+
+    console_clear();
+    printf("\n");
+    printf("CPak Read Test Mode\n");
+    printf("===================\n\n");
+
+    // Check if P1 has a Controller Pak
+    if (joypad_get_accessory_type(port) != JOYPAD_ACCESSORY_TYPE_CONTROLLER_PAK)
+    {
+        printf("No Controller Pak detected on Port 1!\n");
+        printf("\nPress any button to return...\n");
+        console_render();
+
+        // Wait for button press
+        while (1)
+        {
+            joypad_poll();
+            btn = joypad_get_buttons_pressed(port);
+            if (btn.raw) break;
+        }
+        return;
+    }
+
+    printf("Reading first 256 bytes of bank 0...\n\n");
+    console_render();
+
+    // Measure the read time
+    start_ticks = get_ticks();
+    result = cpak_read(port, 0, 0, cpak_buffer, sizeof(cpak_buffer));
+    end_ticks = get_ticks();
+
+    if (result >= 0)
+    {
+        uint32_t elapsed_us = TIMER_MICROS(end_ticks - start_ticks);
+        printf("Read completed successfully!\n\n");
+        printf("Timing Results:\n");
+        printf("  Ticks: %lu\n", end_ticks - start_ticks);
+        printf("  Micros:  %lu us\n", elapsed_us);
+        printf("  Millis:  %lu ms\n", elapsed_us / 1000);
+        printf("  Seconds: %.2f s\n", elapsed_us / 1000000.0);
+        printf("  Speed: %.2f KB/s\n", ((float)sizeof(cpak_buffer) / elapsed_us) * 1000000.0 / 1024.0);
+
+        // Show first few bytes of data
+        printf("\nFirst 256 bytes of bank 0:\n");
+        for (int i = 0; i < 256; i++)
+        {
+            printf("%02X ", cpak_buffer[i]);
+            if ((i + 1) % 16 == 0) printf("\n");
+        }
+    }
+    else
+    {
+        printf("Read failed with error: %d\n", result);
+    }
+
+    printf("\n\nPress any button to return...\n");
+    console_render();
+
+    // Wait for button release then press
+    while (1)
+    {
+        joypad_poll();
+        btn = joypad_get_buttons_pressed(port);
+        if (btn.raw) break;
+    }
+}
+
 int main(void)
 {
     joypad_style_t style;
     joypad_accessory_type_t accessory_type;
     joypad_inputs_t inputs;
+    joypad_buttons_t btn;
     bool rumble_supported, rumble_active;
     int cpak_num_banks[4] = {0, 0, 0, 0};
     int b_hold_time[4] = {0, 0, 0, 0};
@@ -101,6 +175,7 @@ int main(void)
         printf("LibDragon Joypad Subsystem Test\n");
         printf("Hold A to test rumble motors.\n");
         printf("Hold B to trigger the exception screen.\n");
+        printf("Press C-Down on P1 to test CPak read timing.\n");
         printf("\n");
 
         joypad_poll();
@@ -110,6 +185,13 @@ int main(void)
             style = joypad_get_style(port);
             accessory_type = joypad_get_accessory_type(port);
             inputs = joypad_get_inputs(port);
+            btn = joypad_get_buttons_pressed(port);
+
+            if (btn.c_down)
+            {
+                cpak_read_test_mode(port);
+                break;
+            }
 
             if (accessory_type == JOYPAD_ACCESSORY_TYPE_RUMBLE_PAK)
             {
@@ -124,7 +206,7 @@ int main(void)
                     joypad_set_rumble_active(port, false);
                 }
             }
-            
+
             if (accessory_type == JOYPAD_ACCESSORY_TYPE_CONTROLLER_PAK)
             {
                 if (cpak_num_banks[port] == 0)
@@ -157,7 +239,7 @@ int main(void)
             if (accessory_type == JOYPAD_ACCESSORY_TYPE_RUMBLE_PAK)
             {
                 printf("Rumble: %s", format_joypad_rumble(rumble_supported, rumble_active));
-            } 
+            }
             else if (accessory_type == JOYPAD_ACCESSORY_TYPE_CONTROLLER_PAK)
             {
                 printf("Banks: %d", cpak_num_banks[port]);
