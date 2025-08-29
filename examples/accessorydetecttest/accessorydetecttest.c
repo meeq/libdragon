@@ -29,7 +29,6 @@ const char * format_joybus_accessory_io_status(joybus_accessory_io_status_t stat
     switch (status)
     {
         case JOYBUS_ACCESSORY_IO_STATUS_OK:         return "OK";
-        case JOYBUS_ACCESSORY_IO_STATUS_NO_DEVICE:  return "NO DEVICE";
         case JOYBUS_ACCESSORY_IO_STATUS_NO_PAK:     return "BAD PAK";
         case JOYBUS_ACCESSORY_IO_STATUS_BAD_CRC:    return "BAD CRC";
         default:                                    return "UNKNOWN";
@@ -129,23 +128,24 @@ void test_accessory_read(joypad_port_t port, bool valid_checksum)
     // Copy recv_data from the output buffer
     memcpy(&cmd.recv, &output[recv_start], sizeof(cmd.recv));
 
-    // Validate the data CRC
-    joybus_accessory_io_status_t status = joybus_accessory_compare_data_crc(cmd.recv.data, cmd.recv.data_crc);
-
     printf("Execution time: %u microseconds\n\n", TIMER_MICROS(end - start));
 
     draw_joybus_buffers(input, output);
 
     printf("\n\nAccessory Read Data (32 bytes):\n");
     printf("00 01 02 03 04 05 06 07 08 09 0A 0B 0C 0D 0E 0F\n");
-    printf("------------------------------------------------\n");
+    printf("------------------------------------------------");
+
+    // Calculate expected CRC for the data we sent
+    uint8_t expected_crc = joybus_accessory_calculate_data_crc(cmd.recv.data);
+    printf(" Calc CRC: %02X\n", expected_crc);
 
     // First row (bytes 0-15)
     for (int i = 0; i < 16; i++)
     {
         printf("%02X ", cmd.recv.data[i]);
     }
-    printf("  Data CRC: %02X\n", cmd.recv.data_crc);
+    printf(" Recv CRC: %02X\n", cmd.recv.data_crc);
 
     // Second row (bytes 16-31)
     for (int i = 16; i < 32; i++)
@@ -153,7 +153,9 @@ void test_accessory_read(joypad_port_t port, bool valid_checksum)
         printf("%02X ", cmd.recv.data[i]);
     }
 
-    printf("  Status: %s\n", format_joybus_accessory_io_status(status));
+    // Validate the data CRC
+    joybus_accessory_io_status_t status = joybus_accessory_compare_data_crc(cmd.recv.data, cmd.recv.data_crc);
+    printf(" Status: %s\n", format_joybus_accessory_io_status(status));
 
     printf("\n\n");
     printf("Press B to continue...");
@@ -188,12 +190,6 @@ void test_accessory_write(joypad_port_t port, bool valid_checksum)
     int recv_start = port + JOYBUS_COMMAND_METADATA_SIZE + sizeof(cmd.send);
     memcpy(&cmd.recv, &output[recv_start], sizeof(cmd.recv));
 
-    // Calculate expected CRC for the data we sent
-    uint8_t expected_crc = joybus_accessory_calculate_data_crc(cmd.send.data);
-
-    // Validate the data CRC
-    joybus_accessory_io_status_t status = joybus_accessory_compare_data_crc(cmd.send.data, cmd.recv.data_crc);
-
     printf("Execution time: %u microseconds\n\n", TIMER_MICROS(end - start));
 
     draw_joybus_buffers(input, output);
@@ -201,21 +197,27 @@ void test_accessory_write(joypad_port_t port, bool valid_checksum)
     printf("\n\nAccessory Write Data (32 bytes):\n");
     printf("00 01 02 03 04 05 06 07 08 09 0A 0B 0C 0D 0E 0F\n");
     printf("------------------------------------------------");
-    printf("  Calc CRC: %02X\n", expected_crc);
+
+    // Calculate expected CRC for the data we sent
+    uint8_t expected_crc = joybus_accessory_calculate_data_crc(cmd.send.data);
+    printf(" Calc CRC: %02X\n", expected_crc);
 
     // First row (bytes 0-15)
     for (int i = 0; i < 16; i++)
     {
         printf("%02X ", cmd.send.data[i]);
     }
-    printf("  Recv CRC: %02X\n", cmd.recv.data_crc);
+    printf(" Recv CRC: %02X\n", cmd.recv.data_crc);
 
     // Second row (bytes 16-31)
     for (int i = 16; i < 32; i++)
     {
         printf("%02X ", cmd.send.data[i]);
     }
-    printf("  Status: %s\n", format_joybus_accessory_io_status(status));
+
+    // Validate the data CRC
+    joybus_accessory_io_status_t status = joybus_accessory_compare_data_crc(cmd.send.data, cmd.recv.data_crc);
+    printf(" Status: %s\n", format_joybus_accessory_io_status(status));
 
     printf("\n\n");
     printf("Press B to continue...");

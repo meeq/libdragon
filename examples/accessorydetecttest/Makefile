@@ -6,7 +6,7 @@ include $(N64_INST)/include/n64.mk
 
 OBJS = $(BUILD_DIR)/accessorydetecttest.o
 
-accessorydetecttest.z64: N64_ROM_TITLE = "Accessory DETECT Test"
+accessorydetecttest.z64: N64_ROM_TITLE = "Accessory DETECT"
 
 $(BUILD_DIR)/accessorydetecttest.elf: $(OBJS)
 
