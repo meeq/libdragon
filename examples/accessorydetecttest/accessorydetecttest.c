@@ -28,16 +28,11 @@ const char * format_joybus_accessory_io_status(joybus_accessory_io_status_t stat
 {
     switch (status)
     {
-        case JOYBUS_ACCESSORY_IO_STATUS_OK:
-            return "OK";
-        case JOYBUS_ACCESSORY_IO_STATUS_NO_DEVICE:
-            return "NO DEVICE";
-        case JOYBUS_ACCESSORY_IO_STATUS_NO_PAK:
-            return "BAD PAK";
-        case JOYBUS_ACCESSORY_IO_STATUS_BAD_CRC:
-            return "BAD CRC";
-        default:
-            return "UNKNOWN";
+        case JOYBUS_ACCESSORY_IO_STATUS_OK:         return "OK";
+        case JOYBUS_ACCESSORY_IO_STATUS_NO_DEVICE:  return "NO DEVICE";
+        case JOYBUS_ACCESSORY_IO_STATUS_NO_PAK:     return "BAD PAK";
+        case JOYBUS_ACCESSORY_IO_STATUS_BAD_CRC:    return "BAD CRC";
+        default:                                    return "UNKNOWN";
     }
 }
 
