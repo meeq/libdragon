@@ -364,7 +364,7 @@ int main(void)
         console_clear();
 
         printf("\n");
-        printf("LibDragon Pak DETECT Test\n\n");
+        printf("LibDragon Accessory DETECT Test\n\n");
         printf("Button  | Joybus Command\n");
         printf("------- | --------------\n");
         printf("A       | Identify\n");
