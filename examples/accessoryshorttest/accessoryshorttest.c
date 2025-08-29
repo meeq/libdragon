@@ -10,18 +10,6 @@
 #include "../../src/joybus/joybus_accessory_internal.h"
 #include "../../src/joybus/joybus_commands.h"
 
-const char * format_joybus_accessory_io_status(joybus_accessory_io_status_t status)
-{
-    switch (status)
-    {
-        case JOYBUS_ACCESSORY_IO_STATUS_OK:         return "OK";
-        case JOYBUS_ACCESSORY_IO_STATUS_NO_DEVICE:  return "NO DEVICE";
-        case JOYBUS_ACCESSORY_IO_STATUS_NO_PAK:     return "BAD PAK";
-        case JOYBUS_ACCESSORY_IO_STATUS_BAD_CRC:    return "BAD CRC";
-        default:                                    return "UNKNOWN";
-    }
-}
-
 static void wait_for_button_press(joypad_port_t port)
 {
     joypad_buttons_t btn;
@@ -107,7 +95,8 @@ static void accessory_short_read_build_cmd(
         .command = JOYBUS_COMMAND_ID_N64_ACCESSORY_READ,
         .addr_checksum = joybus_accessory_calculate_addr_checksum(addr),
     } };
-    joybus_build_cmd(port, sizeof(cmd.send), data_len + 1, &cmd.send, input_buf);
+    size_t recv_len = data_len + (data_len == JOYBUS_ACCESSORY_DATA_SIZE ? 1 : 0);
+    joybus_build_cmd(port, sizeof(cmd.send), recv_len, &cmd.send, input_buf);
 }
 
 static void accessory_short_read_parse_cmd(
@@ -122,13 +111,12 @@ static void accessory_short_read_parse_cmd(
     const uint8_t *output = (const uint8_t *)output_buf;
     size_t recv_start = port + JOYBUS_COMMAND_METADATA_SIZE + 3;
     if (data_len > 0) memcpy(data_out, &output[recv_start], data_len);
-    *data_crc_out = output[recv_start + data_len];
+    if (data_crc_out) *data_crc_out = output[recv_start + data_len];
 }
 
 static void accessory_short_read_test_mode(joypad_port_t port, uint16_t addr, size_t data_len)
 {
     uint8_t data[JOYBUS_ACCESSORY_DATA_SIZE] = {0};
-    uint8_t data_crc;
     uint8_t joybus_input[JOYBUS_BLOCK_SIZE] = {0};
     uint8_t joybus_output[JOYBUS_BLOCK_SIZE] = {0};
 
@@ -146,10 +134,6 @@ static void accessory_short_read_test_mode(joypad_port_t port, uint16_t addr, si
     joybus_exec(joybus_input, joybus_output);
     int32_t end = get_ticks();
 
-    accessory_short_read_parse_cmd(port, data_len, joybus_output, data, &data_crc);
-    uint8_t expected_crc = joybus_accessory_calculate_data_crc(data);
-    joybus_accessory_io_status_t status = joybus_accessory_compare_data_crc(data, data_crc);
-
     printf("Execution time: %u microseconds\n\n", TIMER_MICROS(end - start));
 
     // Draw the Joybus buffers
@@ -157,19 +141,57 @@ static void accessory_short_read_test_mode(joypad_port_t port, uint16_t addr, si
 
     // Display the read data
     printf("\n\n");
-    printf("Accessory Read Data (%02d bytes):                 ", data_len);
-    printf("  Calc CRC: %02X  ", expected_crc);
-    printf("00 01 02 03 04 05 06 07 08 09 0A 0B 0C 0D 0E 0F ");
-    printf("  Recv CRC: %02X  ", data_crc);
-    printf("------------------------------------------------");
-    printf("  %s\n", format_joybus_accessory_io_status(status));
+    printf("Accessory Read Data (%02d bytes):                 \n", data_len);
+    printf("00 01 02 03 04 05 06 07 08 09 0A 0B 0C 0D 0E 0F \n");
+    printf("------------------------------------------------\n");
 
+    accessory_short_read_parse_cmd(port, data_len, joybus_output, data, NULL);
     for (int i = 0; i < data_len; i++)
     {
         printf("%02X ", data[i]);
         if ((i & 0x0F) == 0x0F) printf("\n");
     }
     if (data_len & 0x0F) printf("\n");
+
+    printf("\nPress any button to return...\n");
+    console_render();
+    wait_for_button_press(port);
+}
+
+static void accessory_short_read_crc_fuzz_mode(joypad_port_t port, size_t data_len)
+{
+    uint16_t addr = JOYBUS_ACCESSORY_ADDR_LABEL;
+    uint8_t data[JOYBUS_ACCESSORY_DATA_SIZE] = {0};
+    uint8_t data_crc;
+    uint8_t joybus_input[JOYBUS_BLOCK_SIZE] = {0};
+    uint8_t joybus_output[JOYBUS_BLOCK_SIZE] = {0};
+
+    console_clear();
+    printf("\n");
+    printf("Accessory Short Read CRC Fuzz Mode\n");
+    printf("==================================\n\n");
+
+    printf("Attempting to fuzz %d bytes starting from 0x0000 on port %d\n\n", data_len, port + 1);
+    console_render();
+
+    for (uint8_t i = 0; i < 0xFF; i++)
+    {
+        data[0] = i;
+        for (int j = 1; j < JOYBUS_ACCESSORY_DATA_SIZE; j++) data[j] = j;
+        joybus_accessory_write(port, addr, data);
+        accessory_short_read_build_cmd(port, addr, data_len, joybus_input);
+        joybus_exec(joybus_input, joybus_output);
+        accessory_short_read_parse_cmd(port, data_len, joybus_output, data, &data_crc);
+        printf("0x%02X: CRC: %02X  ", i, data_crc);
+        if (i % 4 == 3) printf("\n");
+        console_render();
+        if (i % 32 == 31)
+        {
+            printf("\nPress any button to continue...\n");
+            console_render();
+            wait_for_button_press(port);
+        }
+    }
 
     printf("\nPress any button to return...\n");
     console_render();
@@ -193,6 +215,7 @@ menu_start:
     printf("\n");
     printf("LibDragon Short Accessory Test\n");
     printf("Press A to do a short accessory read.\n");
+    printf("Press C-Down to do a short accessory read CRC fuzz test.\n");
     printf("\n");
 
     joypad_poll();
@@ -210,9 +233,15 @@ menu_start:
 
                 wait_for_button_press(port);
                 goto menu_start;
-            } else if (btn.a)
+            }
+            else if (btn.a)
             {
-                accessory_short_read_test_mode(port, 0x0000, 1);
+                accessory_short_read_test_mode(port, 0x0000, 0);
+                goto menu_start;
+            }
+            else if (btn.c_down)
+            {
+                accessory_short_read_crc_fuzz_mode(port, 0);
                 goto menu_start;
             }
         }
