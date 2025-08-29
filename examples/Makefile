@@ -1,4 +1,6 @@
-EXAMPLES += accessorytest
+EXAMPLES += accessory-detect-test
+EXAMPLES += accessory-short-cmds-test
+EXAMPLES += accessory-raw-test
 EXAMPLES += audioplayer
 EXAMPLES += biosensortest
 EXAMPLES += brew-volley
@@ -19,7 +21,6 @@ EXAMPLES += loadspritefromsd
 EXAMPLES += micro-ui
 EXAMPLES += mixertest
 EXAMPLES += overlays
-EXAMPLES += pakdetecttest
 EXAMPLES += pixelshader
 EXAMPLES += rdpqdemo
 EXAMPLES += rspqdemo
