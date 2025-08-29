@@ -6,7 +6,7 @@ include $(N64_INST)/include/n64.mk
 
 OBJS = $(BUILD_DIR)/accessoryshorttest.o
 
-accessoryshorttest.z64: N64_ROM_TITLE = "Accessory Short Test"
+accessoryshorttest.z64: N64_ROM_TITLE = "Accessory Short"
 
 $(BUILD_DIR)/accessoryshorttest.elf: $(OBJS)
 
