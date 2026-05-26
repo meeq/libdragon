@@ -1,0 +1,22 @@
+var searchData=
+[
+  ['i2c_5fclock_5fbit_0',['I2C_CLOCK_BIT',['../bb__rtc_8c.html#af00977d54201f49ac7af0a965274c086',1,'bb_rtc.c']]],
+  ['i2c_5fclock_5fout_1',['I2C_CLOCK_OUT',['../bb__rtc_8c.html#ab688ba72dabc33a74c48f98e7348ca06',1,'bb_rtc.c']]],
+  ['i2c_5fdata_5fbit_2',['I2C_DATA_BIT',['../bb__rtc_8c.html#a7d72c0c00cb1bda8a70f170ef567aa55',1,'bb_rtc.c']]],
+  ['i2c_5fdata_5fout_3',['I2C_DATA_OUT',['../bb__rtc_8c.html#a16e00a0646739d853f240391b8b00020',1,'bb_rtc.c']]],
+  ['i2c_5finit_4',['i2c_init',['../bb__rtc_8c.html#ab0e6006c67f5ebc4e3af3a1397114fae',1,'I2C_INIT:&#160;bb_rtc.c'],['../ed64_8c.html#ab0e6006c67f5ebc4e3af3a1397114fae',1,'I2C_INIT:&#160;ed64.c']]],
+  ['i2c_5fread_5',['i2c_read',['../bb__rtc_8c.html#ae253b0c065c2bfc0cf6666938dd487db',1,'I2C_READ:&#160;bb_rtc.c'],['../ed64_8c.html#ae253b0c065c2bfc0cf6666938dd487db',1,'I2C_READ:&#160;ed64.c']]],
+  ['i2c_5fwrite_6',['i2c_write',['../bb__rtc_8c.html#a1f929f5d024954525a24418724553662',1,'I2C_WRITE:&#160;bb_rtc.c'],['../ed64_8c.html#a1f929f5d024954525a24418724553662',1,'I2C_WRITE:&#160;ed64.c']]],
+  ['i2f_7',['I2F',['../utils_8h.html#a4ed29e840d4bfc797384a05fe7eda9fe',1,'utils.h']]],
+  ['intdebugf_8',['intdebugf',['../rdpq__debug_8c.html#a5ae469a80be89e920cfbeca1684da059',1,'rdpq_debug.c']]],
+  ['iobbfs_5fget_5fblock_9',['IOBBFS_GET_BLOCK',['../bbfs_8h.html#a431d9d92fddfd0164fa4c91b68c68dc4',1,'bbfs.h']]],
+  ['iobbfs_5fset_5fcontiguous_10',['IOBBFS_SET_CONTIGUOUS',['../bbfs_8h.html#a32fdcd418bdca772873f36ab465cb4ab',1,'bbfs.h']]],
+  ['iocpakfs_5fget_5fpage_11',['IOCPAKFS_GET_PAGE',['../cpakfs_8h.html#a4529a141b8c02a93c148a29fb1a36772',1,'cpakfs.h']]],
+  ['iofat_5fget_5fcluster_12',['IOFAT_GET_CLUSTER',['../fat_8h.html#a5815cc1cea2e141da717fd0300c0abee',1,'fat.h']]],
+  ['iofat_5fget_5fcluster_5fsize_13',['IOFAT_GET_CLUSTER_SIZE',['../fat_8h.html#a59e49b5ce6d7d8e3d5480ec2fb89a5c3',1,'fat.h']]],
+  ['iofat_5fget_5fsector_14',['IOFAT_GET_SECTOR',['../fat_8h.html#a50868338c37e7f71609c8d213d213236',1,'fat.h']]],
+  ['isviewer_5fbuffer_15',['ISVIEWER_BUFFER',['../debug_8c.html#ac8ee018ab83421d4023d62dbf101a3a7',1,'debug.c']]],
+  ['isviewer_5fbuffer_5flen_16',['ISVIEWER_BUFFER_LEN',['../debug_8c.html#a27745d9b9c5d96c55b87b67b1aa998d6',1,'debug.c']]],
+  ['isviewer_5fmagic_17',['ISVIEWER_MAGIC',['../debug_8c.html#ae17864c13b957572fede7910bb82da10',1,'debug.c']]],
+  ['isviewer_5fwrite_5fpointer_18',['ISVIEWER_WRITE_POINTER',['../debug_8c.html#af84f1781a847853210345ff80c25646d',1,'debug.c']]]
+];

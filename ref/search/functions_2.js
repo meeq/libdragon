@@ -1,0 +1,25 @@
+var searchData=
+[
+  ['backtrace_0',['backtrace',['../group__backtrace.html#ga3747bea884034d32d4d558872223969e',1,'backtrace(void **buffer, int size):&#160;backtrace.c'],['../group__backtrace.html#ga3747bea884034d32d4d558872223969e',1,'backtrace(void **buffer, int size):&#160;backtrace.c']]],
+  ['backtrace_5fframe_5fprint_1',['backtrace_frame_print',['../group__backtrace.html#ga961ebc46193fd65a868daac8ecb16ce9',1,'backtrace_frame_print(backtrace_frame_t *frame, FILE *out):&#160;backtrace.c'],['../group__backtrace.html#ga961ebc46193fd65a868daac8ecb16ce9',1,'backtrace_frame_print(backtrace_frame_t *frame, FILE *out):&#160;backtrace.c']]],
+  ['backtrace_5fframe_5fprint_5fcompact_2',['backtrace_frame_print_compact',['../group__backtrace.html#ga10fdf02abfdbf7d89d31eff0c0f106fb',1,'backtrace_frame_print_compact(backtrace_frame_t *frame, FILE *out, int width):&#160;backtrace.c'],['../group__backtrace.html#ga10fdf02abfdbf7d89d31eff0c0f106fb',1,'backtrace_frame_print_compact(backtrace_frame_t *frame, FILE *out, int width):&#160;backtrace.c']]],
+  ['backtrace_5fsymbols_3',['backtrace_symbols',['../group__backtrace.html#gaca2b35f3378753df6b8d2a2d48b8b9d9',1,'backtrace_symbols(void **buffer, int size):&#160;backtrace.c'],['../group__backtrace.html#gaca2b35f3378753df6b8d2a2d48b8b9d9',1,'backtrace_symbols(void **buffer, int size):&#160;backtrace.c']]],
+  ['backtrace_5fsymbols_5fcb_4',['backtrace_symbols_cb',['../group__backtrace.html#ga29121aee0428dbcf348d6218ad3c697c',1,'backtrace_symbols_cb(void **buffer, int size, uint32_t flags, void(*cb)(void *, backtrace_frame_t *), void *cb_arg):&#160;backtrace.c'],['../group__backtrace.html#ga29121aee0428dbcf348d6218ad3c697c',1,'backtrace_symbols_cb(void **buffer, int size, uint32_t flags, void(*cb)(void *, backtrace_frame_t *), void *cb_arg):&#160;backtrace.c']]],
+  ['bb_5frtc_5fget_5fstate_5',['bb_rtc_get_state',['../bb__rtc_8c.html#a39cd640aaa2a675bb5874229a83daf6b',1,'bb_rtc.c']]],
+  ['bb_5frtc_5fget_5ftime_6',['bb_rtc_get_time',['../bb__rtc_8c.html#a589c1a21959fdcc3f86b36f0d4841ac5',1,'bb_rtc_get_time(time_t *out):&#160;bb_rtc.c'],['../bb__rtc_8h.html#a589c1a21959fdcc3f86b36f0d4841ac5',1,'bb_rtc_get_time(time_t *out):&#160;bb_rtc.c']]],
+  ['bb_5frtc_5fset_5fcentury_5fenable_7',['bb_rtc_set_century_enable',['../bb__rtc_8c.html#a7efea7d8a89d1f4500126eca69a787b6',1,'bb_rtc.c']]],
+  ['bb_5frtc_5fset_5fstate_8',['bb_rtc_set_state',['../bb__rtc_8c.html#a82f47626d0588ac9f6bb95765ef3a74b',1,'bb_rtc.c']]],
+  ['bb_5frtc_5fset_5ftime_9',['bb_rtc_set_time',['../bb__rtc_8h.html#ae7461f36a4d00ad196321bab79f1f0fe',1,'bb_rtc_set_time(time_t new_time):&#160;bb_rtc.c'],['../bb__rtc_8c.html#ae7461f36a4d00ad196321bab79f1f0fe',1,'bb_rtc_set_time(time_t new_time):&#160;bb_rtc.c']]],
+  ['bbfs_5ffsck_10',['bbfs_fsck',['../bbfs_8c.html#ad4fc9018cc0132f2e5a90faafd504f4c',1,'bbfs_fsck(bool fix_errors):&#160;bbfs.c'],['../bbfs_8h.html#ad4fc9018cc0132f2e5a90faafd504f4c',1,'bbfs_fsck(bool fix_errors):&#160;bbfs.c']]],
+  ['bbfs_5fget_5ffile_5fblocks_11',['bbfs_get_file_blocks',['../bbfs_8c.html#af6b5d98c56a99650951b42f1d1631383',1,'bbfs_get_file_blocks(const char *filename):&#160;bbfs.c'],['../bbfs_8h.html#af6b5d98c56a99650951b42f1d1631383',1,'bbfs_get_file_blocks(const char *filename):&#160;bbfs.c']]],
+  ['bbfs_5finit_12',['bbfs_init',['../bbfs_8c.html#aaddec0a5c886eed1dc1cde484b146be6',1,'bbfs_init(void):&#160;bbfs.c'],['../bbfs_8h.html#aaddec0a5c886eed1dc1cde484b146be6',1,'bbfs_init(void):&#160;bbfs.c']]],
+  ['bcd_5fdecode_13',['bcd_decode',['../group__rtc.html#ga63999c50ebaa13a316925ee8e9cb107c',1,'rtc_internal.c']]],
+  ['bcd_5fencode_14',['bcd_encode',['../group__rtc.html#gaa34913f0d4c57b0fa66ea5e867858b2d',1,'rtc_internal.c']]],
+  ['bio_5fsensor_5fclose_15',['bio_sensor_close',['../group__bio__sensor.html#gaf0cb63303b712b7f2976759ffbc4f931',1,'bio_sensor.c']]],
+  ['bio_5fsensor_5fget_5factive_16',['bio_sensor_get_active',['../group__bio__sensor.html#ga9db83ff5e125fd04bd56bed3c5013be9',1,'bio_sensor.c']]],
+  ['bio_5fsensor_5fget_5fbpm_17',['bio_sensor_get_bpm',['../group__bio__sensor.html#ga9a8170caf2c6b0d84a5207de5f6f355b',1,'bio_sensor.c']]],
+  ['bio_5fsensor_5fget_5fpulsing_18',['bio_sensor_get_pulsing',['../group__bio__sensor.html#gaa20ac097ede9969339e7ac63210926df',1,'bio_sensor.c']]],
+  ['bio_5fsensor_5finit_19',['bio_sensor_init',['../group__bio__sensor.html#gae925bb2107685cb6efb29bb3e31dcbda',1,'bio_sensor.c']]],
+  ['bio_5fsensor_5fread_5fstart_20',['bio_sensor_read_start',['../group__bio__sensor.html#gac8a2ed3db1bb6f4e26b134f9f243b4f0',1,'bio_sensor.c']]],
+  ['bio_5fsensor_5fread_5fstop_21',['bio_sensor_read_stop',['../group__bio__sensor.html#gae580762e85bc82ebecc7dc9cded5d673',1,'bio_sensor.c']]]
+];
