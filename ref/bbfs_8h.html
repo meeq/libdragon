@@ -150,7 +150,7 @@ ROMs and memory mapping</h2>
 <div class="line"> </div>
 <div class="line"><span class="comment">// Close the file </span></div>
 <div class="line">fclose(f);</div>
-<div class="ttc" id="asystem_8c_html_aa1cc997e92371733ee54ac57dcc73c75"><div class="ttname"><a href="system_8c.html#aa1cc997e92371733ee54ac57dcc73c75">ftruncate</a></div><div class="ttdeci">int ftruncate(int file, off_t length)</div><div class="ttdoc">Truncate a file to the specified length.</div><div class="ttdef"><b>Definition</b> system.c:1428</div></div>
+<div class="ttc" id="asystem_8c_html_aa1cc997e92371733ee54ac57dcc73c75"><div class="ttname"><a href="system_8c.html#aa1cc997e92371733ee54ac57dcc73c75">ftruncate</a></div><div class="ttdeci">int ftruncate(int file, off_t length)</div><div class="ttdoc">Truncate a file to the specified length.</div><div class="ttdef"><b>Definition</b> system.c:1452</div></div>
 </div><!-- fragment --><p>To see an example of using the <a class="el" href="system_8c.html#a342c2eae35d44df768ec0634c76bf68b" title="Perform IO Control Request.">ioctl</a> instead, see <a class="el" href="bbfs_8h.html#a32fdcd418bdca772873f36ab465cb4ab" title="ioctl to notify the filesystem that a certain file must be stored as contiguous.">IOBBFS_SET_CONTIGUOUS</a>.</p>
 <h2><a class="anchor" id="autotoc_md64"></a>
 Filesytem consistency checks</h2>
@@ -205,7 +205,7 @@ Generic filesystem errors</h3>
 <div class="line"><span class="comment">// Close the file</span></div>
 <div class="line">fclose(f);</div>
 <div class="ttc" id="abbfs_8h_html_a32fdcd418bdca772873f36ab465cb4ab"><div class="ttname"><a href="bbfs_8h.html#a32fdcd418bdca772873f36ab465cb4ab">IOBBFS_SET_CONTIGUOUS</a></div><div class="ttdeci">#define IOBBFS_SET_CONTIGUOUS</div><div class="ttdoc">ioctl to notify the filesystem that a certain file must be stored as contiguous.</div><div class="ttdef"><b>Definition</b> bbfs.h:201</div></div>
-<div class="ttc" id="asystem_8c_html_a342c2eae35d44df768ec0634c76bf68b"><div class="ttname"><a href="system_8c.html#a342c2eae35d44df768ec0634c76bf68b">ioctl</a></div><div class="ttdeci">int ioctl(int fd, unsigned long cmd, void *argp)</div><div class="ttdoc">Perform IO Control Request.</div><div class="ttdef"><b>Definition</b> system.c:1325</div></div>
+<div class="ttc" id="asystem_8c_html_a342c2eae35d44df768ec0634c76bf68b"><div class="ttname"><a href="system_8c.html#a342c2eae35d44df768ec0634c76bf68b">ioctl</a></div><div class="ttdeci">int ioctl(int fd, unsigned long cmd, void *argp)</div><div class="ttdoc">Perform IO Control Request.</div><div class="ttdef"><b>Definition</b> system.c:1349</div></div>
 </div><!-- fragment --><p>Calling this <a class="el" href="system_8c.html#a342c2eae35d44df768ec0634c76bf68b" title="Perform IO Control Request.">ioctl</a> only affects blocks allocated after the call; there is no way to change the allocation of blocks that have already been written (short of truncating the file to zero, and writing it again).</p>
 <p>Calling this <a class="el" href="system_8c.html#a342c2eae35d44df768ec0634c76bf68b" title="Perform IO Control Request.">ioctl</a> with the value set to false will revert the file to the default allocation algorithm based on the heuristics. There is no way to force a file to be always stored as fragmented.</p>
 <p>See also the top comment of this file for more information. </p>
@@ -341,7 +341,7 @@ Generic filesystem errors</h3>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue May 26 2026 01:04:38 for libdragon by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
+Generated on Mon Jun 8 2026 18:27:20 for libdragon by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
 </small></address>
 </body>
 </html>

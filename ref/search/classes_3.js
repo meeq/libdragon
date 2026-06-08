@@ -9,5 +9,6 @@ var searchData=
   ['bbfs_5fsuperblock_5ft_6',['bbfs_superblock_t',['../bbfs_8c.html#structbbfs__superblock__t',1,'']]],
   ['bio_5fsensor_5freader_5ft_7',['bio_sensor_reader_t',['../group__bio__sensor.html#structbio__sensor__reader__t',1,'']]],
   ['bit_5freader_5ft_8',['bit_reader_t',['../symtable_8c.html#structbit__reader__t',1,'']]],
-  ['bt_5ffunc_5ft_9',['bt_func_t',['../backtrace__internal_8h.html#structbt__func__t',1,'']]]
+  ['block_5ft_9',['block_t',['../scratch_8c.html#structblock__t',1,'']]],
+  ['bt_5ffunc_5ft_10',['bt_func_t',['../backtrace__internal_8h.html#structbt__func__t',1,'']]]
 ];

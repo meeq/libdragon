@@ -140,9 +140,10 @@ void *&#160;</td><td class="memItemRight" valign="bottom"><b>osd_ctx</b></td></t
 </div><div class="memdoc">
 
 <p>Disable configuration of display mode. </p>
-<p>By default, <a class="el" href="fmv_8h.html#af1029a5df525b33c697c3ad734bd8fb5" title="Play a full-motion video from a video file.">fmv_play</a> will call <a class="el" href="group__display.html#ga1763c553f071d40c4bd18cee77ae98a1" title="Initialize the display to a particular resolution and bit depth.">display_init</a> to configure a "perfect", resolution for the video playback. This will be a custom VI resolution to perfectly match the video resolution <em>and</em> aspect ratio, so that any required letterboxing will be be performed at zero cost by VI itself. The resolution will use 32 bpp to achieve the best quality.</p>
+<p>By default, <a class="el" href="fmv_8h.html#af1029a5df525b33c697c3ad734bd8fb5" title="Play a full-motion video from a video file.">fmv_play</a> will call <a class="el" href="group__display.html#ga1763c553f071d40c4bd18cee77ae98a1" title="Initialize the display to a particular resolution and bit depth.">display_init</a> to configure a "perfect", resolution for the video playback. This will be a custom VI resolution to perfectly match the video resolution <em>and</em> aspect ratio, so that any required letterboxing will be be performed at zero cost by VI itself.</p>
 <p>Alternatively, <a class="el" href="fmv_8h.html#af1029a5df525b33c697c3ad734bd8fb5" title="Play a full-motion video from a video file.">fmv_play</a> can also render the video over an existing display configuration. This is mostly useful for cases where you need a smooth transition between the video playback and some other graphics, as calling <a class="el" href="group__display.html#ga21c0b315e346cb1d1e4566688aa03e36" title="Close the display.">display_close()</a> will always incur in a black flash (because of framebuffer deallocation and reallocation).</p>
-<p>In this case, the video will be automatically scaled to the display size, and aspect ratio will be preserved by actively drawing black bars into the framebuffers. Moreover, if the display is 16 bpp, RDP dithering will and VI dedithering will be activated. </p>
+<p>In this case, the video will be automatically scaled to the display size, and aspect ratio will be preserved by actively drawing black bars into the framebuffers.</p>
+<p>Notice that if you are using a 16bpp display, the best results quality-wise are achieved with <a class="el" href="group__display.html#gga44577780f71aa45486b189f27499e7a1a07f415ee1a7f2a98c8047d02ba528193" title="Resize the output image with a bilinear filter (see FILTERS_RESAMPLE). Add a video interface anti-ali...">FILTERS_RESAMPLE_ANTIALIAS_DEDITHER</a>. </p>
 
 </div>
 </div>
@@ -269,7 +270,7 @@ void *&#160;</td><td class="memItemRight" valign="bottom"><b>osd_ctx</b></td></t
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue May 26 2026 01:04:40 for libdragon by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
+Generated on Mon Jun 8 2026 18:27:21 for libdragon by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
 </small></address>
 </body>
 </html>

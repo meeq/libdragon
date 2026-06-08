@@ -100,6 +100,10 @@ Macros</h2></td></tr>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>MIN</b>(a,  b)&#160;&#160;&#160;({ typeof(a) _a = a; typeof(b) _b = b; _a &lt; _b ? _a : _b; })</td></tr>
 <tr class="memdesc:a3acffbd305ee72dcd4593c0d8af64a4f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the minimum of two values. <br /></td></tr>
 <tr class="separator:a3acffbd305ee72dcd4593c0d8af64a4f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a996f7be338ccb40d1a2a5abc1ad61759" id="r_a996f7be338ccb40d1a2a5abc1ad61759"><td class="memItemLeft" align="right" valign="top"><a id="a996f7be338ccb40d1a2a5abc1ad61759" name="a996f7be338ccb40d1a2a5abc1ad61759"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>ABS</b>(x)&#160;&#160;&#160;({ typeof(x) _x = x; (_x &lt; 0 ? -_x : _x); })</td></tr>
+<tr class="memdesc:a996f7be338ccb40d1a2a5abc1ad61759"><td class="mdescLeft">&#160;</td><td class="mdescRight">Absolute number. <br /></td></tr>
+<tr class="separator:a996f7be338ccb40d1a2a5abc1ad61759"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a33bd933f5d4895b3b6d18c2d5fed91a0" id="r_a33bd933f5d4895b3b6d18c2d5fed91a0"><td class="memItemLeft" align="right" valign="top"><a id="a33bd933f5d4895b3b6d18c2d5fed91a0" name="a33bd933f5d4895b3b6d18c2d5fed91a0"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>CLAMP</b>(x,  min,  max)&#160;&#160;&#160;(<a class="el" href="utils_8h.html#a3acffbd305ee72dcd4593c0d8af64a4f">MIN</a>(<a class="el" href="utils_8h.html#afa99ec4acc4ecb2dc3c2d05da15d0e3f">MAX</a>((x), (min)), (max)))</td></tr>
 <tr class="memdesc:a33bd933f5d4895b3b6d18c2d5fed91a0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clamp a value between min and max. <br /></td></tr>
@@ -113,9 +117,6 @@ Macros</h2></td></tr>
 <tr class="memitem:adecf42e26f5143647940b41d355e6a0b" id="r_adecf42e26f5143647940b41d355e6a0b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="utils_8h.html#adecf42e26f5143647940b41d355e6a0b">DIVIDE_CEIL</a>(n,  d)</td></tr>
 <tr class="memdesc:adecf42e26f5143647940b41d355e6a0b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the ceil of n/d.  <br /></td></tr>
 <tr class="separator:adecf42e26f5143647940b41d355e6a0b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a996f7be338ccb40d1a2a5abc1ad61759" id="r_a996f7be338ccb40d1a2a5abc1ad61759"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="utils_8h.html#a996f7be338ccb40d1a2a5abc1ad61759">ABS</a>(x)</td></tr>
-<tr class="memdesc:a996f7be338ccb40d1a2a5abc1ad61759"><td class="mdescLeft">&#160;</td><td class="mdescRight">Absolute number.  <br /></td></tr>
-<tr class="separator:a996f7be338ccb40d1a2a5abc1ad61759"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a929d64164484b7cab1bc1372de51441f" id="r_a929d64164484b7cab1bc1372de51441f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="utils_8h.html#a929d64164484b7cab1bc1372de51441f">F2I</a>(f)</td></tr>
 <tr class="memdesc:a929d64164484b7cab1bc1372de51441f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type-safe bitcast from float to integer.  <br /></td></tr>
 <tr class="separator:a929d64164484b7cab1bc1372de51441f"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -258,30 +259,6 @@ int64_t&#160;</td><td class="memItemRight" valign="bottom"><b>__peek_varint_s64<
 
 </div>
 </div>
-<a id="a996f7be338ccb40d1a2a5abc1ad61759" name="a996f7be338ccb40d1a2a5abc1ad61759"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a996f7be338ccb40d1a2a5abc1ad61759">&#9670;&#160;</a></span>ABS</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define ABS</td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">x</td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">    ({ \</div>
-<div class="line">    typeof(x) _x = x; \</div>
-<div class="line">    (_x &lt; 0 ? -_x : _x); \</div>
-<div class="line">})</div>
-</div><!-- fragment -->
-<p>Absolute number. </p>
-
-</div>
-</div>
 <a id="a929d64164484b7cab1bc1372de51441f" name="a929d64164484b7cab1bc1372de51441f"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a929d64164484b7cab1bc1372de51441f">&#9670;&#160;</a></span>F2I</h2>
 
@@ -390,7 +367,7 @@ int64_t&#160;</td><td class="memItemRight" valign="bottom"><b>__peek_varint_s64<
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue May 26 2026 01:04:39 for libdragon by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
+Generated on Mon Jun 8 2026 18:27:21 for libdragon by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
 </small></address>
 </body>
 </html>
