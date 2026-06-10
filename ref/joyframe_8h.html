@@ -255,7 +255,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>joyframe_write_N64_CO
 <div class="ttc" id="ajoyframe_8h_html_a98b8d26fd537f1473038b740136eb203"><div class="ttname"><a href="joyframe_8h.html#a98b8d26fd537f1473038b740136eb203">joyframe_read_begin</a></div><div class="ttdeci">#define joyframe_read_begin(pkt)</div><div class="ttdoc">Initialize reading a Joybus frame.</div><div class="ttdef"><b>Definition</b> joyframe.h:259</div></div>
 <div class="ttc" id="ajoyframe_8h_html_a9c0de6850fcdee3b02f5702f692f66fa"><div class="ttname"><a href="joyframe_8h.html#a9c0de6850fcdee3b02f5702f692f66fa">joyframe_read_skip</a></div><div class="ttdeci">#define joyframe_read_skip(pkt, n)</div><div class="ttdoc">Skip a number of ports in the Joybus frame.</div><div class="ttdef"><b>Definition</b> joyframe.h:269</div></div>
 </div><!-- fragment --><p>It is important to handle error conditions as they can always happen, given that joybus devices are hot-pluggable. For instance, a device might have been disconnected by the player, so the command might return an error.</p>
-<h2><a class="anchor" id="autotoc_md75"></a>
+<h2><a class="anchor" id="autotoc_md84"></a>
 Helpers for known commands</h2>
 <p>For known joybus commands (as publicly documented), there are helper macros that allow to write and read them more easily, as they take care of packing and unpacking the input and output data.</p>
 <p>For instance, the following code shows an example to perform a handshake to identify a device on the first port. This is normally not required as the joybus module, after <a class="el" href="group__joybus.html#ga8f4ce40c87b3a5eff4eb74a134d96849" title="Initialize the Joybus subsystem, and background detection support.">joybus_init</a>, automatically performs background handshakes to identify connected devices, but it is shown here as an example.</p>
@@ -910,7 +910,7 @@ Helpers for known commands</h2>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jun 8 2026 18:27:20 for libdragon by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
+Generated on Wed Jun 10 2026 22:36:47 for libdragon by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
 </small></address>
 </body>
 </html>

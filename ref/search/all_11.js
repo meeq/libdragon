@@ -41,7 +41,7 @@ var searchData=
   ['kmutex_5ft_38',['kmutex_t',['../group__kernel.html#structkmutex__t',1,'']]],
   ['kmutex_5ftry_5flock_39',['kmutex_try_lock',['../group__kernel.html#ga61624f94bcc4e0d3e45724731976ab2f',1,'kmutex_try_lock(kmutex_t *mutex, uint32_t ticks):&#160;kernel.c'],['../group__kernel.html#ga61624f94bcc4e0d3e45724731976ab2f',1,'kmutex_try_lock(kmutex_t *mtx, uint32_t ticks):&#160;kernel.c']]],
   ['kmutex_5funlock_40',['kmutex_unlock',['../group__kernel.html#ga689bc0a91209a4ac921aa71c74d84426',1,'kmutex_unlock(kmutex_t *mtx):&#160;kernel.c'],['../group__kernel.html#ga689bc0a91209a4ac921aa71c74d84426',1,'kmutex_unlock(kmutex_t *mutex):&#160;kernel.c']]],
-  ['known_20commands_41',['Helpers for known commands',['../joyframe_8h.html#autotoc_md75',1,'']]],
+  ['known_20commands_41',['Helpers for known commands',['../joyframe_8h.html#autotoc_md84',1,'']]],
   ['kqueue_2ec_42',['kqueue.c',['../kqueue_8c.html',1,'']]],
   ['kqueue_2eh_43',['kqueue.h',['../kqueue_8h.html',1,'']]],
   ['kqueue_5fcount_44',['kqueue_count',['../kqueue_8c.html#aad857c7538b32c6e7392b84e87aee301',1,'kqueue_count(kqueue_t *queue):&#160;kqueue.c'],['../kqueue_8h.html#aad857c7538b32c6e7392b84e87aee301',1,'kqueue_count(kqueue_t *queue):&#160;kqueue.c']]],

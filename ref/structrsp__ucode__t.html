@@ -99,9 +99,8 @@ uint8_t *&#160;</td><td class="memItemRight" valign="bottom"><b>data</b></td></t
 void *&#160;</td><td class="memItemRight" valign="bottom"><b>data_end</b></td></tr>
 <tr class="memdesc:aa8dab65f79da7a820769f7a6e9ba69ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pointer past the end of the data segment. <br /></td></tr>
 <tr class="separator:aa8dab65f79da7a820769f7a6e9ba69ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a885df4ab658fa796ab6a53adcb2834ee" id="r_a885df4ab658fa796ab6a53adcb2834ee"><td class="memItemLeft" align="right" valign="top"><a id="a885df4ab658fa796ab6a53adcb2834ee" name="a885df4ab658fa796ab6a53adcb2834ee"></a>
-uint8_t *&#160;</td><td class="memItemRight" valign="bottom"><b>meta</b></td></tr>
-<tr class="memdesc:a885df4ab658fa796ab6a53adcb2834ee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pointer to the meta segment. <br /></td></tr>
+<tr class="memitem:a885df4ab658fa796ab6a53adcb2834ee" id="r_a885df4ab658fa796ab6a53adcb2834ee"><td class="memItemLeft" align="right" valign="top">uint8_t *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structrsp__ucode__t.html#a885df4ab658fa796ab6a53adcb2834ee">meta</a></td></tr>
+<tr class="memdesc:a885df4ab658fa796ab6a53adcb2834ee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pointer to the meta segment.  <br /></td></tr>
 <tr class="separator:a885df4ab658fa796ab6a53adcb2834ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af6450db8e75436b62cf8166d60d6ceaa" id="r_af6450db8e75436b62cf8166d60d6ceaa"><td class="memItemLeft" align="right" valign="top"><a id="af6450db8e75436b62cf8166d60d6ceaa" name="af6450db8e75436b62cf8166d60d6ceaa"></a>
 void *&#160;</td><td class="memItemRight" valign="bottom"><b>meta_end</b></td></tr>
@@ -127,6 +126,23 @@ uint32_t&#160;</td><td class="memItemRight" valign="bottom"><b>start_pc</b></td>
 <p>This small structure holds the text/data pointers to a RSP ucode program in RDRAM. It also contains the name (for the debugging purposes) and the initial PC (usually 0).</p>
 <p>If you're using libdragon's build system (n64.mk), use <a class="el" href="rsp_8h.html#a1c69c50ce3eccc8d661dce878129b0b0" title="Define one RSP ucode compiled via libdragon&#39;s build system (n64.mk).">DEFINE_RSP_UCODE()</a> to initialize one of these. </p>
 </div><h2 class="groupheader">Field Documentation</h2>
+<a id="a885df4ab658fa796ab6a53adcb2834ee" name="a885df4ab658fa796ab6a53adcb2834ee"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a885df4ab658fa796ab6a53adcb2834ee">&#9670;&#160;</a></span>meta</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t* rsp_ucode_t::meta</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Pointer to the meta segment. </p>
+<p>This is a special data segment which may contain arbitrary user-defined data. All sections with the prefix ".meta" are automatically placed here by the linker script. The contents are never loaded into DMEM or IMEM. </p>
+
+</div>
+</div>
 <a id="ac825f330aa0bbca94ab129df3e6f9071" name="ac825f330aa0bbca94ab129df3e6f9071"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ac825f330aa0bbca94ab129df3e6f9071">&#9670;&#160;</a></span>crash_handler</h2>
 
@@ -170,7 +186,7 @@ uint32_t&#160;</td><td class="memItemRight" valign="bottom"><b>start_pc</b></td>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jun 8 2026 18:27:21 for libdragon by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
+Generated on Wed Jun 10 2026 22:36:48 for libdragon by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
 </small></address>
 </body>
 </html>

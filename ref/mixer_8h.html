@@ -143,6 +143,16 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>mixer_close</b> (void
 <tr class="memitem:a9cf6854f30c27595b941525a6116c617" id="r_a9cf6854f30c27595b941525a6116c617"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mixer_8h.html#a9cf6854f30c27595b941525a6116c617">mixer_ch_set_vol_dolby</a> (int ch, float fl, float fr, float c, float sl, float sr)</td></tr>
 <tr class="memdesc:a9cf6854f30c27595b941525a6116c617"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set channel volume with Dolby Pro Logic II encoding.  <br /></td></tr>
 <tr class="separator:a9cf6854f30c27595b941525a6116c617"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afcca189f1c3c51d0d1927ebc018e432c" id="r_afcca189f1c3c51d0d1927ebc018e432c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mixer_8h.html#afcca189f1c3c51d0d1927ebc018e432c">mixer_ch_set_force_mono</a> (int ch, bool enable)</td></tr>
+<tr class="memdesc:afcca189f1c3c51d0d1927ebc018e432c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable or disable force-mono on a single channel.  <br /></td></tr>
+<tr class="separator:afcca189f1c3c51d0d1927ebc018e432c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8fb34a949ff8d0f06ddfe7dd05028c5e" id="r_a8fb34a949ff8d0f06ddfe7dd05028c5e"><td class="memItemLeft" align="right" valign="top"><a id="a8fb34a949ff8d0f06ddfe7dd05028c5e" name="a8fb34a949ff8d0f06ddfe7dd05028c5e"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>mixer_ch_get_force_mono</b> (int ch)</td></tr>
+<tr class="memdesc:a8fb34a949ff8d0f06ddfe7dd05028c5e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Query the force-mono flag for a channel. <br /></td></tr>
+<tr class="separator:a8fb34a949ff8d0f06ddfe7dd05028c5e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a68143a89a9cb482dcfc3dc56898c7dee" id="r_a68143a89a9cb482dcfc3dc56898c7dee"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mixer_8h.html#a68143a89a9cb482dcfc3dc56898c7dee">mixer_set_force_mono</a> (bool enable)</td></tr>
+<tr class="memdesc:a68143a89a9cb482dcfc3dc56898c7dee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable or disable force-mono on every channel at once.  <br /></td></tr>
+<tr class="separator:a68143a89a9cb482dcfc3dc56898c7dee"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1aa94701f22d086d624fb7d938ba0062" id="r_a1aa94701f22d086d624fb7d938ba0062"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mixer_8h.html#a1aa94701f22d086d624fb7d938ba0062">mixer_ch_play</a> (int ch, <a class="el" href="mixer_8h.html#structwaveform__t">waveform_t</a> *wave)</td></tr>
 <tr class="memdesc:a1aa94701f22d086d624fb7d938ba0062"><td class="mdescLeft">&#160;</td><td class="mdescRight">Start playing the specified waveform on the specified channel.  <br /></td></tr>
 <tr class="separator:a1aa94701f22d086d624fb7d938ba0062"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -622,6 +632,69 @@ State size required for this waveform to operate. <p>The waveform can request th
 
 </div>
 </div>
+<a id="afcca189f1c3c51d0d1927ebc018e432c" name="afcca189f1c3c51d0d1927ebc018e432c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afcca189f1c3c51d0d1927ebc018e432c">&#9670;&#160;</a></span>mixer_ch_set_force_mono()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void mixer_ch_set_force_mono </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>ch</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>enable</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Enable or disable force-mono on a single channel. </p>
+<p>When enabled, the channel's output is folded equally onto both output buses regardless of its panning or stereo routing:</p><ul>
+<li>Mono channel: both buses receive (lvol + rvol) / 2 of the sample.</li>
+<li>Stereo waveform (owner + sub pair): L and R sample streams are each routed at half amplitude to both buses, yielding L_out = R_out = 0.5 * (L*lvol + R*rvol).</li>
+</ul>
+<p>Set the flag on the OWNER channel of a stereo pair; the SUB inherits.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">ch</td><td>Channel index </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">enable</td><td>true to fold, false to restore stereo routing </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a68143a89a9cb482dcfc3dc56898c7dee" name="a68143a89a9cb482dcfc3dc56898c7dee"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a68143a89a9cb482dcfc3dc56898c7dee">&#9670;&#160;</a></span>mixer_set_force_mono()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void mixer_set_force_mono </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>enable</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Enable or disable force-mono on every channel at once. </p>
+<p>Convenience wrapper for a global "Mono" output preference. Applies the flag to all currently-allocated channels. </p>
+
+</div>
+</div>
 <a id="a1aa94701f22d086d624fb7d938ba0062" name="a1aa94701f22d086d624fb7d938ba0062"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a1aa94701f22d086d624fb7d938ba0062">&#9670;&#160;</a></span>mixer_ch_play()</h2>
 
@@ -1027,7 +1100,7 @@ State size required for this waveform to operate. <p>The waveform can request th
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jun 8 2026 18:27:20 for libdragon by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
+Generated on Wed Jun 10 2026 22:36:47 for libdragon by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
 </small></address>
 </body>
 </html>

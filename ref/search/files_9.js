@@ -13,6 +13,6 @@ var searchData=
   ['joypad_2ec_10',['joypad.c',['../joypad_8c.html',1,'']]],
   ['joypad_2eh_11',['joypad.h',['../joypad_8h.html',1,'']]],
   ['joypad_5faccessory_2ec_12',['joypad_accessory.c',['../joypad__accessory_8c.html',1,'']]],
-  ['joypad_5faccessory_2eh_13',['joypad_accessory.h',['../joypad__accessory_8h.html',1,'']]],
+  ['joypad_5faccessory_5finternal_2eh_13',['joypad_accessory_internal.h',['../joypad__accessory__internal_8h.html',1,'']]],
   ['joypad_5finternal_2eh_14',['joypad_internal.h',['../joypad__internal_8h.html',1,'']]]
 ];

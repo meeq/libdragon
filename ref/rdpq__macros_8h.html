@@ -158,6 +158,14 @@ Macros</h2></td></tr>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>SOMX_FOG</b>&#160;&#160;&#160;((cast64(1))&lt;&lt;58)</td></tr>
 <tr class="memdesc:a9d560b3f2c28f1506427c0ffa03dbebe"><td class="mdescLeft">&#160;</td><td class="mdescRight">RDPQ special state: fogging is enabled. <br /></td></tr>
 <tr class="separator:a9d560b3f2c28f1506427c0ffa03dbebe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a84178d8c768524425f0cf901f5e31460" id="r_a84178d8c768524425f0cf901f5e31460"><td class="memItemLeft" align="right" valign="top"><a id="a84178d8c768524425f0cf901f5e31460" name="a84178d8c768524425f0cf901f5e31460"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>SOMX_ALPHACOMPARE</b>&#160;&#160;&#160;((cast64(1))&lt;&lt;57)</td></tr>
+<tr class="memdesc:a84178d8c768524425f0cf901f5e31460"><td class="mdescLeft">&#160;</td><td class="mdescRight">RDPQ special state: alpha compare is enabled (logical state; see mode API) <br /></td></tr>
+<tr class="separator:a84178d8c768524425f0cf901f5e31460"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab7ad36b59ea3b72453aa83dbaf63cbd8" id="r_ab7ad36b59ea3b72453aa83dbaf63cbd8"><td class="memItemLeft" align="right" valign="top"><a id="ab7ad36b59ea3b72453aa83dbaf63cbd8" name="ab7ad36b59ea3b72453aa83dbaf63cbd8"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>SOMX_ALPHACOMPARE_SHIFT</b>&#160;&#160;&#160;57</td></tr>
+<tr class="memdesc:ab7ad36b59ea3b72453aa83dbaf63cbd8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Shift of <a class="el" href="rdpq__macros_8h.html#a84178d8c768524425f0cf901f5e31460" title="RDPQ special state: alpha compare is enabled (logical state; see mode API)">SOMX_ALPHACOMPARE</a> in the 64-bit SOM word. <br /></td></tr>
+<tr class="separator:ab7ad36b59ea3b72453aa83dbaf63cbd8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a262fdca9c3611151394c47e8a0e6ab9e" id="r_a262fdca9c3611151394c47e8a0e6ab9e"><td class="memItemLeft" align="right" valign="top"><a id="a262fdca9c3611151394c47e8a0e6ab9e" name="a262fdca9c3611151394c47e8a0e6ab9e"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>SOM_ATOMIC_PRIM</b>&#160;&#160;&#160;((cast64(1))&lt;&lt;55)</td></tr>
 <tr class="memdesc:a262fdca9c3611151394c47e8a0e6ab9e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Atomic: serialize command execution. <br /></td></tr>
@@ -651,7 +659,7 @@ Giovanni Bajo <a href="#" onclick="location.href='mai'+'lto:'+'gio'+'va'+'nni'+'
 <div class="ttc" id="agroup__graphics_html_gae16bab5741f411ec4ef51b0295f6e705"><div class="ttname"><a href="group__graphics.html#gae16bab5741f411ec4ef51b0295f6e705">RGBA32</a></div><div class="ttdeci">#define RGBA32(rx, gx, bx, ax)</div><div class="ttdoc">Create a color_t from the R,G,B,A components in the RGBA32 range (0-255).</div><div class="ttdef"><b>Definition</b> graphics.h:96</div></div>
 <div class="ttc" id="ardpq_8c_html_a289f1c0c4e92d66d71c55bd6c8103e3e"><div class="ttname"><a href="rdpq_8c.html#a289f1c0c4e92d66d71c55bd6c8103e3e">rdpq_set_env_color</a></div><div class="ttdeci">void rdpq_set_env_color(color_t color)</div><div class="ttdoc">Set the RDP ENV combiner register (RDP command: SET_ENV_COLOR)</div><div class="ttdef"><b>Definition</b> rdpq.h:1105</div></div>
 <div class="ttc" id="ardpq_8h_html_a8d34f311d2e71435652a57adb1d6931ea65f7d9bde93f125384f419cc6e9b27a7"><div class="ttname"><a href="rdpq_8h.html#a8d34f311d2e71435652a57adb1d6931ea65f7d9bde93f125384f419cc6e9b27a7">TILE0</a></div><div class="ttdeci">@ TILE0</div><div class="ttdoc">Tile #0 (for code readability)</div><div class="ttdef"><b>Definition</b> rdpq.h:255</div></div>
-<div class="ttc" id="ardpq__macros_8h_html_ae0c65c3d742a4caf62bcd0d830793584"><div class="ttname"><a href="rdpq__macros_8h.html#ae0c65c3d742a4caf62bcd0d830793584">RDPQ_BLENDER</a></div><div class="ttdeci">#define RDPQ_BLENDER(bl)</div><div class="ttdoc">Build a 1-pass blender formula.</div><div class="ttdef"><b>Definition</b> rdpq_macros.h:870</div></div>
+<div class="ttc" id="ardpq__macros_8h_html_ae0c65c3d742a4caf62bcd0d830793584"><div class="ttname"><a href="rdpq__macros_8h.html#ae0c65c3d742a4caf62bcd0d830793584">RDPQ_BLENDER</a></div><div class="ttdeci">#define RDPQ_BLENDER(bl)</div><div class="ttdoc">Build a 1-pass blender formula.</div><div class="ttdef"><b>Definition</b> rdpq_macros.h:872</div></div>
 <div class="ttc" id="ardpq__macros_8h_html_ae6316102ee9f09199c7d0c9c452915dc"><div class="ttname"><a href="rdpq__macros_8h.html#ae6316102ee9f09199c7d0c9c452915dc">RDPQ_COMBINER1</a></div><div class="ttdeci">#define RDPQ_COMBINER1(rgb, alpha)</div><div class="ttdoc">Build a 1-pass combiner formula.</div><div class="ttdef"><b>Definition</b> rdpq_macros.h:466</div></div>
 <div class="ttc" id="ardpq__mode_8c_html_a64a153623e5985ce5c434bf52ba6efa6"><div class="ttname"><a href="rdpq__mode_8c.html#a64a153623e5985ce5c434bf52ba6efa6">rdpq_mode_blender</a></div><div class="ttdeci">void rdpq_mode_blender(rdpq_blender_t blend)</div><div class="ttdoc">Configure the formula to use for blending.</div><div class="ttdef"><b>Definition</b> rdpq_mode.h:615</div></div>
 <div class="ttc" id="ardpq__mode_8c_html_a7aaec7357eb3343339d9373b1a963a57"><div class="ttname"><a href="rdpq__mode_8c.html#a7aaec7357eb3343339d9373b1a963a57">rdpq_mode_combiner</a></div><div class="ttdeci">void rdpq_mode_combiner(rdpq_combiner_t comb)</div><div class="ttdoc">Configure the color combiner.</div><div class="ttdef"><b>Definition</b> rdpq_mode.h:481</div></div>
@@ -913,7 +921,7 @@ Giovanni Bajo <a href="#" onclick="location.href='mai'+'lto:'+'gio'+'va'+'nni'+'
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jun 8 2026 18:27:20 for libdragon by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
+Generated on Wed Jun 10 2026 22:36:47 for libdragon by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
 </small></address>
 </body>
 </html>

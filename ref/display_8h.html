@@ -231,7 +231,7 @@ Giovanni Bajo <a href="#" onclick="location.href='mai'+'lto:'+'gio'+'va'+'nni'+'
 <p>Once the display has been set, a surface can be requested from the display subsystem using <a class="el" href="group__display.html#gaf8ad0501f0408430e3b40f0f626a33bd" title="Get a display buffer for rendering.">display_get</a>. To draw to the acquired surface, code should use functions present in the <a class="el" href="group__rdpq.html">RDPQ: Hardware-accelerated drawing API</a> or <a class="el" href="group__graphics.html">2D Graphics</a> modules (the latter being just a simpler, CPU-only small graphic library).</p>
 <p>Once drawing to a surface is complete, the rendered graphic can be displayed to the screen using <a class="el" href="group__display.html#ga4f4a773501687663d0bf76f5cced752f" title="Display a buffer on the screen.">display_show</a>. Once code has finished rendering all graphics, <a class="el" href="group__display.html#ga21c0b315e346cb1d1e4566688aa03e36" title="Close the display.">display_close</a> can be used to shut down the display subsystem.</p>
 <p>To obtain a Z-buffer, simply call <a class="el" href="group__display.html#ga8ecb97c4e9676fd897391d5d9def9e54" title="Return a memory surface that can be used as Z-buffer for the current resolution.">display_get_zbuf()</a>. This is preferrable to manually allocating it, as <a class="el" href="display_8h.html" title="Display Subsystem.">display.h</a> will manage the memory allocations spreading them across RDRAM banks to maximize rendering performance.</p>
-<h2><a class="anchor" id="autotoc_md73"></a>
+<h2><a class="anchor" id="autotoc_md82"></a>
 Frame counter, delta time and frame limiter</h2>
 <p>You can acquire at any time a very accurate frame rate estimation using <a class="el" href="group__display.html#ga7ae78db1ce043c1ea4289ccd474b68f4" title="Get the current number of frames per second being rendered.">display_get_fps</a>. This is measure the actual time that it takes for a frame to reach the display, rather than the time it takes to be calculated, so it is more accurate especially when there's a high variance or long framebuffer chains.</p>
 <p>Use <a class="el" href="group__display.html#ga6c509bcb35ac25d4e89cb0c71ddbec86" title="Returns the &quot;delta time&quot;, that is the time it took to the last frame to be prepared and rendered.">display_get_delta_time</a> to get an estimation of the best delta time that can be used to calculate the next frame. This builds up on the FPS calculator, so again it is more accurate and smoother than just taking the time yourself in your main loop.acos</p>
@@ -239,7 +239,7 @@ Frame counter, delta time and frame limiter</h2>
 </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jun 8 2026 18:27:20 for libdragon by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
+Generated on Wed Jun 10 2026 22:36:47 for libdragon by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
 </small></address>
 </body>
 </html>

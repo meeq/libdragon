@@ -148,7 +148,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>rdpq_matdb_close</b> 
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>RDP Command queue: material system. </p>
 <dl class="section author"><dt>Author</dt><dd>Giovanni Bajo <a href="#" onclick="location.href='mai'+'lto:'+'gio'+'va'+'nni'+'ba'+'jo@'+'gm'+'ail'+'.c'+'om'; return false;">giova<span class="obfuscator">.nosp@m.</span>nnib<span class="obfuscator">.nosp@m.</span>ajo@g<span class="obfuscator">.nosp@m.</span>mail<span class="obfuscator">.nosp@m.</span>.com</a> </dd></dl>
-<h2><a class="anchor" id="autotoc_md34"></a>
+<h2><a class="anchor" id="autotoc_md43"></a>
 Material database binary format</h2>
 <p>A material database (.mdb file) contains multiple materials packed together for efficient loading and storage. The binary format is as follows:</p>
 <p>Header:</p><ul>
@@ -163,7 +163,7 @@ Material database binary format</h2>
 </ul>
 <p>After the index section, the actual material data follows. Each material is stored consecutively using the "Material binary format" described below. The materials are stored in the same order as their index entries.</p>
 <p>The <a class="el" href="rdpq__mat_8c.html#aa172ffc8672665fc7a2fd39a4045a669" title="Load a material from the material database.">rdpq_matdb_load</a> function uses the index to quickly locate a specific material by name without having to parse all materials sequentially.</p>
-<h2><a class="anchor" id="autotoc_md35"></a>
+<h2><a class="anchor" id="autotoc_md44"></a>
 Material binary format</h2>
 <p>A single material is stored in a packed binary format as follows.</p>
 <ul>
@@ -192,7 +192,7 @@ Material binary format</h2>
 </li>
 <li>Finally, the material ends with a terminator byte (0xAB).</li>
 </ul>
-<h2><a class="anchor" id="autotoc_md36"></a>
+<h2><a class="anchor" id="autotoc_md45"></a>
 Ext binary format</h2>
 <p>This is the binary format used to store optional extension keys and values, after the terminator byte (0xAB) of the material. The offset to this section can be found in the material (see above).</p>
 <p>First byte in the extension data is the header, which contains the number of extension keys (up to 63).</p>
@@ -512,7 +512,7 @@ Ext binary format</h2>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jun 8 2026 18:27:21 for libdragon by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
+Generated on Wed Jun 10 2026 22:36:48 for libdragon by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
 </small></address>
 </body>
 </html>

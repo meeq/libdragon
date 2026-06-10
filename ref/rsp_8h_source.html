@@ -174,137 +174,138 @@ $(document).ready(function() { init_codefold(0); });
 <div class="line"><a id="l00284" name="l00284"></a><span class="lineno"><a class="line" href="structrsp__ucode__t.html#a6f2230405eb699e5ee6b9c57e428024d">  284</a></span>    <span class="keywordtype">void</span>    *<a class="code hl_variable" href="structrsp__ucode__t.html#a6f2230405eb699e5ee6b9c57e428024d">code_end</a>;     </div>
 <div class="line"><a id="l00285" name="l00285"></a><span class="lineno"><a class="line" href="structrsp__ucode__t.html#ad5c028086c782260a7ac34dcbe67547e">  285</a></span>    uint8_t *<a class="code hl_variable" href="structrsp__ucode__t.html#ad5c028086c782260a7ac34dcbe67547e">data</a>;         </div>
 <div class="line"><a id="l00286" name="l00286"></a><span class="lineno"><a class="line" href="structrsp__ucode__t.html#aa8dab65f79da7a820769f7a6e9ba69ae">  286</a></span>    <span class="keywordtype">void</span>    *<a class="code hl_variable" href="structrsp__ucode__t.html#aa8dab65f79da7a820769f7a6e9ba69ae">data_end</a>;     </div>
-<div class="line"><a id="l00287" name="l00287"></a><span class="lineno"><a class="line" href="structrsp__ucode__t.html#a885df4ab658fa796ab6a53adcb2834ee">  287</a></span>    uint8_t *<a class="code hl_variable" href="structrsp__ucode__t.html#a885df4ab658fa796ab6a53adcb2834ee">meta</a>;         </div>
-<div class="line"><a id="l00288" name="l00288"></a><span class="lineno"><a class="line" href="structrsp__ucode__t.html#af6450db8e75436b62cf8166d60d6ceaa">  288</a></span>    <span class="keywordtype">void</span>    *<a class="code hl_variable" href="structrsp__ucode__t.html#af6450db8e75436b62cf8166d60d6ceaa">meta_end</a>;     </div>
-<div class="line"><a id="l00289" name="l00289"></a><span class="lineno">  289</span> </div>
-<div class="line"><a id="l00290" name="l00290"></a><span class="lineno"><a class="line" href="structrsp__ucode__t.html#a8ea5f87dbbd2f922a67d8768b845d027">  290</a></span>    <span class="keyword">const</span> <span class="keywordtype">char</span> *<a class="code hl_variable" href="structrsp__ucode__t.html#a8ea5f87dbbd2f922a67d8768b845d027">name</a>;      </div>
-<div class="line"><a id="l00291" name="l00291"></a><span class="lineno"><a class="line" href="structrsp__ucode__t.html#ac0f4475a703c8ce199840729bd011c0c">  291</a></span>    uint32_t <a class="code hl_variable" href="structrsp__ucode__t.html#ac0f4475a703c8ce199840729bd011c0c">start_pc</a>;     </div>
-<div class="line"><a id="l00292" name="l00292"></a><span class="lineno">  292</span> </div>
-<div class="line"><a id="l00305" name="l00305"></a><span class="lineno"><a class="line" href="structrsp__ucode__t.html#ac825f330aa0bbca94ab129df3e6f9071">  305</a></span>    void (*crash_handler)(<a class="code hl_struct" href="rsp_8h.html#structrsp__snapshot__t">rsp_snapshot_t</a> *state);</div>
-<div class="line"><a id="l00306" name="l00306"></a><span class="lineno">  306</span> </div>
-<div class="line"><a id="l00325" name="l00325"></a><span class="lineno"><a class="line" href="structrsp__ucode__t.html#a4e6b8b919f54b9af109d67cd6f851ebe">  325</a></span>    void (*assert_handler)(<a class="code hl_struct" href="rsp_8h.html#structrsp__snapshot__t">rsp_snapshot_t</a> *state, uint16_t assert_code);</div>
-<div class="line"><a id="l00326" name="l00326"></a><span class="lineno">  326</span>} <a class="code hl_struct" href="structrsp__ucode__t.html">rsp_ucode_t</a>;</div>
+<div class="line"><a id="l00287" name="l00287"></a><span class="lineno">  287</span> </div>
+<div class="line"><a id="l00295" name="l00295"></a><span class="lineno"><a class="line" href="structrsp__ucode__t.html#a885df4ab658fa796ab6a53adcb2834ee">  295</a></span>    uint8_t *<a class="code hl_variable" href="structrsp__ucode__t.html#a885df4ab658fa796ab6a53adcb2834ee">meta</a>;</div>
+<div class="line"><a id="l00296" name="l00296"></a><span class="lineno"><a class="line" href="structrsp__ucode__t.html#af6450db8e75436b62cf8166d60d6ceaa">  296</a></span>    <span class="keywordtype">void</span>    *<a class="code hl_variable" href="structrsp__ucode__t.html#af6450db8e75436b62cf8166d60d6ceaa">meta_end</a>;     </div>
+<div class="line"><a id="l00297" name="l00297"></a><span class="lineno">  297</span> </div>
+<div class="line"><a id="l00298" name="l00298"></a><span class="lineno"><a class="line" href="structrsp__ucode__t.html#a8ea5f87dbbd2f922a67d8768b845d027">  298</a></span>    <span class="keyword">const</span> <span class="keywordtype">char</span> *<a class="code hl_variable" href="structrsp__ucode__t.html#a8ea5f87dbbd2f922a67d8768b845d027">name</a>;      </div>
+<div class="line"><a id="l00299" name="l00299"></a><span class="lineno"><a class="line" href="structrsp__ucode__t.html#ac0f4475a703c8ce199840729bd011c0c">  299</a></span>    uint32_t <a class="code hl_variable" href="structrsp__ucode__t.html#ac0f4475a703c8ce199840729bd011c0c">start_pc</a>;     </div>
+<div class="line"><a id="l00300" name="l00300"></a><span class="lineno">  300</span> </div>
+<div class="line"><a id="l00313" name="l00313"></a><span class="lineno"><a class="line" href="structrsp__ucode__t.html#ac825f330aa0bbca94ab129df3e6f9071">  313</a></span>    void (*crash_handler)(<a class="code hl_struct" href="rsp_8h.html#structrsp__snapshot__t">rsp_snapshot_t</a> *state);</div>
+<div class="line"><a id="l00314" name="l00314"></a><span class="lineno">  314</span> </div>
+<div class="line"><a id="l00333" name="l00333"></a><span class="lineno"><a class="line" href="structrsp__ucode__t.html#a4e6b8b919f54b9af109d67cd6f851ebe">  333</a></span>    void (*assert_handler)(<a class="code hl_struct" href="rsp_8h.html#structrsp__snapshot__t">rsp_snapshot_t</a> *state, uint16_t assert_code);</div>
+<div class="line"><a id="l00334" name="l00334"></a><span class="lineno">  334</span>} <a class="code hl_struct" href="structrsp__ucode__t.html">rsp_ucode_t</a>;</div>
 </div>
-<div class="line"><a id="l00327" name="l00327"></a><span class="lineno">  327</span> </div>
-<div class="foldopen" id="foldopen00349" data-start="" data-end="">
-<div class="line"><a id="l00349" name="l00349"></a><span class="lineno"><a class="line" href="rsp_8h.html#a1c69c50ce3eccc8d661dce878129b0b0">  349</a></span><span class="preprocessor">#define DEFINE_RSP_UCODE(ucode_name, ...) \</span></div>
-<div class="line"><a id="l00350" name="l00350"></a><span class="lineno">  350</span><span class="preprocessor">    extern uint8_t ucode_name ## _text_start[]; \</span></div>
-<div class="line"><a id="l00351" name="l00351"></a><span class="lineno">  351</span><span class="preprocessor">    extern uint8_t ucode_name ## _data_start[]; \</span></div>
-<div class="line"><a id="l00352" name="l00352"></a><span class="lineno">  352</span><span class="preprocessor">    extern uint8_t ucode_name ## _meta_start[]; \</span></div>
-<div class="line"><a id="l00353" name="l00353"></a><span class="lineno">  353</span><span class="preprocessor">    extern uint8_t ucode_name ## _text_end[0]; \</span></div>
-<div class="line"><a id="l00354" name="l00354"></a><span class="lineno">  354</span><span class="preprocessor">    extern uint8_t ucode_name ## _data_end[0]; \</span></div>
-<div class="line"><a id="l00355" name="l00355"></a><span class="lineno">  355</span><span class="preprocessor">    extern uint8_t ucode_name ## _meta_end[0]; \</span></div>
-<div class="line"><a id="l00356" name="l00356"></a><span class="lineno">  356</span><span class="preprocessor">    rsp_ucode_t ucode_name = (rsp_ucode_t){ \</span></div>
-<div class="line"><a id="l00357" name="l00357"></a><span class="lineno">  357</span><span class="preprocessor">        .code = ucode_name ## _text_start, \</span></div>
-<div class="line"><a id="l00358" name="l00358"></a><span class="lineno">  358</span><span class="preprocessor">        .code_end = ucode_name ## _text_end, \</span></div>
-<div class="line"><a id="l00359" name="l00359"></a><span class="lineno">  359</span><span class="preprocessor">        .data = ucode_name ## _data_start, \</span></div>
-<div class="line"><a id="l00360" name="l00360"></a><span class="lineno">  360</span><span class="preprocessor">        .data_end = ucode_name ## _data_end, \</span></div>
-<div class="line"><a id="l00361" name="l00361"></a><span class="lineno">  361</span><span class="preprocessor">        .meta = ucode_name ## _meta_start, \</span></div>
-<div class="line"><a id="l00362" name="l00362"></a><span class="lineno">  362</span><span class="preprocessor">        .meta_end = ucode_name ## _meta_end, \</span></div>
-<div class="line"><a id="l00363" name="l00363"></a><span class="lineno">  363</span><span class="preprocessor">        .name = #ucode_name, .start_pc = 0, \</span></div>
-<div class="line"><a id="l00364" name="l00364"></a><span class="lineno">  364</span><span class="preprocessor">        .crash_handler = 0, .assert_handler = 0, \</span></div>
-<div class="line"><a id="l00365" name="l00365"></a><span class="lineno">  365</span><span class="preprocessor">        __VA_ARGS__ \</span></div>
-<div class="line"><a id="l00366" name="l00366"></a><span class="lineno">  366</span><span class="preprocessor">    }</span></div>
+<div class="line"><a id="l00335" name="l00335"></a><span class="lineno">  335</span> </div>
+<div class="foldopen" id="foldopen00357" data-start="" data-end="">
+<div class="line"><a id="l00357" name="l00357"></a><span class="lineno"><a class="line" href="rsp_8h.html#a1c69c50ce3eccc8d661dce878129b0b0">  357</a></span><span class="preprocessor">#define DEFINE_RSP_UCODE(ucode_name, ...) \</span></div>
+<div class="line"><a id="l00358" name="l00358"></a><span class="lineno">  358</span><span class="preprocessor">    extern uint8_t ucode_name ## _text_start[]; \</span></div>
+<div class="line"><a id="l00359" name="l00359"></a><span class="lineno">  359</span><span class="preprocessor">    extern uint8_t ucode_name ## _data_start[]; \</span></div>
+<div class="line"><a id="l00360" name="l00360"></a><span class="lineno">  360</span><span class="preprocessor">    extern uint8_t ucode_name ## _meta_start[]; \</span></div>
+<div class="line"><a id="l00361" name="l00361"></a><span class="lineno">  361</span><span class="preprocessor">    extern uint8_t ucode_name ## _text_end[0]; \</span></div>
+<div class="line"><a id="l00362" name="l00362"></a><span class="lineno">  362</span><span class="preprocessor">    extern uint8_t ucode_name ## _data_end[0]; \</span></div>
+<div class="line"><a id="l00363" name="l00363"></a><span class="lineno">  363</span><span class="preprocessor">    extern uint8_t ucode_name ## _meta_end[0]; \</span></div>
+<div class="line"><a id="l00364" name="l00364"></a><span class="lineno">  364</span><span class="preprocessor">    rsp_ucode_t ucode_name = (rsp_ucode_t){ \</span></div>
+<div class="line"><a id="l00365" name="l00365"></a><span class="lineno">  365</span><span class="preprocessor">        .code = ucode_name ## _text_start, \</span></div>
+<div class="line"><a id="l00366" name="l00366"></a><span class="lineno">  366</span><span class="preprocessor">        .code_end = ucode_name ## _text_end, \</span></div>
+<div class="line"><a id="l00367" name="l00367"></a><span class="lineno">  367</span><span class="preprocessor">        .data = ucode_name ## _data_start, \</span></div>
+<div class="line"><a id="l00368" name="l00368"></a><span class="lineno">  368</span><span class="preprocessor">        .data_end = ucode_name ## _data_end, \</span></div>
+<div class="line"><a id="l00369" name="l00369"></a><span class="lineno">  369</span><span class="preprocessor">        .meta = ucode_name ## _meta_start, \</span></div>
+<div class="line"><a id="l00370" name="l00370"></a><span class="lineno">  370</span><span class="preprocessor">        .meta_end = ucode_name ## _meta_end, \</span></div>
+<div class="line"><a id="l00371" name="l00371"></a><span class="lineno">  371</span><span class="preprocessor">        .name = #ucode_name, .start_pc = 0, \</span></div>
+<div class="line"><a id="l00372" name="l00372"></a><span class="lineno">  372</span><span class="preprocessor">        .crash_handler = 0, .assert_handler = 0, \</span></div>
+<div class="line"><a id="l00373" name="l00373"></a><span class="lineno">  373</span><span class="preprocessor">        __VA_ARGS__ \</span></div>
+<div class="line"><a id="l00374" name="l00374"></a><span class="lineno">  374</span><span class="preprocessor">    }</span></div>
 </div>
-<div class="line"><a id="l00367" name="l00367"></a><span class="lineno">  367</span> </div>
-<div class="line"><a id="l00369" name="l00369"></a><span class="lineno">  369</span><span class="keywordtype">void</span> <a class="code hl_function" href="rsp_8h.html#ac3a09625a4dc302db558f31599a8169d">rsp_init</a>(<span class="keywordtype">void</span>);</div>
-<div class="line"><a id="l00370" name="l00370"></a><span class="lineno">  370</span> </div>
-<div class="line"><a id="l00384" name="l00384"></a><span class="lineno">  384</span><span class="keywordtype">void</span> <a class="code hl_function" href="rsp_8h.html#abaaa649a5d63d3a901aa029f18743852">rsp_load</a>(<a class="code hl_struct" href="structrsp__ucode__t.html">rsp_ucode_t</a> *ucode);</div>
-<div class="line"><a id="l00385" name="l00385"></a><span class="lineno">  385</span> </div>
-<div class="line"><a id="l00390" name="l00390"></a><span class="lineno">  390</span><span class="keywordtype">void</span> <a class="code hl_function" href="rsp_8h.html#a9b06ba89506266ccb7c962872f0c783b">rsp_run</a>(<span class="keywordtype">void</span>);</div>
-<div class="line"><a id="l00391" name="l00391"></a><span class="lineno">  391</span> </div>
-<div class="foldopen" id="foldopen00397" data-start="{" data-end="}">
-<div class="line"><a id="l00397" name="l00397"></a><span class="lineno"><a class="line" href="rsp_8c.html#a896f4959706e9ecb62ecf2de43bcb276">  397</a></span><span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code hl_function" href="rsp_8h.html#a896f4959706e9ecb62ecf2de43bcb276">rsp_run_async</a>(<span class="keywordtype">void</span>)</div>
-<div class="line"><a id="l00398" name="l00398"></a><span class="lineno">  398</span>{</div>
-<div class="line"><a id="l00399" name="l00399"></a><span class="lineno">  399</span>    <span class="keyword">extern</span> <span class="keywordtype">void</span> <a class="code hl_function" href="rsp_8c.html#a59afeb53c45d1c7956187b7c8059e23a">__rsp_run_async</a>(uint32_t status_flags);</div>
-<div class="line"><a id="l00400" name="l00400"></a><span class="lineno">  400</span>    <a class="code hl_function" href="rsp_8c.html#a59afeb53c45d1c7956187b7c8059e23a">__rsp_run_async</a>(<a class="code hl_define" href="rsp_8h.html#af687b60471389c56639f05d4ff2fc175">SP_WSTATUS_SET_INTR_BREAK</a>);</div>
-<div class="line"><a id="l00401" name="l00401"></a><span class="lineno">  401</span>}</div>
+<div class="line"><a id="l00375" name="l00375"></a><span class="lineno">  375</span> </div>
+<div class="line"><a id="l00377" name="l00377"></a><span class="lineno">  377</span><span class="keywordtype">void</span> <a class="code hl_function" href="rsp_8h.html#ac3a09625a4dc302db558f31599a8169d">rsp_init</a>(<span class="keywordtype">void</span>);</div>
+<div class="line"><a id="l00378" name="l00378"></a><span class="lineno">  378</span> </div>
+<div class="line"><a id="l00392" name="l00392"></a><span class="lineno">  392</span><span class="keywordtype">void</span> <a class="code hl_function" href="rsp_8h.html#abaaa649a5d63d3a901aa029f18743852">rsp_load</a>(<a class="code hl_struct" href="structrsp__ucode__t.html">rsp_ucode_t</a> *ucode);</div>
+<div class="line"><a id="l00393" name="l00393"></a><span class="lineno">  393</span> </div>
+<div class="line"><a id="l00398" name="l00398"></a><span class="lineno">  398</span><span class="keywordtype">void</span> <a class="code hl_function" href="rsp_8h.html#a9b06ba89506266ccb7c962872f0c783b">rsp_run</a>(<span class="keywordtype">void</span>);</div>
+<div class="line"><a id="l00399" name="l00399"></a><span class="lineno">  399</span> </div>
+<div class="foldopen" id="foldopen00405" data-start="{" data-end="}">
+<div class="line"><a id="l00405" name="l00405"></a><span class="lineno"><a class="line" href="rsp_8c.html#a896f4959706e9ecb62ecf2de43bcb276">  405</a></span><span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code hl_function" href="rsp_8h.html#a896f4959706e9ecb62ecf2de43bcb276">rsp_run_async</a>(<span class="keywordtype">void</span>)</div>
+<div class="line"><a id="l00406" name="l00406"></a><span class="lineno">  406</span>{</div>
+<div class="line"><a id="l00407" name="l00407"></a><span class="lineno">  407</span>    <span class="keyword">extern</span> <span class="keywordtype">void</span> <a class="code hl_function" href="rsp_8c.html#a59afeb53c45d1c7956187b7c8059e23a">__rsp_run_async</a>(uint32_t status_flags);</div>
+<div class="line"><a id="l00408" name="l00408"></a><span class="lineno">  408</span>    <a class="code hl_function" href="rsp_8c.html#a59afeb53c45d1c7956187b7c8059e23a">__rsp_run_async</a>(<a class="code hl_define" href="rsp_8h.html#af687b60471389c56639f05d4ff2fc175">SP_WSTATUS_SET_INTR_BREAK</a>);</div>
+<div class="line"><a id="l00409" name="l00409"></a><span class="lineno">  409</span>}</div>
 </div>
-<div class="line"><a id="l00402" name="l00402"></a><span class="lineno">  402</span> </div>
-<div class="line"><a id="l00409" name="l00409"></a><span class="lineno">  409</span><span class="keywordtype">void</span> <a class="code hl_function" href="rsp_8h.html#a5d8697b67857ad9bd55885c0eb79c984">rsp_wait</a>(<span class="keywordtype">void</span>);</div>
 <div class="line"><a id="l00410" name="l00410"></a><span class="lineno">  410</span> </div>
-<div class="line"><a id="l00425" name="l00425"></a><span class="lineno">  425</span><span class="keywordtype">void</span> <a class="code hl_function" href="rsp_8h.html#a0508fe05f465102e111d6f6ae0598058">rsp_load_code</a>(<span class="keywordtype">void</span>* code, <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> size, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> imem_offset);</div>
-<div class="line"><a id="l00426" name="l00426"></a><span class="lineno">  426</span> </div>
-<div class="line"><a id="l00438" name="l00438"></a><span class="lineno">  438</span><span class="keywordtype">void</span> <a class="code hl_function" href="rsp_8h.html#ac3b056a6e41df010803e842867700089">rsp_load_data</a>(<span class="keywordtype">void</span>* data, <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> size, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> dmem_offset);</div>
-<div class="line"><a id="l00439" name="l00439"></a><span class="lineno">  439</span> </div>
-<div class="line"><a id="l00440" name="l00440"></a><span class="lineno">  440</span> </div>
-<div class="line"><a id="l00452" name="l00452"></a><span class="lineno">  452</span><span class="keywordtype">void</span> <a class="code hl_function" href="rsp_8h.html#a31d4a6206ad563c4153915037b25401e">rsp_read_code</a>(<span class="keywordtype">void</span>* code, <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> size, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> imem_offset);</div>
-<div class="line"><a id="l00453" name="l00453"></a><span class="lineno">  453</span> </div>
-<div class="line"><a id="l00465" name="l00465"></a><span class="lineno">  465</span><span class="keywordtype">void</span> <a class="code hl_function" href="rsp_8h.html#adf9587d4d7fcafe85c672163c24972c0">rsp_read_data</a>(<span class="keywordtype">void</span>* data, <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> size, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> dmem_offset);</div>
-<div class="line"><a id="l00466" name="l00466"></a><span class="lineno">  466</span> </div>
-<div class="line"><a id="l00490" name="l00490"></a><span class="lineno">  490</span><span class="preprocessor">#ifndef NDEBUG</span></div>
-<div class="foldopen" id="foldopen00491" data-start="" data-end="">
-<div class="line"><a id="l00491" name="l00491"></a><span class="lineno"><a class="line" href="rsp_8h.html#ae79047e3c1b28e7ed6b5e71025bcd1bb">  491</a></span><span class="preprocessor">#define rsp_crash()  ({ \</span></div>
-<div class="line"><a id="l00492" name="l00492"></a><span class="lineno">  492</span><span class="preprocessor">    __rsp_crash(__FILE__, __LINE__, __func__, NULL); \</span></div>
-<div class="line"><a id="l00493" name="l00493"></a><span class="lineno">  493</span><span class="preprocessor">})</span></div>
+<div class="line"><a id="l00417" name="l00417"></a><span class="lineno">  417</span><span class="keywordtype">void</span> <a class="code hl_function" href="rsp_8h.html#a5d8697b67857ad9bd55885c0eb79c984">rsp_wait</a>(<span class="keywordtype">void</span>);</div>
+<div class="line"><a id="l00418" name="l00418"></a><span class="lineno">  418</span> </div>
+<div class="line"><a id="l00433" name="l00433"></a><span class="lineno">  433</span><span class="keywordtype">void</span> <a class="code hl_function" href="rsp_8h.html#a0508fe05f465102e111d6f6ae0598058">rsp_load_code</a>(<span class="keywordtype">void</span>* code, <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> size, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> imem_offset);</div>
+<div class="line"><a id="l00434" name="l00434"></a><span class="lineno">  434</span> </div>
+<div class="line"><a id="l00446" name="l00446"></a><span class="lineno">  446</span><span class="keywordtype">void</span> <a class="code hl_function" href="rsp_8h.html#ac3b056a6e41df010803e842867700089">rsp_load_data</a>(<span class="keywordtype">void</span>* data, <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> size, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> dmem_offset);</div>
+<div class="line"><a id="l00447" name="l00447"></a><span class="lineno">  447</span> </div>
+<div class="line"><a id="l00448" name="l00448"></a><span class="lineno">  448</span> </div>
+<div class="line"><a id="l00460" name="l00460"></a><span class="lineno">  460</span><span class="keywordtype">void</span> <a class="code hl_function" href="rsp_8h.html#a31d4a6206ad563c4153915037b25401e">rsp_read_code</a>(<span class="keywordtype">void</span>* code, <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> size, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> imem_offset);</div>
+<div class="line"><a id="l00461" name="l00461"></a><span class="lineno">  461</span> </div>
+<div class="line"><a id="l00473" name="l00473"></a><span class="lineno">  473</span><span class="keywordtype">void</span> <a class="code hl_function" href="rsp_8h.html#adf9587d4d7fcafe85c672163c24972c0">rsp_read_data</a>(<span class="keywordtype">void</span>* data, <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> size, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> dmem_offset);</div>
+<div class="line"><a id="l00474" name="l00474"></a><span class="lineno">  474</span> </div>
+<div class="line"><a id="l00498" name="l00498"></a><span class="lineno">  498</span><span class="preprocessor">#ifndef NDEBUG</span></div>
+<div class="foldopen" id="foldopen00499" data-start="" data-end="">
+<div class="line"><a id="l00499" name="l00499"></a><span class="lineno"><a class="line" href="rsp_8h.html#ae79047e3c1b28e7ed6b5e71025bcd1bb">  499</a></span><span class="preprocessor">#define rsp_crash()  ({ \</span></div>
+<div class="line"><a id="l00500" name="l00500"></a><span class="lineno">  500</span><span class="preprocessor">    __rsp_crash(__FILE__, __LINE__, __func__, NULL); \</span></div>
+<div class="line"><a id="l00501" name="l00501"></a><span class="lineno">  501</span><span class="preprocessor">})</span></div>
 </div>
-<div class="line"><a id="l00494" name="l00494"></a><span class="lineno">  494</span><span class="preprocessor">#else</span></div>
-<div class="line"><a id="l00495" name="l00495"></a><span class="lineno">  495</span><span class="preprocessor">#define rsp_crash() abort()</span></div>
-<div class="line"><a id="l00496" name="l00496"></a><span class="lineno">  496</span><span class="preprocessor">#endif</span></div>
-<div class="line"><a id="l00497" name="l00497"></a><span class="lineno">  497</span> </div>
-<div class="line"><a id="l00513" name="l00513"></a><span class="lineno">  513</span><span class="preprocessor">#ifndef NDEBUG</span></div>
-<div class="foldopen" id="foldopen00514" data-start="" data-end="">
-<div class="line"><a id="l00514" name="l00514"></a><span class="lineno"><a class="line" href="rsp_8h.html#a67ef683f18a90998c1711cd03a220ca9">  514</a></span><span class="preprocessor">#define rsp_crashf(msg, ...) ({ \</span></div>
-<div class="line"><a id="l00515" name="l00515"></a><span class="lineno">  515</span><span class="preprocessor">    __rsp_crash(__FILE__, __LINE__, __func__, msg, ##__VA_ARGS__); \</span></div>
-<div class="line"><a id="l00516" name="l00516"></a><span class="lineno">  516</span><span class="preprocessor">})</span></div>
+<div class="line"><a id="l00502" name="l00502"></a><span class="lineno">  502</span><span class="preprocessor">#else</span></div>
+<div class="line"><a id="l00503" name="l00503"></a><span class="lineno">  503</span><span class="preprocessor">#define rsp_crash() abort()</span></div>
+<div class="line"><a id="l00504" name="l00504"></a><span class="lineno">  504</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00505" name="l00505"></a><span class="lineno">  505</span> </div>
+<div class="line"><a id="l00521" name="l00521"></a><span class="lineno">  521</span><span class="preprocessor">#ifndef NDEBUG</span></div>
+<div class="foldopen" id="foldopen00522" data-start="" data-end="">
+<div class="line"><a id="l00522" name="l00522"></a><span class="lineno"><a class="line" href="rsp_8h.html#a67ef683f18a90998c1711cd03a220ca9">  522</a></span><span class="preprocessor">#define rsp_crashf(msg, ...) ({ \</span></div>
+<div class="line"><a id="l00523" name="l00523"></a><span class="lineno">  523</span><span class="preprocessor">    __rsp_crash(__FILE__, __LINE__, __func__, msg, ##__VA_ARGS__); \</span></div>
+<div class="line"><a id="l00524" name="l00524"></a><span class="lineno">  524</span><span class="preprocessor">})</span></div>
 </div>
-<div class="line"><a id="l00517" name="l00517"></a><span class="lineno">  517</span><span class="preprocessor">#else</span></div>
-<div class="line"><a id="l00518" name="l00518"></a><span class="lineno">  518</span><span class="preprocessor">#define rsp_crashf(msg, ...) abort()</span></div>
-<div class="line"><a id="l00519" name="l00519"></a><span class="lineno">  519</span><span class="preprocessor">#endif</span></div>
-<div class="line"><a id="l00520" name="l00520"></a><span class="lineno">  520</span> </div>
-<div class="foldopen" id="foldopen00546" data-start="" data-end="">
-<div class="line"><a id="l00546" name="l00546"></a><span class="lineno"><a class="line" href="rsp_8h.html#aef223885601547c7ff27b55520714076">  546</a></span><span class="preprocessor">#define RSP_WAIT_LOOP(timeout_ms) \</span></div>
-<div class="line"><a id="l00547" name="l00547"></a><span class="lineno">  547</span><span class="preprocessor">    for (uint32_t __t = TICKS_READ() + TICKS_FROM_MS(timeout_ms); \</span></div>
-<div class="line"><a id="l00548" name="l00548"></a><span class="lineno">  548</span><span class="preprocessor">         TICKS_BEFORE(TICKS_READ(), __t) || (rsp_crashf(&quot;wait loop timed out (%d ms)&quot;, timeout_ms), false); \</span></div>
-<div class="line"><a id="l00549" name="l00549"></a><span class="lineno">  549</span><span class="preprocessor">         __rsp_check_assert(__FILE__, __LINE__, __func__))</span></div>
+<div class="line"><a id="l00525" name="l00525"></a><span class="lineno">  525</span><span class="preprocessor">#else</span></div>
+<div class="line"><a id="l00526" name="l00526"></a><span class="lineno">  526</span><span class="preprocessor">#define rsp_crashf(msg, ...) abort()</span></div>
+<div class="line"><a id="l00527" name="l00527"></a><span class="lineno">  527</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00528" name="l00528"></a><span class="lineno">  528</span> </div>
+<div class="foldopen" id="foldopen00554" data-start="" data-end="">
+<div class="line"><a id="l00554" name="l00554"></a><span class="lineno"><a class="line" href="rsp_8h.html#aef223885601547c7ff27b55520714076">  554</a></span><span class="preprocessor">#define RSP_WAIT_LOOP(timeout_ms) \</span></div>
+<div class="line"><a id="l00555" name="l00555"></a><span class="lineno">  555</span><span class="preprocessor">    for (uint32_t __t = TICKS_READ() + TICKS_FROM_MS(timeout_ms); \</span></div>
+<div class="line"><a id="l00556" name="l00556"></a><span class="lineno">  556</span><span class="preprocessor">         TICKS_BEFORE(TICKS_READ(), __t) || (rsp_crashf(&quot;wait loop timed out (%d ms)&quot;, timeout_ms), false); \</span></div>
+<div class="line"><a id="l00557" name="l00557"></a><span class="lineno">  557</span><span class="preprocessor">         __rsp_check_assert(__FILE__, __LINE__, __func__))</span></div>
 </div>
-<div class="line"><a id="l00550" name="l00550"></a><span class="lineno">  550</span> </div>
-<div class="line"><a id="l00551" name="l00551"></a><span class="lineno">  551</span><span class="keyword">static</span> <span class="keyword">inline</span> __attribute__((deprecated(<span class="stringliteral">&quot;use rsp_load_code instead&quot;</span>)))</div>
-<div class="line"><a id="l00552" name="l00552"></a><span class="lineno">  552</span>void load_ucode(<span class="keywordtype">void</span> * start, <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> size) {</div>
-<div class="line"><a id="l00553" name="l00553"></a><span class="lineno">  553</span>    <a class="code hl_function" href="rsp_8h.html#a0508fe05f465102e111d6f6ae0598058">rsp_load_code</a>(start, size, 0);</div>
-<div class="line"><a id="l00554" name="l00554"></a><span class="lineno">  554</span>}</div>
-<div class="line"><a id="l00555" name="l00555"></a><span class="lineno">  555</span> </div>
-<div class="line"><a id="l00556" name="l00556"></a><span class="lineno">  556</span><span class="keyword">static</span> <span class="keyword">inline</span> __attribute__((deprecated(<span class="stringliteral">&quot;use rsp_read_code instead&quot;</span>)))</div>
-<div class="line"><a id="l00557" name="l00557"></a><span class="lineno">  557</span>void read_ucode(<span class="keywordtype">void</span> * start, <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> size) {    </div>
-<div class="line"><a id="l00558" name="l00558"></a><span class="lineno">  558</span>    <a class="code hl_function" href="rsp_8h.html#a31d4a6206ad563c4153915037b25401e">rsp_read_code</a>(start, size, 0);</div>
-<div class="line"><a id="l00559" name="l00559"></a><span class="lineno">  559</span>}</div>
-<div class="line"><a id="l00560" name="l00560"></a><span class="lineno">  560</span> </div>
-<div class="line"><a id="l00561" name="l00561"></a><span class="lineno">  561</span><span class="keyword">static</span> <span class="keyword">inline</span> __attribute__((deprecated(<span class="stringliteral">&quot;use rsp_load_data instead&quot;</span>))) </div>
-<div class="line"><a id="l00562" name="l00562"></a><span class="lineno">  562</span>void load_data(<span class="keywordtype">void</span> * start, <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> size) {</div>
-<div class="line"><a id="l00563" name="l00563"></a><span class="lineno">  563</span>    <a class="code hl_function" href="rsp_8h.html#ac3b056a6e41df010803e842867700089">rsp_load_data</a>(start, size, 0);</div>
-<div class="line"><a id="l00564" name="l00564"></a><span class="lineno">  564</span>}</div>
-<div class="line"><a id="l00565" name="l00565"></a><span class="lineno">  565</span> </div>
-<div class="line"><a id="l00566" name="l00566"></a><span class="lineno">  566</span><span class="keyword">static</span> <span class="keyword">inline</span> __attribute__((deprecated(<span class="stringliteral">&quot;use rsp_read_data instead&quot;</span>))) </div>
-<div class="line"><a id="l00567" name="l00567"></a><span class="lineno">  567</span>void read_data(<span class="keywordtype">void</span> * start, <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> size) {</div>
-<div class="line"><a id="l00568" name="l00568"></a><span class="lineno">  568</span>    <a class="code hl_function" href="rsp_8h.html#adf9587d4d7fcafe85c672163c24972c0">rsp_read_data</a>(start, size, 0);</div>
-<div class="line"><a id="l00569" name="l00569"></a><span class="lineno">  569</span>}</div>
-<div class="line"><a id="l00570" name="l00570"></a><span class="lineno">  570</span> </div>
-<div class="line"><a id="l00571" name="l00571"></a><span class="lineno">  571</span><span class="keyword">static</span> <span class="keyword">inline</span> __attribute__((deprecated(<span class="stringliteral">&quot;use rsp_run_async instead&quot;</span>))) </div>
-<div class="line"><a id="l00572" name="l00572"></a><span class="lineno">  572</span>void run_ucode(<span class="keywordtype">void</span>) {</div>
-<div class="line"><a id="l00573" name="l00573"></a><span class="lineno">  573</span>    <a class="code hl_function" href="rsp_8h.html#a896f4959706e9ecb62ecf2de43bcb276">rsp_run_async</a>();</div>
-<div class="line"><a id="l00574" name="l00574"></a><span class="lineno">  574</span>}</div>
-<div class="line"><a id="l00575" name="l00575"></a><span class="lineno">  575</span> </div>
-<div class="line"><a id="l00576" name="l00576"></a><span class="lineno">  576</span><span class="comment">// Internal function used by rsp_crash and rsp_crashf. These are not part</span></div>
-<div class="line"><a id="l00577" name="l00577"></a><span class="lineno">  577</span><span class="comment">// of the public API of rsp.h. Do not call them directly.</span></div>
-<div class="line"><a id="l00579" name="l00579"></a><span class="lineno">  579</span><span class="preprocessor">#ifndef NDEBUG</span></div>
-<div class="line"><a id="l00580" name="l00580"></a><span class="lineno">  580</span><span class="keywordtype">void</span> __rsp_crash(<span class="keyword">const</span> <span class="keywordtype">char</span> *file, <span class="keywordtype">int</span> line, <span class="keyword">const</span> <span class="keywordtype">char</span> *func, <span class="keyword">const</span> <span class="keywordtype">char</span> *msg, ...)</div>
-<div class="line"><a id="l00581" name="l00581"></a><span class="lineno">  581</span>   __attribute__((noreturn, format(printf, 4, 5)));</div>
-<div class="line"><a id="l00582" name="l00582"></a><span class="lineno">  582</span><span class="keywordtype">void</span> __rsp_check_assert(const <span class="keywordtype">char</span> *file, <span class="keywordtype">int</span> line, const <span class="keywordtype">char</span> *func);</div>
-<div class="line"><a id="l00583" name="l00583"></a><span class="lineno">  583</span><span class="preprocessor">#else</span></div>
-<div class="line"><a id="l00584" name="l00584"></a><span class="lineno">  584</span><span class="keyword">static</span> <span class="keyword">inline</span> <span class="keywordtype">void</span> __rsp_check_assert(<span class="keyword">const</span> <span class="keywordtype">char</span> *file, <span class="keywordtype">int</span> line, <span class="keyword">const</span> <span class="keywordtype">char</span> *func) {}</div>
-<div class="line"><a id="l00585" name="l00585"></a><span class="lineno">  585</span><span class="preprocessor">#endif</span></div>
-<div class="line"><a id="l00587" name="l00587"></a><span class="lineno">  587</span> </div>
-<div class="line"><a id="l00588" name="l00588"></a><span class="lineno">  588</span><span class="preprocessor">#ifdef __cplusplus</span></div>
-<div class="line"><a id="l00589" name="l00589"></a><span class="lineno">  589</span>}</div>
-<div class="line"><a id="l00590" name="l00590"></a><span class="lineno">  590</span><span class="preprocessor">#endif</span></div>
-<div class="line"><a id="l00591" name="l00591"></a><span class="lineno">  591</span> </div>
-<div class="line"><a id="l00592" name="l00592"></a><span class="lineno">  592</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00558" name="l00558"></a><span class="lineno">  558</span> </div>
+<div class="line"><a id="l00559" name="l00559"></a><span class="lineno">  559</span><span class="keyword">static</span> <span class="keyword">inline</span> __attribute__((deprecated(<span class="stringliteral">&quot;use rsp_load_code instead&quot;</span>)))</div>
+<div class="line"><a id="l00560" name="l00560"></a><span class="lineno">  560</span>void load_ucode(<span class="keywordtype">void</span> * start, <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> size) {</div>
+<div class="line"><a id="l00561" name="l00561"></a><span class="lineno">  561</span>    <a class="code hl_function" href="rsp_8h.html#a0508fe05f465102e111d6f6ae0598058">rsp_load_code</a>(start, size, 0);</div>
+<div class="line"><a id="l00562" name="l00562"></a><span class="lineno">  562</span>}</div>
+<div class="line"><a id="l00563" name="l00563"></a><span class="lineno">  563</span> </div>
+<div class="line"><a id="l00564" name="l00564"></a><span class="lineno">  564</span><span class="keyword">static</span> <span class="keyword">inline</span> __attribute__((deprecated(<span class="stringliteral">&quot;use rsp_read_code instead&quot;</span>)))</div>
+<div class="line"><a id="l00565" name="l00565"></a><span class="lineno">  565</span>void read_ucode(<span class="keywordtype">void</span> * start, <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> size) {    </div>
+<div class="line"><a id="l00566" name="l00566"></a><span class="lineno">  566</span>    <a class="code hl_function" href="rsp_8h.html#a31d4a6206ad563c4153915037b25401e">rsp_read_code</a>(start, size, 0);</div>
+<div class="line"><a id="l00567" name="l00567"></a><span class="lineno">  567</span>}</div>
+<div class="line"><a id="l00568" name="l00568"></a><span class="lineno">  568</span> </div>
+<div class="line"><a id="l00569" name="l00569"></a><span class="lineno">  569</span><span class="keyword">static</span> <span class="keyword">inline</span> __attribute__((deprecated(<span class="stringliteral">&quot;use rsp_load_data instead&quot;</span>))) </div>
+<div class="line"><a id="l00570" name="l00570"></a><span class="lineno">  570</span>void load_data(<span class="keywordtype">void</span> * start, <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> size) {</div>
+<div class="line"><a id="l00571" name="l00571"></a><span class="lineno">  571</span>    <a class="code hl_function" href="rsp_8h.html#ac3b056a6e41df010803e842867700089">rsp_load_data</a>(start, size, 0);</div>
+<div class="line"><a id="l00572" name="l00572"></a><span class="lineno">  572</span>}</div>
+<div class="line"><a id="l00573" name="l00573"></a><span class="lineno">  573</span> </div>
+<div class="line"><a id="l00574" name="l00574"></a><span class="lineno">  574</span><span class="keyword">static</span> <span class="keyword">inline</span> __attribute__((deprecated(<span class="stringliteral">&quot;use rsp_read_data instead&quot;</span>))) </div>
+<div class="line"><a id="l00575" name="l00575"></a><span class="lineno">  575</span>void read_data(<span class="keywordtype">void</span> * start, <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> size) {</div>
+<div class="line"><a id="l00576" name="l00576"></a><span class="lineno">  576</span>    <a class="code hl_function" href="rsp_8h.html#adf9587d4d7fcafe85c672163c24972c0">rsp_read_data</a>(start, size, 0);</div>
+<div class="line"><a id="l00577" name="l00577"></a><span class="lineno">  577</span>}</div>
+<div class="line"><a id="l00578" name="l00578"></a><span class="lineno">  578</span> </div>
+<div class="line"><a id="l00579" name="l00579"></a><span class="lineno">  579</span><span class="keyword">static</span> <span class="keyword">inline</span> __attribute__((deprecated(<span class="stringliteral">&quot;use rsp_run_async instead&quot;</span>))) </div>
+<div class="line"><a id="l00580" name="l00580"></a><span class="lineno">  580</span>void run_ucode(<span class="keywordtype">void</span>) {</div>
+<div class="line"><a id="l00581" name="l00581"></a><span class="lineno">  581</span>    <a class="code hl_function" href="rsp_8h.html#a896f4959706e9ecb62ecf2de43bcb276">rsp_run_async</a>();</div>
+<div class="line"><a id="l00582" name="l00582"></a><span class="lineno">  582</span>}</div>
+<div class="line"><a id="l00583" name="l00583"></a><span class="lineno">  583</span> </div>
+<div class="line"><a id="l00584" name="l00584"></a><span class="lineno">  584</span><span class="comment">// Internal function used by rsp_crash and rsp_crashf. These are not part</span></div>
+<div class="line"><a id="l00585" name="l00585"></a><span class="lineno">  585</span><span class="comment">// of the public API of rsp.h. Do not call them directly.</span></div>
+<div class="line"><a id="l00587" name="l00587"></a><span class="lineno">  587</span><span class="preprocessor">#ifndef NDEBUG</span></div>
+<div class="line"><a id="l00588" name="l00588"></a><span class="lineno">  588</span><span class="keywordtype">void</span> __rsp_crash(<span class="keyword">const</span> <span class="keywordtype">char</span> *file, <span class="keywordtype">int</span> line, <span class="keyword">const</span> <span class="keywordtype">char</span> *func, <span class="keyword">const</span> <span class="keywordtype">char</span> *msg, ...)</div>
+<div class="line"><a id="l00589" name="l00589"></a><span class="lineno">  589</span>   __attribute__((noreturn, format(printf, 4, 5)));</div>
+<div class="line"><a id="l00590" name="l00590"></a><span class="lineno">  590</span><span class="keywordtype">void</span> __rsp_check_assert(const <span class="keywordtype">char</span> *file, <span class="keywordtype">int</span> line, const <span class="keywordtype">char</span> *func);</div>
+<div class="line"><a id="l00591" name="l00591"></a><span class="lineno">  591</span><span class="preprocessor">#else</span></div>
+<div class="line"><a id="l00592" name="l00592"></a><span class="lineno">  592</span><span class="keyword">static</span> <span class="keyword">inline</span> <span class="keywordtype">void</span> __rsp_check_assert(<span class="keyword">const</span> <span class="keywordtype">char</span> *file, <span class="keywordtype">int</span> line, <span class="keyword">const</span> <span class="keywordtype">char</span> *func) {}</div>
+<div class="line"><a id="l00593" name="l00593"></a><span class="lineno">  593</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00595" name="l00595"></a><span class="lineno">  595</span> </div>
+<div class="line"><a id="l00596" name="l00596"></a><span class="lineno">  596</span><span class="preprocessor">#ifdef __cplusplus</span></div>
+<div class="line"><a id="l00597" name="l00597"></a><span class="lineno">  597</span>}</div>
+<div class="line"><a id="l00598" name="l00598"></a><span class="lineno">  598</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00599" name="l00599"></a><span class="lineno">  599</span> </div>
+<div class="line"><a id="l00600" name="l00600"></a><span class="lineno">  600</span><span class="preprocessor">#endif</span></div>
 <div class="ttc" id="arsp_8c_html_a59afeb53c45d1c7956187b7c8059e23a"><div class="ttname"><a href="rsp_8c.html#a59afeb53c45d1c7956187b7c8059e23a">__rsp_run_async</a></div><div class="ttdeci">void __rsp_run_async(uint32_t status_flags)</div><div class="ttdoc">Internal implementation of rsp_run_async.</div><div class="ttdef"><b>Definition</b> rsp.c:153</div></div>
 <div class="ttc" id="arsp_8h_html_a0508fe05f465102e111d6f6ae0598058"><div class="ttname"><a href="rsp_8h.html#a0508fe05f465102e111d6f6ae0598058">rsp_load_code</a></div><div class="ttdeci">void rsp_load_code(void *code, unsigned long size, unsigned int imem_offset)</div><div class="ttdoc">Do a DMA transfer to load a piece of code into RSP IMEM.</div><div class="ttdef"><b>Definition</b> rsp.c:69</div></div>
 <div class="ttc" id="arsp_8h_html_a290a25cf74ccb2417b8165f0fb373b3e"><div class="ttname"><a href="rsp_8h.html#a290a25cf74ccb2417b8165f0fb373b3e">rsp_snapshot_t::pc</a></div><div class="ttdeci">uint32_t pc</div><div class="ttdoc">Program counter.</div><div class="ttdef"><b>Definition</b> rsp.h:267</div></div>
 <div class="ttc" id="arsp_8h_html_a31d4a6206ad563c4153915037b25401e"><div class="ttname"><a href="rsp_8h.html#a31d4a6206ad563c4153915037b25401e">rsp_read_code</a></div><div class="ttdeci">void rsp_read_code(void *code, unsigned long size, unsigned int imem_offset)</div><div class="ttdoc">Do a DMA transfer to load a piece of code from RSP IMEM to RDRAM.</div><div class="ttdef"><b>Definition</b> rsp.c:111</div></div>
 <div class="ttc" id="arsp_8h_html_a5d8697b67857ad9bd55885c0eb79c984"><div class="ttname"><a href="rsp_8h.html#a5d8697b67857ad9bd55885c0eb79c984">rsp_wait</a></div><div class="ttdeci">void rsp_wait(void)</div><div class="ttdoc">Wait until RSP has finished processing.</div><div class="ttdef"><b>Definition</b> rsp.c:161</div></div>
-<div class="ttc" id="arsp_8h_html_a896f4959706e9ecb62ecf2de43bcb276"><div class="ttname"><a href="rsp_8h.html#a896f4959706e9ecb62ecf2de43bcb276">rsp_run_async</a></div><div class="ttdeci">void rsp_run_async(void)</div><div class="ttdoc">Run RSP async.</div><div class="ttdef"><b>Definition</b> rsp.h:397</div></div>
+<div class="ttc" id="arsp_8h_html_a896f4959706e9ecb62ecf2de43bcb276"><div class="ttname"><a href="rsp_8h.html#a896f4959706e9ecb62ecf2de43bcb276">rsp_run_async</a></div><div class="ttdeci">void rsp_run_async(void)</div><div class="ttdoc">Run RSP async.</div><div class="ttdef"><b>Definition</b> rsp.h:405</div></div>
 <div class="ttc" id="arsp_8h_html_a9b06ba89506266ccb7c962872f0c783b"><div class="ttname"><a href="rsp_8h.html#a9b06ba89506266ccb7c962872f0c783b">rsp_run</a></div><div class="ttdeci">void rsp_run(void)</div><div class="ttdoc">Run RSP ucode.</div><div class="ttdef"><b>Definition</b> rsp.c:172</div></div>
 <div class="ttc" id="arsp_8h_html_abaaa649a5d63d3a901aa029f18743852"><div class="ttname"><a href="rsp_8h.html#abaaa649a5d63d3a901aa029f18743852">rsp_load</a></div><div class="ttdeci">void rsp_load(rsp_ucode_t *ucode)</div><div class="ttdoc">Load a RSP ucode.</div><div class="ttdef"><b>Definition</b> rsp.c:61</div></div>
 <div class="ttc" id="arsp_8h_html_ac3a09625a4dc302db558f31599a8169d"><div class="ttname"><a href="rsp_8h.html#ac3a09625a4dc302db558f31599a8169d">rsp_init</a></div><div class="ttdeci">void rsp_init(void)</div><div class="ttdoc">Initialize the RSP subsytem.</div><div class="ttdef"><b>Definition</b> rsp.c:52</div></div>
@@ -315,16 +316,16 @@ $(document).ready(function() { init_codefold(0); });
 <div class="ttc" id="astructrsp__ucode__t_html"><div class="ttname"><a href="structrsp__ucode__t.html">rsp_ucode_t</a></div><div class="ttdoc">RSP ucode definition.</div><div class="ttdef"><b>Definition</b> rsp.h:282</div></div>
 <div class="ttc" id="astructrsp__ucode__t_html_a6f2230405eb699e5ee6b9c57e428024d"><div class="ttname"><a href="structrsp__ucode__t.html#a6f2230405eb699e5ee6b9c57e428024d">rsp_ucode_t::code_end</a></div><div class="ttdeci">void * code_end</div><div class="ttdoc">Pointer past the end of the code segment.</div><div class="ttdef"><b>Definition</b> rsp.h:284</div></div>
 <div class="ttc" id="astructrsp__ucode__t_html_a780f51447c0b4d8b2dc9ab0e1f124ebc"><div class="ttname"><a href="structrsp__ucode__t.html#a780f51447c0b4d8b2dc9ab0e1f124ebc">rsp_ucode_t::code</a></div><div class="ttdeci">uint8_t * code</div><div class="ttdoc">Pointer to the code segment.</div><div class="ttdef"><b>Definition</b> rsp.h:283</div></div>
-<div class="ttc" id="astructrsp__ucode__t_html_a885df4ab658fa796ab6a53adcb2834ee"><div class="ttname"><a href="structrsp__ucode__t.html#a885df4ab658fa796ab6a53adcb2834ee">rsp_ucode_t::meta</a></div><div class="ttdeci">uint8_t * meta</div><div class="ttdoc">Pointer to the meta segment.</div><div class="ttdef"><b>Definition</b> rsp.h:287</div></div>
-<div class="ttc" id="astructrsp__ucode__t_html_a8ea5f87dbbd2f922a67d8768b845d027"><div class="ttname"><a href="structrsp__ucode__t.html#a8ea5f87dbbd2f922a67d8768b845d027">rsp_ucode_t::name</a></div><div class="ttdeci">const char * name</div><div class="ttdoc">Name of the ucode.</div><div class="ttdef"><b>Definition</b> rsp.h:290</div></div>
+<div class="ttc" id="astructrsp__ucode__t_html_a885df4ab658fa796ab6a53adcb2834ee"><div class="ttname"><a href="structrsp__ucode__t.html#a885df4ab658fa796ab6a53adcb2834ee">rsp_ucode_t::meta</a></div><div class="ttdeci">uint8_t * meta</div><div class="ttdoc">Pointer to the meta segment.</div><div class="ttdef"><b>Definition</b> rsp.h:295</div></div>
+<div class="ttc" id="astructrsp__ucode__t_html_a8ea5f87dbbd2f922a67d8768b845d027"><div class="ttname"><a href="structrsp__ucode__t.html#a8ea5f87dbbd2f922a67d8768b845d027">rsp_ucode_t::name</a></div><div class="ttdeci">const char * name</div><div class="ttdoc">Name of the ucode.</div><div class="ttdef"><b>Definition</b> rsp.h:298</div></div>
 <div class="ttc" id="astructrsp__ucode__t_html_aa8dab65f79da7a820769f7a6e9ba69ae"><div class="ttname"><a href="structrsp__ucode__t.html#aa8dab65f79da7a820769f7a6e9ba69ae">rsp_ucode_t::data_end</a></div><div class="ttdeci">void * data_end</div><div class="ttdoc">Pointer past the end of the data segment.</div><div class="ttdef"><b>Definition</b> rsp.h:286</div></div>
-<div class="ttc" id="astructrsp__ucode__t_html_ac0f4475a703c8ce199840729bd011c0c"><div class="ttname"><a href="structrsp__ucode__t.html#ac0f4475a703c8ce199840729bd011c0c">rsp_ucode_t::start_pc</a></div><div class="ttdeci">uint32_t start_pc</div><div class="ttdoc">Initial RSP PC.</div><div class="ttdef"><b>Definition</b> rsp.h:291</div></div>
+<div class="ttc" id="astructrsp__ucode__t_html_ac0f4475a703c8ce199840729bd011c0c"><div class="ttname"><a href="structrsp__ucode__t.html#ac0f4475a703c8ce199840729bd011c0c">rsp_ucode_t::start_pc</a></div><div class="ttdeci">uint32_t start_pc</div><div class="ttdoc">Initial RSP PC.</div><div class="ttdef"><b>Definition</b> rsp.h:299</div></div>
 <div class="ttc" id="astructrsp__ucode__t_html_ad5c028086c782260a7ac34dcbe67547e"><div class="ttname"><a href="structrsp__ucode__t.html#ad5c028086c782260a7ac34dcbe67547e">rsp_ucode_t::data</a></div><div class="ttdeci">uint8_t * data</div><div class="ttdoc">Pointer to the data segment.</div><div class="ttdef"><b>Definition</b> rsp.h:285</div></div>
-<div class="ttc" id="astructrsp__ucode__t_html_af6450db8e75436b62cf8166d60d6ceaa"><div class="ttname"><a href="structrsp__ucode__t.html#af6450db8e75436b62cf8166d60d6ceaa">rsp_ucode_t::meta_end</a></div><div class="ttdeci">void * meta_end</div><div class="ttdoc">Pointer past the end of the meta segment.</div><div class="ttdef"><b>Definition</b> rsp.h:288</div></div>
+<div class="ttc" id="astructrsp__ucode__t_html_af6450db8e75436b62cf8166d60d6ceaa"><div class="ttname"><a href="structrsp__ucode__t.html#af6450db8e75436b62cf8166d60d6ceaa">rsp_ucode_t::meta_end</a></div><div class="ttdeci">void * meta_end</div><div class="ttdoc">Pointer past the end of the meta segment.</div><div class="ttdef"><b>Definition</b> rsp.h:296</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jun 8 2026 18:27:20 for libdragon by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
+Generated on Wed Jun 10 2026 22:36:47 for libdragon by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
 </small></address>
 </body>
 </html>

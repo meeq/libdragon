@@ -202,7 +202,7 @@ Functions</h2></td></tr>
 <dl class="section author"><dt>Author</dt><dd>Giovanni Bajo <a href="#" onclick="location.href='mai'+'lto:'+'gio'+'va'+'nni'+'ba'+'jo@'+'gm'+'ail'+'.c'+'om'; return false;">giova<span class="obfuscator">.nosp@m.</span>nnib<span class="obfuscator">.nosp@m.</span>ajo@g<span class="obfuscator">.nosp@m.</span>mail<span class="obfuscator">.nosp@m.</span>.com</a> </dd></dl>
 <p>This module implements filesystem access to the information stored in the controller pak, called "notes".</p>
 <p>To check whether a controller pak is present, you can use <a class="el" href="group__joypad.html#gab9f9440ae434b228dbd49f1c70009417" title="Get the Joypad accessory type for a Joypad port.">joypad_get_accessory_type</a>, from the joypad module.</p>
-<h2><a class="anchor" id="autotoc_md68"></a>
+<h2><a class="anchor" id="autotoc_md77"></a>
 Filesystem usage</h2>
 <p>Call <a class="el" href="cpakfs_8h.html#a2bd91977be430e2d83c9509a9f9ba364" title="Mount the controller pak as filesystem.">cpakfs_mount</a> to mount the controller pak associated to a certain joypad port, and then use standard C functions to access the notes as files in the mounted filesystem. The filesystem exposes a flat structure where all files are located at the root level using the format: "GAME.PU-filename.ext", where:</p><ul>
 <li>GAME is a 4-character game code (or 8-character hex for non-alphanumeric)</li>
@@ -228,17 +228,17 @@ Filesystem usage</h2>
 </div><!-- fragment --><p>To iterate over the notes in a controller pak, you can use the directory functions defined in <a class="el" href="dir_8h.html" title="Directory handling.">dir.h</a> (eg: <a class="el" href="system_8c.html#af069d9aae45f54cadde63548780ca64a" title="Find the first file in a directory.">dir_findfirst</a>, <a class="el" href="dir_8c.html#a6fff7ad2762179c1a3db26170e2926fe" title="Walk a directory tree.">dir_walk</a>, <a class="el" href="dir_8c.html#a9e23f5bba8b68bb4b7b99037983797c9" title="Glob a directory tree using a pattern.">dir_glob</a>).</p>
 <p>To write a note, create a file in the mounted filesystem using fopen, and then write the data to it using fwrite.</p>
 <p>To unmount the controller pak filesystem, call <a class="el" href="cpakfs_8h.html#a89a87777534f536d628296dc67164997" title="Unmount the controller pak filesystem.">cpakfs_unmount</a>.</p>
-<h2><a class="anchor" id="autotoc_md69"></a>
+<h2><a class="anchor" id="autotoc_md78"></a>
 Codepage of filenames and extensions</h2>
 <p>Filenames and extensions in the controller pak filesystem are encoded using a special codepage, where only a subset of ASCII characters are allowed, plus some Kanji characters. Notably, lowercase letters are not allowed.</p>
 <p>In cpaks, you must specify filenames as UTF-8 strings. If the filename cannot be represented in the codepage, you will get an error (with errno EINVAL). The only exception is that lowercase letters are automatically converted to uppercase, just like a non-case-sensitive filesystem would do.</p>
 <p>The special codepage allows also for embedded NULs in filenames. Since these cannot be directly represented in C strings, you can use the special character <code>\001</code> as replacement for NUL. For instance, to create a file with an embedded NUL, you can do the following:</p>
 <div class="fragment"><div class="line"><span class="comment">// Create a file whose filename is &quot;FOO&lt;NUL&gt;BAR&quot;</span></div>
 <div class="line">FILE *f = fopen(<span class="stringliteral">&quot;cpak1:/GAME.01-FOO\001BAR.TXT&quot;</span>, <span class="stringliteral">&quot;wb&quot;</span>);</div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md70"></a>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md79"></a>
 Error codes</h2>
 <p>The filesystem tries to be POSIX compliant, so make sure to check error codes via errno if an operation fails. In particular, the following error codes can be returned.</p>
-<h3><a class="anchor" id="autotoc_md71"></a>
+<h3><a class="anchor" id="autotoc_md80"></a>
 Controller Pak specific errors</h3>
 <ul>
 <li>EIO: Input/output error on the wire. The serial connection is faulty, so either the cable is damaged or the cpak is electrically unstable.</li>
@@ -251,7 +251,7 @@ Controller Pak specific errors</h3>
 <li>ENOENT: No such file or directory. The requested file does not exist, or no more directory entries are available during directory iteration.</li>
 <li>EINVAL: Invalid argument. For directory operations, the path is not "/" (the root directory). For file operations, the filename format is invalid. Also returned for invalid file descriptors or null pointers.</li>
 </ul>
-<h3><a class="anchor" id="autotoc_md72"></a>
+<h3><a class="anchor" id="autotoc_md81"></a>
 Generic filesystem errors</h3>
 <ul>
 <li>EBADF: Bad file descriptor. The file was not opened for the attempted operation (e.g., trying to read from a file opened only for writing).</li>
@@ -920,7 +920,7 @@ negative If a physical error occurred (eg: no cpak on the specified port), and e
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jun 8 2026 18:27:20 for libdragon by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
+Generated on Wed Jun 10 2026 22:36:47 for libdragon by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
 </small></address>
 </body>
 </html>

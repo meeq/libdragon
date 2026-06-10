@@ -120,13 +120,13 @@ Functions</h2></td></tr>
 <dl class="section author"><dt>Author</dt><dd>Giovanni Bajo <a href="#" onclick="location.href='mai'+'lto:'+'gio'+'va'+'nni'+'ba'+'jo@'+'gm'+'ail'+'.c'+'om'; return false;">giova<span class="obfuscator">.nosp@m.</span>nnib<span class="obfuscator">.nosp@m.</span>ajo@g<span class="obfuscator">.nosp@m.</span>mail<span class="obfuscator">.nosp@m.</span>.com</a> </dd></dl>
 <p>This module contains higher-level functions to interact with BBFS, the flash filesystem used by the iQue Player.</p>
 <p>Access to the filesystem is provided through the standard C/POSIX file I/O functions, after calling <a class="el" href="bbfs_8h.html#aaddec0a5c886eed1dc1cde484b146be6" title="Initialize the iQue NAND filesystem library.">bbfs_init</a> to mount the filesystem. To name files on the filesystem, use the "bbfs:/" prefix.</p>
-<h2><a class="anchor" id="autotoc_md62"></a>
+<h2><a class="anchor" id="autotoc_md71"></a>
 Filesystem operations</h2>
 <p>Most standard operations are supported, including reading, writing, seeking. Notice that directories are not supported by the filesystem, so all files are treated as part of a "root" directory ("/").</p>
 <p>All write operations update the ECC code stored by the NAND on each page, and all read operations verify the ECC code and use it to correct single-bit errors. If the ECC code cannot correct the error, the read operation will fail and errno will be set to EIO. In this case, the data in the filesystem is likely corrupted.</p>
 <p>In general, writing on a flash filesystem always requires erasing each block being written (with a block being 16 KiB). This is performed lazily so that it is possible to write multiple times to the same block without performance penalty (the block will be written down once). The library also performs a basic wear leveling to avoid wearing out the same blocks over and over.</p>
 <p>Truncating files via <a class="el" href="system_8c.html#a87674838dd2bcf61e1a1fb5c9892ab6c" title="Truncate a file to the specified length.">truncate</a> is also possible, and can be used to either reduce or increase the file size. When increasing the file size, the new data is zeroed out, unless otherwise written. Truncation happens lazily, so that it is possible to truncate a file to a larger size and then write data to it without causing a performance penalty.</p>
-<h2><a class="anchor" id="autotoc_md63"></a>
+<h2><a class="anchor" id="autotoc_md72"></a>
 ROMs and memory mapping</h2>
 <p>One common content of the filesystem is ROMs, which can be memory-mapped into the emulated PI address space.</p>
 <p>To be able to boot a ROM, the ROM must be written in the filesystem, and then memory mapped via <a class="el" href="nand_8c.html#a501ee9a86770b5273323b9cd0e771215" title="Memory-map flash blocks to PI address space via ATB.">nand_mmap</a>. This requires providing the list of the blocks that contain the ROM data. To facilitate this, <a class="el" href="bbfs_8h.html#af6b5d98c56a99650951b42f1d1631383" title="Return the indices of NAND blocks that contain the file data.">bbfs_get_file_blocks</a> is provided to retrieve the list of blocks, that can then be passed to <a class="el" href="nand_8c.html#a501ee9a86770b5273323b9cd0e771215" title="Memory-map flash blocks to PI address space via ATB.">nand_mmap</a>.</p>
@@ -152,15 +152,15 @@ ROMs and memory mapping</h2>
 <div class="line">fclose(f);</div>
 <div class="ttc" id="asystem_8c_html_aa1cc997e92371733ee54ac57dcc73c75"><div class="ttname"><a href="system_8c.html#aa1cc997e92371733ee54ac57dcc73c75">ftruncate</a></div><div class="ttdeci">int ftruncate(int file, off_t length)</div><div class="ttdoc">Truncate a file to the specified length.</div><div class="ttdef"><b>Definition</b> system.c:1452</div></div>
 </div><!-- fragment --><p>To see an example of using the <a class="el" href="system_8c.html#a342c2eae35d44df768ec0634c76bf68b" title="Perform IO Control Request.">ioctl</a> instead, see <a class="el" href="bbfs_8h.html#a32fdcd418bdca772873f36ab465cb4ab" title="ioctl to notify the filesystem that a certain file must be stored as contiguous.">IOBBFS_SET_CONTIGUOUS</a>.</p>
-<h2><a class="anchor" id="autotoc_md64"></a>
+<h2><a class="anchor" id="autotoc_md73"></a>
 Filesytem consistency checks</h2>
 <p>The library also offers a function to check the filesystem consistency: <a class="el" href="bbfs_8h.html#ad4fc9018cc0132f2e5a90faafd504f4c" title="Verify the integrity of the filesystem, and optionally try to fix it.">bbfs_fsck</a>. This function will scan the filesystem and check for logic errors in the filesystem structure. If the filesystem is corrupted, it can optionally try to fix the errors.</p>
 <p>For errors that affect specific files, the portions of the files that can be recovered are saved with the name "FSCK1234.XXX" where 1234 is a random number.</p>
 <p>Notice that currently this function does not check the integrity of the data stored in the filesystem (via ECC), only the filesystem structure.</p>
-<h2><a class="anchor" id="autotoc_md65"></a>
+<h2><a class="anchor" id="autotoc_md74"></a>
 Error codes</h2>
 <p>The filesystem tries to be POSIX compliant, so make sure to check error codes via errno if an operation fails. In particular, the following error codes can be returned:</p>
-<h3><a class="anchor" id="autotoc_md66"></a>
+<h3><a class="anchor" id="autotoc_md75"></a>
 BBFS specific errors</h3>
 <ul>
 <li>EIO: Input/output error during NAND flash operations. This can indicate hardware failure, corrupted ECC data, or other flash-related issues.</li>
@@ -170,7 +170,7 @@ BBFS specific errors</h3>
 <li>EINVAL: Invalid argument. The filename format is invalid (longer than 8.3 format), or invalid path for directory operations (must be "/").</li>
 <li>ENOTTY: Inappropriate ioctl for device. The ioctl request is not supported by the BBFS filesystem.</li>
 </ul>
-<h3><a class="anchor" id="autotoc_md67"></a>
+<h3><a class="anchor" id="autotoc_md76"></a>
 Generic filesystem errors</h3>
 <ul>
 <li>EBADF: Bad file descriptor. The file was not opened for the attempted operation (e.g., trying to read from a file opened only for writing, or trying to write to a file opened only for reading).</li>
@@ -341,7 +341,7 @@ Generic filesystem errors</h3>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jun 8 2026 18:27:20 for libdragon by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
+Generated on Wed Jun 10 2026 22:36:47 for libdragon by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
 </small></address>
 </body>
 </html>

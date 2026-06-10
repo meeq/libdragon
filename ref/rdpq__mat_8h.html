@@ -135,7 +135,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>rdpq_matdb_close</b> 
 <p>The RDP material system provides a high-level API for managing complex rendering state by organizing related RDP settings into reusable "materials". A material encapsulates textures, combiners, blending modes, and other RDP state that define how primitives should be rendered, allowing for efficient switching between different visual appearances.</p>
 <p>Materials can contain textures, color combiner formulas, blending modes, antialiasing settings, fog parameters, Z-buffer configuration, and various render mode overrides. They also support an extensible system for storing custom key-value pairs, making them suitable for advanced rendering pipelines and integration with external tools.</p>
 <p>The material system is designed for performance, with efficient binary formats for storage and fast lookup mechanisms. Materials are typically created using the mkmaterial tool and stored in material database (.mdb) files, which can contain multiple materials with fast name-based lookup.</p>
-<h2><a class="anchor" id="autotoc_md81"></a>
+<h2><a class="anchor" id="autotoc_md101"></a>
 Basic Usage</h2>
 <p>The typical workflow involves:</p><ol type="1">
 <li>Configure the texture database path with <a class="el" href="rdpq__mat_8h.html#ad5b093602dd4a547fe1b5b2eff36c893" title="Set the path in which the texture DB is stored.">rdpq_mat_set_texture_path</a>. This was created via mkmaterial and should normally be stored in the ROM (though any valid filesystem can be used, including SD, etc.).</li>
@@ -147,16 +147,16 @@ Basic Usage</h2>
 <li>Free materials when done with <a class="el" href="rdpq__mat_8h.html#ac135a91b365bf88bdb8037eed8f7b613" title="Free a material loaded with rdpq_matdb_load or rdpq_mat_load_buf.">rdpq_mat_free</a></li>
 <li>Close the material database with <a class="el" href="rdpq__mat_8h.html#af4759a45cc8917bff49ef6f4ecc60677" title="Close a material database.">rdpq_matdb_close</a> when not needed anymore.</li>
 </ol>
-<h2><a class="anchor" id="autotoc_md82"></a>
+<h2><a class="anchor" id="autotoc_md102"></a>
 Source material files</h2>
 <p>Materials (.mat files) are INI files that describe all the properties of one or multiple materials. They can be processed by the mkmaterial tool to generate the binary material database (.mdb) files used at runtime. An alternative representation in json format (.jmat files) is also supported, which is useful when generating materials via a tool (eg: exporting from a 3D editor).</p>
-<h2><a class="anchor" id="autotoc_md83"></a>
+<h2><a class="anchor" id="autotoc_md103"></a>
 Material Database Files</h2>
 <p>Material databases (.mdb files) are binary files that efficiently store multiple materials with metadata for fast loading and lookup. You can use a single material database for a whole scene, or just one per model, depending on how your asset pipeline is structured.</p>
-<h2><a class="anchor" id="autotoc_md84"></a>
+<h2><a class="anchor" id="autotoc_md104"></a>
 Texture Management</h2>
 <p>Materials reference textures by hash, allowing the same texture to be shared across multiple materials efficiently. Textures are loaded on-demand and cached automatically. Configure the texture search path using <a class="el" href="rdpq__mat_8h.html#ad5b093602dd4a547fe1b5b2eff36c893" title="Set the path in which the texture DB is stored.">rdpq_mat_set_texture_path</a>.</p>
-<h2><a class="anchor" id="autotoc_md85"></a>
+<h2><a class="anchor" id="autotoc_md105"></a>
 Extension System</h2>
 <p>Materials support custom extensions through a key-value system that can store integers, floats, strings, and booleans. This allows materials to carry application-specific data or parameters for custom shaders and rendering techniques. </p>
 </div><h2 class="groupheader">Macro Definition Documentation</h2>
@@ -572,7 +572,7 @@ Extension System</h2>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jun 8 2026 18:27:20 for libdragon by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
+Generated on Wed Jun 10 2026 22:36:47 for libdragon by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
 </small></address>
 </body>
 </html>

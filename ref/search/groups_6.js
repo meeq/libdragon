@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['fast_20math_20routines_0',['Fast math routines',['../group__fastmath.html',1,'']]],
-  ['filesystem_20routines_1',['Controller Pak Filesystem Routines',['../group__controllerpak.html',1,'']]]
+  ['eeprom_20subsystem_0',['EEPROM subsystem',['../group__eeprom.html',1,'']]],
+  ['emux_1',['emux',['../group__emux.html',1,'']]],
+  ['exception_20handler_2',['Exception Handler',['../group__exceptions.html',1,'']]]
 ];

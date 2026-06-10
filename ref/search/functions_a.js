@@ -60,7 +60,7 @@ var searchData=
   ['joypad_5fpoll_57',['joypad_poll',['../group__joypad.html#gad9815329c5e3b6fc5e7765b7d9e04fed',1,'joypad.c']]],
   ['joypad_5fread_5fn64_5finputs_58',['joypad_read_n64_inputs',['../group__joypad.html#ga6aca2f06f5999ac19c5461c9989efbda',1,'joypad.c']]],
   ['joypad_5frumble_5fpak_5ftoggle_5fasync_59',['joypad_rumble_pak_toggle_async',['../group__joypad.html#ga666b57f9bc9481e6a1d580893fb19c58',1,'joypad_accessory.c']]],
-  ['joypad_5fset_5frumble_5factive_60',['joypad_set_rumble_active',['../group__joypad.html#ga0840c968de41f13e99c28515015b5d42',1,'joypad.c']]],
+  ['joypad_5fset_5frumble_5factive_60',['joypad_set_rumble_active',['../group__joypad.html#ga0840c968de41f13e99c28515015b5d42',1,'joypad_accessory.c']]],
   ['joypad_5ftransfer_5fpak_5fenable_5fasync_61',['joypad_transfer_pak_enable_async',['../group__joypad.html#ga7e45892f53c1ee58d64054f22c004e51',1,'joypad_accessory.c']]],
   ['joypad_5ftransfer_5fpak_5fload_5fasync_62',['joypad_transfer_pak_load_async',['../group__joypad.html#ga59830c0e67969690f4f9054285678625',1,'joypad_accessory.c']]],
   ['joypad_5ftransfer_5fpak_5fstore_5fasync_63',['joypad_transfer_pak_store_async',['../group__joypad.html#ga9c469c230cd34d3f695c23bc26082d0c',1,'joypad_accessory.c']]],

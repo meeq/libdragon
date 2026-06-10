@@ -197,7 +197,7 @@ Functions</h2></td></tr>
 <li><a class="el" href="rdpq__text_8h.html#a480e58a2b82c9c3c502c8604b9b6ee6d" title="Layout and render a text in a single call.">rdpq_text_print</a>: print a text which is provided as a 0-terminated string.</li>
 <li><a class="el" href="rdpq__text_8h.html#a3c7ff160ec233a5f90ead06d23f03fb6" title="Layout and render a formatted text in a single call.">rdpq_text_printf</a>: print a text using a printf-like format string.</li>
 </ul>
-<h2><a class="anchor" id="autotoc_md87"></a>
+<h2><a class="anchor" id="autotoc_md107"></a>
 Wrapping lines</h2>
 <p>To draw longer texts that don't fit in a single line, you can use the advanced layout rules provided by <a class="el" href="rdpq__text_8h.html#structrdpq__textparms__t" title="Print formatting parameters.">rdpq_textparms_t</a>. For instance, this will draw a text with a maximum width of 200 pixels, and will perform word-wrapping:</p>
 <div class="fragment"><div class="line"><span class="keywordtype">char</span> *text = <span class="stringliteral">&quot;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.&quot;</span>;</div>
@@ -218,7 +218,7 @@ Wrapping lines</h2>
 <p>Wrapping modes require a maximum width to be specified in the parameters, otherwise the layout engine will not know where to wrap the text.</p>
 <p>Print functions will also respect embedded newlines (<br  />
 ); in this case, specifying a width is not required.</p>
-<h2><a class="anchor" id="autotoc_md88"></a>
+<h2><a class="anchor" id="autotoc_md108"></a>
 Multi-style text</h2>
 <p>It is possible to change font and/or style within a text using escape codes. Escape codes are sequences of the form:</p>
 <p>$xx Select font "xx", where "xx" is the hexadecimal ID of the font For instance, $04 will switch to font 4. The current style is reset to 0. ^xx Switch to style "xx" of the current font, where "xx" is the hexadecimal ID of the style. For instance, ^02 will switch to style 2. A "style" is an font-dependent rendering style, which can be anything (a color, a faux-italic variant, etc.). The styles available for each font can be configured via <a class="el" href="rdpq__font_8c.html#a5044aa74074b81a9ce7beabe3f0c7320" title="Create a style for a font.">rdpq_font_style</a>.</p>
@@ -244,7 +244,7 @@ Multi-style text</h2>
 <div class="line">    <span class="stringliteral">&quot;Hello, ^01world^00! ^02This^00 is ^03a^00 ^04test^00.&quot;</span>);</div>
 <div class="ttc" id="ardpq__font_8c_html_a5044aa74074b81a9ce7beabe3f0c7320"><div class="ttname"><a href="rdpq__font_8c.html#a5044aa74074b81a9ce7beabe3f0c7320">rdpq_font_style</a></div><div class="ttdeci">void rdpq_font_style(rdpq_font_t *fnt, uint8_t style_id, const rdpq_fontstyle_t *style)</div><div class="ttdoc">Create a style for a font.</div><div class="ttdef"><b>Definition</b> rdpq_font.c:399</div></div>
 <div class="ttc" id="astructrdpq__fontstyle__t_html"><div class="ttname"><a href="structrdpq__fontstyle__t.html">rdpq_fontstyle_t</a></div><div class="ttdoc">A style for a font.</div><div class="ttdef"><b>Definition</b> rdpq_font.h:121</div></div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md89"></a>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md109"></a>
 Other examples</h2>
 <p>Example 3: draw the text with a transparent box behind it</p>
 <div class="fragment"><div class="line"><span class="comment">// First, calculate the layout of the text</span></div>
@@ -876,7 +876,7 @@ Number of lines rendered (including wrapped lines) </td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jun 8 2026 18:27:20 for libdragon by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
+Generated on Wed Jun 10 2026 22:36:47 for libdragon by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
 </small></address>
 </body>
 </html>

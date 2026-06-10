@@ -438,12 +438,12 @@ const <a class="el" href="vi_8h.html#structvi__timing__preset__t">vi_timing_pres
 <div class="textblock"><p>Video Interface Subsystem. </p>
 <dl class="section author"><dt>Author</dt><dd>Giovanni Bajo <a href="#" onclick="location.href='mai'+'lto:'+'gio'+'va'+'nni'+'ba'+'jo@'+'gm'+'ail'+'.c'+'om'; return false;">giova<span class="obfuscator">.nosp@m.</span>nnib<span class="obfuscator">.nosp@m.</span>ajo@g<span class="obfuscator">.nosp@m.</span>mail<span class="obfuscator">.nosp@m.</span>.com</a> </dd></dl>
 <p>This module offers a low-level interface to VI programming. Most applications should use <a class="el" href="display_8h.html" title="Display Subsystem.">display.h</a>, which sits on top of <a class="el" href="vi_8h.html" title="Video Interface Subsystem.">vi.h</a>, and offers a higher level interface, plus automatic memory management of multiple framebuffers, FPS utilities, and much more.</p>
-<h2><a class="anchor" id="autotoc_md102"></a>
+<h2><a class="anchor" id="autotoc_md122"></a>
  Register read/write access</h2>
 <p>This module defines a set of macros to directly access the VI registers, including macros to compose different fields in the registers. While read access is straightforward, write access is generally more complicated because VI is quite picky about the timing of register writes: most registers can only be written during vblank.</p>
 <p>To help with that, this module provides a set of functions to write registers that will be applied at the next vblank: <a class="el" href="vi_8h.html#a8c4d95f8f98602a24200020a67675c32" title="Write a VI register at next vblank.">vi_write</a> and <a class="el" href="vi_8h.html#a83163fe6bfd4c14789da9a84f763b242" title="Partially write a VI register at next vblank.">vi_write_masked</a>. To batch multiple register writes, you can use <a class="el" href="vi_8h.html#a41d918a0885ce52ad0f4d998c57f90dd" title="Begin a batch of register writes.">vi_write_begin</a> and <a class="el" href="vi_8h.html#a42fdb67995b52bfaf6d23ba2750a316f" title="End a batch of register writes.">vi_write_end</a>, so that you can be sure that all the registers will be written atomically at the next vblank.</p>
 <p><a class="el" href="vi_8h.html#a3fb4f5ee83f5967fb047e1172b58b71c" title="Read the current state of a register, including pending changes.">vi_read</a> can be used to read the current state of a register, including any pending changes (applied via <a class="el" href="vi_8h.html#a8c4d95f8f98602a24200020a67675c32" title="Write a VI register at next vblank.">vi_write</a>) that were not yet applied.</p>
-<h2><a class="anchor" id="autotoc_md103"></a>
+<h2><a class="anchor" id="autotoc_md123"></a>
  Higher level APIs</h2>
 <p>This module also includes some higher level APIs to configure the VI:</p>
 <ul>
@@ -454,7 +454,7 @@ const <a class="el" href="vi_8h.html#structvi__timing__preset__t">vi_timing_pres
 <li><a class="el" href="vi_8h.html#a835d20f5e49259d0e2c5f235f4f56da7" title="Set the active display output area.">vi_set_output</a> defines the active display area on the screen. <a class="el" href="vi_8h.html#aebf2e41530c1e99d917db06a2220d12b" title="Get the bounds for the output area.">vi_get_output_bounds</a> will provide the limits for it, while <a class="el" href="vi_8h.html#a79af76670e6377bf235717616a85d10f" title="Set the specified start position for the active display output area.">vi_move_output</a> and <a class="el" href="vi_8h.html#a0030207b069eda3247a82b6759e5120c" title="Scroll the active display area by the specified amount.">vi_scroll_output</a> can be used to just pan the display.</li>
 <li><a class="el" href="vi_8h.html#a7f343e12026916606cf867afe2f9427c" title="Configure the output area via the specified borders.">vi_set_borders</a> is an alternative to <a class="el" href="vi_8h.html#a835d20f5e49259d0e2c5f235f4f56da7" title="Set the active display output area.">vi_set_output</a>, that specifies the display area in terms of borders (with respect to the default one).</li>
 </ul>
-<h2><a class="anchor" id="autotoc_md104"></a>
+<h2><a class="anchor" id="autotoc_md124"></a>
 Active display area and framebuffer scaling</h2>
 <p>VI has a powerful resampling engine: the framebuffer is not displayed as-is on TV, but it is actually resampled (scaled, stretched), optionally with bilinear filtering. This is a very powerful hardware feature that is a bit complicated to configure, so an effort was made to expose an intuitive API to programmers.</p>
 <p>By default, this module configures the VI to resample an arbitrary framebuffer picture into a virtual 640x480 display output with 4:3 aspect ratio (on NTSC and MPAL), or a virtual 640x576 display output though with the same 4:3 aspect ratio on PAL. This is done to achieve TV type independence: since both resolution share the same aspect ratio on their respective TV standards (given that dots are square on NTSC but they are not on PAL), it means that the framebuffer will look the same on all TVs; on PAL, you will be trading additional vertical resolution (assuming the framebuffer is big enough to have that detail).</p>
@@ -474,14 +474,14 @@ Active display area and framebuffer scaling</h2>
 <p>For instance, if you specify 12 dots of borders on all the four edges, you will get a 616x456 display output (on NTSC), plus the requested 12 dots of borders on all sides; The same effect can be obtained by specifying the display output area as (120, 47) - (736, 503) with <a class="el" href="vi_8h.html#a835d20f5e49259d0e2c5f235f4f56da7" title="Set the active display output area.">vi_set_output</a>. This is because the default display area on NTSC is (108, 35) - (748, 515) (which can be found out via <a class="el" href="vi_8h.html#a33e740c09ef90958c909caf1534734df" title="Get the current active display output area.">vi_get_output</a>).</p>
 <p>Notice that adding borders also affects the aspect ratio of the display output; for instance, in the above example, the 616x456 display output is not exactly 4:3 anymore, but more like 4.05:3. By carefully calculating borders, thus, it is possible to obtain specific display outputs with custom aspect ratios (eg: 16:9).</p>
 <p>To help calculating the borders by taking both potential goals into account (overscan compensation and aspect ratio changes), you can use <a class="el" href="vi_8h.html#affa5f33d9319dd4eb87d2f48c1828652" title="Calculate correct VI borders for a target aspect ratio.">vi_calc_borders</a>.</p>
-<h2><a class="anchor" id="autotoc_md105"></a>
+<h2><a class="anchor" id="autotoc_md125"></a>
 Blank mode vs turning off the VI</h2>
 <p>Blank mode is a special state where the VI is still active (TV sync is generated) but no framebuffer is shown. This is useful for temporarily displaying a black picture while readying next framebuffer, and without losing TV sync in the process (as TVs or framegrabbers can be slow at re-locking to sync).</p>
 <p>Blank mode is automatically enabled when you call <code>vi_show(NULL)</code>, which is probably the most natural way for the user to temporarily blank the display. It can also be selectively enabled and disabled via <a class="el" href="vi_8h.html#aec5f16d86c68238aa5b2bcd9e4291cc0" title="Set blanking mode.">vi_blank</a>, for lower-level configurations.</p>
 <p>Blank mode is different from turning off the VI via <a class="el" href="vi_8h.html#a5376aac13d9b2d6770897db70337b7da" title="Close the VI module.">vi_close</a>: in the latter case, no video sync is generated, so most TVs will show static or a "no
 signal" message. This is useful mainly for testing purposes: normal applications shouldn't need to ever turn off the VI after boot, as VI allows to even change the framebuffer resolution without ever losing sync.</p>
 <p>Another important difference is that when the VI is turned off, VI interrupts are not generated. So handlers installed via <a class="el" href="vi_8h.html#a83c02ddfe3505556329f99bbaedcdffb" title="Install a custom vblank handler.">vi_install_vblank_handler</a> (or the lower level <a class="el" href="interrupt_8c.html#ab3d1ab2fc7617f717482d0a8896372ab" title="Register a VI callback.">register_VI_handler</a> in <a class="el" href="interrupt_8h.html" title="Interrupt Controller.">interrupt.h</a>) will not be called anymore. On the contrary, in blank mode, VI interrupts are still generated normally, so the application can still rely on them for timing purposes.</p>
-<h2><a class="anchor" id="autotoc_md106"></a>
+<h2><a class="anchor" id="autotoc_md126"></a>
 Working with interrupts disabled</h2>
 <p>Sometimes, the VI library can be used in highly specified contexts where interrupts are disabled (special test ROMs, emergency debug outputs, etc.)</p>
 <p>In these cases, after you change any setting with this library (eg: call <a class="el" href="vi_8h.html#af6f2b75eacaa85fe17d7daf348f434aa" title="Show the specified surface (at next vblank)">vi_show</a> to display a new buffer), you must also call <a class="el" href="vi_8h.html#abea6c9c33c883b67eea85462fddd287a" title="Wait for the beginning of next vblank period.">vi_wait_vblank</a>. This will block execution until the next vblank happens, and at that point all pending VI settings will also be applied.</p>
@@ -2455,7 +2455,7 @@ This setting is not compatible with dedithering (<a class="el" href="vi_8h.html#
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jun 8 2026 18:27:20 for libdragon by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
+Generated on Wed Jun 10 2026 22:36:48 for libdragon by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
 </small></address>
 </body>
 </html>

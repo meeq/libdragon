@@ -110,7 +110,7 @@ Files</h2></td></tr>
 <p>Current implementation uses a RAM master-copy with background write-back: reads are served from RAM cache (with lazy block fetch from EEPROM), writes update RAM immediately and are persisted asynchronously. This implies eventual consistency with physical EEPROM.</p>
 <p>Since writes happen in background, make sure to provide user feedback while writes are happening, checking with <a class="el" href="eeprom_8h.html#a9e25827bb79832fbff270917e3faea43" title="Return whether EEPROM flush is currently running.">eeprom_is_busy</a> and telling the user that a write is in progress.</p>
 <p>Shutting down the console while a write is in progress can result in the block being corrupted. EEPFS (<a class="el" href="eepromfs_8h.html" title="EEPROM Filesystem.">eepromfs.h</a>) provides higher-level filesystem integrity features to mitigate this.</p>
-<h2><a class="anchor" id="autotoc_md74"></a>
+<h2><a class="anchor" id="autotoc_md83"></a>
 Activating EEPROM in emulators or flashcarts</h2>
 <p>Libdragon offers support to advertise the need of an EEPROM to emulators and flashcarts. To do so, add <code>N64_ROM_SAVETYPE=eeprom4k</code> or <code>N64_ROM_SAVETYPE=eeprom16k</code> to your Makefile.</p>
 <p>This uses the advanced homebrew header which is supported by most emulators and flashcarts compatible with libdragon. It still advised to use the <a class="el" href="eeprom_8h.html#ad8d22be9ed8151aaf00f3aaa52909a87" title="Probe the EEPROM interface on the cartridge.">eeprom_present</a> and <a class="el" href="eeprom_8h.html#abf6fdff1ec1d5c3f51e1ab79cdec3530" title="Determine how many blocks of EEPROM exist on the cartridge.">eeprom_total_blocks</a> functions to probe the EEPROM and gracefully handles the case where no EEPROM is present, even if it was requested.</p>
@@ -118,7 +118,7 @@ Activating EEPROM in emulators or flashcarts</h2>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jun 8 2026 18:27:21 for libdragon by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
+Generated on Wed Jun 10 2026 22:36:48 for libdragon by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
 </small></address>
 </body>
 </html>

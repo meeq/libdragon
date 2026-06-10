@@ -96,6 +96,9 @@ Macros</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
+<tr class="memitem:gac06031baeab573c3a40c9d282c400b5d" id="r_gac06031baeab573c3a40c9d282c400b5d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__joypad.html#gac06031baeab573c3a40c9d282c400b5d">__joypad_gcn_controller_rumble_toggle</a> (<a class="el" href="group__joypad.html#gaf1f491d1f9849be157cb4a50705c8dcb">joypad_port_t</a> port, bool active)</td></tr>
+<tr class="memdesc:gac06031baeab573c3a40c9d282c400b5d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Toggle the rumble state of a GameCube controller.  <br /></td></tr>
+<tr class="separator:gac06031baeab573c3a40c9d282c400b5d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga6aca2f06f5999ac19c5461c9989efbda" id="r_ga6aca2f06f5999ac19c5461c9989efbda"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__joypad.html#structjoypad__inputs__t">joypad_inputs_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__joypad.html#ga6aca2f06f5999ac19c5461c9989efbda">joypad_read_n64_inputs</a> (<a class="el" href="group__joypad.html#gaf1f491d1f9849be157cb4a50705c8dcb">joypad_port_t</a> port)</td></tr>
 <tr class="memdesc:ga6aca2f06f5999ac19c5461c9989efbda"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read the inputs from a Nintendo 64 controller synchronously.  <br /></td></tr>
 <tr class="separator:ga6aca2f06f5999ac19c5461c9989efbda"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -105,6 +108,10 @@ Functions</h2></td></tr>
 <tr class="memitem:gaea6ceda126939b118e75fb3116db3309" id="r_gaea6ceda126939b118e75fb3116db3309"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__joypad.html#gaea6ceda126939b118e75fb3116db3309">joypad_close</a> (void)</td></tr>
 <tr class="memdesc:gaea6ceda126939b118e75fb3116db3309"><td class="mdescLeft">&#160;</td><td class="mdescRight">Close the Joypad subsystem.  <br /></td></tr>
 <tr class="separator:gaea6ceda126939b118e75fb3116db3309"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gad7fc3b211e8ce49f330d5107d222fd81" id="r_gad7fc3b211e8ce49f330d5107d222fd81"><td class="memItemLeft" align="right" valign="top">
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>__joypad_is_initialized</b> (void)</td></tr>
+<tr class="memdesc:gad7fc3b211e8ce49f330d5107d222fd81"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if joypad_init has been called. <br /></td></tr>
+<tr class="separator:gad7fc3b211e8ce49f330d5107d222fd81"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gad9815329c5e3b6fc5e7765b7d9e04fed" id="r_gad9815329c5e3b6fc5e7765b7d9e04fed"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__joypad.html#gad9815329c5e3b6fc5e7765b7d9e04fed">joypad_poll</a> (void)</td></tr>
 <tr class="memdesc:gad9815329c5e3b6fc5e7765b7d9e04fed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fetch the current Joypad input state.  <br /></td></tr>
 <tr class="separator:gad9815329c5e3b6fc5e7765b7d9e04fed"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -126,9 +133,6 @@ Functions</h2></td></tr>
 <tr class="memitem:gaa4642833396a082c0924d43d013495c6" id="r_gaa4642833396a082c0924d43d013495c6"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__joypad.html#gaa4642833396a082c0924d43d013495c6">joypad_get_rumble_active</a> (<a class="el" href="group__joypad.html#gaf1f491d1f9849be157cb4a50705c8dcb">joypad_port_t</a> port)</td></tr>
 <tr class="memdesc:gaa4642833396a082c0924d43d013495c6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Is rumble active for a Joypad port?  <br /></td></tr>
 <tr class="separator:gaa4642833396a082c0924d43d013495c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga0840c968de41f13e99c28515015b5d42" id="r_ga0840c968de41f13e99c28515015b5d42"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__joypad.html#ga0840c968de41f13e99c28515015b5d42">joypad_set_rumble_active</a> (<a class="el" href="group__joypad.html#gaf1f491d1f9849be157cb4a50705c8dcb">joypad_port_t</a> port, bool active)</td></tr>
-<tr class="memdesc:ga0840c968de41f13e99c28515015b5d42"><td class="mdescLeft">&#160;</td><td class="mdescRight">Activate or deactivate rumble on a Joypad port.  <br /></td></tr>
-<tr class="separator:ga0840c968de41f13e99c28515015b5d42"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaaa7e3a3b41052aebb6ee16882a62e194" id="r_gaaa7e3a3b41052aebb6ee16882a62e194"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__joypad.html#structjoypad__inputs__t">joypad_inputs_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__joypad.html#gaaa7e3a3b41052aebb6ee16882a62e194">joypad_get_inputs</a> (<a class="el" href="group__joypad.html#gaf1f491d1f9849be157cb4a50705c8dcb">joypad_port_t</a> port)</td></tr>
 <tr class="memdesc:gaaa7e3a3b41052aebb6ee16882a62e194"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the current Joypad inputs state for a Joypad port.  <br /></td></tr>
 <tr class="separator:gaaa7e3a3b41052aebb6ee16882a62e194"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -174,6 +178,10 @@ volatile <a class="el" href="group__joypad.html#structjoypad__gcn__origin__t">jo
 volatile <a class="el" href="group__joypad.html#structjoypad__accessory__t">joypad_accessory_t</a>&#160;</td><td class="memItemRight" valign="bottom"><b>joypad_accessories_hot</b> [<a class="el" href="group__joypad.html#ga428d5dddfcb30475811097952c3d4fca">JOYPAD_PORT_COUNT</a>] = {0}</td></tr>
 <tr class="memdesc:gaacd5bd2cbe36912c8c8c2fed8bef6b8c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Joypad accessories for each port. <br /></td></tr>
 <tr class="separator:gaacd5bd2cbe36912c8c8c2fed8bef6b8c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga783bcafb9774f1bb12db61c1896fa5eb" id="r_ga783bcafb9774f1bb12db61c1896fa5eb"><td class="memItemLeft" align="right" valign="top">
+const <a class="el" href="structjoypad__accessory__library__vtable__t.html">joypad_accessory_library_vtable_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>__joypad_accessory_vtable</b> = NULL</td></tr>
+<tr class="memdesc:ga783bcafb9774f1bb12db61c1896fa5eb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Accessory library hooks (set only when accessory module is linked). <br /></td></tr>
+<tr class="separator:ga783bcafb9774f1bb12db61c1896fa5eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">"Cold" (non-volatile) global state</div></td></tr>
 <tr><td colspan="2"><div class="groupText"><p><a class="anchor" id="joypad_cold_state"></a></p>
 </div></td></tr>
@@ -184,7 +192,7 @@ volatile <a class="el" href="group__joypad.html#structjoypad__accessory__t">joyp
 </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jun 8 2026 18:27:20 for libdragon by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
+Generated on Wed Jun 10 2026 22:36:48 for libdragon by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
 </small></address>
 </body>
 </html>

@@ -34,11 +34,12 @@ var searchData=
   ['joybus_5frtc_5fstatus_5ft_31',['joybus_rtc_status_t',['../group__joybus__rtc.html#unionjoybus__rtc__status__t',1,'']]],
   ['joybus_5ftransfer_5fpak_5fstatus_5ft_32',['joybus_transfer_pak_status_t',['../group__joybus.html#unionjoybus__transfer__pak__status__t',1,'']]],
   ['joypad_5faccessory_5fio_5ft_33',['joypad_accessory_io_t',['../group__joypad.html#structjoypad__accessory__io__t',1,'']]],
-  ['joypad_5faccessory_5ft_34',['joypad_accessory_t',['../group__joypad.html#structjoypad__accessory__t',1,'']]],
-  ['joypad_5fbuttons_5ft_35',['joypad_buttons_t',['../group__joypad.html#unionjoypad__buttons__t',1,'']]],
-  ['joypad_5fdevice_5fcold_5ft_36',['joypad_device_cold_t',['../group__joypad.html#structjoypad__device__cold__t',1,'']]],
-  ['joypad_5fdevice_5fhot_5ft_37',['joypad_device_hot_t',['../group__joypad.html#structjoypad__device__hot__t',1,'']]],
-  ['joypad_5fgcn_5forigin_5ft_38',['joypad_gcn_origin_t',['../group__joypad.html#structjoypad__gcn__origin__t',1,'']]],
-  ['joypad_5finputs_5ft_39',['joypad_inputs_t',['../group__joypad.html#structjoypad__inputs__t',1,'']]],
-  ['joypad_5ftransfer_5fpak_5fio_5ft_40',['joypad_transfer_pak_io_t',['../group__joypad.html#structjoypad__transfer__pak__io__t',1,'']]]
+  ['joypad_5faccessory_5flibrary_5fvtable_5ft_34',['joypad_accessory_library_vtable_t',['../structjoypad__accessory__library__vtable__t.html',1,'']]],
+  ['joypad_5faccessory_5ft_35',['joypad_accessory_t',['../group__joypad.html#structjoypad__accessory__t',1,'']]],
+  ['joypad_5fbuttons_5ft_36',['joypad_buttons_t',['../group__joypad.html#unionjoypad__buttons__t',1,'']]],
+  ['joypad_5fdevice_5fcold_5ft_37',['joypad_device_cold_t',['../group__joypad.html#structjoypad__device__cold__t',1,'']]],
+  ['joypad_5fdevice_5fhot_5ft_38',['joypad_device_hot_t',['../group__joypad.html#structjoypad__device__hot__t',1,'']]],
+  ['joypad_5fgcn_5forigin_5ft_39',['joypad_gcn_origin_t',['../group__joypad.html#structjoypad__gcn__origin__t',1,'']]],
+  ['joypad_5finputs_5ft_40',['joypad_inputs_t',['../group__joypad.html#structjoypad__inputs__t',1,'']]],
+  ['joypad_5ftransfer_5fpak_5fio_5ft_41',['joypad_transfer_pak_io_t',['../group__joypad.html#structjoypad__transfer__pak__io__t',1,'']]]
 ];

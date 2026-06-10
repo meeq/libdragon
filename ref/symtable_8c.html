@@ -157,14 +157,14 @@ const char *&#160;</td><td class="memItemRight" valign="bottom"><b>UNKNOWN_SYMBO
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>SYMT symbol table access. </p>
 <dl class="section author"><dt>Author</dt><dd>Giovanni Bajo <a href="#" onclick="location.href='mai'+'lto:'+'gio'+'va'+'nni'+'ba'+'jo@'+'gm'+'ail'+'.c'+'om'; return false;">giova<span class="obfuscator">.nosp@m.</span>nnib<span class="obfuscator">.nosp@m.</span>ajo@g<span class="obfuscator">.nosp@m.</span>mail<span class="obfuscator">.nosp@m.</span>.com</a> </dd></dl>
-<h1><a class="anchor" id="autotoc_md45"></a>
+<h1><a class="anchor" id="autotoc_md54"></a>
 N64 SYMT Format v5</h1>
 <p>This document describes version 5 of the Symbol Table format (SYMT) used by Libdragon for runtime symbolization and backtracing.</p>
 <p>The format is designed to be extremely compact in ROM while requiring a minimal fixed amount of RAM (e.g. 512-1024 bytes) to be queried at runtime. It achieves this by using a combination of delta encoding, variable-length integers (VarInt), and dictionary-based compression with Front Coding and Canonical Huffman Coding.</p>
-<h2><a class="anchor" id="autotoc_md46"></a>
+<h2><a class="anchor" id="autotoc_md55"></a>
 File Structure</h2>
 <p>The file starts with a global header followed by several variable-length sections. All offsets are relative to the beginning of the file. Everything is assumed to be big-endian unless specified.</p>
-<h3><a class="anchor" id="autotoc_md47"></a>
+<h3><a class="anchor" id="autotoc_md56"></a>
 Header</h3>
 <div class="fragment"><div class="line"><span class="keyword">typedef</span> <span class="keyword">struct </span>{</div>
 <div class="line">    <span class="keywordtype">char</span> magic[4];           <span class="comment">// &quot;SYMT&quot;</span></div>
@@ -193,9 +193,9 @@ Header</h3>
 <div class="line">    uint32_t stream_size;    <span class="comment">// Size of compressed stream in bytes</span></div>
 <div class="line">} <a class="code hl_struct" href="symtable__internal_8h.html#structsymtable__header__t">symtable_header_t</a>;</div>
 <div class="ttc" id="asymtable__internal_8h_html_structsymtable__header__t"><div class="ttname"><a href="symtable__internal_8h.html#structsymtable__header__t">symtable_header_t</a></div><div class="ttdoc">Symbol table file header.</div><div class="ttdef"><b>Definition</b> symtable_internal.h:23</div></div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md48"></a>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md57"></a>
 Sections</h2>
-<h3><a class="anchor" id="autotoc_md49"></a>
+<h3><a class="anchor" id="autotoc_md58"></a>
 1. Chunk Index (&lt;tt&gt;chunk_idx_off&lt;/tt&gt;)</h3>
 <p>A sparse index used to perform binary search on the symbols, using their address. This is the main entrypoint to lookup a symbol given its address. Symbols are divided into "Chunks" which are individually compressed, so the Chunk Index actually identifies the chunk in which a symbol is encoded.</p>
 <p>The structure is an array of <code>num_chunks</code> entries:</p>
@@ -204,7 +204,7 @@ Sections</h2>
 <div class="line">    uint32_t stream_off;    <span class="comment">// The byte offset of this chunk within the Symbol Stream section</span></div>
 <div class="line">} chunk_index_entry_t;</div>
 </div><!-- fragment --><p>Since the index is sorted by memory address, it can be queried via bisection, to identify the chunk in which the symbol is contained. Then the chunk must be parsed and decompressed linearly until the symbol is found.</p>
-<h3><a class="anchor" id="autotoc_md50"></a>
+<h3><a class="anchor" id="autotoc_md59"></a>
 2. String Indexes (&lt;tt&gt;file_tab_off&lt;/tt&gt;, &lt;tt&gt;func_tab_off&lt;/tt&gt;)</h3>
 <p>The SYMT file stores two groups of strings: file names and function names. Within each symbol, the filename and the function name are referenced by an integer ID.</p>
 <p>The string indexes are sparse indexes used to locate strings in the compressed string blobs. Strings are organized in compressed blocks of variable size. To find a string with ID <code>N</code>, we perform a binary search on this index to find the block containing <code>N</code>.</p>
@@ -213,7 +213,7 @@ Sections</h2>
 <div class="line">    uint32_t start_idx;     <span class="comment">// The index of the first string in this block</span></div>
 <div class="line">    uint32_t blob_off;      <span class="comment">// The byte offset of this block within the respective Blob section</span></div>
 <div class="line">} string_index_entry_t;</div>
-</div><!-- fragment --><h3><a class="anchor" id="autotoc_md51"></a>
+</div><!-- fragment --><h3><a class="anchor" id="autotoc_md60"></a>
 3. Global Huffman Table (&lt;tt&gt;huff_tab_off&lt;/tt&gt;)</h3>
 <p>Contains the shared Canonical Huffman Table used to decompress string suffixes in both the File and Func blobs. The table allows decoding individual characters from the compressed bitstream.</p>
 <p><b>Format:</b></p><ul>
@@ -229,7 +229,7 @@ Sections</h2>
 <li>The <code>num_symbols</code> canonical array is omitted. The decoder derives the number of symbols for each length from <code>FirstSymbol</code> (or equivalently from successive <code>FirstCode</code> values) and from the total size of the <code>Symbols</code> array.</li>
 <li>The total size of the Huffman table is stored in the header field <code>huff_tab_size</code> and is used at runtime to know how many bytes of the trailing <code>Symbols</code> array are present after the canonical arrays.</li>
 </ul>
-<h3><a class="anchor" id="autotoc_md52"></a>
+<h3><a class="anchor" id="autotoc_md61"></a>
 4. String Blobs (&lt;tt&gt;file_blob_off&lt;/tt&gt;, &lt;tt&gt;func_blob_off&lt;/tt&gt;)</h3>
 <p>Contains the actual string data, compressed using <b>Front Coding</b> combined with <b>Huffman Coding</b>. The data is divided into blocks pointed to by the String Index. Each block is independently compressed and fits into a fixed-size runtime buffer (e.g. 512 bytes).</p>
 <p><b>Block Format:</b> Strings in the block are stored as delta from the previous string. The common prefix length is stored as a <b>delta</b> relative to the previous string's common prefix length, encoded using <b>Signed Exp-Golomb (k=0)</b>. The suffix itself is compressed using the Global Huffman Table, including the null terminator (<code>\0</code>).</p>
@@ -244,7 +244,7 @@ Sections</h2>
 <li><code>HuffmanEncodedSuffix</code>: The suffix characters encoded using the global Huffman table. This is a bitstream. The stream continues until the Huffman code for <code>\0</code> is encountered.</li>
 </ul>
 <p><b>Note:</b> Blocks are padded to 2-byte alignment at the end.</p>
-<h3><a class="anchor" id="autotoc_md53"></a>
+<h3><a class="anchor" id="autotoc_md62"></a>
 5. Compressed Symbol Stream (&lt;tt&gt;stream_off&lt;/tt&gt;)</h3>
 <p>Contains chunks compressed with asset compression level 3 (currently Shrinkler). This is a continuous stream of bytes divided into Chunks (as defined in the Chunk Index). Each Chunk can be decompressed independently.</p>
 <p><b>Chunk Layout (after asset compression level 3 decompression):</b></p><ul>
@@ -278,16 +278,16 @@ Sections</h2>
  <code>1..6</code>: (<code>V*4</code>). <br  />
  <code>7</code>: VarInt, Delta = (<code>V+7</code>)*4.   </td></tr>
 </table>
-<h2><a class="anchor" id="autotoc_md54"></a>
+<h2><a class="anchor" id="autotoc_md63"></a>
 Data Types</h2>
-<h3><a class="anchor" id="autotoc_md55"></a>
+<h3><a class="anchor" id="autotoc_md64"></a>
 VarInt (Unsigned)</h3>
 <p>Variable-length integer encoding (LEB128-style).</p><ul>
 <li>Read byte.</li>
 <li>Take low 7 bits.</li>
 <li>If high bit (0x80) is set, shift and read next byte.</li>
 </ul>
-<h3><a class="anchor" id="autotoc_md56"></a>
+<h3><a class="anchor" id="autotoc_md65"></a>
 Signed VarInt (ZigZag)</h3>
 <p>Maps signed integers to unsigned values to efficiently encode small negative numbers:</p><ul>
 <li><code>0</code> -&gt; <code>0</code></li>
@@ -297,10 +297,10 @@ Signed VarInt (ZigZag)</h3>
 <li>...</li>
 <li>Encoded/Decoded as standard VarInt.</li>
 </ul>
-<h2><a class="anchor" id="autotoc_md57"></a>
+<h2><a class="anchor" id="autotoc_md66"></a>
 Runtime Algorithms</h2>
 <p>These algorithms are designed to work with a small fixed-size buffer (e.g., 1KB) without dynamic allocation.</p>
-<h3><a class="anchor" id="autotoc_md58"></a>
+<h3><a class="anchor" id="autotoc_md67"></a>
 Algorithm 1: Symbol Lookup</h3>
 <p><b>Goal:</b> Find the symbol containing address <code>SearchAddr</code>.</p>
 <ol type="1">
@@ -326,7 +326,7 @@ Algorithm 1: Symbol Lookup</h3>
 </ul>
 </li>
 </ol>
-<h3><a class="anchor" id="autotoc_md59"></a>
+<h3><a class="anchor" id="autotoc_md68"></a>
 Algorithm 2: String Fetch</h3>
 <p><b>Goal:</b> Retrieve string with ID <code>TargetID</code> from a Blob.</p>
 <ol type="1">
@@ -367,7 +367,7 @@ Algorithm 2: String Fetch</h3>
 </ul>
 </li>
 </ol>
-<h3><a class="anchor" id="autotoc_md60"></a>
+<h3><a class="anchor" id="autotoc_md69"></a>
 Algorithm 3: Backtrace Symbolization</h3>
 <ol type="1">
 <li>Call <b>Symbol Lookup</b> with the PC address.<ul>
@@ -729,7 +729,7 @@ Number of bits in the cache. </td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jun 8 2026 18:27:21 for libdragon by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
+Generated on Wed Jun 10 2026 22:36:48 for libdragon by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
 </small></address>
 </body>
 </html>

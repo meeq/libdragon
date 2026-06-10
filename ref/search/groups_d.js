@@ -1,6 +1,8 @@
 var searchData=
 [
-  ['math_20routines_0',['Fast math routines',['../group__fastmath.html',1,'']]],
-  ['mixer_1',['Audio mixer',['../group__mixer.html',1,'']]],
-  ['multi_20threading_20kernel_2',['Multi-threading kernel',['../group__kernel.html',1,'']]]
+  ['level_20hardware_20interfaces_0',['Low Level Hardware Interfaces',['../group__lowlevel.html',1,'']]],
+  ['libdragon_1',['libdragon',['../group__libdragon.html',1,'']]],
+  ['library_2',['(Deprecated) Old RDP library',['../group__rdp.html',1,'']]],
+  ['linker_20subsystem_3',['Dynamic linker subsystem',['../group__dl.html',1,'']]],
+  ['low_20level_20hardware_20interfaces_4',['Low Level Hardware Interfaces',['../group__lowlevel.html',1,'']]]
 ];
