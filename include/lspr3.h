@@ -27,9 +27,86 @@
 #ifndef __LIBDRAGON_LSPR3_H
 #define __LIBDRAGON_LSPR3_H
 
+#include <stddef.h>
+
 #ifdef __cplusplus
 extern "C" {
 #endif
+
+typedef struct sprite_s sprite_t;
+
+/**
+ * @brief Optional parameters for advanced lspr3 decoding.
+ *
+ * Pass a pointer to one of these into #lspr3_load_buf_ex to override the
+ * default decode behaviour used by #sprite_load. Each field defaults to
+ * "use the standard behaviour" when zero, so a zero-initialised
+ * `(lspr3_load_parms_t){}` is equivalent to passing NULL.
+ */
+typedef struct lspr3_load_parms_s {
+    /**
+     * @brief Output horizontal divisor.
+     *
+     * 0 or 1 = native source width (default).
+     * 2 = decode to a half-width sprite. The RDP YUV combiner performs
+     * the horizontal downsample during the YUV→RGB conversion using its
+     * bilinear filter, so no separate downsample pass runs. Useful when
+     * the destination framebuffer is narrower than the encoded source
+     * (or memory pressure rules out a full-width copy).
+     */
+    int output_x_divisor;
+
+    /**
+     * @brief Output vertical divisor.
+     *
+     * 0 or 1 = native source height (default).
+     * 2 = decode to a half-height sprite. As with @ref output_x_divisor
+     * the RDP bilinear filter handles the downsample during the YUV→RGB
+     * blit. The two divisors are independent — set both to 2 for a
+     * quarter-area sprite, or only one for an anisotropic downscale.
+     */
+    int output_y_divisor;
+
+    /**
+     * @brief Decode in horizontal bands to cap the transient YUV footprint.
+     *
+     * When > 0, the frame is reconstructed in bands of this many MB-rows into a
+     * small windowed scratch buffer (`band_rows`+2 MB-rows) and each band is
+     * converted into the output sprite as it completes, so the peak transient
+     * YUV is ~`(band_rows+2)/mb_height` of the full-frame YUV instead of the
+     * whole frame. Output is bit-identical to the full-frame path: intra
+     * prediction's cross-band top-neighbours are carried, and each band decodes
+     * one row ahead so its bottom-row chroma upsample has its real neighbour (no
+     * seam at band boundaries). Costs a few % more decode time (extra per-band
+     * RSP/RDP syncs), so it is intended for callers trading a little speed for a
+     * smaller transient working set.
+     *
+     * 0 (default) = decode the whole frame at once (fastest; needs the full
+     * frame's worth of transient YUV).
+     */
+    int band_rows;
+} lspr3_load_parms_t;
+
+/**
+ * @brief Decode an H264I-encoded sprite from memory, with options.
+ *
+ * Lower-level decode entry point exposed for advanced callers. The
+ * #sprite_load path uses #lspr3_load_buf_ex with NULL @p parms, matching
+ * the default behaviour (native source dimensions, full-frame decode).
+ *
+ * The output sprite is allocated through the tagged seam
+ * (SYS_ALLOC_LSPR3_SPRITE, see sys_alloc.h). With the default __sys_alloc the
+ * result is memalign'd and may be released with #sprite_free as usual; if an
+ * application overrides __sys_alloc it owns the matching
+ * __sys_free(SYS_ALLOC_LSPR3_SPRITE) and must NOT use #sprite_free.
+ *
+ * @param encoded_buf  Pointer to the H264I-encoded sprite payload.
+ * @param encoded_sz   Size of @p encoded_buf in bytes.
+ * @param parms        Optional decode parameters; pass NULL for defaults.
+ * @return The decoded sprite, or aborts via #assertf on failure.
+ */
+sprite_t *lspr3_load_buf_ex(const void *encoded_buf, int encoded_sz,
+                            const lspr3_load_parms_t *parms);
 
 /**
  * @brief Register the H264I (Lossy-sprite Level 3) decoder with the sprite loader.
