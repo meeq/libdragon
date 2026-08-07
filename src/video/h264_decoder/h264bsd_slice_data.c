@@ -42,6 +42,22 @@
 #ifdef H264BSD_N64
 #include "../rsph264_internal.h"
 #include "../fastcache.h"
+#include "rspq.h"   // rspq_syncpoint_new/wait for the mbLayer ring coherency guard
+
+/* Optional depth/perf instrumentation for the mbLayer ring: measures the CPU
+ * cycles spent BLOCKED on the syncpoint (waiting for the RSP) so the
+ * NUM_PARALLEL_MACROBLOCKS depth vs stall trade-off can be re-measured (e.g. on
+ * real hardware). Off by default (zero overhead); enable with -DH264_MBLAYER_PROFILE=1.
+ * The movie/FMV layer dumps + resets these per FMV. */
+#ifndef H264_MBLAYER_PROFILE
+#define H264_MBLAYER_PROFILE 0
+#endif
+#if H264_MBLAYER_PROFILE
+#include "n64sys.h" // TICKS_READ
+volatile uint32_t g_h264SyncStallTicks = 0;
+volatile uint32_t g_h264SyncWaits = 0;
+volatile uint32_t g_h264RingDepth = NUM_PARALLEL_MACROBLOCKS;
+#endif
 #endif
 
 /*------------------------------------------------------------------------------
@@ -130,6 +146,24 @@ u32 h264bsdDecodeSliceData(strmData_t *pStrmData, storage_t *pStorage,
     do
     {
         mbLayer = &pStorage->mbLayers[pStorage->mbLayerIdx];
+#ifdef H264BSD_N64
+        /* Before reusing this ring slot, wait until the RSP has consumed its
+         * previous occupant's coefficient buffer (the dequant commands queued
+         * NUM_PARALLEL_MACROBLOCKS macroblocks ago). Without this, a large RSPQ
+         * buffer lets the CPU overwrite posCoefBuf before the RSP DMAs it ->
+         * "RSP reading non-cache-coherent DMEM" crash. Cheap no-op when the RSP
+         * has already passed the syncpoint (which the ring depth makes typical). */
+#if H264_MBLAYER_PROFILE
+        {
+            uint32_t _syncT0 = TICKS_READ();
+            rspq_syncpoint_wait(pStorage->mbLayerSync[pStorage->mbLayerIdx]);
+            g_h264SyncStallTicks += TICKS_READ() - _syncT0;
+            g_h264SyncWaits++;
+        }
+#else
+        rspq_syncpoint_wait(pStorage->mbLayerSync[pStorage->mbLayerIdx]);
+#endif
+#endif
 
 #ifndef OPTIMIZE_NO_DECODED_FLAG
       /* primary picture and already decoded macroblock -> error */
@@ -244,7 +278,14 @@ u32 h264bsdDecodeSliceData(strmData_t *pStrmData, storage_t *pStorage,
         currMbAddr = h264bsdNextMbAddress(pStorage->sliceGroupMap,
             pStorage->picSizeInMbs, currMbAddr);
         if (!prevSkipped)
+        {
+#ifdef H264BSD_N64
+            /* Record the point the RSP reaches after consuming this slot's just-
+             * queued dequant commands; the slot's next reuse waits on it. */
+            pStorage->mbLayerSync[pStorage->mbLayerIdx] = rspq_syncpoint_new();
+#endif
             pStorage->mbLayerIdx = (pStorage->mbLayerIdx+1)%NUM_PARALLEL_MACROBLOCKS;
+        }
         /* data left in the buffer but no more macroblocks for current slice
          * group -> error */
         if (moreMbs && !currMbAddr)

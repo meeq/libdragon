@@ -71,7 +71,13 @@ typedef struct
 } aubCheck_t;
 
 #ifndef NUM_PARALLEL_MACROBLOCKS
-#define NUM_PARALLEL_MACROBLOCKS 1
+/* Depth of the macroblock-layer ring the CPU decodes into while the RSP lags
+ * behind consuming earlier slots. Must be >= the CPU->RSP macroblock lag or the
+ * CPU overwrites a coefficient buffer the RSP hasn't DMA'd yet (the RSPQ-buffer-
+ * size-dependent cache-coherency crash). A per-slot rspq syncpoint (mbLayerSync)
+ * now enforces that invariant regardless of depth, so this is a pure
+ * performance/memory knob: deeper = the CPU stalls on the syncpoint less often. */
+#define NUM_PARALLEL_MACROBLOCKS 8   /* keep in sync with h264_decoder.h */
 #endif
 
 typedef void (*h264bsdSeiCallback)(
@@ -164,6 +170,12 @@ typedef struct
        allow the RSP to lag behind the CPU decoding with its task queue. */
     macroblockLayer_t mbLayers[NUM_PARALLEL_MACROBLOCKS];
     int mbLayerIdx;
+    /* Per-slot rspq syncpoint (rspq_syncpoint_t == int): recorded after a slot's
+     * RSP dequant commands are queued, waited-on before the slot is reused, so
+     * the CPU never overwrites a coefficient buffer the RSP hasn't consumed.
+     * 0 == "already passed" (syncpoint ids are monotonic), safe as the initial
+     * value and across pictures. */
+    int mbLayerSync[NUM_PARALLEL_MACROBLOCKS];
 
     u32 pendingActivation; /* Activate parameter sets after returning
                               HEADERS_RDY to the user */
