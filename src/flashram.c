@@ -447,10 +447,14 @@ bool flashram_program_page(unsigned int page, const void* data)
 static bool flashram_write_sector(unsigned int base_page, const uint8_t* content)
 {
     if (!flashram_erase_sector_at_page(base_page))
+    {
+        debugf("flashram: erase FAILED for sector at page %u\n", base_page);
         return false;
+    }
 
     size_t page_size = __flashram_info.page_size;
     unsigned int pages_per_sector = flashram_pages_per_sector();
+    unsigned int programmed = 0;
     for (unsigned int i = 0; i < pages_per_sector; i++)
     {
         const uint8_t* page = content + (i * page_size);
@@ -458,8 +462,14 @@ static bool flashram_write_sector(unsigned int base_page, const uint8_t* content
         if (flashram_page_is_erased(page, page_size))
             continue;
         if (!flashram_program_page(base_page + i, page))
+        {
+            debugf("flashram: program FAILED at page %u\n", base_page + i);
             return false;
+        }
+        programmed++;
     }
+    debugf("flashram: sector at pages %u-%u: erased, programmed %u/%u non-blank pages\n",
+           base_page, base_page + pages_per_sector - 1, programmed, pages_per_sector);
     return true;
 }
 
@@ -512,6 +522,24 @@ int flashram_write(const void* src, size_t offset, size_t len)
                         (unsigned) sector_size);
             }
             flashram_read(sector_buf, sector_start, sector_size);
+            // Diagnostic for the read-modify-write: how much existing data the
+            // read-back actually contained. If the chip mis-reads here (e.g.
+            // returns blank/wrong data at non-zero offsets), the untouched
+            // half of the sector is preserved from that bad copy and silently
+            // corrupted -- a low non-blank count for a sector known to hold a
+            // neighboring save is the signature.
+            unsigned int readback_nonblank = 0;
+            size_t page_size = __flashram_info.page_size;
+            for (unsigned int i = 0; i < pages_per_sector; i++)
+            {
+                if (!flashram_page_is_erased(sector_buf + (i * page_size), page_size))
+                    readback_nonblank++;
+            }
+            debugf("flashram: RMW sector %u (pages %u-%u): read-back has %u/%u non-blank pages; "
+                   "overlaying 0x%X bytes at page %u\n",
+                   sector, base_page, base_page + pages_per_sector - 1,
+                   readback_nonblank, pages_per_sector,
+                   (unsigned) n, (unsigned) (base_page + in_sector / page_size));
             memcpy(sector_buf + in_sector, in, n);
             if (!flashram_write_sector(base_page, sector_buf))
             {
