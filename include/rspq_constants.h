@@ -10,7 +10,10 @@
 #define RSPQ_DEBUG                     1       ///< Enable RSPQ debug mode
 #define RSPQ_PROFILE                   0       ///< Enable RSPQ profiling
 
-#define RSPQ_DRAM_LOWPRI_BUFFER_SIZE   0x200   ///< Size of each RSPQ RDRAM buffer for lowpri queue (in 32-bit words)
+// outrun project tuning: 16 KiB per lowpri buffer (2x = 32 KiB total, +28 KiB
+// heap vs upstream) to cut rspq_next_buffer() backpressure stalls on the
+// render emit path, which pushes 10-25 KiB of commands per frame.
+#define RSPQ_DRAM_LOWPRI_BUFFER_SIZE   0x1000  ///< Size of each RSPQ RDRAM buffer for lowpri queue (in 32-bit words)
 #define RSPQ_DRAM_HIGHPRI_BUFFER_SIZE  0x200   ///< Size of each RSPQ RDRAM buffer for highpri queue (in 32-bit words)
 
 #define RSPQ_DMEM_BUFFER_SIZE          0x100   ///< Size of the RSPQ DMEM buffer (in bytes)
