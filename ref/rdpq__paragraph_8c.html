@@ -100,9 +100,8 @@ Functions</h2></td></tr>
 <tr class="memitem:a0d50501a80e7b68b6064063656e7ace8" id="r_a0d50501a80e7b68b6064063656e7ace8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="rdpq__paragraph_8h.html#structrdpq__paragraph__t">rdpq_paragraph_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rdpq__paragraph_8c.html#a0d50501a80e7b68b6064063656e7ace8">rdpq_paragraph_builder_end</a> (void)</td></tr>
 <tr class="memdesc:a0d50501a80e7b68b6064063656e7ace8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finalize the paragraph builder and returns the paragraph.  <br /></td></tr>
 <tr class="separator:a0d50501a80e7b68b6064063656e7ace8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab84245f6fb7658c164c6db2dbdfa18a7" id="r_ab84245f6fb7658c164c6db2dbdfa18a7"><td class="memItemLeft" align="right" valign="top"><a id="ab84245f6fb7658c164c6db2dbdfa18a7" name="ab84245f6fb7658c164c6db2dbdfa18a7"></a>
-<a class="el" href="rdpq__paragraph_8h.html#structrdpq__paragraph__t">rdpq_paragraph_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>__rdpq_paragraph_build</b> (const <a class="el" href="rdpq__text_8h.html#structrdpq__textparms__t">rdpq_textparms_t</a> *parms, uint8_t initial_font_id, const char *utf8_text, int *nbytes, <a class="el" href="rdpq__paragraph_8h.html#structrdpq__paragraph__t">rdpq_paragraph_t</a> *layout)</td></tr>
-<tr class="memdesc:ab84245f6fb7658c164c6db2dbdfa18a7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inner implementation of <a class="el" href="rdpq__paragraph_8c.html#a5476a49b1e14b7baf9e304272ab6b7c4" title="Calculate the layout of a text using the specified parameters.">rdpq_paragraph_build</a>, with explicit memory handling. <br /></td></tr>
+<tr class="memitem:ab84245f6fb7658c164c6db2dbdfa18a7" id="r_ab84245f6fb7658c164c6db2dbdfa18a7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="rdpq__paragraph_8h.html#structrdpq__paragraph__t">rdpq_paragraph_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rdpq__paragraph_8c.html#ab84245f6fb7658c164c6db2dbdfa18a7">__rdpq_paragraph_build</a> (const <a class="el" href="rdpq__text_8h.html#structrdpq__textparms__t">rdpq_textparms_t</a> *parms, uint8_t initial_font_id, const char *utf8_text, int *nbytes, <a class="el" href="rdpq__paragraph_8h.html#structrdpq__paragraph__t">rdpq_paragraph_t</a> *layout)</td></tr>
+<tr class="memdesc:ab84245f6fb7658c164c6db2dbdfa18a7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inner implementation of <a class="el" href="rdpq__paragraph_8c.html#a5476a49b1e14b7baf9e304272ab6b7c4" title="Calculate the layout of a text using the specified parameters.">rdpq_paragraph_build</a>, with explicit memory handling.  <br /></td></tr>
 <tr class="separator:ab84245f6fb7658c164c6db2dbdfa18a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5476a49b1e14b7baf9e304272ab6b7c4" id="r_a5476a49b1e14b7baf9e304272ab6b7c4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="rdpq__paragraph_8h.html#structrdpq__paragraph__t">rdpq_paragraph_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rdpq__paragraph_8c.html#a5476a49b1e14b7baf9e304272ab6b7c4">rdpq_paragraph_build</a> (const <a class="el" href="rdpq__text_8h.html#structrdpq__textparms__t">rdpq_textparms_t</a> *parms, uint8_t initial_font_id, const char *utf8_text, int *nbytes)</td></tr>
 <tr class="memdesc:a5476a49b1e14b7baf9e304272ab6b7c4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate the layout of a text using the specified parameters.  <br /></td></tr>
@@ -318,6 +317,55 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>__rdpq_paragraph_char
 
 </div>
 </div>
+<a id="ab84245f6fb7658c164c6db2dbdfa18a7" name="ab84245f6fb7658c164c6db2dbdfa18a7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab84245f6fb7658c164c6db2dbdfa18a7">&#9670;&#160;</a></span>__rdpq_paragraph_build()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="rdpq__paragraph_8h.html#structrdpq__paragraph__t">rdpq_paragraph_t</a> * __rdpq_paragraph_build </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="rdpq__text_8h.html#structrdpq__textparms__t">rdpq_textparms_t</a> *&#160;</td>
+          <td class="paramname"><em>parms</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>initial_font_id</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>utf8_text</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int *&#160;</td>
+          <td class="paramname"><em>nbytes</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="rdpq__paragraph_8h.html#structrdpq__paragraph__t">rdpq_paragraph_t</a> *&#160;</td>
+          <td class="paramname"><em>layout</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Inner implementation of <a class="el" href="rdpq__paragraph_8c.html#a5476a49b1e14b7baf9e304272ab6b7c4" title="Calculate the layout of a text using the specified parameters.">rdpq_paragraph_build</a>, with explicit memory handling. </p>
+<p>Inner implementation of <a class="el" href="rdpq__text_8c.html#a3a53617561a398cdb209a225005ca6c3" title="Layout and render a text in a single call.">rdpq_text_printn</a>, with explicit memory handling. </p>
+
+</div>
+</div>
 <a id="a5476a49b1e14b7baf9e304272ab6b7c4" name="a5476a49b1e14b7baf9e304272ab6b7c4"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a5476a49b1e14b7baf9e304272ab6b7c4">&#9670;&#160;</a></span>rdpq_paragraph_build()</h2>
 
@@ -448,7 +496,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>__rdpq_paragraph_char
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jun 10 2026 22:36:48 for libdragon by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
+Generated on Fri Aug 21 2026 21:04:47 for libdragon by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
 </small></address>
 </body>
 </html>

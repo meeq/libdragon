@@ -106,6 +106,12 @@ Functions</h2></td></tr>
 <tr class="memitem:ac24f3fb486ee7454398fe4ee0e57cb25" id="r_ac24f3fb486ee7454398fe4ee0e57cb25"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="scratch_8h.html#ac24f3fb486ee7454398fe4ee0e57cb25">scratch_free</a> (void *ptr)</td></tr>
 <tr class="memdesc:ac24f3fb486ee7454398fe4ee0e57cb25"><td class="mdescLeft">&#160;</td><td class="mdescRight">Free a scratch allocation.  <br /></td></tr>
 <tr class="separator:ac24f3fb486ee7454398fe4ee0e57cb25"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae250f41be684f904b680aa4ed028c19c" id="r_ae250f41be684f904b680aa4ed028c19c"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="scratch_8h.html#ae250f41be684f904b680aa4ed028c19c">scratch_malloc_uncached</a> (size_t size)</td></tr>
+<tr class="memdesc:ae250f41be684f904b680aa4ed028c19c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allocate uncached memory from the scratch heap.  <br /></td></tr>
+<tr class="separator:ae250f41be684f904b680aa4ed028c19c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a74dc78a22597318548debeaa7ae3c085" id="r_a74dc78a22597318548debeaa7ae3c085"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="scratch_8h.html#a74dc78a22597318548debeaa7ae3c085">scratch_memalign</a> (size_t alignment, size_t size)</td></tr>
+<tr class="memdesc:a74dc78a22597318548debeaa7ae3c085"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allocate aligned memory from the scratch heap.  <br /></td></tr>
+<tr class="separator:a74dc78a22597318548debeaa7ae3c085"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9a9dbb898174265e00c872cbb9cddcc7" id="r_a9a9dbb898174265e00c872cbb9cddcc7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="scratch_8h.html#a9a9dbb898174265e00c872cbb9cddcc7">scratch_check</a> (void)</td></tr>
 <tr class="memdesc:a9a9dbb898174265e00c872cbb9cddcc7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check internal consistency of the scratch heap.  <br /></td></tr>
 <tr class="separator:a9a9dbb898174265e00c872cbb9cddcc7"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -115,6 +121,9 @@ Functions</h2></td></tr>
 <tr class="memitem:a4364214f7579061bf8cc5080fcb8dae2" id="r_a4364214f7579061bf8cc5080fcb8dae2"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="scratch_8h.html#a4364214f7579061bf8cc5080fcb8dae2">scratch_empty</a> (void)</td></tr>
 <tr class="memdesc:a4364214f7579061bf8cc5080fcb8dae2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check whether the scratch heap has no live allocations.  <br /></td></tr>
 <tr class="separator:a4364214f7579061bf8cc5080fcb8dae2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab94139a49d2de83847a3287975b2c05c" id="r_ab94139a49d2de83847a3287975b2c05c"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="scratch_8h.html#ab94139a49d2de83847a3287975b2c05c">scratch_owns</a> (const void *ptr)</td></tr>
+<tr class="memdesc:ab94139a49d2de83847a3287975b2c05c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check whether an address belongs to the scratch heap.  <br /></td></tr>
+<tr class="separator:ab94139a49d2de83847a3287975b2c05c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Public API for the scratch allocator. </p>
@@ -186,6 +195,7 @@ Bytes currently reserved by the scratch allocator. </td></tr>
 </div><div class="memdoc">
 
 <p>Allocate memory from the scratch heap. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000425">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>Allocates <code>size</code> bytes from the scratch allocator. The returned pointer is suitably aligned for normal C object access.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -230,6 +240,7 @@ Bytes currently reserved by the scratch allocator. </td></tr>
 </div><div class="memdoc">
 
 <p>Allocate zero-initialized memory from the scratch heap. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000426">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>Allocates enough memory for <code>count</code> objects of <code>size</code> bytes each and clears the allocation to zero.</p>
 <p>This function performs overflow checking on the multiplication <code>count</code> * <code>size</code>.</p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -273,6 +284,7 @@ Bytes currently reserved by the scratch allocator. </td></tr>
 </div><div class="memdoc">
 
 <p>Resize a scratch allocation. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000427">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>Changes the size of the allocation pointed to by <code>ptr</code> to at least <code>size</code> bytes.</p>
 <p>The contents are preserved up to the minimum of the old and new sizes. Newly allocated bytes, if any, are uninitialized.</p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -309,7 +321,8 @@ If <code>size</code> is zero, this function frees <code>ptr</code> and returns N
 </div><div class="memdoc">
 
 <p>Free a scratch allocation. </p>
-<p>Releases a block previously returned by <a class="el" href="scratch_8h.html#a520e219051a736535fd2ea4bfbf06468" title="Allocate memory from the scratch heap.">scratch_malloc()</a>, <a class="el" href="scratch_8h.html#a4dc7eb48b4d9c7a1876bc511487e43f5" title="Allocate zero-initialized memory from the scratch heap.">scratch_calloc()</a>, or <a class="el" href="scratch_8h.html#a712479354163faa3ee5e68eae35c28f8" title="Resize a scratch allocation.">scratch_realloc()</a>.</p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000428">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
+<p>Releases a block previously returned by any scratch allocator: <a class="el" href="scratch_8h.html#a520e219051a736535fd2ea4bfbf06468" title="Allocate memory from the scratch heap.">scratch_malloc()</a>, <a class="el" href="scratch_8h.html#a4dc7eb48b4d9c7a1876bc511487e43f5" title="Allocate zero-initialized memory from the scratch heap.">scratch_calloc()</a>, <a class="el" href="scratch_8h.html#a712479354163faa3ee5e68eae35c28f8" title="Resize a scratch allocation.">scratch_realloc()</a>, <a class="el" href="scratch_8h.html#a74dc78a22597318548debeaa7ae3c085" title="Allocate aligned memory from the scratch heap.">scratch_memalign()</a>, or <a class="el" href="scratch_8h.html#ae250f41be684f904b680aa4ed028c19c" title="Allocate uncached memory from the scratch heap.">scratch_malloc_uncached()</a>. The single entry point transparently handles cached vs uncached pointer views and direct vs aligned allocations; callers don't need to track which allocator produced the pointer.</p>
 <p>Passing NULL is allowed and has no effect.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -317,6 +330,82 @@ If <code>size</code> is zero, this function frees <code>ptr</code> and returns N
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a id="ae250f41be684f904b680aa4ed028c19c" name="ae250f41be684f904b680aa4ed028c19c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae250f41be684f904b680aa4ed028c19c">&#9670;&#160;</a></span>scratch_malloc_uncached()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void * scratch_malloc_uncached </td>
+          <td>(</td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>size</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Allocate uncached memory from the scratch heap. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000429">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
+<p>Allocates <code>size</code> bytes from the scratch allocator and returns an uncached (KSEG1) mapping of the buffer. This mirrors <a class="el" href="group__n64sys.html#gaf9f812fb3f12eaee7f5186b893266d3a" title="Allocate a buffer that will be accessed as uncached memory.">malloc_uncached()</a> and is intended for short-lived buffers shared between CPU and RSP/RDP DMA paths (decoder workspaces, staging surfaces, etc.) where the coherency cost of cached access would otherwise force manual flushes around every transfer.</p>
+<p>The underlying allocation is 16-byte aligned and the size is rounded up to a multiple of 16 bytes, so the buffer exclusively owns its cachelines and cannot suffer false sharing with neighbouring allocations.</p>
+<p>Free with the standard <a class="el" href="scratch_8h.html#ac24f3fb486ee7454398fe4ee0e57cb25" title="Free a scratch allocation.">scratch_free()</a>; it handles cached/uncached views transparently.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">size</td><td>Number of bytes to allocate. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Uncached pointer to the allocated memory, or NULL if there is not enough memory.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Memory returned by this function is uninitialized.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="scratch_8h.html#ac24f3fb486ee7454398fe4ee0e57cb25" title="Free a scratch allocation.">scratch_free</a> </dd>
+<dd>
+<a class="el" href="group__n64sys.html#gaf9f812fb3f12eaee7f5186b893266d3a" title="Allocate a buffer that will be accessed as uncached memory.">malloc_uncached</a> </dd></dl>
+
+</div>
+</div>
+<a id="a74dc78a22597318548debeaa7ae3c085" name="a74dc78a22597318548debeaa7ae3c085"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a74dc78a22597318548debeaa7ae3c085">&#9670;&#160;</a></span>scratch_memalign()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void * scratch_memalign </td>
+          <td>(</td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>alignment</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>size</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Allocate aligned memory from the scratch heap. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000430">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
+<p>Allocates <code>size</code> bytes from the scratch allocator and returns a pointer aligned to <code>alignment</code> bytes. <code>alignment</code> must be a power of two and at least the natural scratch alignment (16 bytes); requests smaller than 16 are clamped up.</p>
+<p>Free with <a class="el" href="scratch_8h.html#ac24f3fb486ee7454398fe4ee0e57cb25" title="Free a scratch allocation.">scratch_free()</a>.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">alignment</td><td>Required alignment in bytes (power of two, &gt;= 16). </td></tr>
+    <tr><td class="paramname">size</td><td>Number of bytes to allocate. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Pointer to the aligned allocation, or NULL on failure. </dd></dl>
 
 </div>
 </div>
@@ -337,6 +426,7 @@ If <code>size</code> is zero, this function frees <code>ptr</code> and returns N
 </div><div class="memdoc">
 
 <p>Check internal consistency of the scratch heap. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000431">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>Runs a full consistency check over the scratch heap metadata.</p>
 <p>This function validates allocator invariants and may assert if corruption or inconsistent state is detected. </p>
 
@@ -359,6 +449,7 @@ If <code>size</code> is zero, this function frees <code>ptr</code> and returns N
 </div><div class="memdoc">
 
 <p>Return statistics about scratch allocator usage. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000432">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>This function writes all current scratch allocator counters to <code>stats</code>.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -386,14 +477,45 @@ If <code>size</code> is zero, this function frees <code>ptr</code> and returns N
 </div><div class="memdoc">
 
 <p>Check whether the scratch heap has no live allocations. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000433">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <dl class="section return"><dt>Returns</dt><dd>true if there are no live scratch allocations, false otherwise. </dd></dl>
+
+</div>
+</div>
+<a id="ab94139a49d2de83847a3287975b2c05c" name="ab94139a49d2de83847a3287975b2c05c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab94139a49d2de83847a3287975b2c05c">&#9670;&#160;</a></span>scratch_owns()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool scratch_owns </td>
+          <td>(</td>
+          <td class="paramtype">const void *&#160;</td>
+          <td class="paramname"><em>ptr</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Check whether an address belongs to the scratch heap. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000434">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
+<p>Returns true if <code>ptr</code> falls inside the scratch heap reservation. The cached and uncached views of the same scratch address are both recognised.</p>
+<p>Intended for code paths that don't know up-front which allocator owns a pointer (e.g. fallbacks between scratch and the main heap) and need to dispatch to the correct deallocator.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ptr</td><td>Pointer to test. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true if the address is inside the scratch heap, false otherwise (including NULL). </dd></dl>
 
 </div>
 </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jun 10 2026 22:36:47 for libdragon by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
+Generated on Fri Aug 21 2026 21:04:46 for libdragon by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
 </small></address>
 </body>
 </html>

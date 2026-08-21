@@ -101,17 +101,19 @@ Functions</h2></td></tr>
 <tr class="memdesc:ab5306110233e1820d066c74740277ad1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Faster version of atan2f.  <br /></td></tr>
 <tr class="separator:ab5306110233e1820d066c74740277ad1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8720354eed25147d6f96a2c1d6312b6d" id="r_a8720354eed25147d6f96a2c1d6312b6d"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="fmath_8c.html#a8720354eed25147d6f96a2c1d6312b6d">fm_expf</a> (float x)</td></tr>
-<tr class="memdesc:a8720354eed25147d6f96a2c1d6312b6d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Approximation of exp(x) with a relative error &lt;3%. This is several times faster than exp(x). The implementation uses a method by Nicole Schraudolph.  <br /></td></tr>
+<tr class="memdesc:a8720354eed25147d6f96a2c1d6312b6d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Approximation of exp(x) with a relative error &lt;3%.  <br /></td></tr>
 <tr class="separator:a8720354eed25147d6f96a2c1d6312b6d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa648f493f9566d127fdd2d5c5ccd5c85" id="r_aa648f493f9566d127fdd2d5c5ccd5c85"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="fmath_8c.html#aa648f493f9566d127fdd2d5c5ccd5c85">fm_exp2f</a> (float x)</td></tr>
+<tr class="memdesc:aa648f493f9566d127fdd2d5c5ccd5c85"><td class="mdescLeft">&#160;</td><td class="mdescRight">Faster version of exp2f (2^x).  <br /></td></tr>
+<tr class="separator:aa648f493f9566d127fdd2d5c5ccd5c85"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5854e3b23e035ed44092d1e17936b55b" id="r_a5854e3b23e035ed44092d1e17936b55b"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="fmath_8c.html#a5854e3b23e035ed44092d1e17936b55b">fm_lerp_angle</a> (float a, float b, float t)</td></tr>
 <tr class="memdesc:a5854e3b23e035ed44092d1e17936b55b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Linearly interpolate between two angles, using the shortest path.  <br /></td></tr>
 <tr class="separator:a5854e3b23e035ed44092d1e17936b55b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aba679558d9d0988d00f7bc3ea7237f65" id="r_aba679558d9d0988d00f7bc3ea7237f65"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="fmath_8c.html#aba679558d9d0988d00f7bc3ea7237f65">fm_wrap_angle</a> (float angle)</td></tr>
 <tr class="memdesc:aba679558d9d0988d00f7bc3ea7237f65"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap an angle into [0..pi*2] range.  <br /></td></tr>
 <tr class="separator:aba679558d9d0988d00f7bc3ea7237f65"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1428ed86c1871641cb5906fbb5589dbb" id="r_a1428ed86c1871641cb5906fbb5589dbb"><td class="memItemLeft" align="right" valign="top"><a id="a1428ed86c1871641cb5906fbb5589dbb" name="a1428ed86c1871641cb5906fbb5589dbb"></a>
-float&#160;</td><td class="memItemRight" valign="bottom"><b>fm_lerp</b> (float a, float b, float t)</td></tr>
-<tr class="memdesc:a1428ed86c1871641cb5906fbb5589dbb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Linearly interpolate between two scalar values. <br /></td></tr>
+<tr class="memitem:a1428ed86c1871641cb5906fbb5589dbb" id="r_a1428ed86c1871641cb5906fbb5589dbb"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="fmath_8c.html#a1428ed86c1871641cb5906fbb5589dbb">fm_lerp</a> (float a, float b, float t)</td></tr>
+<tr class="memdesc:a1428ed86c1871641cb5906fbb5589dbb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Linearly interpolate between two scalar values.  <br /></td></tr>
 <tr class="separator:a1428ed86c1871641cb5906fbb5589dbb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
@@ -294,8 +296,32 @@ float&#160;</td><td class="memItemRight" valign="bottom"><b>fm_lerp</b> (float a
       </table>
 </div><div class="memdoc">
 
-<p>Approximation of exp(x) with a relative error &lt;3%. This is several times faster than exp(x). The implementation uses a method by Nicole Schraudolph. </p>
+<p>Approximation of exp(x) with a relative error &lt;3%. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000179">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it. This is several times faster than exp(x). The implementation uses a method by Nicole Schraudolph.</dd></dl>
 <p>Note that this function does not have bounds check and will overflow if x is not in ~(-85;85) range. It is recommended to clamp x and do fm_exp(CLAMP(x, -85, 85)) </p>
+
+</div>
+</div>
+<a id="aa648f493f9566d127fdd2d5c5ccd5c85" name="aa648f493f9566d127fdd2d5c5ccd5c85"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa648f493f9566d127fdd2d5c5ccd5c85">&#9670;&#160;</a></span>fm_exp2f()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float fm_exp2f </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>x</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Faster version of exp2f (2^x). </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000180">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
+<p>Splits <code>x</code> into an integer power of two (via the IEEE754 exponent field) and a fractional part evaluated with a degree-5 minimax polynomial on <code>[0, 1]</code>. Relative error is about <code>1e-5</code> — several times more accurate than <a class="el" href="fmath_8h.html#a8720354eed25147d6f96a2c1d6312b6d" title="Approximation of exp(x) with a relative error &lt;3%.">fm_expf</a>, and far cheaper than newlib <code>exp2f</code> / <code>powf</code>.</p>
+<p>No bounds check: overflows if <code>x</code> is outside roughly <code>(-126, 128)</code>. </p>
 
 </div>
 </div>
@@ -332,6 +358,7 @@ float&#160;</td><td class="memItemRight" valign="bottom"><b>fm_lerp</b> (float a
 </div><div class="memdoc">
 
 <p>Linearly interpolate between two angles, using the shortest path. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000182">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">a</td><td>The start angle in radians </td></tr>
@@ -361,6 +388,7 @@ float&#160;</td><td class="memItemRight" valign="bottom"><b>fm_lerp</b> (float a
 </div><div class="memdoc">
 
 <p>Wrap an angle into [0..pi*2] range. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000183">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">angle</td><td>An angle in radians. </td></tr>
@@ -371,10 +399,55 @@ float&#160;</td><td class="memItemRight" valign="bottom"><b>fm_lerp</b> (float a
 
 </div>
 </div>
+<a id="a1428ed86c1871641cb5906fbb5589dbb" name="a1428ed86c1871641cb5906fbb5589dbb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1428ed86c1871641cb5906fbb5589dbb">&#9670;&#160;</a></span>fm_lerp()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float fm_lerp </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>a</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>b</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>t</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">extern</span><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Linearly interpolate between two scalar values. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000181">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it. </dd></dl>
+
+</div>
+</div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jun 10 2026 22:36:48 for libdragon by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
+Generated on Fri Aug 21 2026 21:04:47 for libdragon by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
 </small></address>
 </body>
 </html>

@@ -86,50 +86,60 @@ $(document).ready(function() { init_codefold(0); });
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#ifndef LIBDRAGON_COROUTINE_H</span></div>
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#define LIBDRAGON_COROUTINE_H</span></div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &quot;<a class="code" href="ucontext_8h.html">ucontext.h</a>&quot;</span></div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &lt;stddef.h&gt;</span></div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &lt;stdint.h&gt;</span></div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &lt;stdbool.h&gt;</span></div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor">#ifdef __cplusplus</span></div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="keyword">extern</span> <span class="stringliteral">&quot;C&quot;</span> {</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="preprocessor">#endif</span></div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="keyword">typedef</span> <span class="keyword">struct </span>coroutine_s <a class="code hl_struct" href="structcoroutine__t.html">coroutine_t</a>;</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span><a class="code hl_struct" href="structcoroutine__t.html">coroutine_t</a> *<a class="code hl_function" href="coroutine_8h.html#aaa9a36b2bd5679502d2a7d73632d19a6">coro_create</a>(<span class="keywordtype">void</span> (*fn)(<span class="keywordtype">void</span> *), <span class="keywordtype">void</span> *arg, <span class="keywordtype">size_t</span> stack_size);</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span><span class="keywordtype">void</span> <a class="code hl_function" href="coroutine_8h.html#ae42814d04725676afc5b4818d9fb7a3f">coro_resume</a>(<a class="code hl_struct" href="structcoroutine__t.html">coroutine_t</a> *co);</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span><span class="keywordtype">void</span> <a class="code hl_function" href="coroutine_8h.html#a430ae34f4a3c2c020bc387f7bc6b86e6">coro_yield</a>(<span class="keywordtype">void</span>);</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span> </div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span><span class="keywordtype">void</span> <a class="code hl_function" href="coroutine_8h.html#a7499003a429af9f227f2cc15a016babb">coro_sleep</a>(uint64_t ticks);</div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span> </div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span><span class="keywordtype">void</span> <a class="code hl_function" href="coroutine_8h.html#a52dffee6e8964c5e0d5aaf25101e895d">coro_destroy</a>(<a class="code hl_struct" href="structcoroutine__t.html">coroutine_t</a> *co);</div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span> </div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span><span class="keywordtype">bool</span> <a class="code hl_function" href="coroutine_8h.html#accc47933816debf410593f8ecc45f61f">coro_finished</a>(<a class="code hl_struct" href="structcoroutine__t.html">coroutine_t</a> *co);</div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span> </div>
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span><a class="code hl_struct" href="structcoroutine__t.html">coroutine_t</a>* <a class="code hl_function" href="coroutine_8h.html#a648a6d28726e8a11a38760c8f48d9c80">coro_get_current</a>(<span class="keywordtype">void</span>);</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &quot;<a class="code" href="preview_8h.html">preview.h</a>&quot;</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &quot;<a class="code" href="ucontext_8h.html">ucontext.h</a>&quot;</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &lt;stddef.h&gt;</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &lt;stdint.h&gt;</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#include &lt;stdbool.h&gt;</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="preprocessor">#ifdef __cplusplus</span></div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="keyword">extern</span> <span class="stringliteral">&quot;C&quot;</span> {</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="keyword">typedef</span> <span class="keyword">struct </span>coroutine_s <a class="code hl_struct" href="structcoroutine__t.html">coroutine_t</a>;</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span><a class="code hl_define" href="preview_8h.html#ab1912250c8ac23a2fa1af9360cb533bd">LIBDRAGON_PREVIEW_API</a></div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span><a class="code hl_struct" href="structcoroutine__t.html">coroutine_t</a> *<a class="code hl_function" href="coroutine_8h.html#aaa9a36b2bd5679502d2a7d73632d19a6">coro_create</a>(<span class="keywordtype">void</span> (*fn)(<span class="keywordtype">void</span> *), <span class="keywordtype">void</span> *arg, <span class="keywordtype">size_t</span> stack_size);</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span><a class="code hl_define" href="preview_8h.html#ab1912250c8ac23a2fa1af9360cb533bd">LIBDRAGON_PREVIEW_API</a></div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span><span class="keywordtype">void</span> <a class="code hl_function" href="coroutine_8h.html#ae42814d04725676afc5b4818d9fb7a3f">coro_resume</a>(<a class="code hl_struct" href="structcoroutine__t.html">coroutine_t</a> *co);</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span><a class="code hl_define" href="preview_8h.html#ab1912250c8ac23a2fa1af9360cb533bd">LIBDRAGON_PREVIEW_API</a></div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span><span class="keywordtype">void</span> <a class="code hl_function" href="coroutine_8h.html#a430ae34f4a3c2c020bc387f7bc6b86e6">coro_yield</a>(<span class="keywordtype">void</span>);</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span> </div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span><a class="code hl_define" href="preview_8h.html#ab1912250c8ac23a2fa1af9360cb533bd">LIBDRAGON_PREVIEW_API</a></div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span><span class="keywordtype">void</span> <a class="code hl_function" href="coroutine_8h.html#a7499003a429af9f227f2cc15a016babb">coro_sleep</a>(uint64_t ticks);</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span> </div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span><a class="code hl_define" href="preview_8h.html#ab1912250c8ac23a2fa1af9360cb533bd">LIBDRAGON_PREVIEW_API</a></div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span><span class="keywordtype">void</span> <a class="code hl_function" href="coroutine_8h.html#a52dffee6e8964c5e0d5aaf25101e895d">coro_destroy</a>(<a class="code hl_struct" href="structcoroutine__t.html">coroutine_t</a> *co);</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span> </div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span><a class="code hl_define" href="preview_8h.html#ab1912250c8ac23a2fa1af9360cb533bd">LIBDRAGON_PREVIEW_API</a></div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span><span class="keywordtype">bool</span> <a class="code hl_function" href="coroutine_8h.html#accc47933816debf410593f8ecc45f61f">coro_finished</a>(<a class="code hl_struct" href="structcoroutine__t.html">coroutine_t</a> *co);</div>
 <div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span> </div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span><span class="preprocessor">#ifdef __cplusplus</span></div>
-<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>}</div>
-<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span><span class="preprocessor">#endif</span></div>
-<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span> </div>
-<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span><span class="preprocessor">#endif</span></div>
-<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span> </div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span><a class="code hl_define" href="preview_8h.html#ab1912250c8ac23a2fa1af9360cb533bd">LIBDRAGON_PREVIEW_API</a></div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span><a class="code hl_struct" href="structcoroutine__t.html">coroutine_t</a>* <a class="code hl_function" href="coroutine_8h.html#a648a6d28726e8a11a38760c8f48d9c80">coro_get_current</a>(<span class="keywordtype">void</span>);</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span> </div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span><span class="preprocessor">#ifdef __cplusplus</span></div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>}</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span> </div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span> </div>
 <div class="ttc" id="acoroutine_8h_html_a430ae34f4a3c2c020bc387f7bc6b86e6"><div class="ttname"><a href="coroutine_8h.html#a430ae34f4a3c2c020bc387f7bc6b86e6">coro_yield</a></div><div class="ttdeci">void coro_yield(void)</div><div class="ttdoc">Yields and gives back control to the caller context.</div><div class="ttdef"><b>Definition</b> coroutine.c:100</div></div>
 <div class="ttc" id="acoroutine_8h_html_a52dffee6e8964c5e0d5aaf25101e895d"><div class="ttname"><a href="coroutine_8h.html#a52dffee6e8964c5e0d5aaf25101e895d">coro_destroy</a></div><div class="ttdeci">void coro_destroy(coroutine_t *co)</div><div class="ttdoc">Frees all resources associated with a coroutine.</div><div class="ttdef"><b>Definition</b> coroutine.c:115</div></div>
 <div class="ttc" id="acoroutine_8h_html_a648a6d28726e8a11a38760c8f48d9c80"><div class="ttname"><a href="coroutine_8h.html#a648a6d28726e8a11a38760c8f48d9c80">coro_get_current</a></div><div class="ttdeci">coroutine_t * coro_get_current(void)</div><div class="ttdoc">Returns the currently active coroutine.</div><div class="ttdef"><b>Definition</b> coroutine.c:127</div></div>
 <div class="ttc" id="acoroutine_8h_html_a7499003a429af9f227f2cc15a016babb"><div class="ttname"><a href="coroutine_8h.html#a7499003a429af9f227f2cc15a016babb">coro_sleep</a></div><div class="ttdeci">void coro_sleep(uint64_t ticks)</div><div class="ttdoc">Puts the current coroutine to sleep.</div><div class="ttdef"><b>Definition</b> coroutine.c:93</div></div>
-<div class="ttc" id="acoroutine_8h_html_aaa9a36b2bd5679502d2a7d73632d19a6"><div class="ttname"><a href="coroutine_8h.html#aaa9a36b2bd5679502d2a7d73632d19a6">coro_create</a></div><div class="ttdeci">coroutine_t * coro_create(void(*fn)(void *), void *arg, size_t stack_size)</div><div class="ttdoc">Creates a new coroutine This creates a new execution context for the specified function....</div><div class="ttdef"><b>Definition</b> coroutine.c:46</div></div>
+<div class="ttc" id="acoroutine_8h_html_aaa9a36b2bd5679502d2a7d73632d19a6"><div class="ttname"><a href="coroutine_8h.html#aaa9a36b2bd5679502d2a7d73632d19a6">coro_create</a></div><div class="ttdeci">coroutine_t * coro_create(void(*fn)(void *), void *arg, size_t stack_size)</div><div class="ttdoc">Creates a new coroutine.</div><div class="ttdef"><b>Definition</b> coroutine.c:46</div></div>
 <div class="ttc" id="acoroutine_8h_html_accc47933816debf410593f8ecc45f61f"><div class="ttname"><a href="coroutine_8h.html#accc47933816debf410593f8ecc45f61f">coro_finished</a></div><div class="ttdeci">bool coro_finished(coroutine_t *co)</div><div class="ttdoc">Checks if a coroutine has finished execution.</div><div class="ttdef"><b>Definition</b> coroutine.c:122</div></div>
 <div class="ttc" id="acoroutine_8h_html_ae42814d04725676afc5b4818d9fb7a3f"><div class="ttname"><a href="coroutine_8h.html#ae42814d04725676afc5b4818d9fb7a3f">coro_resume</a></div><div class="ttdeci">void coro_resume(coroutine_t *co)</div><div class="ttdoc">Resumes execution.</div><div class="ttdef"><b>Definition</b> coroutine.c:72</div></div>
+<div class="ttc" id="apreview_8h_html"><div class="ttname"><a href="preview_8h.html">preview.h</a></div><div class="ttdoc">Preview APIs.</div></div>
+<div class="ttc" id="apreview_8h_html_ab1912250c8ac23a2fa1af9360cb533bd"><div class="ttname"><a href="preview_8h.html#ab1912250c8ac23a2fa1af9360cb533bd">LIBDRAGON_PREVIEW_API</a></div><div class="ttdeci">#define LIBDRAGON_PREVIEW_API</div><div class="ttdoc">Mark a function as preview.</div><div class="ttdef"><b>Definition</b> preview.h:149</div></div>
 <div class="ttc" id="astructcoroutine__t_html"><div class="ttname"><a href="structcoroutine__t.html">coroutine_t</a></div><div class="ttdoc">Coroutine.</div><div class="ttdef"><b>Definition</b> coroutine.c:20</div></div>
 <div class="ttc" id="aucontext_8h_html"><div class="ttname"><a href="ucontext_8h.html">ucontext.h</a></div><div class="ttdoc">ucontext POSIX API</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jun 10 2026 22:36:47 for libdragon by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
+Generated on Fri Aug 21 2026 21:04:46 for libdragon by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
 </small></address>
 </body>
 </html>

@@ -72,6 +72,7 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#files">Files</a> &#124;
+<a href="#nested-classes">Data Structures</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle"><div class="title">DMA Controller<div class="ingroups"><a class="el" href="group__libdragon.html">libdragon</a> &raquo; <a class="el" href="group__lowlevel.html">Low Level Hardware Interfaces</a></div></div></div>
 </div><!--header-->
@@ -89,27 +90,45 @@ Files</h2></td></tr>
 <tr class="memdesc:dma_8h"><td class="mdescLeft">&#160;</td><td class="mdescRight">DMA Controller. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+Data Structures</h2></td></tr>
+<tr class="memitem:structpi__dom__timings__t" id="r_structpi__dom__timings__t"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dma.html#structpi__dom__timings__t">pi_dom_timings_t</a></td></tr>
+<tr class="memdesc:structpi__dom__timings__t"><td class="mdescLeft">&#160;</td><td class="mdescRight">PI BSD domain bus timing parameters.  <a href="group__dma.html#structpi__dom__timings__t">More...</a><br /></td></tr>
+<tr class="separator:structpi__dom__timings__t"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ga67d17e6db260e0b0b2632d52e7f5b15b" id="r_ga67d17e6db260e0b0b2632d52e7f5b15b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dma.html#ga67d17e6db260e0b0b2632d52e7f5b15b">dma_write_raw_async</a> (const void *ram_address, <a class="el" href="n64types_8h.html#abbde255c6ff18b478f46cb7fdf1357e6">pi_addr_t</a> pi_address, unsigned long len)</td></tr>
-<tr class="memdesc:ga67d17e6db260e0b0b2632d52e7f5b15b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Start writing data to a peripheral through PI DMA (low-level)  <br /></td></tr>
-<tr class="separator:ga67d17e6db260e0b0b2632d52e7f5b15b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae3fe8657f79a8ab068d2c3d7e0e9402e" id="r_gae3fe8657f79a8ab068d2c3d7e0e9402e"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dma.html#gae3fe8657f79a8ab068d2c3d7e0e9402e">dma_write_raw_async</a> (const void *ram_address, <a class="el" href="n64types_8h.html#abbde255c6ff18b478f46cb7fdf1357e6">pi_addr_t</a> pi_address, unsigned long len)</td></tr>
+<tr class="memdesc:gae3fe8657f79a8ab068d2c3d7e0e9402e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Start writing data to a peripheral through PI DMA (low-level)  <br /></td></tr>
+<tr class="separator:gae3fe8657f79a8ab068d2c3d7e0e9402e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaba28e5db067d400f6134c90daf0757c9" id="r_gaba28e5db067d400f6134c90daf0757c9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dma.html#gaba28e5db067d400f6134c90daf0757c9">dma_write</a> (const void *ram_address, <a class="el" href="n64types_8h.html#abbde255c6ff18b478f46cb7fdf1357e6">pi_addr_t</a> pi_address, unsigned long len)</td></tr>
 <tr class="memdesc:gaba28e5db067d400f6134c90daf0757c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write to a peripheral.  <br /></td></tr>
 <tr class="separator:gaba28e5db067d400f6134c90daf0757c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga9c8b37c1669126aa6c94670a5f6497d7" id="r_ga9c8b37c1669126aa6c94670a5f6497d7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dma.html#ga9c8b37c1669126aa6c94670a5f6497d7">dma_read_raw_async</a> (void *ram_address, <a class="el" href="n64types_8h.html#abbde255c6ff18b478f46cb7fdf1357e6">pi_addr_t</a> pi_address, unsigned long len)</td></tr>
-<tr class="memdesc:ga9c8b37c1669126aa6c94670a5f6497d7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Start reading data from a peripheral through PI DMA (low-level)  <br /></td></tr>
-<tr class="separator:ga9c8b37c1669126aa6c94670a5f6497d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gae6c194a1d50206b2db28ec4b88661abb" id="r_gae6c194a1d50206b2db28ec4b88661abb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dma.html#gae6c194a1d50206b2db28ec4b88661abb">dma_read_async</a> (void *ram_pointer, <a class="el" href="n64types_8h.html#abbde255c6ff18b478f46cb7fdf1357e6">pi_addr_t</a> pi_address, unsigned long len)</td></tr>
-<tr class="memdesc:gae6c194a1d50206b2db28ec4b88661abb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Start reading data from a peripheral through PI DMA.  <br /></td></tr>
-<tr class="separator:gae6c194a1d50206b2db28ec4b88661abb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga58e99647072f0a5383e1ed8245f73cf4" id="r_ga58e99647072f0a5383e1ed8245f73cf4"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dma.html#ga58e99647072f0a5383e1ed8245f73cf4">dma_read_raw_async</a> (void *ram_address, <a class="el" href="n64types_8h.html#abbde255c6ff18b478f46cb7fdf1357e6">pi_addr_t</a> pi_address, unsigned long len)</td></tr>
+<tr class="memdesc:ga58e99647072f0a5383e1ed8245f73cf4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Start reading data from a peripheral through PI DMA (low-level)  <br /></td></tr>
+<tr class="separator:ga58e99647072f0a5383e1ed8245f73cf4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaacc6804fc7b10281712970d48fc3fb53" id="r_gaacc6804fc7b10281712970d48fc3fb53"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dma.html#gaacc6804fc7b10281712970d48fc3fb53">dma_read_async</a> (void *ram_pointer, <a class="el" href="n64types_8h.html#abbde255c6ff18b478f46cb7fdf1357e6">pi_addr_t</a> pi_address, unsigned long len)</td></tr>
+<tr class="memdesc:gaacc6804fc7b10281712970d48fc3fb53"><td class="mdescLeft">&#160;</td><td class="mdescRight">Start reading data from a peripheral through PI DMA.  <br /></td></tr>
+<tr class="separator:gaacc6804fc7b10281712970d48fc3fb53"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga9c79d4f41eacb14335a0fac57fecf0a0" id="r_ga9c79d4f41eacb14335a0fac57fecf0a0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dma.html#ga9c79d4f41eacb14335a0fac57fecf0a0">dma_read</a> (void *ram_address, <a class="el" href="n64types_8h.html#abbde255c6ff18b478f46cb7fdf1357e6">pi_addr_t</a> pi_address, unsigned long len)</td></tr>
 <tr class="memdesc:ga9c79d4f41eacb14335a0fac57fecf0a0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read data from a peripheral through PI DMA, waiting for completion.  <br /></td></tr>
 <tr class="separator:ga9c79d4f41eacb14335a0fac57fecf0a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga89a297ad5b901919cc3c44f08d16dfb0" id="r_ga89a297ad5b901919cc3c44f08d16dfb0"><td class="memItemLeft" align="right" valign="top"><a id="ga89a297ad5b901919cc3c44f08d16dfb0" name="ga89a297ad5b901919cc3c44f08d16dfb0"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>dma_wait</b> (void)</td></tr>
-<tr class="memdesc:ga89a297ad5b901919cc3c44f08d16dfb0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wait until an async DMA or I/O transfer is finished. <br /></td></tr>
+<tr class="memdesc:ga89a297ad5b901919cc3c44f08d16dfb0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wait until all queued async DMA transfers are finished. <br /></td></tr>
 <tr class="separator:ga89a297ad5b901919cc3c44f08d16dfb0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gad5f8c7cdd46e879778bc142e9054fb33" id="r_gad5f8c7cdd46e879778bc142e9054fb33"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dma.html#gad5f8c7cdd46e879778bc142e9054fb33">dma_wait_started</a> (uint64_t ticket)</td></tr>
+<tr class="memdesc:gad5f8c7cdd46e879778bc142e9054fb33"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wait until an async DMA transfer has started.  <br /></td></tr>
+<tr class="separator:gad5f8c7cdd46e879778bc142e9054fb33"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga5e22937b9cd56ffde40cd3f281f78336" id="r_ga5e22937b9cd56ffde40cd3f281f78336"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dma.html#ga5e22937b9cd56ffde40cd3f281f78336">dma_wait_finished</a> (uint64_t ticket)</td></tr>
+<tr class="memdesc:ga5e22937b9cd56ffde40cd3f281f78336"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wait until an async DMA transfer is finished.  <br /></td></tr>
+<tr class="separator:ga5e22937b9cd56ffde40cd3f281f78336"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga5b40928c61f769085b2c43f159f4c178" id="r_ga5b40928c61f769085b2c43f159f4c178"><td class="memItemLeft" align="right" valign="top">unsigned long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dma.html#ga5b40928c61f769085b2c43f159f4c178">dma_get_progress</a> (uint64_t ticket)</td></tr>
+<tr class="memdesc:ga5b40928c61f769085b2c43f159f4c178"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the progress of an async DMA transfer.  <br /></td></tr>
+<tr class="separator:ga5b40928c61f769085b2c43f159f4c178"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga1c93c6157d4aafa629d7ad83f0f0b079" id="r_ga1c93c6157d4aafa629d7ad83f0f0b079"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dma.html#ga1c93c6157d4aafa629d7ad83f0f0b079">dma_finished</a> (uint64_t ticket)</td></tr>
+<tr class="memdesc:ga1c93c6157d4aafa629d7ad83f0f0b079"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check whether an async DMA transfer is finished.  <br /></td></tr>
+<tr class="separator:ga1c93c6157d4aafa629d7ad83f0f0b079"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga3888b19d3c25fd2d4a7a44dba1b165fc" id="r_ga3888b19d3c25fd2d4a7a44dba1b165fc"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dma.html#ga3888b19d3c25fd2d4a7a44dba1b165fc">io_read</a> (<a class="el" href="n64types_8h.html#abbde255c6ff18b478f46cb7fdf1357e6">pi_addr_t</a> pi_address)</td></tr>
 <tr class="memdesc:ga3888b19d3c25fd2d4a7a44dba1b165fc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read a 32 bit integer from a peripheral on the PI bus using the CPU.  <br /></td></tr>
 <tr class="separator:ga3888b19d3c25fd2d4a7a44dba1b165fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -160,16 +179,61 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>dma_wait</b> (void)</
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <p>DMA functionality for transfers between cartridge space and RDRAM. </p>
 <p>The DMA controller is responsible for handling block and word accesses from the cartridge domain. Because of the nature of the cartridge interface, code cannot use memcpy or standard pointer accesses on memory mapped to the cartridge. Consequently, the peripheral interface (PI) provides a DMA controller for accessing data.</p>
-<p>The DMA controller requires no initialization. Using <a class="el" href="group__dma.html#ga9c79d4f41eacb14335a0fac57fecf0a0" title="Read data from a peripheral through PI DMA, waiting for completion.">dma_read</a> and <a class="el" href="group__dma.html#gaba28e5db067d400f6134c90daf0757c9" title="Write to a peripheral.">dma_write</a> will allow reading from the cartridge and writing to the cartridge respectively in block mode. <a class="el" href="group__dma.html#ga3888b19d3c25fd2d4a7a44dba1b165fc" title="Read a 32 bit integer from a peripheral on the PI bus using the CPU.">io_read</a> and <a class="el" href="group__dma.html#gad623a096e65b76a559dc52d11b537c3e" title="Write a 32 bit integer to a peripheral on the PI bus using the CPU.">io_write</a> will allow a single 32-bit integer to be read from or written to the cartridge. These are especially useful for manipulating registers on a cartridge such as a gameshark. Code should never make raw 32-bit reads or writes in the cartridge domain as it could collide with an in-progress DMA transfer or run into caching issues. </p>
-<h2 class="groupheader">Function Documentation</h2>
-<a id="ga67d17e6db260e0b0b2632d52e7f5b15b" name="ga67d17e6db260e0b0b2632d52e7f5b15b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga67d17e6db260e0b0b2632d52e7f5b15b">&#9670;&#160;</a></span>dma_write_raw_async()</h2>
+<p>The DMA controller requires no initialization. Using <a class="el" href="group__dma.html#ga9c79d4f41eacb14335a0fac57fecf0a0" title="Read data from a peripheral through PI DMA, waiting for completion.">dma_read</a> and <a class="el" href="group__dma.html#gaba28e5db067d400f6134c90daf0757c9" title="Write to a peripheral.">dma_write</a> will allow reading from the cartridge and writing to the cartridge respectively in block mode. <a class="el" href="group__dma.html#ga3888b19d3c25fd2d4a7a44dba1b165fc" title="Read a 32 bit integer from a peripheral on the PI bus using the CPU.">io_read</a> and <a class="el" href="group__dma.html#gad623a096e65b76a559dc52d11b537c3e" title="Write a 32 bit integer to a peripheral on the PI bus using the CPU.">io_write</a> will allow a single 32-bit integer to be read from or written to the cartridge. These are especially useful for manipulating registers on a cartridge such as a gameshark. Code should never make raw 32-bit reads or writes in the cartridge domain as it could collide with an in-progress DMA transfer or run into caching issues.</p>
+<p>Async DMA requests are queued and executed one at a time, dequeued via the PI interrupt. Each async function returns a ticket that can be used with <a class="el" href="group__dma.html#ga5b40928c61f769085b2c43f159f4c178" title="Return the progress of an async DMA transfer.">dma_get_progress</a> and <a class="el" href="group__dma.html#ga1c93c6157d4aafa629d7ad83f0f0b079" title="Check whether an async DMA transfer is finished.">dma_finished</a> to query the transfer, <a class="el" href="group__dma.html#gad5f8c7cdd46e879778bc142e9054fb33" title="Wait until an async DMA transfer has started.">dma_wait_started</a> or <a class="el" href="group__dma.html#ga5e22937b9cd56ffde40cd3f281f78336" title="Wait until an async DMA transfer is finished.">dma_wait_finished</a> to wait for that transfer, or <a class="el" href="group__dma.html#ga89a297ad5b901919cc3c44f08d16dfb0" title="Wait until all queued async DMA transfers are finished.">dma_wait</a> to wait for all queued transfers to finish. </p>
+<hr/><h2 class="groupheader">Data Structure Documentation</h2>
+<a name="structpi__dom__timings__t" id="structpi__dom__timings__t"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#structpi__dom__timings__t">&#9670;&#160;</a></span>pi_dom_timings_t</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void dma_write_raw_async </td>
+          <td class="memname">struct pi_dom_timings_t</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="textblock"><p>PI BSD domain bus timing parameters. </p>
+<p>These map directly onto a PI domain's LAT/PWD/PGS/RLS registers (PI_BSD_DOM1_* for cartridge ROM, PI_BSD_DOM2_* for SRAM/FlashRAM), which configure the bus timing the PI uses to talk to a peripheral in that domain. Each field is the raw register value. </p>
+</div><table class="fieldtable">
+<tr><th colspan="3">Data Fields</th></tr>
+<tr><td class="fieldtype">
+<a id="ab9562abadac5371946859bb91ce74c1e" name="ab9562abadac5371946859bb91ce74c1e"></a>uint8_t</td>
+<td class="fieldname">
+latency</td>
+<td class="fielddoc">
+PI_BSD_DOMx_LAT: bus latency. </td></tr>
+<tr><td class="fieldtype">
+<a id="a5a221531c924fe78d477725cce7c2645" name="a5a221531c924fe78d477725cce7c2645"></a>uint8_t</td>
+<td class="fieldname">
+pulse_width</td>
+<td class="fielddoc">
+PI_BSD_DOMx_PWD: pulse width. </td></tr>
+<tr><td class="fieldtype">
+<a id="a083970d8a23a902cd1ee997e6dd3c118" name="a083970d8a23a902cd1ee997e6dd3c118"></a>uint8_t</td>
+<td class="fieldname">
+page_size</td>
+<td class="fielddoc">
+PI_BSD_DOMx_PGS: page size; DMA auto-split boundary is 2^(page_size+2) bytes. </td></tr>
+<tr><td class="fieldtype">
+<a id="a2094ed9f913d0c8c48bc3f48855cfaee" name="a2094ed9f913d0c8c48bc3f48855cfaee"></a>uint8_t</td>
+<td class="fieldname">
+release</td>
+<td class="fielddoc">
+PI_BSD_DOMx_RLS: release duration. </td></tr>
+</table>
+
+</div>
+</div>
+<h2 class="groupheader">Function Documentation</h2>
+<a id="gae3fe8657f79a8ab068d2c3d7e0e9402e" name="gae3fe8657f79a8ab068d2c3d7e0e9402e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gae3fe8657f79a8ab068d2c3d7e0e9402e">&#9670;&#160;</a></span>dma_write_raw_async()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint64_t dma_write_raw_async </td>
           <td>(</td>
           <td class="paramtype">const void *&#160;</td>
           <td class="paramname"><em>ram_address</em>, </td>
@@ -196,15 +260,16 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>dma_wait</b> (void)</
 
 <p>Start writing data to a peripheral through PI DMA (low-level) </p>
 <p>This function should be used when writing to a cartridge peripheral (typically ROM). This function just begins executing a raw DMA transfer, which is well-defined only for RAM addresses which are multiple of 8, ROM addresses which are multiple of 2, and lengths which are multiple of 2.</p>
-<p>Use <a class="el" href="group__dma.html#ga89a297ad5b901919cc3c44f08d16dfb0" title="Wait until an async DMA or I/O transfer is finished.">dma_wait</a> to wait for the end of the transfer.</p>
+<p>Use <a class="el" href="group__dma.html#ga5e22937b9cd56ffde40cd3f281f78336" title="Wait until an async DMA transfer is finished.">dma_wait_finished</a> to wait for the end of the transfer, or <a class="el" href="group__dma.html#ga1c93c6157d4aafa629d7ad83f0f0b079" title="Check whether an async DMA transfer is finished.">dma_finished</a> to check it without blocking.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[out]</td><td class="paramname">ram_address</td><td>Pointer to a buffer to read data from (must be 8-byte aligned) </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">pi_address</td><td>Memory address of the peripheral to write to (must be 2-byte aligned) </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">len</td><td>Length in bytes to write into pi_address (must be multiple of 2) </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">len</td><td>Length in bytes to write into pi_address (must be a multiple of 2 and no greater than 16 MiB)</td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section return"><dt>Returns</dt><dd>Ticket identifying the transfer (always not 0) </dd></dl>
 
 </div>
 </div>
@@ -250,18 +315,18 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>dma_wait</b> (void)</
   </table>
   </dd>
 </dl>
-<dl class="section note"><dt>Note</dt><dd>This function has always had an historical mistake: the pi_address is mangled to be forced into the ROM area (0x10000000-0x1FFFFFFF). This is wrong as the PI bus has full 32-bit address, and the same function could have been used to access the whole range. If you need to read outside the ROM area, use <a class="el" href="group__dma.html#ga67d17e6db260e0b0b2632d52e7f5b15b" title="Start writing data to a peripheral through PI DMA (low-level)">dma_write_raw_async</a> instead. </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This function has always had an historical mistake: the pi_address is mangled to be forced into the ROM area (0x10000000-0x1FFFFFFF). This is wrong as the PI bus has full 32-bit address, and the same function could have been used to access the whole range. If you need to read outside the ROM area, use <a class="el" href="group__dma.html#gae3fe8657f79a8ab068d2c3d7e0e9402e" title="Start writing data to a peripheral through PI DMA (low-level)">dma_write_raw_async</a> instead. </dd></dl>
 
 </div>
 </div>
-<a id="ga9c8b37c1669126aa6c94670a5f6497d7" name="ga9c8b37c1669126aa6c94670a5f6497d7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga9c8b37c1669126aa6c94670a5f6497d7">&#9670;&#160;</a></span>dma_read_raw_async()</h2>
+<a id="ga58e99647072f0a5383e1ed8245f73cf4" name="ga58e99647072f0a5383e1ed8245f73cf4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga58e99647072f0a5383e1ed8245f73cf4">&#9670;&#160;</a></span>dma_read_raw_async()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void dma_read_raw_async </td>
+          <td class="memname">uint64_t dma_read_raw_async </td>
           <td>(</td>
           <td class="paramtype">void *&#160;</td>
           <td class="paramname"><em>ram_address</em>, </td>
@@ -288,27 +353,28 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>dma_wait</b> (void)</
 
 <p>Start reading data from a peripheral through PI DMA (low-level) </p>
 <p>This function should be used when reading from a cartridge peripheral (typically ROM). This function just begins executing a raw DMA transfer, which is well-defined only for RAM addresses which are multiple of 8, ROM addresses which are multiple of 2, and lengths which are multiple of 2.</p>
-<p>Use <a class="el" href="group__dma.html#ga89a297ad5b901919cc3c44f08d16dfb0" title="Wait until an async DMA or I/O transfer is finished.">dma_wait</a> to wait for the end of the transfer.</p>
-<p>See <a class="el" href="group__dma.html#gae6c194a1d50206b2db28ec4b88661abb" title="Start reading data from a peripheral through PI DMA.">dma_read_async</a> for a higher level primitive which can perform almost arbitrary transfers.</p>
+<p>Use <a class="el" href="group__dma.html#ga5e22937b9cd56ffde40cd3f281f78336" title="Wait until an async DMA transfer is finished.">dma_wait_finished</a> to wait for the end of the transfer, or <a class="el" href="group__dma.html#ga1c93c6157d4aafa629d7ad83f0f0b079" title="Check whether an async DMA transfer is finished.">dma_finished</a> to check it without blocking.</p>
+<p>See <a class="el" href="group__dma.html#gaacc6804fc7b10281712970d48fc3fb53" title="Start reading data from a peripheral through PI DMA.">dma_read_async</a> for a higher level primitive which can perform almost arbitrary transfers.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[out]</td><td class="paramname">ram_address</td><td>Pointer to a buffer to place read data (must be 8-byte aligned) </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">pi_address</td><td>Memory address of the peripheral to read from (must be 2-byte aligned) </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">len</td><td>Length in bytes to read into ram_address (must be multiple of 2) </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">len</td><td>Length in bytes to read into ram_address (must be a multiple of 2 and no greater than 16 MiB)</td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section return"><dt>Returns</dt><dd>Ticket identifying the transfer (always not 0) </dd></dl>
 
 </div>
 </div>
-<a id="gae6c194a1d50206b2db28ec4b88661abb" name="gae6c194a1d50206b2db28ec4b88661abb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gae6c194a1d50206b2db28ec4b88661abb">&#9670;&#160;</a></span>dma_read_async()</h2>
+<a id="gaacc6804fc7b10281712970d48fc3fb53" name="gaacc6804fc7b10281712970d48fc3fb53"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaacc6804fc7b10281712970d48fc3fb53">&#9670;&#160;</a></span>dma_read_async()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void dma_read_async </td>
+          <td class="memname">uint64_t dma_read_async </td>
           <td>(</td>
           <td class="paramtype">void *&#160;</td>
           <td class="paramname"><em>ram_pointer</em>, </td>
@@ -334,18 +400,19 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>dma_wait</b> (void)</
 </div><div class="memdoc">
 
 <p>Start reading data from a peripheral through PI DMA. </p>
-<p>This function must be used when reading a chunk of data from a cartridge peripheral (typically, ROM). It is a wrapper over <a class="el" href="group__dma.html#ga9c8b37c1669126aa6c94670a5f6497d7" title="Start reading data from a peripheral through PI DMA (low-level)">dma_read_raw_async</a> that allows arbitrary aligned addresses and any length (including odd sizes). For fully-aligned addresses it quickly falls back to <a class="el" href="group__dma.html#ga9c8b37c1669126aa6c94670a5f6497d7" title="Start reading data from a peripheral through PI DMA (low-level)">dma_read_raw_async</a>, so it can be used generically as "default" PI DMA transfer function.</p>
+<p>This function must be used when reading a chunk of data from a cartridge peripheral (typically, ROM). It is a wrapper over <a class="el" href="group__dma.html#ga58e99647072f0a5383e1ed8245f73cf4" title="Start reading data from a peripheral through PI DMA (low-level)">dma_read_raw_async</a> that allows arbitrary aligned addresses and any length (including odd sizes). For fully-aligned addresses it quickly falls back to <a class="el" href="group__dma.html#ga58e99647072f0a5383e1ed8245f73cf4" title="Start reading data from a peripheral through PI DMA (low-level)">dma_read_raw_async</a>, so it can be used generically as "default" PI DMA transfer function.</p>
 <p>The only constraint on alignment is that the RAM and PI addresses must have the same 1-bit misalignment, that is they must either be even addresses or odd addresses. Notice that this function will assert if this constraint is not respected.</p>
-<p>Use <a class="el" href="group__dma.html#ga89a297ad5b901919cc3c44f08d16dfb0" title="Wait until an async DMA or I/O transfer is finished.">dma_wait</a> to wait for the end of the transfer.</p>
+<p>Use <a class="el" href="group__dma.html#ga5e22937b9cd56ffde40cd3f281f78336" title="Wait until an async DMA transfer is finished.">dma_wait_finished</a> to wait for the end of the transfer, or <a class="el" href="group__dma.html#ga1c93c6157d4aafa629d7ad83f0f0b079" title="Check whether an async DMA transfer is finished.">dma_finished</a> to check it without blocking. The buffer is fully valid only after completion has been confirmed.</p>
 <p>For non performance sensitive tasks such as reading and parsing data from ROM at loading time, a better option is to use DragonFS, where <a class="el" href="dragonfs_8c.html#a7c0acaa1af10520da638633ab73b9287" title="Read data from a file.">dfs_read</a> falls back to a CPU memory copy to realign the data when required.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[out]</td><td class="paramname">ram_pointer</td><td>Pointer to a buffer in RDRAM to place read data </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">pi_address</td><td>Memory address of the peripheral to read from </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">len</td><td>Length in bytes to read into ram_pointer </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">len</td><td>Length in bytes to read into ram_pointer (no greater than 16 MiB)</td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section return"><dt>Returns</dt><dd>Ticket identifying the transfer (always not 0) </dd></dl>
 
 </div>
 </div>
@@ -382,7 +449,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>dma_wait</b> (void)</
 </div><div class="memdoc">
 
 <p>Read data from a peripheral through PI DMA, waiting for completion. </p>
-<p>This function performs a blocking read. See <a class="el" href="group__dma.html#gae6c194a1d50206b2db28ec4b88661abb" title="Start reading data from a peripheral through PI DMA.">dma_read_async</a> for more information.</p>
+<p>This function performs a blocking read. See <a class="el" href="group__dma.html#gaacc6804fc7b10281712970d48fc3fb53" title="Start reading data from a peripheral through PI DMA.">dma_read_async</a> for more information.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[out]</td><td class="paramname">ram_address</td><td>Pointer to a buffer in RDRAM to place read data </td></tr>
@@ -391,7 +458,122 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>dma_wait</b> (void)</
   </table>
   </dd>
 </dl>
-<dl class="section note"><dt>Note</dt><dd>This function has always had an historical mistake: the pi_address is mangled to be forced into the ROM area (0x10000000-0x1FFFFFFF). This is wrong as the PI bus has full 32-bit address, and the same function could have been used to access the whole range. If you need to read outside the ROM area, use <a class="el" href="group__dma.html#gae6c194a1d50206b2db28ec4b88661abb" title="Start reading data from a peripheral through PI DMA.">dma_read_async</a> instead. </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This function has always had an historical mistake: the pi_address is mangled to be forced into the ROM area (0x10000000-0x1FFFFFFF). This is wrong as the PI bus has full 32-bit address, and the same function could have been used to access the whole range. If you need to read outside the ROM area, use <a class="el" href="group__dma.html#gaacc6804fc7b10281712970d48fc3fb53" title="Start reading data from a peripheral through PI DMA.">dma_read_async</a> instead. </dd></dl>
+
+</div>
+</div>
+<a id="gad5f8c7cdd46e879778bc142e9054fb33" name="gad5f8c7cdd46e879778bc142e9054fb33"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gad5f8c7cdd46e879778bc142e9054fb33">&#9670;&#160;</a></span>dma_wait_started()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void dma_wait_started </td>
+          <td>(</td>
+          <td class="paramtype">uint64_t&#160;</td>
+          <td class="paramname"><em>ticket</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Wait until an async DMA transfer has started. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000062">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
+<p>If the kernel is running, the calling thread yields while the transfer is still queued. A transfer which has already completed is considered started.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ticket</td><td>Ticket returned by an async DMA function </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ga5e22937b9cd56ffde40cd3f281f78336" name="ga5e22937b9cd56ffde40cd3f281f78336"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga5e22937b9cd56ffde40cd3f281f78336">&#9670;&#160;</a></span>dma_wait_finished()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void dma_wait_finished </td>
+          <td>(</td>
+          <td class="paramtype">uint64_t&#160;</td>
+          <td class="paramname"><em>ticket</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Wait until an async DMA transfer is finished. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000063">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
+<p>If the kernel is running, the calling thread yields while waiting.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ticket</td><td>Ticket returned by an async DMA function </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ga5b40928c61f769085b2c43f159f4c178" name="ga5b40928c61f769085b2c43f159f4c178"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga5b40928c61f769085b2c43f159f4c178">&#9670;&#160;</a></span>dma_get_progress()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned long dma_get_progress </td>
+          <td>(</td>
+          <td class="paramtype">uint64_t&#160;</td>
+          <td class="paramname"><em>ticket</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Return the progress of an async DMA transfer. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000064">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
+<p>If the transfer has not started yet, this function returns zero.</p>
+<p>If it is currently running, the returned value identifies the offset of the next byte that will be transferred by the DMA, so all preceding bytes are safe to consume (when doing a DMA-racing approach).</p>
+<p>If the transfer has completed, it returns the total requested length. Notice that at this point, another transfer might already have started.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ticket</td><td>Ticket returned by an async DMA function </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Number of bytes already transferred </dd></dl>
+
+</div>
+</div>
+<a id="ga1c93c6157d4aafa629d7ad83f0f0b079" name="ga1c93c6157d4aafa629d7ad83f0f0b079"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga1c93c6157d4aafa629d7ad83f0f0b079">&#9670;&#160;</a></span>dma_finished()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool dma_finished </td>
+          <td>(</td>
+          <td class="paramtype">uint64_t&#160;</td>
+          <td class="paramname"><em>ticket</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Check whether an async DMA transfer is finished. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000065">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ticket</td><td>Ticket returned by an async DMA function </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True if the transfer is fully complete </dd></dl>
 
 </div>
 </div>
@@ -451,7 +633,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>dma_wait</b> (void)</
 </div><div class="memdoc">
 
 <p>Write a 32 bit integer to a peripheral on the PI bus using the CPU. </p>
-<p>Notice that writes are performed asynchronously, so the data might have not been fully written to the peripheral yet when the function returns. Use <a class="el" href="group__dma.html#ga89a297ad5b901919cc3c44f08d16dfb0" title="Wait until an async DMA or I/O transfer is finished.">dma_wait</a> if you need to wait for the transfer to be finished.</p>
+<p>Notice that writes are performed asynchronously, so the data might have not been fully written to the peripheral yet when the function returns. Use <a class="el" href="group__dma.html#ga89a297ad5b901919cc3c44f08d16dfb0" title="Wait until all queued async DMA transfers are finished.">dma_wait</a> if you need to wait for the transfer to be finished.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">pi_address</td><td>PI address of the peripheral to write to </td></tr>
@@ -524,7 +706,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>dma_wait</b> (void)</
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jun 10 2026 22:36:48 for libdragon by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
+Generated on Fri Aug 21 2026 21:04:47 for libdragon by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
 </small></address>
 </body>
 </html>

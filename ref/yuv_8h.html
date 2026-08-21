@@ -123,9 +123,8 @@ Functions</h2></td></tr>
 <tr class="memitem:a35cc5652402e20869bdc8faa50a64132" id="r_a35cc5652402e20869bdc8faa50a64132"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="yuv_8h.html#a35cc5652402e20869bdc8faa50a64132">yuv_init</a> (void)</td></tr>
 <tr class="memdesc:a35cc5652402e20869bdc8faa50a64132"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert YUV frames to RGB.  <br /></td></tr>
 <tr class="separator:a35cc5652402e20869bdc8faa50a64132"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6dc29e33dd1ab88bf561864a643280a4" id="r_a6dc29e33dd1ab88bf561864a643280a4"><td class="memItemLeft" align="right" valign="top"><a id="a6dc29e33dd1ab88bf561864a643280a4" name="a6dc29e33dd1ab88bf561864a643280a4"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>yuv_close</b> (void)</td></tr>
-<tr class="memdesc:a6dc29e33dd1ab88bf561864a643280a4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Shutdown the YUV conversion library. <br /></td></tr>
+<tr class="memitem:a6dc29e33dd1ab88bf561864a643280a4" id="r_a6dc29e33dd1ab88bf561864a643280a4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="yuv_8h.html#a6dc29e33dd1ab88bf561864a643280a4">yuv_close</a> (void)</td></tr>
+<tr class="memdesc:a6dc29e33dd1ab88bf561864a643280a4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Shutdown the YUV conversion library.  <br /></td></tr>
 <tr class="separator:a6dc29e33dd1ab88bf561864a643280a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7f48b0b199870592c35d0f78d4397c1d" id="r_a7f48b0b199870592c35d0f78d4397c1d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="yuv_8h.html#structyuv__colorspace__t">yuv_colorspace_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="yuv_8h.html#a7f48b0b199870592c35d0f78d4397c1d">yuv_new_colorspace</a> (float Kr, float Kb, int y0, int yrange, int crange)</td></tr>
 <tr class="memdesc:a7f48b0b199870592c35d0f78d4397c1d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate coefficients for a new YUV colorspace.  <br /></td></tr>
@@ -134,7 +133,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>yuv_close</b> (void)<
 <tr class="memdesc:a8825009c47443f83b6429c7e7b05cfb2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert a single YUV pixel into RGB.  <br /></td></tr>
 <tr class="separator:a8825009c47443f83b6429c7e7b05cfb2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8e309e399dc5297577e0dca8c9860912" id="r_a8e309e399dc5297577e0dca8c9860912"><td class="memItemLeft" align="right" valign="top"><a class="el" href="yuv_8h.html#structyuv__blitter__t">yuv_blitter_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="yuv_8h.html#a8e309e399dc5297577e0dca8c9860912">yuv_blitter_new</a> (int video_width, int video_height, float x0, float y0, const <a class="el" href="rdpq__tex_8h.html#structrdpq__blitparms__t">rdpq_blitparms_t</a> *parms, const <a class="el" href="yuv_8h.html#structyuv__colorspace__t">yuv_colorspace_t</a> *cs)</td></tr>
-<tr class="memdesc:a8e309e399dc5297577e0dca8c9860912"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a YUV blitter optimized for rendering multiple frames with some possible transformation.  <br /></td></tr>
+<tr class="memdesc:a8e309e399dc5297577e0dca8c9860912"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a YUV blitter optimized for rendering multiple frames with.  <br /></td></tr>
 <tr class="separator:a8e309e399dc5297577e0dca8c9860912"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a148a50a467fcb547b0237c38ff58c775" id="r_a148a50a467fcb547b0237c38ff58c775"><td class="memItemLeft" align="right" valign="top"><a class="el" href="yuv_8h.html#structyuv__blitter__t">yuv_blitter_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="yuv_8h.html#a148a50a467fcb547b0237c38ff58c775">yuv_blitter_new_fmv</a> (int video_width, int video_height, int screen_width, int screen_height, const <a class="el" href="yuv_8h.html#structyuv__fmv__parms__t">yuv_fmv_parms_t</a> *parms)</td></tr>
 <tr class="memdesc:a148a50a467fcb547b0237c38ff58c775"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a YUV blitter optimized for FMV drawing (full screen movie player)  <br /></td></tr>
@@ -382,7 +381,7 @@ Enable RDP dithering (magic square) <p>This is useful when drawing to a 16bpp fr
 </div><div class="memdoc">
 <div class="textblock"><p>An optimized YUV blitter, meant for drawing multiple frames. </p>
 <p>This structure represents a YUV blitter, which is an engine capable of drawing multiple YUV frames onto a RGB target surface.</p>
-<p>The blitter is created by <a class="el" href="yuv_8h.html#a8e309e399dc5297577e0dca8c9860912" title="Create a YUV blitter optimized for rendering multiple frames with some possible transformation.">yuv_blitter_new</a> or <a class="el" href="yuv_8h.html#a148a50a467fcb547b0237c38ff58c775" title="Create a YUV blitter optimized for FMV drawing (full screen movie player)">yuv_blitter_new_fmv</a>, providing all parameters that describe how to perform the blitting. At creation time, the blitting operation is recorded into a rspq block, so that the blitting itself (performed by <a class="el" href="yuv_8h.html#acbc0a986fcb50dc236dc0dcb1904a116" title="Perform a YUV blit using a blitter, with the specified surfaces.">yuv_blitter_run</a>) uses almost zero CPU time.</p>
+<p>The blitter is created by <a class="el" href="yuv_8h.html#a8e309e399dc5297577e0dca8c9860912" title="Create a YUV blitter optimized for rendering multiple frames with.">yuv_blitter_new</a> or <a class="el" href="yuv_8h.html#a148a50a467fcb547b0237c38ff58c775" title="Create a YUV blitter optimized for FMV drawing (full screen movie player)">yuv_blitter_new_fmv</a>, providing all parameters that describe how to perform the blitting. At creation time, the blitting operation is recorded into a rspq block, so that the blitting itself (performed by <a class="el" href="yuv_8h.html#acbc0a986fcb50dc236dc0dcb1904a116" title="Perform a YUV blit using a blitter, with the specified surfaces.">yuv_blitter_run</a>) uses almost zero CPU time.</p>
 <p>Once a blitter is not used anymore, remember to call <a class="el" href="yuv_8h.html#ac23ad98bc909a862e5217501cf4927cc" title="Free the memory allocated by a blitter.">yuv_blitter_free</a> to release the memory. </p>
 </div><table class="fieldtable">
 <tr><th colspan="3">Data Fields</th></tr>
@@ -475,8 +474,29 @@ RSPQ block containing the blitting operation. </td></tr>
 <p>If you have some very specific use case, you can define your own colorspace using <a class="el" href="yuv_8h.html#a7f48b0b199870592c35d0f78d4397c1d" title="Calculate coefficients for a new YUV colorspace.">yuv_new_colorspace</a>. For testing purposes, <a class="el" href="yuv_8h.html#a8825009c47443f83b6429c7e7b05cfb2" title="Convert a single YUV pixel into RGB.">yuv_to_rgb</a> can be used to convert a single YUV pixel to RGB using a specified colorspace.</p>
 <p>To blit a full frame, you can use <a class="el" href="yuv_8h.html#a3bbd485f18a92a9c5d93d4cee60e4ce3" title="Blit a 3-planes YUV frame into the current RDP framebuffer.">yuv_tex_blit</a>, which is similar to <a class="el" href="rdpq__tex_8c.html#a3a74ebb71eafae1b357a40417916854c" title="Blit a surface to the active framebuffer.">rdpq_tex_blit</a> as it allows to copy an arbitrary sized frame and apply transformations to it (typically, scaling or flipping).</p>
 <p>To playback a video at maximum performance, it is recommended to use <a class="el" href="yuv_8h.html#structyuv__blitter__t" title="An optimized YUV blitter, meant for drawing multiple frames.">yuv_blitter_t</a> instead. A blitter is an object that can be used to perform multiple frame conversions with the same parameters (same input size, same output size, same scaling and alignment). It is similar to <a class="el" href="rdpq__tex_8c.html#a3a74ebb71eafae1b357a40417916854c" title="Blit a surface to the active framebuffer.">rdpq_tex_blit</a> in concept, but it precalculates most of the computations using a rspq block (see <a class="el" href="rspq__internal_8h.html#structrspq__block__t" title="A rspq block: pre-recorded array of commands.">rspq_block_t</a> for more information), so that any time a conversion is needed, it is completely offloaded to the RSP+RDP with almost zero CPU overhead.</p>
-<p>You can create a <a class="el" href="yuv_8h.html#structyuv__blitter__t" title="An optimized YUV blitter, meant for drawing multiple frames.">yuv_blitter_t</a> using <a class="el" href="yuv_8h.html#a8e309e399dc5297577e0dca8c9860912" title="Create a YUV blitter optimized for rendering multiple frames with some possible transformation.">yuv_blitter_new</a> (which accepts parameters identical to <a class="el" href="yuv_8h.html#a3bbd485f18a92a9c5d93d4cee60e4ce3" title="Blit a 3-planes YUV frame into the current RDP framebuffer.">yuv_tex_blit</a>), or the most handy <a class="el" href="yuv_8h.html#a148a50a467fcb547b0237c38ff58c775" title="Create a YUV blitter optimized for FMV drawing (full screen movie player)">yuv_blitter_new_fmv</a> which accepts more high-level parameters more optimized for the use case of a full-screen full motion video player.</p>
-<p>Initialize the YUV conversion library. </p>
+<p>You can create a <a class="el" href="yuv_8h.html#structyuv__blitter__t" title="An optimized YUV blitter, meant for drawing multiple frames.">yuv_blitter_t</a> using <a class="el" href="yuv_8h.html#a8e309e399dc5297577e0dca8c9860912" title="Create a YUV blitter optimized for rendering multiple frames with.">yuv_blitter_new</a> (which accepts parameters identical to <a class="el" href="yuv_8h.html#a3bbd485f18a92a9c5d93d4cee60e4ce3" title="Blit a 3-planes YUV frame into the current RDP framebuffer.">yuv_tex_blit</a>), or the most handy <a class="el" href="yuv_8h.html#a148a50a467fcb547b0237c38ff58c775" title="Create a YUV blitter optimized for FMV drawing (full screen movie player)">yuv_blitter_new_fmv</a> which accepts more high-level parameters more optimized for the use case of a full-screen full motion video player.</p>
+<p>Initialize the YUV conversion library. </p><dl class="preview"><dt><b><a class="el" href="preview.html#_preview000542">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it. </dd></dl>
+
+</div>
+</div>
+<a id="a6dc29e33dd1ab88bf561864a643280a4" name="a6dc29e33dd1ab88bf561864a643280a4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6dc29e33dd1ab88bf561864a643280a4">&#9670;&#160;</a></span>yuv_close()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void yuv_close </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Shutdown the YUV conversion library. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000543">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it. </dd></dl>
 
 </div>
 </div>
@@ -525,6 +545,7 @@ RSPQ block containing the blitting operation. </td></tr>
 </div><div class="memdoc">
 
 <p>Calculate coefficients for a new YUV colorspace. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000544">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>This function is mostly for documentation purposes. It can be used to create a new colorspace, by calculating its coefficients (stored into <a class="el" href="yuv_8h.html#structyuv__colorspace__t" title="A YUV colorspace.">yuv_colorspace_t</a>) from the mathematical definition of the colorspace. Most users will not need to call this function and just use one of the predefined colorspaces such as <a class="el" href="yuv_8h.html#abbf504ff529acd5443a095b5d67d93f7" title="ITU-R BT.601 TV Range colorspace (DEFAULT).">YUV_BT601_TV</a>.</p>
 <p>A YUV colorspace is defined by three constants normally called Kr, Kg, Kb. Since the sum of these three constants must be 1.0, normally only two are provided (by convention, Kr and Kb).</p>
 <p>Because of technical issues with old analog TVs, it was not possible to display the full 8-bit range of the Y,U,V components, so during the conversion the range was often restricted a bit. The range for the Y component (as an 8-bit unsigned integer) is defined via the minimum allowed value <code>y0</code> and the number of possible values <code>yrange</code> &ndash; so the last allowed value is y0+yrange-1. The range for the U,V components (as 8-bit signed integers) is specified in <code>crange</code> and is always assumed to be centered around 0 (so the allowed values are -crange/2 to crange/2-1).</p>
@@ -590,6 +611,7 @@ RSPQ block containing the blitting operation. </td></tr>
 </div><div class="memdoc">
 
 <p>Convert a single YUV pixel into RGB. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000545">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>Convert a single YUV pixel to RGB, using the CPU. This function should be used only for non-performance critical tasks. For high-performance conversions, see the yuv_draw_frame_* functions that are hardware accelerated via the RDP.</p>
 <p>Notice that this function is not meant to be bit-exact with the RDP hardware accelerated version, but it will return values which are very close.</p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -655,7 +677,8 @@ RSPQ block containing the blitting operation. </td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Create a YUV blitter optimized for rendering multiple frames with some possible transformation. </p>
+<p>Create a YUV blitter optimized for rendering multiple frames with. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000546">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it. some possible transformation.</dd></dl>
 <p>This function is similar to <a class="el" href="yuv_8h.html#a148a50a467fcb547b0237c38ff58c775" title="Create a YUV blitter optimized for FMV drawing (full screen movie player)">yuv_blitter_new_fmv</a> but initializes the blitter using the same interface of <a class="el" href="yuv_8h.html#a3bbd485f18a92a9c5d93d4cee60e4ce3" title="Blit a 3-planes YUV frame into the current RDP framebuffer.">yuv_tex_blit</a> or <a class="el" href="rdpq__tex_8c.html#a3a74ebb71eafae1b357a40417916854c" title="Blit a surface to the active framebuffer.">rdpq_tex_blit</a>. The interface allows to handle on-the-fly arbitrary transformations of the blitter (including scaling and rotations) and also cropping. It is indeed a superset of what is possible through <a class="el" href="yuv_8h.html#a148a50a467fcb547b0237c38ff58c775" title="Create a YUV blitter optimized for FMV drawing (full screen movie player)">yuv_blitter_new_fmv</a>, but its API might be a bit harder to use for people that just want to do a full-motion video player.</p>
 <p>In general, refer to <a class="el" href="rdpq__tex_8c.html#a3a74ebb71eafae1b357a40417916854c" title="Blit a surface to the active framebuffer.">rdpq_tex_blit</a> for more in-depth documentation related to <code>x0</code> , <code>y0</code> , and <code>parms</code> .</p>
 <p>The blitter initialized by this function must be freed with <a class="el" href="yuv_8h.html#ac23ad98bc909a862e5217501cf4927cc" title="Free the memory allocated by a blitter.">yuv_blitter_free</a> to release all allocated memory.</p>
@@ -722,6 +745,7 @@ RSPQ block containing the blitting operation. </td></tr>
 </div><div class="memdoc">
 
 <p>Create a YUV blitter optimized for FMV drawing (full screen movie player) </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000547">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>This function creates a YUV blitter, using a configuration that is suited for full motion videos. By default (passing NULL as <code>parms</code> ), the blitter will draw each frame centered on the screen, and zooming it while maintaining its aspect ratio. Moreover, areas outside of the video will be filled with the black color. This is a good default for a full screen video player.</p>
 <p>By configuring <code>parms</code> , it is possible to tune the behavior of the player in several details: color space, alignment of the frame, type of zoom, and fill color.</p>
 <p>The blitter initialized by this function must be freed with <a class="el" href="yuv_8h.html#ac23ad98bc909a862e5217501cf4927cc" title="Free the memory allocated by a blitter.">yuv_blitter_free</a> to release all allocated memory.</p>
@@ -736,7 +760,7 @@ RSPQ block containing the blitting operation. </td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>An initialized blitter instance.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="yuv_8h.html#a8e309e399dc5297577e0dca8c9860912" title="Create a YUV blitter optimized for rendering multiple frames with some possible transformation.">yuv_blitter_new</a> </dd>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="yuv_8h.html#a8e309e399dc5297577e0dca8c9860912" title="Create a YUV blitter optimized for rendering multiple frames with.">yuv_blitter_new</a> </dd>
 <dd>
 <a class="el" href="yuv_8h.html#acbc0a986fcb50dc236dc0dcb1904a116" title="Perform a YUV blit using a blitter, with the specified surfaces.">yuv_blitter_run</a> </dd></dl>
 
@@ -769,11 +793,12 @@ RSPQ block containing the blitting operation. </td></tr>
 </div><div class="memdoc">
 
 <p>Perform a YUV blit using a blitter, with the specified surfaces. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000548">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>This function performs blitting of a YUV frame (converting it into RGB). The source frame is expected to be split into 3 planes. The conversion will be performed by a mix of RSP and RDP, and will be drawn to the currently attached surface (see <a class="el" href="rdpq__attach_8c.html#a67bd7bcd3d71538f5a10d50ba73b6b10" title="Attach the RDP to a color surface (and optionally a Z buffer)">rdpq_attach</a>).</p>
 <p>The blitter is configured at creation time with parameters that describe where to draw into the buffer, whether to perform a zoom, etc.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">blitter</td><td>Blitter created by <a class="el" href="yuv_8h.html#a148a50a467fcb547b0237c38ff58c775" title="Create a YUV blitter optimized for FMV drawing (full screen movie player)">yuv_blitter_new_fmv</a> or <a class="el" href="yuv_8h.html#a8e309e399dc5297577e0dca8c9860912" title="Create a YUV blitter optimized for rendering multiple frames with some possible transformation.">yuv_blitter_new</a> </td></tr>
+    <tr><td class="paramname">blitter</td><td>Blitter created by <a class="el" href="yuv_8h.html#a148a50a467fcb547b0237c38ff58c775" title="Create a YUV blitter optimized for FMV drawing (full screen movie player)">yuv_blitter_new_fmv</a> or <a class="el" href="yuv_8h.html#a8e309e399dc5297577e0dca8c9860912" title="Create a YUV blitter optimized for rendering multiple frames with.">yuv_blitter_new</a> </td></tr>
     <tr><td class="paramname">frame</td><td>YUV frame to blit </td></tr>
   </table>
   </dd>
@@ -798,6 +823,7 @@ RSPQ block containing the blitting operation. </td></tr>
 </div><div class="memdoc">
 
 <p>Free the memory allocated by a blitter. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000549">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>This function release the memory allocated on a <a class="el" href="yuv_8h.html#structyuv__blitter__t" title="An optimized YUV blitter, meant for drawing multiple frames.">yuv_blitter_t</a> instance. After calling this function, the blitter instance cannot be used anymore and must be initialized again.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -853,6 +879,7 @@ RSPQ block containing the blitting operation. </td></tr>
 </div><div class="memdoc">
 
 <p>Blit a 3-planes YUV frame into the current RDP framebuffer. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000550">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>This function is similar to <a class="el" href="rdpq__tex_8c.html#a3a74ebb71eafae1b357a40417916854c" title="Blit a surface to the active framebuffer.">rdpq_tex_blit</a>, but it allows to blit a YUV frame split into 3 planes. This is faster than first merging the 3 planes into a single buffer (as required by <a class="el" href="surface_8h.html#a01f43f3d6c80a7658bf729bfaf3136e1a303eb8a72aa1cd29e0314012f5bae6d3" title="Format YUV2 4:2:2 (data interleaved as YUYV)">FMT_YUV16</a>) and then blit it.</p>
 <p>This is an all-in-one function that avoids creating a <a class="el" href="yuv_8h.html#structyuv__blitter__t" title="An optimized YUV blitter, meant for drawing multiple frames.">yuv_blitter_t</a> instance, using it and then freeing it. On the other hand, it performs a lot of work on the CPU which the blitter does only one time (at creation time). Unless you only need to convert one frame, you should consider using the blitter for improved speed.</p>
 <p>For more information on how to use this function, see <a class="el" href="rdpq__tex_8c.html#a3a74ebb71eafae1b357a40417916854c" title="Blit a surface to the active framebuffer.">rdpq_tex_blit</a>.</p>
@@ -870,7 +897,7 @@ RSPQ block containing the blitting operation. </td></tr>
 <dd>
 <a class="el" href="yuv_8h.html#structyuv__blitter__t" title="An optimized YUV blitter, meant for drawing multiple frames.">yuv_blitter_t</a> </dd>
 <dd>
-<a class="el" href="yuv_8h.html#a8e309e399dc5297577e0dca8c9860912" title="Create a YUV blitter optimized for rendering multiple frames with some possible transformation.">yuv_blitter_new</a> </dd>
+<a class="el" href="yuv_8h.html#a8e309e399dc5297577e0dca8c9860912" title="Create a YUV blitter optimized for rendering multiple frames with.">yuv_blitter_new</a> </dd>
 <dd>
 <a class="el" href="yuv_8h.html#a148a50a467fcb547b0237c38ff58c775" title="Create a YUV blitter optimized for FMV drawing (full screen movie player)">yuv_blitter_new_fmv</a> </dd></dl>
 
@@ -997,7 +1024,7 @@ RSPQ block containing the blitting operation. </td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jun 10 2026 22:36:48 for libdragon by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
+Generated on Fri Aug 21 2026 21:04:46 for libdragon by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
 </small></address>
 </body>
 </html>

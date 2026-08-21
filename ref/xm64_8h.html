@@ -180,6 +180,12 @@ first_ch</td>
 <td class="fielddoc">
 first channel used in the mixer </td></tr>
 <tr><td class="fieldtype">
+<a id="a5322c27c29dad7b36010ea39bd8db736" name="a5322c27c29dad7b36010ea39bd8db736"></a>int</td>
+<td class="fieldname">
+stream_ramsz</td>
+<td class="fielddoc">
+RAM the mixer sample buffers take (set by <a class="el" href="xm64_8c.html#a91ca77d888f0905ff760426d1b3d7198" title="Start playing the XM64 module.">xm64player_play</a>) </td></tr>
+<tr><td class="fieldtype">
 <a id="ab9e8322d4962a9859b3f11a0418ea46a" name="ab9e8322d4962a9859b3f11a0418ea46a"></a>bool</td>
 <td class="fieldname">
 playing</td>
@@ -198,7 +204,7 @@ looping</td>
 <td class="fielddoc">
 true if the XM is configured to loop </td></tr>
 <tr><td class="fieldtype">
-<a id="a1a9a0fd7f6343dfb04a311e6d16222bd" name="a1a9a0fd7f6343dfb04a311e6d16222bd"></a>struct <a class="el" href="xm64_8h.html#structxm64player__t_8seek">xm64player_t.seek</a></td>
+<a id="ac042c2ef7ddc0a0ddbb5a9250b436566" name="ac042c2ef7ddc0a0ddbb5a9250b436566"></a>struct <a class="el" href="xm64_8h.html#structxm64player__t_8seek">xm64player_t.seek</a></td>
 <td class="fieldname">
 seek</td>
 <td class="fielddoc">
@@ -591,6 +597,7 @@ tick</td>
 </div><div class="memdoc">
 
 <p>Configure the directory where external samples are stored. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000541">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>This function is used to set the directory where the external samples are stored. It is only used for XM64 files that use external samples.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -604,7 +611,7 @@ tick</td>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jun 10 2026 22:36:48 for libdragon by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
+Generated on Fri Aug 21 2026 21:04:46 for libdragon by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
 </small></address>
 </body>
 </html>

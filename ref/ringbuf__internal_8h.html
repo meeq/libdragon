@@ -201,17 +201,23 @@ fd</td>
 <td class="fielddoc">
 File descriptor (used when rom_base == 0) </td></tr>
 <tr><td class="fieldtype">
-<a id="a48e8d0badd2cdf92b82d4f2daa09bbe5" name="a48e8d0badd2cdf92b82d4f2daa09bbe5"></a>uint32_t</td>
+<a id="adf68f283772a3195d3da29e0934a8f21" name="adf68f283772a3195d3da29e0934a8f21"></a><a class="el" href="n64types_8h.html#abbde255c6ff18b478f46cb7fdf1357e6">pi_addr_t</a></td>
 <td class="fieldname">
 rom_base</td>
 <td class="fielddoc">
 Base ROM address (0 if not reading from ROM) </td></tr>
 <tr><td class="fieldtype">
-<a id="ae37128c9d8aa6cdd1c52a8f7edb03914" name="ae37128c9d8aa6cdd1c52a8f7edb03914"></a>uint32_t</td>
+<a id="abd13d2ea6c8097d05a12d22ca9e2e669" name="abd13d2ea6c8097d05a12d22ca9e2e669"></a><a class="el" href="n64types_8h.html#abbde255c6ff18b478f46cb7fdf1357e6">pi_addr_t</a></td>
 <td class="fieldname">
 rom_addr</td>
 <td class="fielddoc">
 Current ROM address (advanced as we prefetch) </td></tr>
+<tr><td class="fieldtype">
+<a id="acee5afe5720db03d1642523c208bfa4f" name="acee5afe5720db03d1642523c208bfa4f"></a>uint64_t</td>
+<td class="fieldname">
+ticket[2]</td>
+<td class="fielddoc">
+DMA ticket for each prefetch buffer (ROM mode only) </td></tr>
 <tr><td class="fieldtype">
 <a id="a24a2267cb951b3f7c2d2af16ca70f070" name="a24a2267cb951b3f7c2d2af16ca70f070"></a>bool</td>
 <td class="fieldname">
@@ -367,7 +373,7 @@ True if EOF reached (fd mode only) </td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jun 10 2026 22:36:48 for libdragon by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
+Generated on Fri Aug 21 2026 21:04:47 for libdragon by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
 </small></address>
 </body>
 </html>

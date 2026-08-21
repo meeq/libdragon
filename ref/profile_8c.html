@@ -96,9 +96,8 @@ Functions</h2></td></tr>
 <tr class="memitem:ad79b2e6dfd8b37c11497f5c689f78fee" id="r_ad79b2e6dfd8b37c11497f5c689f78fee"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="profile_8c.html#ad79b2e6dfd8b37c11497f5c689f78fee">profile_init</a> (<a class="el" href="profile_8h.html#structprofile__parms__t">profile_parms_t</a> *parms)</td></tr>
 <tr class="memdesc:ad79b2e6dfd8b37c11497f5c689f78fee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize the profiler.  <br /></td></tr>
 <tr class="separator:ad79b2e6dfd8b37c11497f5c689f78fee"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afd208e17b350ca296675a0f08a9fe066" id="r_afd208e17b350ca296675a0f08a9fe066"><td class="memItemLeft" align="right" valign="top"><a id="afd208e17b350ca296675a0f08a9fe066" name="afd208e17b350ca296675a0f08a9fe066"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>profile_close</b> (void)</td></tr>
-<tr class="memdesc:afd208e17b350ca296675a0f08a9fe066"><td class="mdescLeft">&#160;</td><td class="mdescRight">Close the profiler. <br /></td></tr>
+<tr class="memitem:afd208e17b350ca296675a0f08a9fe066" id="r_afd208e17b350ca296675a0f08a9fe066"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="profile_8c.html#afd208e17b350ca296675a0f08a9fe066">profile_close</a> (void)</td></tr>
+<tr class="memdesc:afd208e17b350ca296675a0f08a9fe066"><td class="mdescLeft">&#160;</td><td class="mdescRight">Close the profiler.  <br /></td></tr>
 <tr class="separator:afd208e17b350ca296675a0f08a9fe066"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2196268d9a10bc467d5765d69bb3ceb7" id="r_a2196268d9a10bc467d5765d69bb3ceb7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="profile_8c.html#a2196268d9a10bc467d5765d69bb3ceb7">profile_reset</a> (void)</td></tr>
 <tr class="memdesc:a2196268d9a10bc467d5765d69bb3ceb7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reset the profiler.  <br /></td></tr>
@@ -203,6 +202,7 @@ Number of times the slot was hit. </td></tr>
 </div><div class="memdoc">
 
 <p>Initialize the profiler. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000355">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>Initialize the profiler. This must be called before using any of the PROFILE_* macros.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -211,6 +211,27 @@ Number of times the slot was hit. </td></tr>
   </dd>
 </dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="profile_8h.html#structprofile__parms__t" title="Parameters for the profiler.">profile_parms_t</a> </dd></dl>
+
+</div>
+</div>
+<a id="afd208e17b350ca296675a0f08a9fe066" name="afd208e17b350ca296675a0f08a9fe066"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afd208e17b350ca296675a0f08a9fe066">&#9670;&#160;</a></span>profile_close()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void profile_close </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Close the profiler. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000356">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it. </dd></dl>
 
 </div>
 </div>
@@ -231,6 +252,7 @@ Number of times the slot was hit. </td></tr>
 </div><div class="memdoc">
 
 <p>Reset the profiler. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000357">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>Reset the profiler. This will clear all accumulated profile data and reset the counters to 0.</p>
 <p>By default, this is called automatically at the interval specified by <a class="el" href="profile_8h.html#aa1e9570fd1ad99b7ad3cec3db0530160" title="Interval in seconds to dump profiling info to stderr (default: 5.0s)">profile_parms_t::dump_stderr_interval</a>.</p>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="profile_8h.html#structprofile__parms__t" title="Parameters for the profiler.">profile_parms_t</a> </dd>
@@ -272,6 +294,7 @@ Number of times the slot was hit. </td></tr>
 </div><div class="memdoc">
 
 <p>Register a new profile slot. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000358">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>This function register a slot to be used with the PROFILE_* macros. It allows to specify the name with which the slot will be identified in the dumps.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -304,7 +327,8 @@ Number of times the slot was hit. </td></tr>
 </div><div class="memdoc">
 
 <p>Communicate to the profiler the target frame rate. </p>
-<p>This is an optional function that can be called to communicate to the profiler the target frame rate. When the profiler is aware of the target frame rate, it will be to show stats related to the expected deadline for each frame (eg: how much CPU percentage is used on average in each frame).</p><ul>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000359">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
+<p>This is an optional function that can be called to communicate to the profiler the target frame rate. When the profiler is aware of the target frame rate, it will be used to show stats related to the expected deadline for each frame (eg: how much CPU percentage is used on average in each frame).</p><ul>
 <li><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">fps</td><td>Target frame rate in frames per second </td></tr>
@@ -333,6 +357,7 @@ Number of times the slot was hit. </td></tr>
 </div><div class="memdoc">
 
 <p>Mark the start of the next frame. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000360">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>This function must be called at the end of each frame. It will accumulate the profile data for the current frame and prepare the profiler for the next frame.</p>
 <p>This function will also trigger a dump and reset of the profiler data if the dump interval has been reached (see <a class="el" href="profile_8h.html#aa1e9570fd1ad99b7ad3cec3db0530160" title="Interval in seconds to dump profiling info to stderr (default: 5.0s)">profile_parms_t::dump_stderr_interval</a>).</p>
 <p>It is not mandatory to call this function at all; if you want to profile individual code sections not related to the specific concept of a frame loop, you can simply use the PROFILE_* macros as you please and then call <a class="el" href="profile_8h.html#a881272845cd3585a7b080cd55a23c5c3" title="Dump the profiler data to the console.">profile_dump()</a> to obtain the results.</p>
@@ -359,6 +384,7 @@ Number of times the slot was hit. </td></tr>
 </div><div class="memdoc">
 
 <p>Dump the profiler data to the console. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000361">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>This function will dump the current profiler data to the debugging channel.</p>
 <p>Notice that profile data is not reset after dumping, so it is possible to call this function multiple times and see data being accumulated over time. If you want to reset the profiler data after dumping, you can call <a class="el" href="profile_8h.html#a2196268d9a10bc467d5765d69bb3ceb7" title="Reset the profiler.">profile_reset()</a> after calling <a class="el" href="profile_8h.html#a881272845cd3585a7b080cd55a23c5c3" title="Dump the profiler data to the console.">profile_dump()</a>.</p>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="profile_8h.html#a2196268d9a10bc467d5765d69bb3ceb7" title="Reset the profiler.">profile_reset</a> </dd></dl>
@@ -368,7 +394,7 @@ Number of times the slot was hit. </td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jun 10 2026 22:36:48 for libdragon by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
+Generated on Fri Aug 21 2026 21:04:47 for libdragon by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
 </small></address>
 </body>
 </html>

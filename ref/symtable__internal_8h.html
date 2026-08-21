@@ -264,6 +264,12 @@ Size of compressed stream in bytes. </td></tr>
 rom_offset</td>
 <td class="fielddoc">
 ROM offset where this SYMT was loaded from. </td></tr>
+<tr><td class="fieldtype">
+<a id="a2fc6f0d61a4563daffde53c26458fdcf" name="a2fc6f0d61a4563daffde53c26458fdcf"></a>uint32_t</td>
+<td class="fieldname">
+addr_base</td>
+<td class="fielddoc">
+Load offset: prog_base for DSOs, 0 for main executable. </td></tr>
 </table>
 
 </div>
@@ -381,7 +387,7 @@ True if the symbol is an inlined function. </td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">symt</td><td>SYMT file header </td></tr>
-    <tr><td class="paramname">addr</td><td>Address to search for </td></tr>
+    <tr><td class="paramname">addr</td><td>Runtime address to search for </td></tr>
     <tr><td class="paramname">entries</td><td>Output entry structure array </td></tr>
     <tr><td class="paramname">max_entries</td><td>Size of the output entry array </td></tr>
   </table>
@@ -446,7 +452,7 @@ True if the symbol is an inlined function. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>char* Fetched string within the destination buffer </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Fetched string within the destination buffer </dd></dl>
 
 </div>
 </div>
@@ -505,14 +511,14 @@ True if the symbol is an inlined function. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>char* Fetched string within the destination buffer </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Fetched string within the destination buffer </dd></dl>
 
 </div>
 </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jun 10 2026 22:36:48 for libdragon by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
+Generated on Fri Aug 21 2026 21:04:47 for libdragon by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
 </small></address>
 </body>
 </html>

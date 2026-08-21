@@ -182,6 +182,7 @@ count</td>
 </div><div class="memdoc">
 
 <p>Initialize a semaphore. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000236">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>This function initializes a semaphore with the specified value.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -210,6 +211,7 @@ count</td>
 </div><div class="memdoc">
 
 <p>Destroy a semaphore. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000237">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>This function destroys a semaphore, freeing all the resources associated with it.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -237,6 +239,7 @@ count</td>
 </div><div class="memdoc">
 
 <p>Post to a semaphore. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000238">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>This function increments the value of a semaphore and signals any threads waiting on the semaphore.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -264,6 +267,7 @@ count</td>
 </div><div class="memdoc">
 
 <p>Post to a semaphore from an interrupt context. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000239">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>This function increments the value of the semaphore and signals a thread waiting on the semaphore.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -291,6 +295,7 @@ count</td>
 </div><div class="memdoc">
 
 <p>Wait on a semaphore. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000240">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>This function waits on a semaphore. If the semaphore's value is greater than 0, the function will decrement the value and return immediately. If the value is 0, the function will block until the semaphore's value is greater than 0.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -328,6 +333,7 @@ count</td>
 </div><div class="memdoc">
 
 <p>Try to wait on a semaphore, up to a timeout. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000241">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>This function tries to wait on a semaphore, up to a specified timeout. If the semaphore's value is greater than 0, the function will decrement the value and return true. If the value is 0, the function will block until the semaphore's value is greater than 0, or the timeout expires.</p>
 <p>As a special case, if the timeout is 0, the function will not block.</p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -346,7 +352,7 @@ false If the semaphore was not successfully waited on </dd></dl>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jun 10 2026 22:36:47 for libdragon by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
+Generated on Fri Aug 21 2026 21:04:46 for libdragon by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
 </small></address>
 </body>
 </html>

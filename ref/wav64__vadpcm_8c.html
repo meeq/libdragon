@@ -75,21 +75,16 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#define-members">Macros</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle"><div class="title">wav64_vadpcm.c File Reference</div></div>
 </div><!--header-->
 <div class="contents">
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
-Macros</h2></td></tr>
-<tr class="memitem:ab4697bd88e981205a5c85c90ddb0f8aa" id="r_ab4697bd88e981205a5c85c90ddb0f8aa"><td class="memItemLeft" align="right" valign="top"><a id="ab4697bd88e981205a5c85c90ddb0f8aa" name="ab4697bd88e981205a5c85c90ddb0f8aa"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>VADPCM_REFERENCE_DECODER</b>&#160;&#160;&#160;0</td></tr>
-<tr class="memdesc:ab4697bd88e981205a5c85c90ddb0f8aa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set to 1 to use the reference C decode for VADPCM. <br /></td></tr>
-<tr class="separator:ab4697bd88e981205a5c85c90ddb0f8aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
+<tr class="memitem:a2242d2b61c476f09bcf6a9f45fa92a9d" id="r_a2242d2b61c476f09bcf6a9f45fa92a9d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="wav64__vadpcm_8c.html#a2242d2b61c476f09bcf6a9f45fa92a9d">wav64_vadpcm_preload</a> (<a class="el" href="wav64_8h.html#structwav64__t">wav64_t</a> *wav, void *dst)</td></tr>
+<tr class="memdesc:a2242d2b61c476f09bcf6a9f45fa92a9d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Load the whole VADPCM body into a fully-planar plain-frame buffer.  <br /></td></tr>
+<tr class="separator:a2242d2b61c476f09bcf6a9f45fa92a9d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a681d802c49a835f348d18dff3b1f428c" id="r_a681d802c49a835f348d18dff3b1f428c"><td class="memItemLeft" align="right" valign="top"><a id="a681d802c49a835f348d18dff3b1f428c" name="a681d802c49a835f348d18dff3b1f428c"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>wav64_vadpcm_init</b> (<a class="el" href="wav64_8h.html#structwav64__t">wav64_t</a> *wav, int state_size)</td></tr>
 <tr class="memdesc:a681d802c49a835f348d18dff3b1f428c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize VADPCM decoder for a WAV64 file. <br /></td></tr>
@@ -109,10 +104,43 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>wav64_vadpcm_adjust_se
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><dl class="section author"><dt>Author</dt><dd>Giovanni Bajo <a href="#" onclick="location.href='mai'+'lto:'+'gio'+'va'+'nni'+'ba'+'jo@'+'gm'+'ail'+'.c'+'om'; return false;">giova<span class="obfuscator">.nosp@m.</span>nnib<span class="obfuscator">.nosp@m.</span>ajo@g<span class="obfuscator">.nosp@m.</span>mail<span class="obfuscator">.nosp@m.</span>.com</a> </dd></dl>
-</div></div><!-- contents -->
+</div><h2 class="groupheader">Function Documentation</h2>
+<a id="a2242d2b61c476f09bcf6a9f45fa92a9d" name="a2242d2b61c476f09bcf6a9f45fa92a9d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2242d2b61c476f09bcf6a9f45fa92a9d">&#9670;&#160;</a></span>wav64_vadpcm_preload()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void wav64_vadpcm_preload </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="wav64_8h.html#structwav64__t">wav64_t</a> *&#160;</td>
+          <td class="paramname"><em>wav</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>dst</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Load the whole VADPCM body into a fully-planar plain-frame buffer. </p>
+<p>Preload VADPCM body into a fully-planar plain-frame buffer at <code>dst</code>.</p>
+<p>File layout is block-planar (and possibly Huffman); <code>dst</code> receives [all L frames][all R frames] for direct MIX_CHANNEL addressing. </p>
+
+</div>
+</div>
+</div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jun 10 2026 22:36:48 for libdragon by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
+Generated on Fri Aug 21 2026 21:04:47 for libdragon by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
 </small></address>
 </body>
 </html>

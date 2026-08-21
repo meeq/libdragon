@@ -134,6 +134,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Play a full-motion video from a video file. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000184">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>This function plays a full-motion video from a video file, along with its audio track if present. It takes care of everything: setting up the display subsystem, opening the video and audio files, decoding and rendering the video frames, playing back the audio, and synchronizing everything. The function blocks until the video playback is complete (or is aborted via the control interface, see below).</p>
 <p>Playback can be customized via the <a class="el" href="structfmv__parms__t.html" title="FMV playback parameters.">fmv_parms_t</a> structure. In particular, it is possible to register a callback function (<a class="el" href="structfmv__parms__t.html#a5a3f8aa8b5125bd155679bfbaa03c1b8" title="Callback function to draw OSD on top of the video.">fmv_parms_t::osd_callback</a>) that is called once per frame, allowing to draw an on-screen display (OSD) on top of the video, or to control playback (pause, stop, seek, etc.). For instance, this can be used to implement skipping the video when a button is pressed, like in this example:</p>
 <p>@code{.c} void my_osd_callback(void *ctx, int frame_idx, float time_sec, fmv_control_t *ctrl) { <a class="el" href="group__joypad.html#gad9815329c5e3b6fc5e7765b7d9e04fed" title="Fetch the current Joypad input state.">joypad_poll()</a>; <a class="el" href="group__joypad.html#unionjoypad__buttons__t" title="Joypad Buttons.">joypad_buttons_t</a> btn = joypad_get_buttons_pressed(JOYPAD_PORT_1); if (btn.start) ctrl-&gt;stop(ctrl); }</p>
@@ -152,7 +153,7 @@ Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jun 10 2026 22:36:47 for libdragon by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
+Generated on Fri Aug 21 2026 21:04:46 for libdragon by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
 </small></address>
 </body>
 </html>

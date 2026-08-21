@@ -250,6 +250,7 @@ Total number of heartbeats detected since reading started. </td></tr>
 </div><div class="memdoc">
 
 <p>Initialize the Bio Sensor subsystem. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000022">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>Must be called before starting Bio Sensor reads on any port.</p>
 <p>Registers the VI interrupt handler for periodic sensor reads. Uses reference counting to support multiple init/close pairs. </p>
 
@@ -272,6 +273,7 @@ Total number of heartbeats detected since reading started. </td></tr>
 </div><div class="memdoc">
 
 <p>Close the Bio Sensor subsystem. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000023">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>Should be called when Bio Sensor functionality is no longer needed.</p>
 <p>Decrements the reference count and unregisters the VI interrupt handler when the count reaches zero. </p>
 
@@ -294,6 +296,7 @@ Total number of heartbeats detected since reading started. </td></tr>
 </div><div class="memdoc">
 
 <p>Start reading heartbeat data from a Bio Sensor. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000024">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>Initializes the reader context for the specified port and begins continuous heartbeat monitoring. The sensor will be read at 60Hz (NTSC) or 50Hz (PAL) via the VI interrupt handler. After starting, it will take 4-5 seconds to accumulate enough data for a heart rate reading.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -321,6 +324,7 @@ Total number of heartbeats detected since reading started. </td></tr>
 </div><div class="memdoc">
 
 <p>Stop reading heartbeat data from a Bio Sensor. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000025">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>Clears the reader context for the specified port and stops all heartbeat monitoring. Also called automatically if the Bio Sensor is disconnected during reading.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -348,6 +352,7 @@ Total number of heartbeats detected since reading started. </td></tr>
 </div><div class="memdoc">
 
 <p>Check if Bio Sensor is actively reading heartbeat data. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000026">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">port</td><td>The joypad port to check </td></tr>
@@ -375,6 +380,7 @@ Total number of heartbeats detected since reading started. </td></tr>
 </div><div class="memdoc">
 
 <p>Check if a heartbeat pulse is currently detected. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000027">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">port</td><td>The joypad port to check </td></tr>
@@ -402,6 +408,7 @@ Total number of heartbeats detected since reading started. </td></tr>
 </div><div class="memdoc">
 
 <p>Calculate the current heart rate in beats per minute (BPM) </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000028">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>Calculates the average BPM based on heartbeat counts from multiple measurement periods. Requires at least 8 measurement periods (4 seconds) of data before returning a valid BPM. Uses up to 16 periods (8 seconds) for the rolling average calculation.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -416,7 +423,7 @@ Total number of heartbeats detected since reading started. </td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jun 10 2026 22:36:48 for libdragon by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
+Generated on Fri Aug 21 2026 21:04:47 for libdragon by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
 </small></address>
 </body>
 </html>

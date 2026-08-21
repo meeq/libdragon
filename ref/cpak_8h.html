@@ -151,6 +151,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Read data from a controller pak. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000036">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>This is a low-level operation that reads a sequence of raw bytes from the controller pak, with no filesystem semantics. A typical use case for this function is dumping the contents of a controller pak.</p>
 <p>The function will switch to the specified bank (unless it is already in that bank), and then read the specified number of bytes from the specified address. The read can be of any length, and the address does not need to be aligned, but the read cannot cross banks.</p>
 <dl class="section note"><dt>Note</dt><dd>There is no way for this function to know how many banks the controller pak has. The caller must ensure that the bank exists, otherwise the behavior is undefined. You can use the <a class="el" href="cpak_8h.html#aae105e2bedc4b37d8c602b6147caafbf" title="Probe the number of banks in a controller pak.">cpak_probe_banks</a> function to determine the number of banks, via hardware probing, or <a class="el" href="cpakfs_8c.html#aa121d51eaf4159e9e494dc3e3d4cc4d7" title="Read the usage state of a controller pak.">cpakfs_get_stats</a> to get the number of banks as recorded in the filesystem.</dd></dl>
@@ -165,7 +166,7 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>int Number of bytes read, or negative value in case of error (errno will be set). </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Number of bytes read, or negative value in case of error (errno will be set). </dd></dl>
 
 </div>
 </div>
@@ -214,6 +215,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Write data to a controller pak. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000037">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>This is a low-level operation that writes a sequence of raw bytes to the controller pak, with no filesystem semantics. A typical use case for this function is restoring a dump to a controller pak.</p>
 <p>The function will switch to the specified bank (unless it is already in that bank), and then write the specified number of bytes to the specified address. The write can be of any length, and the address does not need to be aligned, but the write cannot cross banks.</p>
 <dl class="section note"><dt>Note</dt><dd>There is no way for this function to know how many banks the controller pak has. The caller must ensure that the bank exists, otherwise the behavior is undefined. You can use the <a class="el" href="cpak_8h.html#aae105e2bedc4b37d8c602b6147caafbf" title="Probe the number of banks in a controller pak.">cpak_probe_banks</a> function to determine the number of banks, via hardware probing, or <a class="el" href="cpakfs_8c.html#aa121d51eaf4159e9e494dc3e3d4cc4d7" title="Read the usage state of a controller pak.">cpakfs_get_stats</a> to get the number of banks as recorded in the filesystem.</dd></dl>
@@ -227,7 +229,7 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>int Number of bytes written, or negative value in case of error (errno will be set). </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Number of bytes written, or negative value in case of error (errno will be set). </dd></dl>
 
 </div>
 </div>
@@ -248,6 +250,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Check if a controller pak supports bankswitching or not. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000038">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>This function does not perform I/O, as the accessory detection code already checked if the controller pak allows for bankswitching or not.</p>
 <p>Notice that this function is meant purely for debugging purposes; the whole cpak module was designed so that there is no need to change behavior based on whether the controller pak supports bankswitching or not.</p>
 <p>Notice also that supporting bankswitching does not mean that the controller pak does actually have multiple banks. Some controller paks (including official first-party ones) may support bankswitching but only have a single bank available.</p>
@@ -278,6 +281,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Probe the number of banks in a controller pak. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000039">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>This function probes the number of banks in a controller pak, by attempting to switch to each bank and performing a write test to check if the bank actually exists. It then restores the existing contents in all banks, so that the operation is non-destructive.</p>
 <p>The standard controller paks have a single bank of 32 KiB, so this function will always return 1 for them.</p>
 <dl class="section note"><dt>Note</dt><dd>This is a low-level operation that is useful during formatting or similar operations. For most applications, just mount the filesystem and use the <a class="el" href="cpakfs_8c.html#aa121d51eaf4159e9e494dc3e3d4cc4d7" title="Read the usage state of a controller pak.">cpakfs_get_stats</a> function to get the number of banks as recorded in the filesystem.</dd>
@@ -289,14 +293,14 @@ The function uses the first block in each bank. With the standard filesystem, th
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>int Number of banks found, or negative value in case of error </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Number of banks found, or negative value in case of error </dd></dl>
 
 </div>
 </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jun 10 2026 22:36:47 for libdragon by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
+Generated on Fri Aug 21 2026 21:04:46 for libdragon by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
 </small></address>
 </body>
 </html>

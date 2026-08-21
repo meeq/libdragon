@@ -88,7 +88,7 @@ $(function() {
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:aaa9a36b2bd5679502d2a7d73632d19a6" id="r_aaa9a36b2bd5679502d2a7d73632d19a6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structcoroutine__t.html">coroutine_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="coroutine_8h.html#aaa9a36b2bd5679502d2a7d73632d19a6">coro_create</a> (void(*fn)(void *), void *arg, size_t stack_size)</td></tr>
-<tr class="memdesc:aaa9a36b2bd5679502d2a7d73632d19a6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new coroutine This creates a new execution context for the specified function. After creation, the coroutine can be executed with coro_resume.  <br /></td></tr>
+<tr class="memdesc:aaa9a36b2bd5679502d2a7d73632d19a6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new coroutine.  <br /></td></tr>
 <tr class="separator:aaa9a36b2bd5679502d2a7d73632d19a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae42814d04725676afc5b4818d9fb7a3f" id="r_ae42814d04725676afc5b4818d9fb7a3f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="coroutine_8h.html#ae42814d04725676afc5b4818d9fb7a3f">coro_resume</a> (<a class="el" href="structcoroutine__t.html">coroutine_t</a> *co)</td></tr>
 <tr class="memdesc:ae42814d04725676afc5b4818d9fb7a3f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resumes execution.  <br /></td></tr>
@@ -145,7 +145,8 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Creates a new coroutine This creates a new execution context for the specified function. After creation, the coroutine can be executed with coro_resume. </p>
+<p>Creates a new coroutine. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000029">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it. This creates a new execution context for the specified function. After creation, the coroutine can be executed with coro_resume.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">fn</td><td>function to use for the coroutine </td></tr>
@@ -154,7 +155,7 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>coroutine_t* created coroutine </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>created coroutine </dd></dl>
 
 </div>
 </div>
@@ -175,6 +176,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Resumes execution. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000030">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>Continues to execute the coroutine until the next yield. If the function reached the end, it will no longer be called. To check if a coroutine is done, use coro_finished.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -202,6 +204,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Yields and gives back control to the caller context. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000031">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>This can be used within the context of a coroutine to pause execution. When doing so, it gives back control to the code that called coro_resume. </p>
 
 </div>
@@ -223,6 +226,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Puts the current coroutine to sleep. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000032">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>This function will yield, and prevent execution of the current coroutine until the given time as passed. Note that the time is a minimum, and the actual time depends on how often you try to execute the function via coro_resume.</p>
 <p>This function should be preferred over spin-waiting inside the coroutine, since it avoids a context switch alltogether if the time has not passed yet.</p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -251,6 +255,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Frees all resources associated with a coroutine. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000033">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>After this function is called it is no longer safe to resume execution, or interact with the coroutine in any way.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -278,13 +283,14 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Checks if a coroutine has finished execution. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000034">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">co</td><td>coroutine to check </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>bool true if finished </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>true if finished </dd></dl>
 
 </div>
 </div>
@@ -305,16 +311,17 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Returns the currently active coroutine. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000035">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>If currently inside a coroutine, it will return the handle. When outside, it returns NULL.</p>
 <p>This can also be used to detect and change behaviour of a function depending on if it's running in a coroutine or not.</p>
-<dl class="section return"><dt>Returns</dt><dd>coroutine_t* active coroutine, NULL if in main context </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>active coroutine, NULL if in main context </dd></dl>
 
 </div>
 </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jun 10 2026 22:36:47 for libdragon by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
+Generated on Fri Aug 21 2026 21:04:46 for libdragon by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
 </small></address>
 </body>
 </html>

@@ -76,8 +76,7 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#define-members">Macros</a> &#124;
-<a href="#func-members">Functions</a> &#124;
-<a href="#var-members">Variables</a>  </div>
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle"><div class="title">wav64.c File Reference<div class="ingroups"><a class="el" href="group__libdragon.html">libdragon</a> &raquo; <a class="el" href="group__audio.html">Audio Subsystem</a> &raquo; <a class="el" href="group__mixer.html">Audio mixer</a></div></div></div>
 </div><!--header-->
 <div class="contents">
@@ -118,17 +117,14 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>wav64_set_loop</b> (<
 <tr class="memitem:add7b6d597315e268857bd2a55fc49ad7" id="r_add7b6d597315e268857bd2a55fc49ad7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="wav64_8c.html#add7b6d597315e268857bd2a55fc49ad7">wav64_close</a> (<a class="el" href="wav64_8h.html#structwav64__t">wav64_t</a> *wav)</td></tr>
 <tr class="memdesc:add7b6d597315e268857bd2a55fc49ad7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Close a WAV64 file.  <br /></td></tr>
 <tr class="separator:add7b6d597315e268857bd2a55fc49ad7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4675e92521f3d9f69ed013d4f1a2436f" id="r_a4675e92521f3d9f69ed013d4f1a2436f"><td class="memItemLeft" align="right" valign="top"><a id="a4675e92521f3d9f69ed013d4f1a2436f" name="a4675e92521f3d9f69ed013d4f1a2436f"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>__wav64_init_compression_lvl2</b> (void)</td></tr>
+<tr class="memdesc:a4675e92521f3d9f69ed013d4f1a2436f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize wav64 compression level 2. <br /></td></tr>
+<tr class="separator:a4675e92521f3d9f69ed013d4f1a2436f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a08f6732dc5ae4f9ce86d3903a19c00b0" id="r_a08f6732dc5ae4f9ce86d3903a19c00b0"><td class="memItemLeft" align="right" valign="top"><a id="a08f6732dc5ae4f9ce86d3903a19c00b0" name="a08f6732dc5ae4f9ce86d3903a19c00b0"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>__wav64_init_compression_lvl3</b> (void)</td></tr>
 <tr class="memdesc:a08f6732dc5ae4f9ce86d3903a19c00b0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize wav64 compression level 3. <br /></td></tr>
 <tr class="separator:a08f6732dc5ae4f9ce86d3903a19c00b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
-Variables</h2></td></tr>
-<tr class="memitem:a6090ed2c8a2f8e13225458264164e11a" id="r_a6090ed2c8a2f8e13225458264164e11a"><td class="memItemLeft" align="right" valign="top"><a id="a6090ed2c8a2f8e13225458264164e11a" name="a6090ed2c8a2f8e13225458264164e11a"></a>
-int64_t&#160;</td><td class="memItemRight" valign="bottom"><b>__wav64_profile_dma</b> = 0</td></tr>
-<tr class="memdesc:a6090ed2c8a2f8e13225458264164e11a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Profile of DMA usage by WAV64, used for debugging purposes. <br /></td></tr>
-<tr class="separator:a6090ed2c8a2f8e13225458264164e11a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Support for WAV64 audio files. </p>
@@ -230,6 +226,7 @@ int64_t&#160;</td><td class="memItemRight" valign="bottom"><b>__wav64_profile_dm
 </div><div class="memdoc">
 
 <p>Load a WAV64 file for playback. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000539">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>This function opens the file, parses the header, and initializes for playing back through the audio mixer.</p>
 <p>You can use the <a class="el" href="wav64_8h.html#structwav64__loadparms__t" title="WAV64 loading parameters (to be passed to wav64_load)">wav64_loadparms_t</a> structure to specify additional parameters for the loading process, like the maximum number of simultaneous playbacks or the streaming mode.</p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -349,6 +346,7 @@ int64_t&#160;</td><td class="memItemRight" valign="bottom"><b>__wav64_profile_dm
 </div><div class="memdoc">
 
 <p>Seek a playing WAV64 to a given time position (in seconds). </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000540">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>This is a convenience wrapper around <a class="el" href="mixer_8c.html#a3f02614d2efadf41b657c0d8050d7dcf" title="Change the current playback position within a waveform.">mixer_ch_set_pos</a> that calculates the nearest seekable position for the given time position, depending on how the file was compressed. In general, compressed audio files can only seek to specific precomputed skip points.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -385,7 +383,7 @@ int64_t&#160;</td><td class="memItemRight" valign="bottom"><b>__wav64_profile_dm
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>int Bitrate in bits per second </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Bitrate in bits per second </dd></dl>
 
 </div>
 </div>
@@ -419,7 +417,7 @@ int64_t&#160;</td><td class="memItemRight" valign="bottom"><b>__wav64_profile_dm
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jun 10 2026 22:36:48 for libdragon by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
+Generated on Fri Aug 21 2026 21:04:47 for libdragon by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
 </small></address>
 </body>
 </html>

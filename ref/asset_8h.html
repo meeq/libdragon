@@ -156,9 +156,9 @@ Liam Coleman <a href="#" onclick="location.href='mai'+'lto:'+'gam'+'em'+'ast'+'e
 <div class="line"> </div>
 <div class="line"><span class="comment">// Load an asset that might use level 2 compression</span></div>
 <div class="line"><a class="code hl_struct" href="sprite_8h.html#structsprite__t">sprite_t</a> *hero = <a class="code hl_function" href="sprite_8c.html#a746970338ac3f8db984b4f08fc6e9a21">sprite_load</a>(<span class="stringliteral">&quot;rom:/hero.sprite&quot;</span>);</div>
-<div class="ttc" id="aasset_8h_html_a6bdfd4d8e3a7e807dd7e1b8cb00332a4"><div class="ttname"><a href="asset_8h.html#a6bdfd4d8e3a7e807dd7e1b8cb00332a4">asset_init_compression</a></div><div class="ttdeci">#define asset_init_compression(level)</div><div class="ttdoc">Enable a non-default compression level.</div><div class="ttdef"><b>Definition</b> asset.h:108</div></div>
+<div class="ttc" id="aasset_8h_html_a6bdfd4d8e3a7e807dd7e1b8cb00332a4"><div class="ttname"><a href="asset_8h.html#a6bdfd4d8e3a7e807dd7e1b8cb00332a4">asset_init_compression</a></div><div class="ttdeci">#define asset_init_compression(level)</div><div class="ttdoc">Enable a non-default compression level.</div><div class="ttdef"><b>Definition</b> asset.h:110</div></div>
 <div class="ttc" id="asprite_8c_html_a746970338ac3f8db984b4f08fc6e9a21"><div class="ttname"><a href="sprite_8c.html#a746970338ac3f8db984b4f08fc6e9a21">sprite_load</a></div><div class="ttdeci">sprite_t * sprite_load(const char *fn)</div><div class="ttdoc">Load a sprite from a filesystem (eg: ROM)</div><div class="ttdef"><b>Definition</b> sprite.c:119</div></div>
-<div class="ttc" id="asprite_8h_html_structsprite__t"><div class="ttname"><a href="sprite_8h.html#structsprite__t">sprite_t</a></div><div class="ttdoc">Sprite structure.</div><div class="ttdef"><b>Definition</b> sprite.h:41</div></div>
+<div class="ttc" id="asprite_8h_html_structsprite__t"><div class="ttname"><a href="sprite_8h.html#structsprite__t">sprite_t</a></div><div class="ttdoc">Sprite structure.</div><div class="ttdef"><b>Definition</b> sprite.h:43</div></div>
 </div><!-- fragment --><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">level</td><td>Compression level to initialize</td></tr>
@@ -205,7 +205,7 @@ Liam Coleman <a href="#" onclick="location.href='mai'+'lto:'+'gam'+'em'+'ast'+'e
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>void* Pointer to the loaded file (must be freed with free() when done) </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Pointer to the loaded file (must be freed with free() when done) </dd></dl>
 
 </div>
 </div>
@@ -236,6 +236,7 @@ Liam Coleman <a href="#" onclick="location.href='mai'+'lto:'+'gam'+'em'+'ast'+'e
 </div><div class="memdoc">
 
 <p>Load an asset file (possibly uncompressing it) </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000014">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>This function loads an asset embedded within a larger file. It requires in input an open file pointer, seeked to the beginning of the asset, and the size of the asset itself. If the asset is compressed, it is transparently decompressed.</p>
 <p>After this function returns, for technical reasons, the position of the provided file pointer becomes undefined. If you need to use it again, make sure to seek it.</p>
 <p>A memory buffer to hold the uncompressed asset is automatically allocated and returned. It must be freed using free() when the buffer is not required anymore. The memory is guaranteed to be aligned by at least <a class="el" href="asset_8h.html#a34d5d636492bebbe03bae6ab8ee28e2a" title="Minimum required alignment for assets.">ASSET_ALIGNMENT_MIN</a>.</p>
@@ -246,7 +247,7 @@ Liam Coleman <a href="#" onclick="location.href='mai'+'lto:'+'gam'+'em'+'ast'+'e
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>void* Allocated buffer filled with the uncompressed asset content </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Allocated buffer filled with the uncompressed asset content </dd></dl>
 
 </div>
 </div>
@@ -289,6 +290,7 @@ Liam Coleman <a href="#" onclick="location.href='mai'+'lto:'+'gam'+'em'+'ast'+'e
 </div><div class="memdoc">
 
 <p>Load an asset file (possibly uncompressing it) </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000015">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>This is the lowest-level asset loading function, that is needed only for advanced use cases. In general, prefer using any of other variants if possible, as the other APIs are harder to misuse.</p>
 <p>This function loads an asset potentially embedded within a larger, opened file. It requires an open file pointer, seeked to the beginning of the asset, and the size of the asset itself. If the asset is compressed, it is transparently decompressed.</p>
 <p>After this function returns, for technical reasons, the position of the provided file pointer becomes undefined. If you need to use it again, make sure to seek it.</p>
@@ -345,14 +347,14 @@ false The function has failed because the provided buffer was too small. In this
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>FILE* FILE pointer to use with standard C functions (fread, fclose) </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>FILE pointer to use with standard C functions (fread, fclose) </dd></dl>
 
 </div>
 </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jun 10 2026 22:36:47 for libdragon by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
+Generated on Fri Aug 21 2026 21:04:46 for libdragon by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
 </small></address>
 </body>
 </html>

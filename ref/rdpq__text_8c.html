@@ -91,10 +91,9 @@ Functions</h2></td></tr>
 <tr class="memitem:a51544c04524a6e279821bd937ef47184" id="r_a51544c04524a6e279821bd937ef47184"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="rdpq__font__internal_8h.html#structrdpq__font__t">rdpq_font_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rdpq__text_8c.html#a51544c04524a6e279821bd937ef47184">rdpq_text_get_font</a> (uint8_t font_id)</td></tr>
 <tr class="memdesc:a51544c04524a6e279821bd937ef47184"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a registered font by its ID.  <br /></td></tr>
 <tr class="separator:a51544c04524a6e279821bd937ef47184"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a75237f80b17e941a03f5d0cefe4fe0a4" id="r_a75237f80b17e941a03f5d0cefe4fe0a4"><td class="memItemLeft" align="right" valign="top"><a id="a75237f80b17e941a03f5d0cefe4fe0a4" name="a75237f80b17e941a03f5d0cefe4fe0a4"></a>
-<a class="el" href="rdpq__paragraph_8h.html#structrdpq__paragraph__t">rdpq_paragraph_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>__rdpq_paragraph_build</b> (const <a class="el" href="rdpq__text_8h.html#structrdpq__textparms__t">rdpq_textparms_t</a> *parms, uint8_t initial_font_id, const char *utf8_text, int *nbytes, <a class="el" href="rdpq__paragraph_8h.html#structrdpq__paragraph__t">rdpq_paragraph_t</a> *layout, bool optimize)</td></tr>
-<tr class="memdesc:a75237f80b17e941a03f5d0cefe4fe0a4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inner implementation of <a class="el" href="rdpq__text_8c.html#a3a53617561a398cdb209a225005ca6c3" title="Layout and render a text in a single call.">rdpq_text_printn</a>, with explicit memory handling. <br /></td></tr>
-<tr class="separator:a75237f80b17e941a03f5d0cefe4fe0a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab84245f6fb7658c164c6db2dbdfa18a7" id="r_ab84245f6fb7658c164c6db2dbdfa18a7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="rdpq__paragraph_8h.html#structrdpq__paragraph__t">rdpq_paragraph_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rdpq__text_8c.html#ab84245f6fb7658c164c6db2dbdfa18a7">__rdpq_paragraph_build</a> (const <a class="el" href="rdpq__text_8h.html#structrdpq__textparms__t">rdpq_textparms_t</a> *parms, uint8_t initial_font_id, const char *utf8_text, int *nbytes, <a class="el" href="rdpq__paragraph_8h.html#structrdpq__paragraph__t">rdpq_paragraph_t</a> *layout)</td></tr>
+<tr class="memdesc:ab84245f6fb7658c164c6db2dbdfa18a7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inner implementation of <a class="el" href="rdpq__text_8c.html#a3a53617561a398cdb209a225005ca6c3" title="Layout and render a text in a single call.">rdpq_text_printn</a>, with explicit memory handling.  <br /></td></tr>
+<tr class="separator:ab84245f6fb7658c164c6db2dbdfa18a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3a53617561a398cdb209a225005ca6c3" id="r_a3a53617561a398cdb209a225005ca6c3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="rdpq__text_8h.html#structrdpq__textmetrics__t">rdpq_textmetrics_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rdpq__text_8c.html#a3a53617561a398cdb209a225005ca6c3">rdpq_text_printn</a> (const <a class="el" href="rdpq__text_8h.html#structrdpq__textparms__t">rdpq_textparms_t</a> *parms, uint8_t initial_font_id, float x0, float y0, const char *utf8_text, int nbytes)</td></tr>
 <tr class="memdesc:a3a53617561a398cdb209a225005ca6c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Layout and render a text in a single call.  <br /></td></tr>
 <tr class="separator:a3a53617561a398cdb209a225005ca6c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -201,7 +200,64 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>const rdpq_font_t* Registered font or NULL </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Registered font or NULL </dd></dl>
+
+</div>
+</div>
+<a id="ab84245f6fb7658c164c6db2dbdfa18a7" name="ab84245f6fb7658c164c6db2dbdfa18a7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab84245f6fb7658c164c6db2dbdfa18a7">&#9670;&#160;</a></span>__rdpq_paragraph_build()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="rdpq__paragraph_8h.html#structrdpq__paragraph__t">rdpq_paragraph_t</a> * __rdpq_paragraph_build </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="rdpq__text_8h.html#structrdpq__textparms__t">rdpq_textparms_t</a> *&#160;</td>
+          <td class="paramname"><em>parms</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>initial_font_id</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>utf8_text</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int *&#160;</td>
+          <td class="paramname"><em>nbytes</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="rdpq__paragraph_8h.html#structrdpq__paragraph__t">rdpq_paragraph_t</a> *&#160;</td>
+          <td class="paramname"><em>layout</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">extern</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Inner implementation of <a class="el" href="rdpq__text_8c.html#a3a53617561a398cdb209a225005ca6c3" title="Layout and render a text in a single call.">rdpq_text_printn</a>, with explicit memory handling. </p>
+<p>Inner implementation of <a class="el" href="rdpq__text_8c.html#a3a53617561a398cdb209a225005ca6c3" title="Layout and render a text in a single call.">rdpq_text_printn</a>, with explicit memory handling. </p>
 
 </div>
 </div>
@@ -274,7 +330,7 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>int Number of bytes printed</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Number of bytes printed</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="rdpq__text_8h.html#a3c7ff160ec233a5f90ead06d23f03fb6" title="Layout and render a formatted text in a single call.">rdpq_text_printf</a> </dd>
 <dd>
 <a class="el" href="rdpq__text_8h.html#a480e58a2b82c9c3c502c8604b9b6ee6d" title="Layout and render a text in a single call.">rdpq_text_print</a> </dd>
@@ -346,7 +402,7 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd><a class="el" href="rdpq__text_8h.html#structrdpq__textmetrics__t" title="Metrics of formatted text.">rdpq_textmetrics_t</a> Metrics of the text </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Metrics of the text </dd></dl>
 
 </div>
 </div>
@@ -412,7 +468,7 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>int Number of bytes printed </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Number of bytes printed </dd></dl>
 
 </div>
 </div>
@@ -480,14 +536,14 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>int Number of bytes printed </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Number of bytes printed </dd></dl>
 
 </div>
 </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jun 10 2026 22:36:48 for libdragon by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
+Generated on Fri Aug 21 2026 21:04:47 for libdragon by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
 </small></address>
 </body>
 </html>

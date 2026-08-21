@@ -99,7 +99,8 @@ Functions</h2></td></tr>
 <dl class="section author"><dt>Author</dt><dd>Giovanni Bajo <a href="#" onclick="location.href='mai'+'lto:'+'gio'+'va'+'nni'+'ba'+'jo@'+'gm'+'ail'+'.c'+'om'; return false;">giova<span class="obfuscator">.nosp@m.</span>nnib<span class="obfuscator">.nosp@m.</span>ajo@g<span class="obfuscator">.nosp@m.</span>mail<span class="obfuscator">.nosp@m.</span>.com</a> </dd></dl>
 <p>H264I ("H.264 Image") is libdragon's "Lossy-sprite Level 3" container format: lossy compression is useful for large images that need higher storage compression at the cost of some quality loss, such as large backgrounds. The quality factor can be tuned at build-time to achieve the desired size/quality tradeoff. H264I files are produced by <code>mksprite --lossy=&lt;quality&gt; --compress 3</code> and always decode to a <a class="el" href="surface_8h.html#a01f43f3d6c80a7658bf729bfaf3136e1ae781a51949044f96a872ca8e2715bed5" title="Format RGBA 5551 (16-bit)">FMT_RGBA16</a> sprite.</p>
 <p>You must opt-in to support for Level 3 lossy sprites by calling <a class="el" href="lspr3_8h.html#a75b2bff0c408b1fbb405355ec6e4a447" title="Register the H264I (Lossy-sprite Level 3) decoder with the sprite loader.">lspr3_init</a> to register the H264I decoder with <a class="el" href="sprite_8c.html#a746970338ac3f8db984b4f08fc6e9a21" title="Load a sprite from a filesystem (eg: ROM)">sprite_load</a> before loading H264I files. Once initialized, <a class="el" href="sprite_8c.html#a746970338ac3f8db984b4f08fc6e9a21" title="Load a sprite from a filesystem (eg: ROM)">sprite_load</a> will recognize H264I-compressed sprites and decode them transparently.</p>
-<p>H264I is implemented as an H.264 intra-only bitstream (4:2:0 YUV, BT.709 full range) plus a small header. At load-time the H.264 slice is decoded and the YUV reconstruction is converted into a <a class="el" href="surface_8h.html#a01f43f3d6c80a7658bf729bfaf3136e1ae781a51949044f96a872ca8e2715bed5" title="Format RGBA 5551 (16-bit)">FMT_RGBA16</a> sprite, so the returned <a class="el" href="sprite_8h.html#structsprite__t" title="Sprite structure.">sprite_t</a> works like a normal sprite. </p>
+<p>H264I is implemented as an H.264 intra-only bitstream (4:2:0 YUV, BT.709 full range) plus a small header. At load-time the H.264 slice is decoded and the YUV reconstruction is converted into a <a class="el" href="surface_8h.html#a01f43f3d6c80a7658bf729bfaf3136e1ae781a51949044f96a872ca8e2715bed5" title="Format RGBA 5551 (16-bit)">FMT_RGBA16</a> sprite, so the returned <a class="el" href="sprite_8h.html#structsprite__t" title="Sprite structure.">sprite_t</a> works like a normal sprite.</p>
+<p>H264I can encode either images with no alpha channel, or images with a 1-bit alpha channel. The alpha channel is stored lossless alongside the H.264 bitstream, and reconstructed at load-time. </p>
 </div><h2 class="groupheader">Function Documentation</h2>
 <a id="a75b2bff0c408b1fbb405355ec6e4a447" name="a75b2bff0c408b1fbb405355ec6e4a447"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a75b2bff0c408b1fbb405355ec6e4a447">&#9670;&#160;</a></span>lspr3_init()</h2>
@@ -118,6 +119,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Register the H264I (Lossy-sprite Level 3) decoder with the sprite loader. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000244">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>After registering, <a class="el" href="sprite_8c.html#a746970338ac3f8db984b4f08fc6e9a21" title="Load a sprite from a filesystem (eg: ROM)">sprite_load</a> recognizes the <code>H264</code> magic and decodes matching files transparently. Until then, loading an H264I file via <a class="el" href="sprite_8c.html#a746970338ac3f8db984b4f08fc6e9a21" title="Load a sprite from a filesystem (eg: ROM)">sprite_load</a> fails with an assertion.</p>
 <p>Refcounted; calling this increments the refcount and will require the same number of <a class="el" href="lspr3_8h.html#a5fce7c4e0b0fc582c303b349f9c37be1" title="Unregister the H264I (Lossy-sprite Level 3) decoder.">lspr3_close</a> calls to fully unregister. </p>
 
@@ -140,6 +142,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Unregister the H264I (Lossy-sprite Level 3) decoder. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000245">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>Refcounted; calling this decrements the refcount and once it reaches zero, <a class="el" href="sprite_8c.html#a746970338ac3f8db984b4f08fc6e9a21" title="Load a sprite from a filesystem (eg: ROM)">sprite_load</a> no longer recognizes H264I files and attempts to load them will fail with an assertion. </p>
 
 </div>
@@ -147,7 +150,7 @@ Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jun 10 2026 22:36:47 for libdragon by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
+Generated on Fri Aug 21 2026 21:04:46 for libdragon by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
 </small></address>
 </body>
 </html>

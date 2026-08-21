@@ -110,6 +110,10 @@ Macros</h2></td></tr>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>WAV64_FORMAT_VADPCM</b>&#160;&#160;&#160;1</td></tr>
 <tr class="memdesc:ac84fe468afe5b0744c1842cda82fb033"><td class="mdescLeft">&#160;</td><td class="mdescRight">VADPCM compressed format. <br /></td></tr>
 <tr class="separator:ac84fe468afe5b0744c1842cda82fb033"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af0d98e6265e6c602ba0e75e146008599" id="r_af0d98e6265e6c602ba0e75e146008599"><td class="memItemLeft" align="right" valign="top"><a id="af0d98e6265e6c602ba0e75e146008599" name="af0d98e6265e6c602ba0e75e146008599"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>WAV64_FORMAT_ULC</b>&#160;&#160;&#160;2</td></tr>
+<tr class="memdesc:af0d98e6265e6c602ba0e75e146008599"><td class="mdescLeft">&#160;</td><td class="mdescRight">ULC compressed format. <br /></td></tr>
+<tr class="separator:af0d98e6265e6c602ba0e75e146008599"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a986624d872e7c0cd0c64cb756351b9a9" id="r_a986624d872e7c0cd0c64cb756351b9a9"><td class="memItemLeft" align="right" valign="top"><a id="a986624d872e7c0cd0c64cb756351b9a9" name="a986624d872e7c0cd0c64cb756351b9a9"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>WAV64_FORMAT_OPUS</b>&#160;&#160;&#160;3</td></tr>
 <tr class="memdesc:a986624d872e7c0cd0c64cb756351b9a9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Opus compressed format. <br /></td></tr>
@@ -122,6 +126,10 @@ Macros</h2></td></tr>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>WAV64_FLAG_OWNED_FD</b>&#160;&#160;&#160;(1 &lt;&lt; 0)</td></tr>
 <tr class="memdesc:a0a28ac1b85c2184321748600fa7406a1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flag indicating the file descriptor is owned by the wav64 structure. <br /></td></tr>
 <tr class="separator:a0a28ac1b85c2184321748600fa7406a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a10ab03ecca7f35560663667b94ebcc5c" id="r_a10ab03ecca7f35560663667b94ebcc5c"><td class="memItemLeft" align="right" valign="top"><a id="a10ab03ecca7f35560663667b94ebcc5c" name="a10ab03ecca7f35560663667b94ebcc5c"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>WAV64_FLAG_PRELOAD</b>&#160;&#160;&#160;(1 &lt;&lt; 1)</td></tr>
+<tr class="memdesc:a10ab03ecca7f35560663667b94ebcc5c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Waveform will be fully preloaded in RDRAM. <br /></td></tr>
+<tr class="separator:a10ab03ecca7f35560663667b94ebcc5c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
@@ -156,7 +164,7 @@ ID of the file (WAV64_ID) </td></tr>
 <td class="fieldname">
 version</td>
 <td class="fielddoc">
-Version of the file (WAV64_FILE_VERSION) </td></tr>
+Version of the file. </td></tr>
 <tr><td class="fieldtype">
 <a id="a42fb6e3952c6594e19c3f246364e9f7c" name="a42fb6e3952c6594e19c3f246364e9f7c"></a>int8_t</td>
 <td class="fieldname">
@@ -192,7 +200,13 @@ Length of the file (in samples) </td></tr>
 <td class="fieldname">
 loop_len</td>
 <td class="fielddoc">
-Length of the loop since file end (or 0 if no loop) </td></tr>
+Length of the sustain loop (0 if no loop) </td></tr>
+<tr><td class="fieldtype">
+<a id="acc62eef5b510ed201b45b0e3ff72960c" name="acc62eef5b510ed201b45b0e3ff72960c"></a>int32_t</td>
+<td class="fieldname">
+loop_end</td>
+<td class="fielddoc">
+Exclusive end of the sustain loop (0 ⇒ <a class="el" href="wav64__internal_8h.html#ad2747bbf379e8e724a4231822880b9b9" title="Length of the file (in samples)">len</a>) </td></tr>
 <tr><td class="fieldtype">
 <a id="a06e3a7fee32a34844954718ce495e943" name="a06e3a7fee32a34844954718ce495e943"></a>uint32_t</td>
 <td class="fieldname">
@@ -254,17 +268,38 @@ base_offset</td>
 <td class="fielddoc">
 Start of Wav64 data (as offset from start of the file) </td></tr>
 <tr><td class="fieldtype">
-<a id="ae1e720b85c19d5db02e4076a5bfc1d08" name="ae1e720b85c19d5db02e4076a5bfc1d08"></a>int</td>
+<a id="a8ea43d0b6b1e83738b6804c15bd88d2f" name="a8ea43d0b6b1e83738b6804c15bd88d2f"></a><a class="el" href="n64types_8h.html#abbde255c6ff18b478f46cb7fdf1357e6">pi_addr_t</a></td>
 <td class="fieldname">
-nsimul</td>
+rom_base</td>
 <td class="fielddoc">
-Number of maximum simultaneous playbacks. </td></tr>
+<p>PI bus address of file start (0 if not a DFS file / async DMA unavailable). </p>
+</td></tr>
 <tr><td class="fieldtype">
 <a id="a3763c53bca195ae3e1950803436c3f7f" name="a3763c53bca195ae3e1950803436c3f7f"></a>uint8_t</td>
 <td class="fieldname">
 flags</td>
 <td class="fielddoc">
 Misc flags. </td></tr>
+<tr><td class="fieldtype">
+<a id="a9acc3449d63c18af6bbf303e0fd2ae51" name="a9acc3449d63c18af6bbf303e0fd2ae51"></a>void *</td>
+<td class="fieldname">
+attack</td>
+<td class="fielddoc">
+<p>First N compressed VADPCM frames kept in RDRAM so a note-on from the start of the waveform does not wait on the PI. NULL when unused (Huffman, full preload, or non-ROM source). attack_n is the frame count. </p>
+</td></tr>
+<tr><td class="fieldtype">
+<a id="a865f14ae63a5b56cd2e54c1bf808705d" name="a865f14ae63a5b56cd2e54c1bf808705d"></a>uint16_t</td>
+<td class="fieldname">
+attack_n</td>
+<td class="fielddoc">
+</td></tr>
+<tr><td class="fieldtype">
+<a id="a7bf2d13ad7c7a009c9d745a053c4c268" name="a7bf2d13ad7c7a009c9d745a053c4c268"></a><a class="el" href="mixer__internal_8h.html#structwaveform__vadpcm__t">waveform_vadpcm_t</a></td>
+<td class="fieldname">
+vadpcm</td>
+<td class="fielddoc">
+<p>Codec side-data for in-mixer VADPCM mono (will be stored in waveform_t::codec). </p>
+</td></tr>
 </table>
 
 </div>
@@ -308,7 +343,7 @@ Misc flags. </td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jun 10 2026 22:36:48 for libdragon by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
+Generated on Fri Aug 21 2026 21:04:47 for libdragon by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
 </small></address>
 </body>
 </html>

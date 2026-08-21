@@ -204,7 +204,7 @@ Generic filesystem errors</h3>
 <div class="line"> </div>
 <div class="line"><span class="comment">// Close the file</span></div>
 <div class="line">fclose(f);</div>
-<div class="ttc" id="abbfs_8h_html_a32fdcd418bdca772873f36ab465cb4ab"><div class="ttname"><a href="bbfs_8h.html#a32fdcd418bdca772873f36ab465cb4ab">IOBBFS_SET_CONTIGUOUS</a></div><div class="ttdeci">#define IOBBFS_SET_CONTIGUOUS</div><div class="ttdoc">ioctl to notify the filesystem that a certain file must be stored as contiguous.</div><div class="ttdef"><b>Definition</b> bbfs.h:201</div></div>
+<div class="ttc" id="abbfs_8h_html_a32fdcd418bdca772873f36ab465cb4ab"><div class="ttname"><a href="bbfs_8h.html#a32fdcd418bdca772873f36ab465cb4ab">IOBBFS_SET_CONTIGUOUS</a></div><div class="ttdeci">#define IOBBFS_SET_CONTIGUOUS</div><div class="ttdoc">ioctl to notify the filesystem that a certain file must be stored as contiguous.</div><div class="ttdef"><b>Definition</b> bbfs.h:202</div></div>
 <div class="ttc" id="asystem_8c_html_a342c2eae35d44df768ec0634c76bf68b"><div class="ttname"><a href="system_8c.html#a342c2eae35d44df768ec0634c76bf68b">ioctl</a></div><div class="ttdeci">int ioctl(int fd, unsigned long cmd, void *argp)</div><div class="ttdoc">Perform IO Control Request.</div><div class="ttdef"><b>Definition</b> system.c:1349</div></div>
 </div><!-- fragment --><p>Calling this <a class="el" href="system_8c.html#a342c2eae35d44df768ec0634c76bf68b" title="Perform IO Control Request.">ioctl</a> only affects blocks allocated after the call; there is no way to change the allocation of blocks that have already been written (short of truncating the file to zero, and writing it again).</p>
 <p>Calling this <a class="el" href="system_8c.html#a342c2eae35d44df768ec0634c76bf68b" title="Perform IO Control Request.">ioctl</a> with the value set to false will revert the file to the default allocation algorithm based on the heuristics. There is no way to force a file to be always stored as fragmented.</p>
@@ -233,7 +233,7 @@ Generic filesystem errors</h3>
 <div class="line"><span class="comment">// WARNING: make sure to use int16_t for blocks.</span></div>
 <div class="line">int16_t block = 0;</div>
 <div class="line"><a class="code hl_function" href="system_8c.html#a342c2eae35d44df768ec0634c76bf68b">ioctl</a>(fileno(f), <a class="code hl_define" href="bbfs_8h.html#a431d9d92fddfd0164fa4c91b68c68dc4">IOBBFS_GET_BLOCK</a>, &amp;block);</div>
-<div class="ttc" id="abbfs_8h_html_a431d9d92fddfd0164fa4c91b68c68dc4"><div class="ttname"><a href="bbfs_8h.html#a431d9d92fddfd0164fa4c91b68c68dc4">IOBBFS_GET_BLOCK</a></div><div class="ttdeci">#define IOBBFS_GET_BLOCK</div><div class="ttdoc">Get the current block number of an open file.</div><div class="ttdef"><b>Definition</b> bbfs.h:223</div></div>
+<div class="ttc" id="abbfs_8h_html_a431d9d92fddfd0164fa4c91b68c68dc4"><div class="ttname"><a href="bbfs_8h.html#a431d9d92fddfd0164fa4c91b68c68dc4">IOBBFS_GET_BLOCK</a></div><div class="ttdeci">#define IOBBFS_GET_BLOCK</div><div class="ttdoc">Get the current block number of an open file.</div><div class="ttdef"><b>Definition</b> bbfs.h:224</div></div>
 </div><!-- fragment --> 
 </div>
 </div>
@@ -276,6 +276,7 @@ Generic filesystem errors</h3>
 </div><div class="memdoc">
 
 <p>Initialize the iQue NAND filesystem library. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000019">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>This function mounts the filesystem and initializes the library. After calling this function, you can access the BBFS files using the standard C file I/O functions with the "bbfs:/" prefix.</p>
 <dl class="section return"><dt>Returns</dt><dd>0 on success, negative value on failure (see <a class="el" href="bbfs_8h.html#afa0347610a006c1f5dc718d8b2637bac" title="Filesystem errors.">bbfs_error_e</a>) </dd></dl>
 
@@ -298,6 +299,7 @@ Generic filesystem errors</h3>
 </div><div class="memdoc">
 
 <p>Return the indices of NAND blocks that contain the file data. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000020">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>The function lookups the specified file on the filesystem. If found, it returns a list of block indices that contain the file data. The list is dynamically allocated and must be freed by the caller.</p>
 <p>The list of block indices is terminated by a -1 value.</p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -306,7 +308,7 @@ Generic filesystem errors</h3>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>int16_t* Allocated array of block indices, or NULL if file doesn't exist or the filesystem is corrupted </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Allocated array of block indices, or NULL if file doesn't exist or the filesystem is corrupted </dd></dl>
 
 </div>
 </div>
@@ -327,6 +329,7 @@ Generic filesystem errors</h3>
 </div><div class="memdoc">
 
 <p>Verify the integrity of the filesystem, and optionally try to fix it. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000021">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>This function checks the integrity of the filesystem. If the filesystem is corrupted, it can optionally try to fix it.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -341,7 +344,7 @@ Generic filesystem errors</h3>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jun 10 2026 22:36:47 for libdragon by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
+Generated on Fri Aug 21 2026 21:04:46 for libdragon by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
 </small></address>
 </body>
 </html>

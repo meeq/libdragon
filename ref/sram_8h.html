@@ -130,6 +130,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Initialize the SRAM subsystem. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000465">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>This function configures the PI DOM2 registers to enable access to the SRAM in the cartridge. It must be called before any other SRAM functions are used. </p>
 
 </div>
@@ -151,6 +152,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Detect if SRAM is present in the cartridge. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000466">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>This function checks if the cartridge has SRAM available for use.</p>
 <dl class="section return"><dt>Returns</dt><dd>Size of available SRAM if is detected, -1 otherwise. </dd></dl>
 
@@ -189,6 +191,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Read data from SRAM. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000467">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>This function reads data from the SRAM in the cartridge and stores them into the provided destination buffer. To read the entire content of the SRAM, the length should be set to the size of the SRAM as detected by <a class="el" href="sram_8h.html#acf8c2b7522905a5dd4bd367641bcc225" title="Detect if SRAM is present in the cartridge.">sram_detect()</a>.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -198,7 +201,7 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>int Number of bytes read, or negative value in case of error. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Number of bytes read, or negative value in case of error. </dd></dl>
 
 </div>
 </div>
@@ -235,6 +238,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Write data to SRAM. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000468">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>This function writes data to the SRAM in the cartridge from the provided source buffer. To write the entire content of the SRAM, the length should be set to the size of the SRAM as detected by <a class="el" href="sram_8h.html#acf8c2b7522905a5dd4bd367641bcc225" title="Detect if SRAM is present in the cartridge.">sram_detect()</a>.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -244,14 +248,14 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>int Number of bytes written, or negative value in case of error. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Number of bytes written, or negative value in case of error. </dd></dl>
 
 </div>
 </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jun 10 2026 22:36:47 for libdragon by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
+Generated on Fri Aug 21 2026 21:04:46 for libdragon by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
 </small></address>
 </body>
 </html>

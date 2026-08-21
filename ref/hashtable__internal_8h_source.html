@@ -116,14 +116,17 @@ $(document).ready(function() { init_codefold(0); });
 <div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span> </div>
 <div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span><span class="keywordtype">void</span> <a class="code hl_function" href="hashtable__internal_8h.html#a54564d7b27345160fb392939bf5ff15f">hashtable_visit</a>(<a class="code hl_struct" href="hashtable__internal_8h.html#structhashtable__t">hashtable_t</a> *h, <span class="keywordtype">void</span> (*visitor)(uint32_t key, <span class="keywordtype">void</span> *value, <span class="keywordtype">int</span> refcount));</div>
 <div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span> </div>
-<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span><span class="preprocessor">#ifdef __cplusplus</span></div>
-<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>}</div>
-<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span><span class="preprocessor">#endif</span></div>
-<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span> </div>
-<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span><span class="preprocessor">#endif </span><span class="comment">/* LIBDRAGON_HASHTABLE_INTERNAL_H */</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span><span class="keywordtype">void</span> <a class="code hl_function" href="hashtable__internal_8h.html#a22c49667e1925a7ad68b13338a523e9f">hashtable_clear</a>(<a class="code hl_struct" href="hashtable__internal_8h.html#structhashtable__t">hashtable_t</a> *h);</div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span> </div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span><span class="preprocessor">#ifdef __cplusplus</span></div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>}</div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span> </div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span><span class="preprocessor">#endif </span><span class="comment">/* LIBDRAGON_HASHTABLE_INTERNAL_H */</span><span class="preprocessor"></span></div>
 <div class="ttc" id="ahashtable__internal_8h_html_a0c6932dd29f782df2b13a33c73715596"><div class="ttname"><a href="hashtable__internal_8h.html#a0c6932dd29f782df2b13a33c73715596">hashtable_lookup</a></div><div class="ttdeci">void * hashtable_lookup(hashtable_t *h, uint32_t key)</div><div class="ttdoc">Lookup a value associated with a key.</div><div class="ttdef"><b>Definition</b> hashtable.c:130</div></div>
 <div class="ttc" id="ahashtable__internal_8h_html_a16b16304d524b7fac0a2b9b373dd1dda"><div class="ttname"><a href="hashtable__internal_8h.html#a16b16304d524b7fac0a2b9b373dd1dda">hashtable_insert</a></div><div class="ttdeci">void * hashtable_insert(hashtable_t *h, uint32_t key, void *value)</div><div class="ttdoc">Insert an object into the hashtable.</div><div class="ttdef"><b>Definition</b> hashtable.c:107</div></div>
 <div class="ttc" id="ahashtable__internal_8h_html_a19d7284830e53d6ba25b3c8b6043415a"><div class="ttname"><a href="hashtable__internal_8h.html#a19d7284830e53d6ba25b3c8b6043415a">hashtable_t::entries</a></div><div class="ttdeci">uint32_t * entries</div><div class="ttdoc">Pointer to the interleaved key/value array.</div><div class="ttdef"><b>Definition</b> hashtable_internal.h:36</div></div>
+<div class="ttc" id="ahashtable__internal_8h_html_a22c49667e1925a7ad68b13338a523e9f"><div class="ttname"><a href="hashtable__internal_8h.html#a22c49667e1925a7ad68b13338a523e9f">hashtable_clear</a></div><div class="ttdeci">void hashtable_clear(hashtable_t *h)</div><div class="ttdoc">Remove all objects from the hashtable, regardless of their reference count.</div><div class="ttdef"><b>Definition</b> hashtable.c:167</div></div>
 <div class="ttc" id="ahashtable__internal_8h_html_a25abec3597003b14732335b0d5a345d0"><div class="ttname"><a href="hashtable__internal_8h.html#a25abec3597003b14732335b0d5a345d0">hashtable_t::size</a></div><div class="ttdeci">size_t size</div><div class="ttdoc">Current number of entries in the hashtable.</div><div class="ttdef"><b>Definition</b> hashtable_internal.h:38</div></div>
 <div class="ttc" id="ahashtable__internal_8h_html_a40008407253a01d61d41cd1eef973415"><div class="ttname"><a href="hashtable__internal_8h.html#a40008407253a01d61d41cd1eef973415">hashtable_t::capacity</a></div><div class="ttdeci">size_t capacity</div><div class="ttdoc">Total capacity (number of key/value pairs)</div><div class="ttdef"><b>Definition</b> hashtable_internal.h:37</div></div>
 <div class="ttc" id="ahashtable__internal_8h_html_a4880d5ae7847f92edbe086abed69dcb1"><div class="ttname"><a href="hashtable__internal_8h.html#a4880d5ae7847f92edbe086abed69dcb1">hashtable_t::loader</a></div><div class="ttdeci">hashtable_loader_fn loader</div><div class="ttdoc">Loader function to lazily create values.</div><div class="ttdef"><b>Definition</b> hashtable_internal.h:39</div></div>
@@ -136,7 +139,7 @@ $(document).ready(function() { init_codefold(0); });
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jun 10 2026 22:36:47 for libdragon by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
+Generated on Fri Aug 21 2026 21:04:46 for libdragon by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
 </small></address>
 </body>
 </html>

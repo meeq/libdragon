@@ -7,7 +7,7 @@ var searchData=
   ['nand_5fblock_5fsize_4',['NAND_BLOCK_SIZE',['../nand_8h.html#a7a01ea720d2a1179a2624cca2761f915',1,'nand.h']]],
   ['nand_5fpage_5fsize_5',['NAND_PAGE_SIZE',['../nand_8h.html#a2e3cf7d6c572b5d3ce810048eabf7786',1,'nand.h']]],
   ['note_5fstatus_5foccupied_6',['NOTE_STATUS_OCCUPIED',['../cpakfs__internal_8h.html#a73ef8e68842b20d697c0b8e43a8a4302',1,'cpakfs_internal.h']]],
-  ['num_5fbuffers_7',['num_buffers',['../audio_8c.html#aac028f4c15ac7f78a44be5db76cfbec7',1,'NUM_BUFFERS:&#160;audio.c'],['../display_8c.html#aac028f4c15ac7f78a44be5db76cfbec7',1,'NUM_BUFFERS:&#160;display.c']]],
+  ['num_5fbuffers_7',['NUM_BUFFERS',['../display_8c.html#aac028f4c15ac7f78a44be5db76cfbec7',1,'display.c']]],
   ['num_5fcontext_5fgroups_8',['NUM_CONTEXT_GROUPS',['../shrinkler__dec_8c.html#ad438fa8c3aa6fb6d2f338b17d36e7c2f',1,'shrinkler_dec.c']]],
   ['num_5fcontexts_9',['NUM_CONTEXTS',['../shrinkler__dec_8c.html#a08ea098825fe271d57e415edec385b19',1,'shrinkler_dec.c']]],
   ['num_5fpages_10',['NUM_PAGES',['../cpakfs__internal_8h.html#ae12c40b3b2496ea64cbd1f626d4a5817',1,'cpakfs_internal.h']]],

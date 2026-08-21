@@ -194,8 +194,9 @@ Typedefs</h2></td></tr>
 
 <p>A PI address (on the peripheral bus) </p>
 <p>The peripheral bus (PI) is a 32-bit address space used to address devices on the cartridge slot or the bottom slot (N64DD).</p>
-<p>Accessing PI addresses is only possible via DMA or I/O operations, as performed by <a class="el" href="group__dma.html#ga9c79d4f41eacb14335a0fac57fecf0a0" title="Read data from a peripheral through PI DMA, waiting for completion.">dma_read</a>, <a class="el" href="group__dma.html#gaba28e5db067d400f6134c90daf0757c9" title="Write to a peripheral.">dma_write</a>, <a class="el" href="group__dma.html#ga3888b19d3c25fd2d4a7a44dba1b165fc" title="Read a 32 bit integer from a peripheral on the PI bus using the CPU.">io_read</a>, and <a class="el" href="group__dma.html#gad623a096e65b76a559dc52d11b537c3e" title="Write a 32 bit integer to a peripheral on the PI bus using the CPU.">io_write</a>.</p>
-<p>A large portion of the PI address space is also memory mapped to the CPU's address space, meaning that some PI addresses are also valid physical addresses. Check the N64 memory map to see the full mapping of PI addresses, or use <a class="el" href="group__dma.html#ga49cbd4325eb7c35eac970053a4403b9f" title="Check whether the specified PI address can be accessed doing I/O from CPU.">io_accessible</a> if you need to check that at runtime. </p>
+<p>Peripherals connected to the PI bus can answer to any address in this address space. Cartridge ROMs are usually mapped at 0x10000000.</p>
+<p>Accessing PI addresses is only possible via DMA or CPU I/O operations, as performed by <a class="el" href="group__dma.html#ga9c79d4f41eacb14335a0fac57fecf0a0" title="Read data from a peripheral through PI DMA, waiting for completion.">dma_read</a>, <a class="el" href="group__dma.html#gaba28e5db067d400f6134c90daf0757c9" title="Write to a peripheral.">dma_write</a>, <a class="el" href="group__dma.html#ga3888b19d3c25fd2d4a7a44dba1b165fc" title="Read a 32 bit integer from a peripheral on the PI bus using the CPU.">io_read</a>, and <a class="el" href="group__dma.html#gad623a096e65b76a559dc52d11b537c3e" title="Write a 32 bit integer to a peripheral on the PI bus using the CPU.">io_write</a>.</p>
+<p>I/O operations (with CPU) are only possible with 32-bit access width, and only for a subset of PI addresses that are memory mapped to the CPU's address space. Check <a class="el" href="group__dma.html#ga49cbd4325eb7c35eac970053a4403b9f" title="Check whether the specified PI address can be accessed doing I/O from CPU.">io_accessible</a> for a list. </p>
 
 </div>
 </div>
@@ -220,7 +221,7 @@ Typedefs</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jun 10 2026 22:36:47 for libdragon by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
+Generated on Fri Aug 21 2026 21:04:46 for libdragon by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
 </small></address>
 </body>
 </html>

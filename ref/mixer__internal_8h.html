@@ -75,6 +75,10 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#nested-classes">Data Structures</a> &#124;
+<a href="#define-members">Macros</a> &#124;
+<a href="#enum-members">Enumerations</a> &#124;
+<a href="#func-members">Functions</a> &#124;
 <a href="#var-members">Variables</a>  </div>
   <div class="headertitle"><div class="title">mixer_internal.h File Reference</div></div>
 </div><!--header-->
@@ -82,6 +86,77 @@ $(function() {
 
 <p><a href="mixer__internal_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+Data Structures</h2></td></tr>
+<tr class="memitem:structwaveform__vadpcm__t" id="r_structwaveform__vadpcm__t"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mixer__internal_8h.html#structwaveform__vadpcm__t">waveform_vadpcm_t</a></td></tr>
+<tr class="memdesc:structwaveform__vadpcm__t"><td class="mdescLeft">&#160;</td><td class="mdescRight">Codec side-data for <a class="el" href="mixer_8h.html#a94bed47ee7b4b986916b7403fddb4ac5a2885be0ed36e5da1ddb75794ff1df12e">WAVEFORM_FORMAT_VADPCM</a> waveforms.  <a href="mixer__internal_8h.html#structwaveform__vadpcm__t">More...</a><br /></td></tr>
+<tr class="separator:structwaveform__vadpcm__t"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:ad6e864b0f67f25c97e159a49e40f7216" id="r_ad6e864b0f67f25c97e159a49e40f7216"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mixer__internal_8h.html#ad6e864b0f67f25c97e159a49e40f7216">VADPCM_CODEBOOK_STRIDE</a>&#160;&#160;&#160;136</td></tr>
+<tr class="separator:ad6e864b0f67f25c97e159a49e40f7216"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a71686d6630e8f391fd7d67687898f812" id="r_a71686d6630e8f391fd7d67687898f812"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mixer__internal_8h.html#a71686d6630e8f391fd7d67687898f812">VADPCM_FRAME_BYTES</a>(bits)&#160;&#160;&#160;(2*(bits) + 1)</td></tr>
+<tr class="memdesc:a71686d6630e8f391fd7d67687898f812"><td class="mdescLeft">&#160;</td><td class="mdescRight">Size in bytes of a VADPCM frame with residuals of <code>bits</code> bits.  <br /></td></tr>
+<tr class="separator:a71686d6630e8f391fd7d67687898f812"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="enum-members" name="enum-members"></a>
+Enumerations</h2></td></tr>
+<tr class="memitem:adf764cbdea00d65edcd07bb9953ad2b7" id="r_adf764cbdea00d65edcd07bb9953ad2b7"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom">{ <br />
+&#160;&#160;<a class="el" href="mixer__internal_8h.html#adf764cbdea00d65edcd07bb9953ad2b7a3a82c98fa74c52c6b8ef9a507e59e5d6">PS_MIXER</a> = 0
+, <a class="el" href="mixer__internal_8h.html#adf764cbdea00d65edcd07bb9953ad2b7adc6fd6b9fe4fcddf8cf0c56bb3274eb1">PS_XM_TICK</a>
+, <a class="el" href="mixer__internal_8h.html#adf764cbdea00d65edcd07bb9953ad2b7a9298017452cbfa73a57168eda5b37aa3">PS_XM_GETPOS</a>
+, <a class="el" href="mixer__internal_8h.html#adf764cbdea00d65edcd07bb9953ad2b7a064cac81dc4404d28a79a4b4a0c20b31">PS_XM_LIBXM</a>
+, <br />
+&#160;&#160;<a class="el" href="mixer__internal_8h.html#adf764cbdea00d65edcd07bb9953ad2b7af36d15b96bcb7774c1739f49c84d1edb">PS_XM_SYNC</a>
+, <a class="el" href="mixer__internal_8h.html#adf764cbdea00d65edcd07bb9953ad2b7ad6c2cf99807f3924fd6e23373b47b3f6">PS_MID_TICK</a>
+, <a class="el" href="mixer__internal_8h.html#adf764cbdea00d65edcd07bb9953ad2b7a2929da61ea29984eef35991981cdcb71">PS_MID_PROCESS</a>
+, <a class="el" href="mixer__internal_8h.html#adf764cbdea00d65edcd07bb9953ad2b7ad5d11af8821b9e5d4b3be84fc955357b">PS_MID_DISPATCH</a>
+, <br />
+&#160;&#160;<a class="el" href="mixer__internal_8h.html#adf764cbdea00d65edcd07bb9953ad2b7aaad78e52e37ab83b1ce46da4a7c4ace7">PS_MIXER_EXEC</a>
+, <a class="el" href="mixer__internal_8h.html#adf764cbdea00d65edcd07bb9953ad2b7a648d0bf04986f3990f8fbf45ac925aef">PS_MIXER_PREP</a>
+, <a class="el" href="mixer__internal_8h.html#adf764cbdea00d65edcd07bb9953ad2b7ad6b45b7a66e14450466e7d6f4311f99f">PS_MIXER_EMIT</a>
+, <a class="el" href="mixer__internal_8h.html#adf764cbdea00d65edcd07bb9953ad2b7ada1b7549fae6fe2bf768ef00897bc73b">PS_MIXER_FETCH</a>
+, <br />
+&#160;&#160;<a class="el" href="mixer__internal_8h.html#adf764cbdea00d65edcd07bb9953ad2b7a16e1e6d80d26c6e7cd894413681846a1">PS_SBUF_GET</a>
+, <a class="el" href="mixer__internal_8h.html#adf764cbdea00d65edcd07bb9953ad2b7a2f6c535b2d6a9a7443cd49d4e2bee7cb">PS_VADPCM_READ</a>
+, <a class="el" href="mixer__internal_8h.html#adf764cbdea00d65edcd07bb9953ad2b7a580cde5ef4e416c66dad29d8f5da7180">PS_VADPCM_HUFF</a>
+, <a class="el" href="mixer__internal_8h.html#adf764cbdea00d65edcd07bb9953ad2b7a0844b6831c0f8d12f6b25732cf0af690">PS_VADPCM_IO</a>
+, <br />
+&#160;&#160;<a class="el" href="mixer__internal_8h.html#adf764cbdea00d65edcd07bb9953ad2b7a283734d7ffc7b264520d2c8c9b9dda0d">PS_MIXER_CMD</a>
+, <a class="el" href="mixer__internal_8h.html#adf764cbdea00d65edcd07bb9953ad2b7af2ec96fcb60e295995544a29f499b13b">PS_MIXER_VOL</a>
+, <a class="el" href="mixer__internal_8h.html#adf764cbdea00d65edcd07bb9953ad2b7a9c40c1ac84c26a83fbc20685aa36c97d">PS_MIXER_DMAWAIT</a>
+, <a class="el" href="mixer__internal_8h.html#adf764cbdea00d65edcd07bb9953ad2b7acb0e0c240ec8dedad436655f767e06dc">PS_MIXER_RSPQ</a>
+, <br />
+&#160;&#160;<a class="el" href="mixer__internal_8h.html#adf764cbdea00d65edcd07bb9953ad2b7a0bbfd547c00d2fff12850106bce0076b">PS_MIXER_ADVANCE</a>
+, <a class="el" href="mixer__internal_8h.html#adf764cbdea00d65edcd07bb9953ad2b7a78f19f88c9e9a6c76f904b6d9d75f21d">PS_MIXER_SEEK</a>
+, <a class="el" href="mixer__internal_8h.html#adf764cbdea00d65edcd07bb9953ad2b7afe1b4e612d739737974dd931ab3e2c51">PS_MIXER_PREFETCH</a>
+<br />
+ }</td></tr>
+<tr class="memdesc:adf764cbdea00d65edcd07bb9953ad2b7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Profile slots for mixer / xm64 / mid64 / vadpcm (see <a class="el" href="mixer__internal_8h.html#a4911dbcd59750bc97a9dbebe1d5ce473" title="Register mixer profile slots with profile_init.">__mixer_profile_init</a>).  <a href="mixer__internal_8h.html#adf764cbdea00d65edcd07bb9953ad2b7">More...</a><br /></td></tr>
+<tr class="separator:adf764cbdea00d65edcd07bb9953ad2b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a4911dbcd59750bc97a9dbebe1d5ce473" id="r_a4911dbcd59750bc97a9dbebe1d5ce473"><td class="memItemLeft" align="right" valign="top"><a id="a4911dbcd59750bc97a9dbebe1d5ce473" name="a4911dbcd59750bc97a9dbebe1d5ce473"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>__mixer_profile_init</b> (void)</td></tr>
+<tr class="memdesc:a4911dbcd59750bc97a9dbebe1d5ce473"><td class="mdescLeft">&#160;</td><td class="mdescRight">Register mixer profile slots with <a class="el" href="profile_8c.html#ad79b2e6dfd8b37c11497f5c689f78fee" title="Initialize the profiler.">profile_init</a>. <br /></td></tr>
+<tr class="separator:a4911dbcd59750bc97a9dbebe1d5ce473"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa59050c9fcf02d3ba96a3451e7e7141e" id="r_aa59050c9fcf02d3ba96a3451e7e7141e"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mixer__internal_8h.html#aa59050c9fcf02d3ba96a3451e7e7141e">__mixer_rdram_copy</a> (void *dst, void *src, int nbytes)</td></tr>
+<tr class="memdesc:aa59050c9fcf02d3ba96a3451e7e7141e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy a block of RDRAM onto another one through the mixer ucode.  <br /></td></tr>
+<tr class="separator:aa59050c9fcf02d3ba96a3451e7e7141e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7f99d843ac962b336c6d46ebe02e1647" id="r_a7f99d843ac962b336c6d46ebe02e1647"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mixer__internal_8h.html#a7f99d843ac962b336c6d46ebe02e1647">__mixer_inflight_samples</a> (void)</td></tr>
+<tr class="memdesc:a7f99d843ac962b336c6d46ebe02e1647"><td class="mdescLeft">&#160;</td><td class="mdescRight">Output samples the CPU may mix without ever waiting for the RSP.  <br /></td></tr>
+<tr class="separator:a7f99d843ac962b336c6d46ebe02e1647"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader"></div></td></tr>
+<tr class="memitem:a51e9507d777603c01281a1c49cb13c77" id="r_a51e9507d777603c01281a1c49cb13c77"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mixer__internal_8h.html#a51e9507d777603c01281a1c49cb13c77">__mixer_round_done</a> (uint32_t id)</td></tr>
+<tr class="memdesc:a51e9507d777603c01281a1c49cb13c77"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rounds: how the CPU knows what the RSP has already read.  <br /></td></tr>
+<tr class="separator:a51e9507d777603c01281a1c49cb13c77"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a48792dbfb4567332e1035403b527c572" id="r_a48792dbfb4567332e1035403b527c572"><td class="memItemLeft" align="right" valign="top"><a id="a48792dbfb4567332e1035403b527c572" name="a48792dbfb4567332e1035403b527c572"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>__mixer_round_wait</b> (uint32_t id)</td></tr>
+<tr class="memdesc:a48792dbfb4567332e1035403b527c572"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wait for the RSP to finish the given round. <br /></td></tr>
+<tr class="separator:a48792dbfb4567332e1035403b527c572"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
 <tr class="memitem:a728b6be978ab3d502aa747add3151db3" id="r_a728b6be978ab3d502aa747add3151db3"><td class="memItemLeft" align="right" valign="top"><a id="a728b6be978ab3d502aa747add3151db3" name="a728b6be978ab3d502aa747add3151db3"></a>
@@ -91,10 +166,235 @@ uint32_t&#160;</td><td class="memItemRight" valign="bottom"><b>__mixer_overlay_i
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><dl class="section author"><dt>Author</dt><dd>Giovanni Bajo <a href="#" onclick="location.href='mai'+'lto:'+'gio'+'va'+'nni'+'ba'+'jo@'+'gm'+'ail'+'.c'+'om'; return false;">giova<span class="obfuscator">.nosp@m.</span>nnib<span class="obfuscator">.nosp@m.</span>ajo@g<span class="obfuscator">.nosp@m.</span>mail<span class="obfuscator">.nosp@m.</span>.com</a> </dd></dl>
-</div></div><!-- contents -->
+</div><hr/><h2 class="groupheader">Data Structure Documentation</h2>
+<a name="structwaveform__vadpcm__t" id="structwaveform__vadpcm__t"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#structwaveform__vadpcm__t">&#9670;&#160;</a></span>waveform_vadpcm_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct waveform_vadpcm_t</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="textblock"><p>Codec side-data for <a class="el" href="mixer_8h.html#a94bed47ee7b4b986916b7403fddb4ac5a2885be0ed36e5da1ddb75794ff1df12e">WAVEFORM_FORMAT_VADPCM</a> waveforms. </p>
+</div><table class="fieldtable">
+<tr><th colspan="3">Data Fields</th></tr>
+<tr><td class="fieldtype">
+<a id="ae30b264c636cfadae190d9832a50e0fa" name="ae30b264c636cfadae190d9832a50e0fa"></a>void *</td>
+<td class="fieldname">
+codebook</td>
+<td class="fielddoc">
+<p>Predictor codebook in RDRAM (must stay valid for the waveform lifetime). </p>
+</td></tr>
+<tr><td class="fieldtype">
+<a id="a09bc874b779f81a12ec399204e37f0f9" name="a09bc874b779f81a12ec399204e37f0f9"></a>void *</td>
+<td class="fieldname">
+loop_state</td>
+<td class="fielddoc">
+<p>Decoder state at the loop start (16-byte vector), or NULL if the waveform does not loop / loop state is unknown. Used by the RSP on cached-loop wraps. </p>
+</td></tr>
+<tr><td class="fieldtype">
+<a id="ae822df50391c25666cc10c5990b84dce" name="ae822df50391c25666cc10c5990b84dce"></a>uint8_t</td>
+<td class="fieldname">
+bits</td>
+<td class="fielddoc">
+<p>Bits per residual in the bitstream: 2, 3 or 4. Framing, codebook, state and predictor order do not change with it, only the payload packing (see <a class="el" href="wav64__vadpcm__internal_8h.html#abb5d5b20da0b43a7d1f3ad5e33a96122" title="Bitstream layout of a VADPCM frame.">VADPCM_GROUP_OFFSET</a>) and thus <a class="el" href="mixer__internal_8h.html#a71686d6630e8f391fd7d67687898f812" title="Size in bytes of a VADPCM frame with residuals of bits bits.">VADPCM_FRAME_BYTES</a>. </p>
+</td></tr>
+</table>
+
+</div>
+</div>
+<h2 class="groupheader">Macro Definition Documentation</h2>
+<a id="ad6e864b0f67f25c97e159a49e40f7216" name="ad6e864b0f67f25c97e159a49e40f7216"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad6e864b0f67f25c97e159a49e40f7216">&#9670;&#160;</a></span>VADPCM_CODEBOOK_STRIDE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define VADPCM_CODEBOOK_STRIDE&#160;&#160;&#160;136</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Bytes of VADPCM codebook data per channel: eight predictor vectors (128 bytes) followed by the first three samples decoded at the loop start (plus one halfword of padding). Must match the WAV64 on-disk layout and the mixer ucode DMA size. </p>
+
+</div>
+</div>
+<a id="a71686d6630e8f391fd7d67687898f812" name="a71686d6630e8f391fd7d67687898f812"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a71686d6630e8f391fd7d67687898f812">&#9670;&#160;</a></span>VADPCM_FRAME_BYTES</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define VADPCM_FRAME_BYTES</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">bits</td><td>)</td>
+          <td>&#160;&#160;&#160;(2*(bits) + 1)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Size in bytes of a VADPCM frame with residuals of <code>bits</code> bits. </p>
+<p>One control byte plus 16 residuals: 9 bytes for the classic 4-bit encoding, 7 for 3-bit, 5 for 2-bit. Frames always hold 16 samples. </p>
+
+</div>
+</div>
+<h2 class="groupheader">Enumeration Type Documentation</h2>
+<a id="adf764cbdea00d65edcd07bb9953ad2b7" name="adf764cbdea00d65edcd07bb9953ad2b7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adf764cbdea00d65edcd07bb9953ad2b7">&#9670;&#160;</a></span>anonymous enum</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">anonymous enum</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Profile slots for mixer / xm64 / mid64 / vadpcm (see <a class="el" href="mixer__internal_8h.html#a4911dbcd59750bc97a9dbebe1d5ce473" title="Register mixer profile slots with profile_init.">__mixer_profile_init</a>). </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="adf764cbdea00d65edcd07bb9953ad2b7a3a82c98fa74c52c6b8ef9a507e59e5d6" name="adf764cbdea00d65edcd07bb9953ad2b7a3a82c98fa74c52c6b8ef9a507e59e5d6"></a>PS_MIXER&#160;</td><td class="fielddoc"><p>mixer_try_play </p>
+</td></tr>
+<tr><td class="fieldname"><a id="adf764cbdea00d65edcd07bb9953ad2b7adc6fd6b9fe4fcddf8cf0c56bb3274eb1" name="adf764cbdea00d65edcd07bb9953ad2b7adc6fd6b9fe4fcddf8cf0c56bb3274eb1"></a>PS_XM_TICK&#160;</td><td class="fielddoc"><p>xm64 tick callback (sequencing + channel sync) </p>
+</td></tr>
+<tr><td class="fieldname"><a id="adf764cbdea00d65edcd07bb9953ad2b7a9298017452cbfa73a57168eda5b37aa3" name="adf764cbdea00d65edcd07bb9953ad2b7a9298017452cbfa73a57168eda5b37aa3"></a>PS_XM_GETPOS&#160;</td><td class="fielddoc"><p>xm64: sync sample_position from mixer </p>
+</td></tr>
+<tr><td class="fieldname"><a id="adf764cbdea00d65edcd07bb9953ad2b7a064cac81dc4404d28a79a4b4a0c20b31" name="adf764cbdea00d65edcd07bb9953ad2b7a064cac81dc4404d28a79a4b4a0c20b31"></a>PS_XM_LIBXM&#160;</td><td class="fielddoc"><p>xm64: xm_tick (libxm sequencer) </p>
+</td></tr>
+<tr><td class="fieldname"><a id="adf764cbdea00d65edcd07bb9953ad2b7af36d15b96bcb7774c1739f49c84d1edb" name="adf764cbdea00d65edcd07bb9953ad2b7af36d15b96bcb7774c1739f49c84d1edb"></a>PS_XM_SYNC&#160;</td><td class="fielddoc"><p>xm64: play/pos/freq/vol sync to mixer </p>
+</td></tr>
+<tr><td class="fieldname"><a id="adf764cbdea00d65edcd07bb9953ad2b7ad6c2cf99807f3924fd6e23373b47b3f6" name="adf764cbdea00d65edcd07bb9953ad2b7ad6c2cf99807f3924fd6e23373b47b3f6"></a>PS_MID_TICK&#160;</td><td class="fielddoc"><p>mid64 tick callback (MIDI + synth process) </p>
+</td></tr>
+<tr><td class="fieldname"><a id="adf764cbdea00d65edcd07bb9953ad2b7a2929da61ea29984eef35991981cdcb71" name="adf764cbdea00d65edcd07bb9953ad2b7a2929da61ea29984eef35991981cdcb71"></a>PS_MID_PROCESS&#160;</td><td class="fielddoc"><p>mid64: midi_target process (sf64 envelopes) </p>
+</td></tr>
+<tr><td class="fieldname"><a id="adf764cbdea00d65edcd07bb9953ad2b7ad5d11af8821b9e5d4b3be84fc955357b" name="adf764cbdea00d65edcd07bb9953ad2b7ad5d11af8821b9e5d4b3be84fc955357b"></a>PS_MID_DISPATCH&#160;</td><td class="fielddoc"><p>mid64: decode + dispatch MIDI events </p>
+</td></tr>
+<tr><td class="fieldname"><a id="adf764cbdea00d65edcd07bb9953ad2b7aaad78e52e37ab83b1ce46da4a7c4ace7" name="adf764cbdea00d65edcd07bb9953ad2b7aaad78e52e37ab83b1ce46da4a7c4ace7"></a>PS_MIXER_EXEC&#160;</td><td class="fielddoc"><p>mixer_exec </p>
+</td></tr>
+<tr><td class="fieldname"><a id="adf764cbdea00d65edcd07bb9953ad2b7a648d0bf04986f3990f8fbf45ac925aef" name="adf764cbdea00d65edcd07bb9953ad2b7a648d0bf04986f3990f8fbf45ac925aef"></a>PS_MIXER_PREP&#160;</td><td class="fielddoc"><p>update_loops + refresh_chtbl + round_length </p>
+</td></tr>
+<tr><td class="fieldname"><a id="adf764cbdea00d65edcd07bb9953ad2b7ad6b45b7a66e14450466e7d6f4311f99f" name="adf764cbdea00d65edcd07bb9953ad2b7ad6b45b7a66e14450466e7d6f4311f99f"></a>PS_MIXER_EMIT&#160;</td><td class="fielddoc"><p>mixer_emit_round </p>
+</td></tr>
+<tr><td class="fieldname"><a id="adf764cbdea00d65edcd07bb9953ad2b7ada1b7549fae6fe2bf768ef00897bc73b" name="adf764cbdea00d65edcd07bb9953ad2b7ada1b7549fae6fe2bf768ef00897bc73b"></a>PS_MIXER_FETCH&#160;</td><td class="fielddoc"><p>emit phase A: freq sync + samplebuffer fetch </p>
+</td></tr>
+<tr><td class="fieldname"><a id="adf764cbdea00d65edcd07bb9953ad2b7a16e1e6d80d26c6e7cd894413681846a1" name="adf764cbdea00d65edcd07bb9953ad2b7a16e1e6d80d26c6e7cd894413681846a1"></a>PS_SBUF_GET&#160;</td><td class="fielddoc"><p>samplebuffer_get </p>
+</td></tr>
+<tr><td class="fieldname"><a id="adf764cbdea00d65edcd07bb9953ad2b7a2f6c535b2d6a9a7443cd49d4e2bee7cb" name="adf764cbdea00d65edcd07bb9953ad2b7a2f6c535b2d6a9a7443cd49d4e2bee7cb"></a>PS_VADPCM_READ&#160;</td><td class="fielddoc"><p>waveform_vadpcm_read_compressed </p>
+</td></tr>
+<tr><td class="fieldname"><a id="adf764cbdea00d65edcd07bb9953ad2b7a580cde5ef4e416c66dad29d8f5da7180" name="adf764cbdea00d65edcd07bb9953ad2b7a580cde5ef4e416c66dad29d8f5da7180"></a>PS_VADPCM_HUFF&#160;</td><td class="fielddoc"><p>huffv_decompress </p>
+</td></tr>
+<tr><td class="fieldname"><a id="adf764cbdea00d65edcd07bb9953ad2b7a0844b6831c0f8d12f6b25732cf0af690" name="adf764cbdea00d65edcd07bb9953ad2b7a0844b6831c0f8d12f6b25732cf0af690"></a>PS_VADPCM_IO&#160;</td><td class="fielddoc"><p>plain VADPCM DMA/read </p>
+</td></tr>
+<tr><td class="fieldname"><a id="adf764cbdea00d65edcd07bb9953ad2b7a283734d7ffc7b264520d2c8c9b9dda0d" name="adf764cbdea00d65edcd07bb9953ad2b7a283734d7ffc7b264520d2c8c9b9dda0d"></a>PS_MIXER_CMD&#160;</td><td class="fielddoc"><p>emit phase B: volumes + rspq MIX_CHANNEL/FLUSH </p>
+</td></tr>
+<tr><td class="fieldname"><a id="adf764cbdea00d65edcd07bb9953ad2b7af2ec96fcb60e295995544a29f499b13b" name="adf764cbdea00d65edcd07bb9953ad2b7af2ec96fcb60e295995544a29f499b13b"></a>PS_MIXER_VOL&#160;</td><td class="fielddoc"><p>cmd: mixer_channel_volumes </p>
+</td></tr>
+<tr><td class="fieldname"><a id="adf764cbdea00d65edcd07bb9953ad2b7a9c40c1ac84c26a83fbc20685aa36c97d" name="adf764cbdea00d65edcd07bb9953ad2b7a9c40c1ac84c26a83fbc20685aa36c97d"></a>PS_MIXER_DMAWAIT&#160;</td><td class="fielddoc"><p>cmd: mixer_wait_channel_dma (should be ~0 user time) </p>
+</td></tr>
+<tr><td class="fieldname"><a id="adf764cbdea00d65edcd07bb9953ad2b7acb0e0c240ec8dedad436655f767e06dc" name="adf764cbdea00d65edcd07bb9953ad2b7acb0e0c240ec8dedad436655f767e06dc"></a>PS_MIXER_RSPQ&#160;</td><td class="fielddoc"><p>cmd: rspq MIX_CHANNEL / SETSTATE / FLUSH </p>
+</td></tr>
+<tr><td class="fieldname"><a id="adf764cbdea00d65edcd07bb9953ad2b7a0bbfd547c00d2fff12850106bce0076b" name="adf764cbdea00d65edcd07bb9953ad2b7a0bbfd547c00d2fff12850106bce0076b"></a>PS_MIXER_ADVANCE&#160;</td><td class="fielddoc"><p>mixer_advance </p>
+</td></tr>
+<tr><td class="fieldname"><a id="adf764cbdea00d65edcd07bb9953ad2b7a78f19f88c9e9a6c76f904b6d9d75f21d" name="adf764cbdea00d65edcd07bb9953ad2b7a78f19f88c9e9a6c76f904b6d9d75f21d"></a>PS_MIXER_SEEK&#160;</td><td class="fielddoc"><p>mixer_ch_seek </p>
+</td></tr>
+<tr><td class="fieldname"><a id="adf764cbdea00d65edcd07bb9953ad2b7afe1b4e612d739737974dd931ab3e2c51" name="adf764cbdea00d65edcd07bb9953ad2b7afe1b4e612d739737974dd931ab3e2c51"></a>PS_MIXER_PREFETCH&#160;</td><td class="fielddoc"><p>mixer_prefetch_next </p>
+</td></tr>
+</table>
+
+</div>
+</div>
+<h2 class="groupheader">Function Documentation</h2>
+<a id="a51e9507d777603c01281a1c49cb13c77" name="a51e9507d777603c01281a1c49cb13c77"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a51e9507d777603c01281a1c49cb13c77">&#9670;&#160;</a></span>__mixer_round_done()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool __mixer_round_done </td>
+          <td>(</td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>id</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Rounds: how the CPU knows what the RSP has already read. </p>
+<p>The CPU queues mix rounds without waiting for them, so the input windows it hands out stay live until the RSP gets to them. Each round carries an id that MIX_FLUSH writes back to RDRAM once the round is over. <a class="el" href="mixer_8c.html#a00631ec3a7b6a40e4a9158d987ea7ea7" title="Poll the mixer asynchronously.">mixer_poll_async</a> waits for the round that closed the poll MIXER_POLL_LOOKAHEAD polls ago before starting a new one, which is what keeps samplebuffer refills from overwriting live windows. Ids start at 1, so 0 means "no round".</p>
+<p>True if the RSP has finished the given round. </p>
+
+</div>
+</div>
+<a id="aa59050c9fcf02d3ba96a3451e7e7141e" name="aa59050c9fcf02d3ba96a3451e7e7141e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa59050c9fcf02d3ba96a3451e7e7141e">&#9670;&#160;</a></span>__mixer_rdram_copy()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool __mixer_rdram_copy </td>
+          <td>(</td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>dst</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>src</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>nbytes</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Copy a block of RDRAM onto another one through the mixer ucode. </p>
+<p>What the RSP brings here is ordering: the copy runs where it is enqueued, which is what mirroring data that an audio codec overlay has been asked to write, and may not have written yet, requires (see <a class="el" href="mixer_8h.html#aebf88169231e7d9fa90d56273ddd7483" title="True if read produces samples through an RSP overlay.">waveform_t::rsp_written</a>).</p>
+<p>Both addresses and the length must be 8-byte aligned. Returns false if the mixer is not running, leaving the copy to the caller. </p>
+
+</div>
+</div>
+<a id="a7f99d843ac962b336c6d46ebe02e1647" name="a7f99d843ac962b336c6d46ebe02e1647"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7f99d843ac962b336c6d46ebe02e1647">&#9670;&#160;</a></span>__mixer_inflight_samples()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int __mixer_inflight_samples </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Output samples the CPU may mix without ever waiting for the RSP. </p>
+<p>The span sample buffers are sized for. Callers that size their own buffers (xm64) have to use the same figure.</p>
+<p>A poll enqueues its rounds and returns, so the input windows it handed out stay live until the RSP gets to them: sample buffers are sized to span that much input (<a class="el" href="mixer_8c.html#a686e0bb66bb146f27ecb316f6ff8ec90" title="Polls the sample buffers are sized to hold at once.">MIXER_POLL_LOOKAHEAD</a> polls of it). The next poll waits for the oldest of those before starting (see <a class="el" href="mixer_8c.html#a00631ec3a7b6a40e4a9158d987ea7ea7" title="Poll the mixer asynchronously.">mixer_poll_async</a>). </p>
+
+</div>
+</div>
+</div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jun 10 2026 22:36:48 for libdragon by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
+Generated on Fri Aug 21 2026 21:04:47 for libdragon by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
 </small></address>
 </body>
 </html>

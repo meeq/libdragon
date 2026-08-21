@@ -206,7 +206,7 @@ Giovanni Bajo <a href="#" onclick="location.href='mai'+'lto:'+'gio'+'va'+'nni'+'
 <div class="line"><span class="comment">// Attach the RDP to the top 40 rows of the framebuffer</span></div>
 <div class="line"><a class="code hl_struct" href="surface_8h.html#structsurface__t">surface_t</a> fbtop = <a class="code hl_function" href="surface_8c.html#a201a14d89649b0f81ef8d535b724b34f">surface_make_sub</a>(fb, 0, 0, 320, 40);</div>
 <div class="line"><a class="code hl_function" href="rdpq__attach_8c.html#a67bd7bcd3d71538f5a10d50ba73b6b10">rdpq_attach</a>(&amp;fbtop);</div>
-<div class="ttc" id="agroup__display_html_gaf8ad0501f0408430e3b40f0f626a33bd"><div class="ttname"><a href="group__display.html#gaf8ad0501f0408430e3b40f0f626a33bd">display_get</a></div><div class="ttdeci">surface_t * display_get(void)</div><div class="ttdoc">Get a display buffer for rendering.</div><div class="ttdef"><b>Definition</b> display.c:591</div></div>
+<div class="ttc" id="agroup__display_html_gaf8ad0501f0408430e3b40f0f626a33bd"><div class="ttname"><a href="group__display.html#gaf8ad0501f0408430e3b40f0f626a33bd">display_get</a></div><div class="ttdeci">surface_t * display_get(void)</div><div class="ttdoc">Get a display buffer for rendering.</div><div class="ttdef"><b>Definition</b> display.c:592</div></div>
 <div class="ttc" id="ardpq__attach_8c_html_a67bd7bcd3d71538f5a10d50ba73b6b10"><div class="ttname"><a href="rdpq__attach_8c.html#a67bd7bcd3d71538f5a10d50ba73b6b10">rdpq_attach</a></div><div class="ttdeci">void rdpq_attach(const surface_t *surf_color, const surface_t *surf_z)</div><div class="ttdoc">Attach the RDP to a color surface (and optionally a Z buffer)</div><div class="ttdef"><b>Definition</b> rdpq_attach.c:122</div></div>
 <div class="ttc" id="asurface_8c_html_a201a14d89649b0f81ef8d535b724b34f"><div class="ttname"><a href="surface_8c.html#a201a14d89649b0f81ef8d535b724b34f">surface_make_sub</a></div><div class="ttdeci">surface_t surface_make_sub(surface_t *parent, uint16_t x0, uint16_t y0, uint16_t width, uint16_t height)</div><div class="ttdoc">Initialize a surface_t structure, pointing to a rectangular portion of another surface.</div><div class="ttdef"><b>Definition</b> surface.c:59</div></div>
 </div><!-- fragment --><p>Surfaces created by <a class="el" href="surface_8h.html#a201a14d89649b0f81ef8d535b724b34f" title="Initialize a surface_t structure, pointing to a rectangular portion of another surface.">surface_make_sub</a> don't need to be freed as they are just references to the parent surface; <a class="el" href="surface_8h.html#abb7940ed434b55044bf078472f59173e" title="Free the buffer allocated in a surface.">surface_free</a> does nothing on them. </p>
@@ -795,7 +795,7 @@ Buffer pointer. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd><a class="el" href="surface_8h.html#structsurface__t" title="A surface buffer for graphics.">surface_t</a> The initialized placeholder surface</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The initialized placeholder surface</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="surface_8h.html#a72c6f76ee9f39cc668e6628cc1fb46ef" title="Create a linear placeholder surface, that can be used during rdpq block recording.">surface_make_placeholder_linear</a> </dd>
 <dd>
 <a class="el" href="rdpq_8c.html#ac3a157dcfb511e567251d69ba2272287" title="Store an address into the rdpq lookup table.">rdpq_set_lookup_address</a> </dd></dl>
@@ -859,7 +859,7 @@ Buffer pointer. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd><a class="el" href="surface_8h.html#structsurface__t" title="A surface buffer for graphics.">surface_t</a> The initialized placeholder surface</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The initialized placeholder surface</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="surface_8h.html#ade63b26694a75b09506d5fd9cf35e670" title="Create a placeholder surface, that can be used during rdpq block recording.">surface_make_placeholder</a> </dd></dl>
 
 </div>
@@ -896,14 +896,14 @@ Buffer pointer. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>int The lookup index of the placeholder surface, or 0 if it is a normal surface </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The lookup index of the placeholder surface, or 0 if it is a normal surface </dd></dl>
 
 </div>
 </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jun 10 2026 22:36:47 for libdragon by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
+Generated on Fri Aug 21 2026 21:04:46 for libdragon by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
 </small></address>
 </body>
 </html>

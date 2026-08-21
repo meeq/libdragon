@@ -83,7 +83,7 @@ Welcome to libdragon</h1>
 </blockquote>
 <p>Libdragon is an open-source SDK for Nintendo 64. It aims for a complete N64 programming experience while providing programmers with modern approach to programming and debugging. These are the main features:</p>
 <ul>
-<li>Based on modern GCC (version 14) and Newlib, for a full C11 programming experience. A Docker container is available to quickly set up the programming environment.</li>
+<li>Based on modern GCC (version 16) and Newlib, for a full C11 programming experience. A Docker container is available to quickly set up the programming environment.</li>
 <li>The GCC toolchain is 64 bit capable to be able to use the full R4300 capabilities (commercial games and libultra are based on a 32-bit ABI and is not possible to use 64-bit registers and opcodes with it)</li>
 <li>Can be developed with newer-generation emulators (Ares, Gopher64) and development cartridges (64drive, EverDrive64, SummerCart64).</li>
 <li>Support both vanilla N64 and iQue Player (Chinese variant). It is possible to run ROMs built with libdragon on iQue without modifying the source code.</li>
@@ -183,15 +183,23 @@ Using a development cartridge on a real N64</h2>
 <p>If your cartridge has USB support, use one of the loaders that implement the libdragon debugging protocol, so to be able to show logs in console. For instance, <a href="https://github.com/buu342/N64-UNFLoader">UNFLoader</a>, <a href="https://github.com/rasky/g64drive">g64drive</a>, <a href="https://github.com/anacierdem/ed64">ed64</a>. The official loaders provided by the vendors are usually less feature-rich.</p>
 <h1><a class="anchor" id="autotoc_md6"></a>
 Libdragon stable vs preview</h1>
-<p>Currently, there are two main libragon versions:</p>
+<p>There is a single libdragon version, but not every API in it carries the same promise. Each API is either <b>stable</b> or <b>preview</b>:</p>
 <ul>
-<li>The <b>stable</b> version is the one in the <code>trunk</code>. Stable means that we strive never to break backward compatibility, that is we will never do changes in a way that will impede existing applications to successfully compile and work against a newer libdragon version. We feel this is important because otherwise we would fragment the homebrew ecosystem too much, and we would leave a trail of libdragon-based applications that can't be compiled anymore.</li>
-<li>The <b>preview</b> version is the one in the <code>preview</code> branch. This is where most development happens first. In fact, features are developed, evolved and battle-tested here, before the APIs are stabilized and they are finally merged on the trunk. Applications that use the preview branch need to be aware that the APIs can break at any time (though we try to avoid <em>gratuitous</em> breakage).</li>
+<li>A <b>stable</b> API will not break backward compatibility. We will never change it in a way that impedes existing applications from compiling and working against a newer libdragon version. We feel this is important because otherwise we would fragment the homebrew ecosystem too much, and we would leave a trail of libdragon-based applications that can't be compiled anymore.</li>
+<li>A <b>preview</b> API is still being developed, evolved and battle-tested. It can change or be removed at any time, without notice and without a deprecation period (though we try to avoid <em>gratuitous</em> breakage). This is where most new features start their life, before they are stabilized.</li>
 </ul>
+<p>Preview APIs are documented as such (look for the "Preview API" note in the <a href="https://libdragon.dev/ref/index.html">documentation</a>), and they are locked by default: using one is a compile time error that names the API you tried to use. To unlock them, set <code>LIBDRAGON_PREVIEW</code> in your Makefile, <em>before</em> including <code>n64.mk</code>:</p>
+<div class="fragment"><div class="line">LIBDRAGON_PREVIEW = 1          # allow preview APIs, but warn on each use</div>
+<div class="line"># LIBDRAGON_PREVIEW = 2        # fully unlock preview APIs (no diagnostics)</div>
+<div class="line">include $(N64_INST)/include/n64.mk</div>
+</div><!-- fragment --><p>Accepted values: <code>0</code> (default, hard error), <code>1</code> (usable with a compiler warning), <code>2</code> (fully unlocked).</p>
+<p>The switch is a property of your project, not of your libdragon installation: the same installed toolchain builds both stable-only and preview-using projects, and you can flip it at any time.</p>
+<p>There is no separate build of libdragon for preview APIs, so enabling the switch never changes the behaviour or the memory layout of the stable APIs: it only changes which APIs you are allowed to call.</p>
+<p>When a preview API is considered settled, it is promoted to stable and the marking is simply removed. Nothing needs to change in your project, and you can drop <code>LIBDRAGON_PREVIEW</code> once you no longer use any preview API.</p>
 <h1><a class="anchor" id="autotoc_md7"></a>
 Upgrading libdragon</h1>
-<p>If you are upgrade the stable version, check the <a href="https://github.com/DragonMinded/libdragon/wiki/Stable-branch--Changelog">ChangeLog</a> in the wiki to see latest changes that were merged into the stable version of libdragon. Also check the wiki page for <a href="https://github.com/DragonMinded/libdragon/wiki/Upgrade-troubleshooting">common hurdles in upgrading libdragon</a>.</p>
-<p>If you are upgrading the preview version, instead, remember that some breaking changes are expected. We do not keep track of those though, so you will have to check the relevant header files yourself to check what is changed.</p>
+<p>Check the <a href="https://github.com/DragonMinded/libdragon/wiki/Stable-branch--Changelog">ChangeLog</a> in the wiki to see the latest changes to the stable APIs. Also check the wiki page for <a href="https://github.com/DragonMinded/libdragon/wiki/Upgrade-troubleshooting">common hurdles in upgrading libdragon</a>.</p>
+<p>If your project enables <code>LIBDRAGON_PREVIEW</code>, instead, remember that some breaking changes are expected. We do not keep track of those though, so you will have to check the relevant header files yourself to see what has changed.</p>
 <h1><a class="anchor" id="autotoc_md8"></a>
 Resources</h1>
 <ul>
@@ -204,7 +212,7 @@ Resources</h1>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jun 10 2026 22:36:48 for libdragon by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
+Generated on Fri Aug 21 2026 21:04:47 for libdragon by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
 </small></address>
 </body>
 </html>

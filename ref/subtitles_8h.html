@@ -239,6 +239,7 @@ Background box color+alpha (default: no background) <p>This color is used to dra
 </div><div class="memdoc">
 
 <p>Load subtitles from a SUB64 file. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000469">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>SUB64 is libdragon-specific format for subtitles, created by the videoconv64 tool when converting video files with embedded subtitles, or standalone subtitle files.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -246,7 +247,7 @@ Background box color+alpha (default: no background) <p>This color is used to dra
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>subtitles_t* Handle to the loaded subtitles </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Handle to the loaded subtitles </dd></dl>
 
 </div>
 </div>
@@ -267,6 +268,7 @@ Background box color+alpha (default: no background) <p>This color is used to dra
 </div><div class="memdoc">
 
 <p>Free the subtitles handle. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000470">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>This function frees the subtitles handle and all the resources associated with it.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -294,6 +296,7 @@ Background box color+alpha (default: no background) <p>This color is used to dra
 </div><div class="memdoc">
 
 <p>Advance to the next frame. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000471">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>This function advances to the next frame. It is used to synchronize the subtitles with the video stream. It should be called once per frame.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -337,6 +340,7 @@ Background box color+alpha (default: no background) <p>This color is used to dra
 </div><div class="memdoc">
 
 <p>Get the current cue. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000472">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>This function returns the current cues. It is used to get the current cues to render on the screen.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -346,7 +350,7 @@ Background box color+alpha (default: no background) <p>This color is used to dra
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>int If cues is not NULL, the function will return the number of cues stored in the array. Otherwise, the function will return the number of cues available. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>If cues is not NULL, the function will return the number of cues stored in the array. Otherwise, the function will return the number of cues available. </dd></dl>
 
 </div>
 </div>
@@ -377,6 +381,7 @@ Background box color+alpha (default: no background) <p>This color is used to dra
 </div><div class="memdoc">
 
 <p>Seek to a specific frame index. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000473">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>This function seeks to a specific frame index. Seeking is a relatively expensive operation, and should be used only when necessary.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -405,6 +410,7 @@ Background box color+alpha (default: no background) <p>This color is used to dra
 </div><div class="memdoc">
 
 <p>Create a RDPQ-based subtitle renderer. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000474">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>This renderer uses the rdpq_text API to render subtitles on the screen. It is the most efficient way to render subtitles on top of videos.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -412,7 +418,7 @@ Background box color+alpha (default: no background) <p>This color is used to dra
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>subrenderer_t* Handle to the created subtitle renderer </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Handle to the created subtitle renderer </dd></dl>
 
 </div>
 </div>
@@ -433,6 +439,7 @@ Background box color+alpha (default: no background) <p>This color is used to dra
 </div><div class="memdoc">
 
 <p>Create an EIA-608 subtitle renderer. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000475">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <dl class="section return"><dt>Returns</dt><dd>subrenderer_t* </dd></dl>
 
 </div>
@@ -470,6 +477,7 @@ Background box color+alpha (default: no background) <p>This color is used to dra
 </div><div class="memdoc">
 
 <p>Set a custom frame size for the subtitle renderer. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000476">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>By default, the subtitle renderer assumes a frame size equal to the display size. If the video being played has a different size, this function can be used to set the correct frame size, so that subtitles are rendered in the correct position.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -515,6 +523,7 @@ Background box color+alpha (default: no background) <p>This color is used to dra
 </div><div class="memdoc">
 
 <p>Render the subtitles for the current frame. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000477">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">renderer</td><td>Subtitle renderer handle </td></tr>
@@ -543,6 +552,7 @@ Background box color+alpha (default: no background) <p>This color is used to dra
 </div><div class="memdoc">
 
 <p>Free the subtitle renderer. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000478">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">renderer</td><td>Subtitle renderer handle </td></tr>
@@ -555,7 +565,7 @@ Background box color+alpha (default: no background) <p>This color is used to dra
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jun 10 2026 22:36:47 for libdragon by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
+Generated on Fri Aug 21 2026 21:04:46 for libdragon by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
 </small></address>
 </body>
 </html>

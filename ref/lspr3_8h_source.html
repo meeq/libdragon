@@ -83,28 +83,34 @@ $(document).ready(function() { init_codefold(0); });
 </div><!--header-->
 <div class="contents">
 <a href="lspr3_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span> </div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="preprocessor">#ifndef __LIBDRAGON_LSPR3_H</span></div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="preprocessor">#define __LIBDRAGON_LSPR3_H</span></div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="preprocessor">#ifdef __cplusplus</span></div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="keyword">extern</span> <span class="stringliteral">&quot;C&quot;</span> {</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="preprocessor">#ifndef __LIBDRAGON_LSPR3_H</span></div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="preprocessor">#define __LIBDRAGON_LSPR3_H</span></div>
 <div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span><span class="keywordtype">void</span> <a class="code hl_function" href="lspr3_8h.html#a75b2bff0c408b1fbb405355ec6e4a447">lspr3_init</a>(<span class="keywordtype">void</span>);</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span><span class="keywordtype">void</span> <a class="code hl_function" href="lspr3_8h.html#a5fce7c4e0b0fc582c303b349f9c37be1">lspr3_close</a>(<span class="keywordtype">void</span>);</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span><span class="preprocessor">#ifdef __cplusplus</span></div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>}</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span><span class="preprocessor">#endif</span></div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span> </div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span><span class="preprocessor">#endif</span></div>
-<div class="ttc" id="alspr3_8h_html_a5fce7c4e0b0fc582c303b349f9c37be1"><div class="ttname"><a href="lspr3_8h.html#a5fce7c4e0b0fc582c303b349f9c37be1">lspr3_close</a></div><div class="ttdeci">void lspr3_close(void)</div><div class="ttdoc">Unregister the H264I (Lossy-sprite Level 3) decoder.</div><div class="ttdef"><b>Definition</b> lspr3.c:330</div></div>
-<div class="ttc" id="alspr3_8h_html_a75b2bff0c408b1fbb405355ec6e4a447"><div class="ttname"><a href="lspr3_8h.html#a75b2bff0c408b1fbb405355ec6e4a447">lspr3_init</a></div><div class="ttdeci">void lspr3_init(void)</div><div class="ttdoc">Register the H264I (Lossy-sprite Level 3) decoder with the sprite loader.</div><div class="ttdef"><b>Definition</b> lspr3.c:319</div></div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="preprocessor">#include &quot;<a class="code" href="preview_8h.html">preview.h</a>&quot;</span></div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span><span class="preprocessor">#ifdef __cplusplus</span></div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="keyword">extern</span> <span class="stringliteral">&quot;C&quot;</span> {</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span><a class="code hl_define" href="preview_8h.html#ab1912250c8ac23a2fa1af9360cb533bd">LIBDRAGON_PREVIEW_API</a></div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span><span class="keywordtype">void</span> <a class="code hl_function" href="lspr3_8h.html#a75b2bff0c408b1fbb405355ec6e4a447">lspr3_init</a>(<span class="keywordtype">void</span>);</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span><a class="code hl_define" href="preview_8h.html#ab1912250c8ac23a2fa1af9360cb533bd">LIBDRAGON_PREVIEW_API</a></div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span><span class="keywordtype">void</span> <a class="code hl_function" href="lspr3_8h.html#a5fce7c4e0b0fc582c303b349f9c37be1">lspr3_close</a>(<span class="keywordtype">void</span>);</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span> </div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span><span class="preprocessor">#ifdef __cplusplus</span></div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>}</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span> </div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span><span class="preprocessor">#endif</span></div>
+<div class="ttc" id="alspr3_8h_html_a5fce7c4e0b0fc582c303b349f9c37be1"><div class="ttname"><a href="lspr3_8h.html#a5fce7c4e0b0fc582c303b349f9c37be1">lspr3_close</a></div><div class="ttdeci">void lspr3_close(void)</div><div class="ttdoc">Unregister the H264I (Lossy-sprite Level 3) decoder.</div><div class="ttdef"><b>Definition</b> lspr3.c:385</div></div>
+<div class="ttc" id="alspr3_8h_html_a75b2bff0c408b1fbb405355ec6e4a447"><div class="ttname"><a href="lspr3_8h.html#a75b2bff0c408b1fbb405355ec6e4a447">lspr3_init</a></div><div class="ttdeci">void lspr3_init(void)</div><div class="ttdoc">Register the H264I (Lossy-sprite Level 3) decoder with the sprite loader.</div><div class="ttdef"><b>Definition</b> lspr3.c:374</div></div>
+<div class="ttc" id="apreview_8h_html"><div class="ttname"><a href="preview_8h.html">preview.h</a></div><div class="ttdoc">Preview APIs.</div></div>
+<div class="ttc" id="apreview_8h_html_ab1912250c8ac23a2fa1af9360cb533bd"><div class="ttname"><a href="preview_8h.html#ab1912250c8ac23a2fa1af9360cb533bd">LIBDRAGON_PREVIEW_API</a></div><div class="ttdeci">#define LIBDRAGON_PREVIEW_API</div><div class="ttdoc">Mark a function as preview.</div><div class="ttdef"><b>Definition</b> preview.h:149</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jun 10 2026 22:36:47 for libdragon by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
+Generated on Fri Aug 21 2026 21:04:46 for libdragon by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
 </small></address>
 </body>
 </html>

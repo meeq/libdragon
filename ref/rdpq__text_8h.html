@@ -160,7 +160,7 @@ Functions</h2></td></tr>
 <div class="line">} FONTS;</div>
 <div class="line"> </div>
 <div class="line"><span class="keywordtype">int</span> main(<span class="keywordtype">void</span>) {</div>
-<div class="line">    <a class="code hl_function" href="dragonfs_8c.html#a7ca0762367965bd8a6dbbe07b7ad3022">dfs_init</a>(<a class="code hl_define" href="group__dfs.html#ga1d81e04e879a844f4d733a3982bf85ee">DFS_DEFAULT_LOCATION</a>);</div>
+<div class="line">    <a class="code hl_function" href="dragonfs_8c.html#ae40e76bb3ad6151e29d4dc50f1c2b5ee">dfs_init</a>(<a class="code hl_define" href="group__dfs.html#ga1d81e04e879a844f4d733a3982bf85ee">DFS_DEFAULT_LOCATION</a>);</div>
 <div class="line">    <a class="code hl_function" href="group__display.html#ga1763c553f071d40c4bd18cee77ae98a1">display_init</a>(<a class="code hl_variable" href="group__display.html#gaa5d59348bf36dd5362d2842523260cd5">RESOLUTION_320x240</a>, <a class="code hl_enumvalue" href="group__display.html#ggae2079fcb0e8b0f846f002f25d0c73ffbabf331dc6d78bf9d2fb2b893a365f01d5">DEPTH_16_BPP</a>, 2, <a class="code hl_enumvalue" href="group__display.html#gga35f19c13bdc2076bd91416021036e439a93441449f3f926aa87eeddef2faec6a2">GAMMA_NONE</a>, ANTIALIAS_RESAMPLE);</div>
 <div class="line">    <a class="code hl_function" href="rdpq_8c.html#a7d884af64503534642d525082ec827cd">rdpq_init</a>();</div>
 <div class="line"> </div>
@@ -174,13 +174,13 @@ Functions</h2></td></tr>
 <div class="line">        <a class="code hl_function" href="rdpq__attach_8c.html#a88ddcc861cd4cd2027f3501a04b418d7">rdpq_detach_show</a>();</div>
 <div class="line">    }</div>
 <div class="line">}</div>
-<div class="ttc" id="adragonfs_8c_html_a7ca0762367965bd8a6dbbe07b7ad3022"><div class="ttname"><a href="dragonfs_8c.html#a7ca0762367965bd8a6dbbe07b7ad3022">dfs_init</a></div><div class="ttdeci">int dfs_init(uint32_t base_fs_loc)</div><div class="ttdoc">Initialize the filesystem.</div><div class="ttdef"><b>Definition</b> dragonfs.c:1370</div></div>
+<div class="ttc" id="adragonfs_8c_html_ae40e76bb3ad6151e29d4dc50f1c2b5ee"><div class="ttname"><a href="dragonfs_8c.html#ae40e76bb3ad6151e29d4dc50f1c2b5ee">dfs_init</a></div><div class="ttdeci">int dfs_init(pi_addr_t base_fs_loc)</div><div class="ttdoc">Initialize the filesystem.</div><div class="ttdef"><b>Definition</b> dragonfs.c:1370</div></div>
 <div class="ttc" id="agroup__dfs_html_ga1d81e04e879a844f4d733a3982bf85ee"><div class="ttname"><a href="group__dfs.html#ga1d81e04e879a844f4d733a3982bf85ee">DFS_DEFAULT_LOCATION</a></div><div class="ttdeci">#define DFS_DEFAULT_LOCATION</div><div class="ttdoc">Default filesystem location.</div><div class="ttdef"><b>Definition</b> dragonfs.h:62</div></div>
 <div class="ttc" id="agroup__display_html_ga1763c553f071d40c4bd18cee77ae98a1"><div class="ttname"><a href="group__display.html#ga1763c553f071d40c4bd18cee77ae98a1">display_init</a></div><div class="ttdeci">void display_init(resolution_t res, bitdepth_t bit, uint32_t num_buffers, gamma_t gamma, filter_options_t filters)</div><div class="ttdoc">Initialize the display to a particular resolution and bit depth.</div><div class="ttdef"><b>Definition</b> display.c:354</div></div>
-<div class="ttc" id="agroup__display_html_gaa5d59348bf36dd5362d2842523260cd5"><div class="ttname"><a href="group__display.html#gaa5d59348bf36dd5362d2842523260cd5">RESOLUTION_320x240</a></div><div class="ttdeci">const resolution_t RESOLUTION_320x240</div><div class="ttdoc">320x240 mode, no borders</div><div class="ttdef"><b>Definition</b> display.h:166</div></div>
-<div class="ttc" id="agroup__display_html_gaf8ad0501f0408430e3b40f0f626a33bd"><div class="ttname"><a href="group__display.html#gaf8ad0501f0408430e3b40f0f626a33bd">display_get</a></div><div class="ttdeci">surface_t * display_get(void)</div><div class="ttdoc">Get a display buffer for rendering.</div><div class="ttdef"><b>Definition</b> display.c:591</div></div>
-<div class="ttc" id="agroup__display_html_gga35f19c13bdc2076bd91416021036e439a93441449f3f926aa87eeddef2faec6a2"><div class="ttname"><a href="group__display.html#gga35f19c13bdc2076bd91416021036e439a93441449f3f926aa87eeddef2faec6a2">GAMMA_NONE</a></div><div class="ttdeci">@ GAMMA_NONE</div><div class="ttdoc">Uncorrected gamma.</div><div class="ttdef"><b>Definition</b> display.h:196</div></div>
-<div class="ttc" id="agroup__display_html_ggae2079fcb0e8b0f846f002f25d0c73ffbabf331dc6d78bf9d2fb2b893a365f01d5"><div class="ttname"><a href="group__display.html#ggae2079fcb0e8b0f846f002f25d0c73ffbabf331dc6d78bf9d2fb2b893a365f01d5">DEPTH_16_BPP</a></div><div class="ttdeci">@ DEPTH_16_BPP</div><div class="ttdoc">16 bits per pixel (5-5-5-1)</div><div class="ttdef"><b>Definition</b> display.h:182</div></div>
+<div class="ttc" id="agroup__display_html_gaa5d59348bf36dd5362d2842523260cd5"><div class="ttname"><a href="group__display.html#gaa5d59348bf36dd5362d2842523260cd5">RESOLUTION_320x240</a></div><div class="ttdeci">const resolution_t RESOLUTION_320x240</div><div class="ttdoc">320x240 mode, no borders</div><div class="ttdef"><b>Definition</b> display.h:172</div></div>
+<div class="ttc" id="agroup__display_html_gaf8ad0501f0408430e3b40f0f626a33bd"><div class="ttname"><a href="group__display.html#gaf8ad0501f0408430e3b40f0f626a33bd">display_get</a></div><div class="ttdeci">surface_t * display_get(void)</div><div class="ttdoc">Get a display buffer for rendering.</div><div class="ttdef"><b>Definition</b> display.c:592</div></div>
+<div class="ttc" id="agroup__display_html_gga35f19c13bdc2076bd91416021036e439a93441449f3f926aa87eeddef2faec6a2"><div class="ttname"><a href="group__display.html#gga35f19c13bdc2076bd91416021036e439a93441449f3f926aa87eeddef2faec6a2">GAMMA_NONE</a></div><div class="ttdeci">@ GAMMA_NONE</div><div class="ttdoc">Uncorrected gamma.</div><div class="ttdef"><b>Definition</b> display.h:202</div></div>
+<div class="ttc" id="agroup__display_html_ggae2079fcb0e8b0f846f002f25d0c73ffbabf331dc6d78bf9d2fb2b893a365f01d5"><div class="ttname"><a href="group__display.html#ggae2079fcb0e8b0f846f002f25d0c73ffbabf331dc6d78bf9d2fb2b893a365f01d5">DEPTH_16_BPP</a></div><div class="ttdeci">@ DEPTH_16_BPP</div><div class="ttdoc">16 bits per pixel (5-5-5-1)</div><div class="ttdef"><b>Definition</b> display.h:188</div></div>
 <div class="ttc" id="alibdragon_8h_html"><div class="ttname"><a href="libdragon_8h.html">libdragon.h</a></div><div class="ttdoc">Main include file for programs seeking to link against libdragon.</div></div>
 <div class="ttc" id="ardpq_8c_html_a7d884af64503534642d525082ec827cd"><div class="ttname"><a href="rdpq_8c.html#a7d884af64503534642d525082ec827cd">rdpq_init</a></div><div class="ttdeci">void rdpq_init()</div><div class="ttdoc">Initialize the RDPQ library.</div><div class="ttdef"><b>Definition</b> rdpq.c:454</div></div>
 <div class="ttc" id="ardpq__attach_8c_html_a88ddcc861cd4cd2027f3501a04b418d7"><div class="ttname"><a href="rdpq__attach_8c.html#a88ddcc861cd4cd2027f3501a04b418d7">rdpq_detach_show</a></div><div class="ttdeci">void rdpq_detach_show(void)</div><div class="ttdoc">Detach the RDP from the current framebuffer, and show it on screen.</div><div class="ttdef"><b>Definition</b> rdpq_attach.c:182</div></div>
@@ -264,10 +264,10 @@ Other examples</h2>
 <div class="line"><a class="code hl_function" href="rdpq_8c.html#a7ffd0e373836f8500094bdcbe85ce530">rdpq_set_fog_color</a>(<a class="code hl_define" href="group__graphics.html#gae16bab5741f411ec4ef51b0295f6e705">RGBA32</a>(255, 255, 255, 128));</div>
 <div class="line"><a class="code hl_function" href="rdpq__mode_8c.html#a64a153623e5985ce5c434bf52ba6efa6">rdpq_mode_blender</a>(RDPQ_BLEND_MULTIPLY_CONST);</div>
 <div class="line"><a class="code hl_define" href="rdpq__rect_8h.html#a9c6405f89d2fe70046330964c21ba124">rdpq_fill_rectangle</a>(</div>
-<div class="line">    x0 - margin - layout-&gt;<a class="code hl_variable" href="rdpq__paragraph_8h.html#a19c16761ef3cadcfb62818ddc277400f">bbox</a>.x0,</div>
-<div class="line">    y0 - margin - layout-&gt;<a class="code hl_variable" href="rdpq__paragraph_8h.html#a19c16761ef3cadcfb62818ddc277400f">bbox</a>.<a class="code hl_variable" href="rdpq__paragraph_8h.html#a7c72eef5fa6f30fe744d4ef41e90d8ad">y0</a>,</div>
-<div class="line">    x0 + margin + layout-&gt;<a class="code hl_variable" href="rdpq__paragraph_8h.html#a19c16761ef3cadcfb62818ddc277400f">bbox</a>.x1,</div>
-<div class="line">    y0 + margin + layout-&gt;<a class="code hl_variable" href="rdpq__paragraph_8h.html#a19c16761ef3cadcfb62818ddc277400f">bbox</a>.y1</div>
+<div class="line">    x0 - margin - layout-&gt;<a class="code hl_variable" href="rdpq__paragraph_8h.html#a9288d82bbca095b7c38b43dde0ba44d9">bbox</a>.x0,</div>
+<div class="line">    y0 - margin - layout-&gt;<a class="code hl_variable" href="rdpq__paragraph_8h.html#a9288d82bbca095b7c38b43dde0ba44d9">bbox</a>.<a class="code hl_variable" href="rdpq__paragraph_8h.html#a7c72eef5fa6f30fe744d4ef41e90d8ad">y0</a>,</div>
+<div class="line">    x0 + margin + layout-&gt;<a class="code hl_variable" href="rdpq__paragraph_8h.html#a9288d82bbca095b7c38b43dde0ba44d9">bbox</a>.x1,</div>
+<div class="line">    y0 + margin + layout-&gt;<a class="code hl_variable" href="rdpq__paragraph_8h.html#a9288d82bbca095b7c38b43dde0ba44d9">bbox</a>.y1</div>
 <div class="line">);</div>
 <div class="line"> </div>
 <div class="line"><span class="comment">// Render the text</span></div>
@@ -276,12 +276,12 @@ Other examples</h2>
 <div class="line"><span class="comment">// Free the layout</span></div>
 <div class="line">rdpq_text_layout_free(layout);</div>
 <div class="ttc" id="agroup__graphics_html_gae16bab5741f411ec4ef51b0295f6e705"><div class="ttname"><a href="group__graphics.html#gae16bab5741f411ec4ef51b0295f6e705">RGBA32</a></div><div class="ttdeci">#define RGBA32(rx, gx, bx, ax)</div><div class="ttdoc">Create a color_t from the R,G,B,A components in the RGBA32 range (0-255).</div><div class="ttdef"><b>Definition</b> graphics.h:96</div></div>
-<div class="ttc" id="ardpq_8c_html_a70a6556d7d088ca2b745fa145e3aeee3"><div class="ttname"><a href="rdpq_8c.html#a70a6556d7d088ca2b745fa145e3aeee3">rdpq_set_fill_color</a></div><div class="ttdeci">void rdpq_set_fill_color(color_t color)</div><div class="ttdoc">Enqueue a SET_FILL_COLOR RDP command.</div><div class="ttdef"><b>Definition</b> rdpq.h:875</div></div>
-<div class="ttc" id="ardpq_8c_html_a7ffd0e373836f8500094bdcbe85ce530"><div class="ttname"><a href="rdpq_8c.html#a7ffd0e373836f8500094bdcbe85ce530">rdpq_set_fog_color</a></div><div class="ttdeci">void rdpq_set_fog_color(color_t color)</div><div class="ttdoc">Set the RDP FOG blender register.</div><div class="ttdef"><b>Definition</b> rdpq.h:927</div></div>
-<div class="ttc" id="ardpq__mode_8c_html_a64a153623e5985ce5c434bf52ba6efa6"><div class="ttname"><a href="rdpq__mode_8c.html#a64a153623e5985ce5c434bf52ba6efa6">rdpq_mode_blender</a></div><div class="ttdeci">void rdpq_mode_blender(rdpq_blender_t blend)</div><div class="ttdoc">Configure the formula to use for blending.</div><div class="ttdef"><b>Definition</b> rdpq_mode.h:615</div></div>
+<div class="ttc" id="ardpq_8c_html_a70a6556d7d088ca2b745fa145e3aeee3"><div class="ttname"><a href="rdpq_8c.html#a70a6556d7d088ca2b745fa145e3aeee3">rdpq_set_fill_color</a></div><div class="ttdeci">void rdpq_set_fill_color(color_t color)</div><div class="ttdoc">Enqueue a SET_FILL_COLOR RDP command.</div><div class="ttdef"><b>Definition</b> rdpq.h:879</div></div>
+<div class="ttc" id="ardpq_8c_html_a7ffd0e373836f8500094bdcbe85ce530"><div class="ttname"><a href="rdpq_8c.html#a7ffd0e373836f8500094bdcbe85ce530">rdpq_set_fog_color</a></div><div class="ttdeci">void rdpq_set_fog_color(color_t color)</div><div class="ttdoc">Set the RDP FOG blender register.</div><div class="ttdef"><b>Definition</b> rdpq.h:931</div></div>
+<div class="ttc" id="ardpq__mode_8c_html_a64a153623e5985ce5c434bf52ba6efa6"><div class="ttname"><a href="rdpq__mode_8c.html#a64a153623e5985ce5c434bf52ba6efa6">rdpq_mode_blender</a></div><div class="ttdeci">void rdpq_mode_blender(rdpq_blender_t blend)</div><div class="ttdoc">Configure the formula to use for blending.</div><div class="ttdef"><b>Definition</b> rdpq_mode.h:616</div></div>
 <div class="ttc" id="ardpq__mode_8c_html_ac3c29578703de424bea9548ad86bb4af"><div class="ttname"><a href="rdpq__mode_8c.html#ac3c29578703de424bea9548ad86bb4af">rdpq_set_mode_standard</a></div><div class="ttdeci">void rdpq_set_mode_standard(void)</div><div class="ttdoc">Reset render mode to standard.</div><div class="ttdef"><b>Definition</b> rdpq_mode.c:99</div></div>
-<div class="ttc" id="ardpq__paragraph_8h_html_a19c16761ef3cadcfb62818ddc277400f"><div class="ttname"><a href="rdpq__paragraph_8h.html#a19c16761ef3cadcfb62818ddc277400f">rdpq_paragraph_t::bbox</a></div><div class="ttdeci">struct rdpq_paragraph_t::@84 bbox</div><div class="ttdoc">Bounding box of the text, relative to the drawing position.</div></div>
 <div class="ttc" id="ardpq__paragraph_8h_html_a7c72eef5fa6f30fe744d4ef41e90d8ad"><div class="ttname"><a href="rdpq__paragraph_8h.html#a7c72eef5fa6f30fe744d4ef41e90d8ad">rdpq_paragraph_t::y0</a></div><div class="ttdeci">float y0</div><div class="ttdoc">Alignment offset of the text.</div><div class="ttdef"><b>Definition</b> rdpq_paragraph.h:85</div></div>
+<div class="ttc" id="ardpq__paragraph_8h_html_a9288d82bbca095b7c38b43dde0ba44d9"><div class="ttname"><a href="rdpq__paragraph_8h.html#a9288d82bbca095b7c38b43dde0ba44d9">rdpq_paragraph_t::bbox</a></div><div class="ttdeci">struct rdpq_paragraph_t::@86 bbox</div><div class="ttdoc">Bounding box of the text, relative to the drawing position.</div></div>
 <div class="ttc" id="ardpq__paragraph_8h_html_structrdpq__paragraph__t"><div class="ttname"><a href="rdpq__paragraph_8h.html#structrdpq__paragraph__t">rdpq_paragraph_t</a></div><div class="ttdoc">A paragraph of text, fully laid out.</div><div class="ttdef"><b>Definition</b> rdpq_paragraph.h:73</div></div>
 <div class="ttc" id="ardpq__rect_8h_html_a9c6405f89d2fe70046330964c21ba124"><div class="ttname"><a href="rdpq__rect_8h.html#a9c6405f89d2fe70046330964c21ba124">rdpq_fill_rectangle</a></div><div class="ttdeci">#define rdpq_fill_rectangle(x0, y0, x1, y1)</div><div class="ttdoc">Draw a filled rectangle (RDP command: FILL_RECTANGLE)</div><div class="ttdef"><b>Definition</b> rdpq_rect.h:251</div></div>
 </div><!-- fragment --> </div><hr/><h2 class="groupheader">Data Structure Documentation</h2>
@@ -590,7 +590,7 @@ Number of lines rendered (including wrapped lines) </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>const rdpq_font_t* Registered font or NULL </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Registered font or NULL </dd></dl>
 
 </div>
 </div>
@@ -663,7 +663,7 @@ Number of lines rendered (including wrapped lines) </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>int Number of bytes printed</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Number of bytes printed</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="rdpq__text_8h.html#a3c7ff160ec233a5f90ead06d23f03fb6" title="Layout and render a formatted text in a single call.">rdpq_text_printf</a> </dd>
 <dd>
 <a class="el" href="rdpq__text_8h.html#a480e58a2b82c9c3c502c8604b9b6ee6d" title="Layout and render a text in a single call.">rdpq_text_print</a> </dd>
@@ -734,7 +734,7 @@ Number of lines rendered (including wrapped lines) </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>int Number of bytes printed </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Number of bytes printed </dd></dl>
 
 </div>
 </div>
@@ -801,7 +801,7 @@ Number of lines rendered (including wrapped lines) </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd><a class="el" href="rdpq__text_8h.html#structrdpq__textmetrics__t" title="Metrics of formatted text.">rdpq_textmetrics_t</a> Metrics of the text </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Metrics of the text </dd></dl>
 
 </div>
 </div>
@@ -869,14 +869,14 @@ Number of lines rendered (including wrapped lines) </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>int Number of bytes printed </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Number of bytes printed </dd></dl>
 
 </div>
 </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jun 10 2026 22:36:47 for libdragon by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
+Generated on Fri Aug 21 2026 21:04:46 for libdragon by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
 </small></address>
 </body>
 </html>

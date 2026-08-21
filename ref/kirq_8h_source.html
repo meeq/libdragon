@@ -87,40 +87,48 @@ $(document).ready(function() { init_codefold(0); });
 <div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="preprocessor">#define LIBDRAGON_KERNEL_KIRQ_H</span></div>
 <div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
 <div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="preprocessor">#include &lt;stdint.h&gt;</span></div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="preprocessor">#ifdef __cplusplus</span></div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="keyword">extern</span> <span class="stringliteral">&quot;C&quot;</span> {</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="preprocessor">#endif</span></div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="keyword">typedef</span> <span class="keyword">struct </span>kcond_s <a class="code hl_struct" href="group__kernel.html#structkcond__t">kcond_t</a>;</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
-<div class="foldopen" id="foldopen00039" data-start="{" data-end="};">
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno"><a class="line" href="kirq_8h.html">   39</a></span><span class="keyword">typedef</span> <span class="keyword">struct </span>{</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    int64_t counter;</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    <a class="code hl_struct" href="group__kernel.html#structkcond__t">kcond_t</a> *cond;</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>} <a class="code hl_struct" href="kirq_8h.html#structkirq__wait__t">kirq_wait_t</a>;</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="preprocessor">#include &quot;<a class="code" href="preview_8h.html">preview.h</a>&quot;</span></div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="preprocessor">#ifdef __cplusplus</span></div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="keyword">extern</span> <span class="stringliteral">&quot;C&quot;</span> {</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span><span class="keyword">typedef</span> <span class="keyword">struct </span>kcond_s <a class="code hl_struct" href="group__kernel.html#structkcond__t">kcond_t</a>;</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
+<div class="foldopen" id="foldopen00040" data-start="{" data-end="};">
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno"><a class="line" href="kirq_8h.html">   40</a></span><span class="keyword">typedef</span> <span class="keyword">struct </span>{</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    int64_t counter;</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    <a class="code hl_struct" href="group__kernel.html#structkcond__t">kcond_t</a> *cond;</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>} <a class="code hl_struct" href="kirq_8h.html#structkirq__wait__t">kirq_wait_t</a>;</div>
 </div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span><a class="code hl_struct" href="kirq_8h.html#structkirq__wait__t">kirq_wait_t</a> <a class="code hl_function" href="kirq_8h.html#a97667455fbfa1d65db29c1a29496e410">kirq_begin_wait_sp</a>(<span class="keywordtype">void</span>);</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span><a class="code hl_struct" href="kirq_8h.html#structkirq__wait__t">kirq_wait_t</a> <a class="code hl_function" href="kirq_8h.html#acb9afe24c2e0bffae112ae84063834d9">kirq_begin_wait_dp</a>(<span class="keywordtype">void</span>);</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span> </div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span><a class="code hl_struct" href="kirq_8h.html#structkirq__wait__t">kirq_wait_t</a> <a class="code hl_function" href="kirq_8h.html#a671a58e5dc3b6b74b86929c0a165e828">kirq_begin_wait_si</a>(<span class="keywordtype">void</span>);</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span> </div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span><a class="code hl_struct" href="kirq_8h.html#structkirq__wait__t">kirq_wait_t</a> <a class="code hl_function" href="kirq_8h.html#af0cc4b3e819781186c5ef2935e95990a">kirq_begin_wait_ai</a>(<span class="keywordtype">void</span>);</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span><a class="code hl_define" href="preview_8h.html#ab1912250c8ac23a2fa1af9360cb533bd">LIBDRAGON_PREVIEW_API</a></div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span><a class="code hl_struct" href="kirq_8h.html#structkirq__wait__t">kirq_wait_t</a> <a class="code hl_function" href="kirq_8h.html#a97667455fbfa1d65db29c1a29496e410">kirq_begin_wait_sp</a>(<span class="keywordtype">void</span>);</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span><a class="code hl_define" href="preview_8h.html#ab1912250c8ac23a2fa1af9360cb533bd">LIBDRAGON_PREVIEW_API</a></div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span><a class="code hl_struct" href="kirq_8h.html#structkirq__wait__t">kirq_wait_t</a> <a class="code hl_function" href="kirq_8h.html#acb9afe24c2e0bffae112ae84063834d9">kirq_begin_wait_dp</a>(<span class="keywordtype">void</span>);</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span> </div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span><a class="code hl_define" href="preview_8h.html#ab1912250c8ac23a2fa1af9360cb533bd">LIBDRAGON_PREVIEW_API</a></div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span><a class="code hl_struct" href="kirq_8h.html#structkirq__wait__t">kirq_wait_t</a> <a class="code hl_function" href="kirq_8h.html#a671a58e5dc3b6b74b86929c0a165e828">kirq_begin_wait_si</a>(<span class="keywordtype">void</span>);</div>
 <div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span> </div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span><a class="code hl_struct" href="kirq_8h.html#structkirq__wait__t">kirq_wait_t</a> <a class="code hl_function" href="kirq_8h.html#a521279e5980a25ea0ebf2d3cc6c7e14e">kirq_begin_wait_vi</a>(<span class="keywordtype">void</span>);</div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span> </div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span><a class="code hl_struct" href="kirq_8h.html#structkirq__wait__t">kirq_wait_t</a> <a class="code hl_function" href="kirq_8h.html#a484c9a95ba2ea3d9618b395ab3c70ec9">kirq_begin_wait_pi</a>(<span class="keywordtype">void</span>);</div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span> </div>
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span><span class="keywordtype">void</span> <a class="code hl_function" href="kirq_8h.html#a2941dd79a32492534284f70f8823bc64">kirq_wait</a>(<a class="code hl_struct" href="kirq_8h.html#structkirq__wait__t">kirq_wait_t</a> *<a class="code hl_function" href="system_8c.html#a6655447bab00753d59759423bf28e22e">wait</a>);</div>
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span> </div>
-<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span><span class="preprocessor">#ifdef __cplusplus</span></div>
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>}</div>
-<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span><span class="preprocessor">#endif</span></div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span> </div>
-<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span><span class="preprocessor">#endif</span></div>
-<div class="ttc" id="agroup__kernel_html_structkcond__t"><div class="ttname"><a href="group__kernel.html#structkcond__t">kcond_t</a></div><div class="ttdoc">A condition variable for synchronization.</div><div class="ttdef"><b>Definition</b> kernel.h:140</div></div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span><a class="code hl_define" href="preview_8h.html#ab1912250c8ac23a2fa1af9360cb533bd">LIBDRAGON_PREVIEW_API</a></div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span><a class="code hl_struct" href="kirq_8h.html#structkirq__wait__t">kirq_wait_t</a> <a class="code hl_function" href="kirq_8h.html#af0cc4b3e819781186c5ef2935e95990a">kirq_begin_wait_ai</a>(<span class="keywordtype">void</span>);</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span> </div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span><a class="code hl_define" href="preview_8h.html#ab1912250c8ac23a2fa1af9360cb533bd">LIBDRAGON_PREVIEW_API</a></div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span><a class="code hl_struct" href="kirq_8h.html#structkirq__wait__t">kirq_wait_t</a> <a class="code hl_function" href="kirq_8h.html#a521279e5980a25ea0ebf2d3cc6c7e14e">kirq_begin_wait_vi</a>(<span class="keywordtype">void</span>);</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span> </div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span><a class="code hl_define" href="preview_8h.html#ab1912250c8ac23a2fa1af9360cb533bd">LIBDRAGON_PREVIEW_API</a></div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span><a class="code hl_struct" href="kirq_8h.html#structkirq__wait__t">kirq_wait_t</a> <a class="code hl_function" href="kirq_8h.html#a484c9a95ba2ea3d9618b395ab3c70ec9">kirq_begin_wait_pi</a>(<span class="keywordtype">void</span>);</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span> </div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span><a class="code hl_define" href="preview_8h.html#ab1912250c8ac23a2fa1af9360cb533bd">LIBDRAGON_PREVIEW_API</a></div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span><span class="keywordtype">void</span> <a class="code hl_function" href="kirq_8h.html#a2941dd79a32492534284f70f8823bc64">kirq_wait</a>(<a class="code hl_struct" href="kirq_8h.html#structkirq__wait__t">kirq_wait_t</a> *<a class="code hl_function" href="system_8c.html#a6655447bab00753d59759423bf28e22e">wait</a>);</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span> </div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span><span class="preprocessor">#ifdef __cplusplus</span></div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>}</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span> </div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span><span class="preprocessor">#endif</span></div>
+<div class="ttc" id="agroup__kernel_html_structkcond__t"><div class="ttname"><a href="group__kernel.html#structkcond__t">kcond_t</a></div><div class="ttdoc">A condition variable for synchronization.</div><div class="ttdef"><b>Definition</b> kernel.h:141</div></div>
 <div class="ttc" id="akirq_8h_html_a2941dd79a32492534284f70f8823bc64"><div class="ttname"><a href="kirq_8h.html#a2941dd79a32492534284f70f8823bc64">kirq_wait</a></div><div class="ttdeci">void kirq_wait(kirq_wait_t *wait)</div><div class="ttdoc">Wait until the interrupt is triggered.</div><div class="ttdef"><b>Definition</b> kirq.c:78</div></div>
 <div class="ttc" id="akirq_8h_html_a484c9a95ba2ea3d9618b395ab3c70ec9"><div class="ttname"><a href="kirq_8h.html#a484c9a95ba2ea3d9618b395ab3c70ec9">kirq_begin_wait_pi</a></div><div class="ttdeci">kirq_wait_t kirq_begin_wait_pi(void)</div><div class="ttdoc">Create an kirq wait object for PI interrupts.</div><div class="ttdef"><b>Definition</b> kirq.c:70</div></div>
 <div class="ttc" id="akirq_8h_html_a521279e5980a25ea0ebf2d3cc6c7e14e"><div class="ttname"><a href="kirq_8h.html#a521279e5980a25ea0ebf2d3cc6c7e14e">kirq_begin_wait_vi</a></div><div class="ttdeci">kirq_wait_t kirq_begin_wait_vi(void)</div><div class="ttdoc">Create an kirq wait object for VI interrupts.</div><div class="ttdef"><b>Definition</b> kirq.c:62</div></div>
@@ -128,12 +136,14 @@ $(document).ready(function() { init_codefold(0); });
 <div class="ttc" id="akirq_8h_html_a97667455fbfa1d65db29c1a29496e410"><div class="ttname"><a href="kirq_8h.html#a97667455fbfa1d65db29c1a29496e410">kirq_begin_wait_sp</a></div><div class="ttdeci">kirq_wait_t kirq_begin_wait_sp(void)</div><div class="ttdoc">Create an kirq wait object for SP interrupts.</div><div class="ttdef"><b>Definition</b> kirq.c:30</div></div>
 <div class="ttc" id="akirq_8h_html_acb9afe24c2e0bffae112ae84063834d9"><div class="ttname"><a href="kirq_8h.html#acb9afe24c2e0bffae112ae84063834d9">kirq_begin_wait_dp</a></div><div class="ttdeci">kirq_wait_t kirq_begin_wait_dp(void)</div><div class="ttdoc">Create an kirq wait object for DP interrupts.</div><div class="ttdef"><b>Definition</b> kirq.c:38</div></div>
 <div class="ttc" id="akirq_8h_html_af0cc4b3e819781186c5ef2935e95990a"><div class="ttname"><a href="kirq_8h.html#af0cc4b3e819781186c5ef2935e95990a">kirq_begin_wait_ai</a></div><div class="ttdeci">kirq_wait_t kirq_begin_wait_ai(void)</div><div class="ttdoc">Create an kirq wait object for AI interrupts.</div><div class="ttdef"><b>Definition</b> kirq.c:54</div></div>
-<div class="ttc" id="akirq_8h_html_structkirq__wait__t"><div class="ttname"><a href="kirq_8h.html#structkirq__wait__t">kirq_wait_t</a></div><div class="ttdoc">Kirq waiting structure.</div><div class="ttdef"><b>Definition</b> kirq.h:39</div></div>
+<div class="ttc" id="akirq_8h_html_structkirq__wait__t"><div class="ttname"><a href="kirq_8h.html#structkirq__wait__t">kirq_wait_t</a></div><div class="ttdoc">Kirq waiting structure.</div><div class="ttdef"><b>Definition</b> kirq.h:40</div></div>
+<div class="ttc" id="apreview_8h_html"><div class="ttname"><a href="preview_8h.html">preview.h</a></div><div class="ttdoc">Preview APIs.</div></div>
+<div class="ttc" id="apreview_8h_html_ab1912250c8ac23a2fa1af9360cb533bd"><div class="ttname"><a href="preview_8h.html#ab1912250c8ac23a2fa1af9360cb533bd">LIBDRAGON_PREVIEW_API</a></div><div class="ttdeci">#define LIBDRAGON_PREVIEW_API</div><div class="ttdoc">Mark a function as preview.</div><div class="ttdef"><b>Definition</b> preview.h:149</div></div>
 <div class="ttc" id="asystem_8c_html_a6655447bab00753d59759423bf28e22e"><div class="ttname"><a href="system_8c.html#a6655447bab00753d59759423bf28e22e">wait</a></div><div class="ttdeci">int wait(int *status)</div><div class="ttdoc">Wait for a child process.</div><div class="ttdef"><b>Definition</b> system.c:1342</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jun 10 2026 22:36:47 for libdragon by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
+Generated on Fri Aug 21 2026 21:04:46 for libdragon by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
 </small></address>
 </body>
 </html>

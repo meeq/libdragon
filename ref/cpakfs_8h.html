@@ -277,13 +277,13 @@ Generic filesystem errors</h3>
 </div><table class="fieldtable">
 <tr><th colspan="3">Data Fields</th></tr>
 <tr><td class="fieldtype">
-<a id="ab1e01fafcb5c5dfd40762c794f4f742a" name="ab1e01fafcb5c5dfd40762c794f4f742a"></a>struct <a class="el" href="cpakfs_8h.html#structcpakfs__stats__t_8pages">cpakfs_stats_t.pages</a></td>
+<a id="a93bd58e0441c70b4df0e5d21aca8d4f5" name="a93bd58e0441c70b4df0e5d21aca8d4f5"></a>struct <a class="el" href="cpakfs_8h.html#structcpakfs__stats__t_8pages">cpakfs_stats_t.pages</a></td>
 <td class="fieldname">
 pages</td>
 <td class="fielddoc">
 Statistics on pages in the controller pak. </td></tr>
 <tr><td class="fieldtype">
-<a id="a3b32f65f88d3b0ef16ee4b819f19da7c" name="a3b32f65f88d3b0ef16ee4b819f19da7c"></a>struct <a class="el" href="cpakfs_8h.html#structcpakfs__stats__t_8notes">cpakfs_stats_t.notes</a></td>
+<a id="a35793dfa57f5b0123aa10270b7e856ec" name="a35793dfa57f5b0123aa10270b7e856ec"></a>struct <a class="el" href="cpakfs_8h.html#structcpakfs__stats__t_8notes">cpakfs_stats_t.notes</a></td>
 <td class="fieldname">
 notes</td>
 <td class="fielddoc">
@@ -579,6 +579,7 @@ Number of notes used in the controller pak. </td></tr>
 </div><div class="memdoc">
 
 <p>Mount the controller pak as filesystem. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000040">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>This function mounts the contents of a controller pak as a virtual filesystem, with the specified prefix. After this function successfully return, it is possible to access the notes in the cpak using standard C functions like fopen.</p>
 <div class="fragment"><div class="line"><span class="keywordflow">if</span> (cpak_mount(<a class="code hl_enumvalue" href="group__joypad.html#ggaf1f491d1f9849be157cb4a50705c8dcba57a21034d1303ee700edf660663697d8">JOYPAD_PORT_1</a>, <span class="stringliteral">&quot;cpak1:/&quot;</span>) &lt; 0) {</div>
 <div class="line">   <span class="comment">// handle errors, by inspecting errno [...]</span></div>
@@ -630,6 +631,7 @@ Number of notes used in the controller pak. </td></tr>
 </div><div class="memdoc">
 
 <p>Unmount the controller pak filesystem. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000041">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>This function unmounts the controller pak filesystem, waiting for all pending operations to complete.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -668,6 +670,7 @@ Number of notes used in the controller pak. </td></tr>
 </div><div class="memdoc">
 
 <p>Read the serial number of a controller pak. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000042">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>This function reads the 24-byte serial number of a controller pak. This is a unique identifier that can be used to distinguish between different controller paks. It is normally generated with random data when the controller pak is formatted, so it does not contain printable characters.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -709,6 +712,7 @@ negative if an error occurred (eg: no cpak on the specified port), and errno is 
 </div><div class="memdoc">
 
 <p>Read the usage state of a controller pak. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000043">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>The filesystem must be mounted before calling this function.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -762,6 +766,7 @@ negative if an error occurred (eg: no cpak on the specified port), and errno is 
 </div><div class="memdoc">
 
 <p>Check the integrity of a controller pak. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000044">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>This function checks the integrity of a controller pak filesystem, and optionally tries also to repair it if unreadable, and recover as much as possible.</p>
 <p>Found issues can be reported via the report callback, which is called for each issue found.</p>
 <p>The return value will report the number of issues found whose level is at least CPAKFS_LEVEL_WARNING. In fact, issues of kind CPAKFS_LEVEL_INFO, while fixable, do not impact filesystem integrity in any way (for instance, a backup copy of some metadata might be corrupted, but the main copy is still valid).</p>
@@ -809,6 +814,7 @@ negative If a physical error occurred (eg: no cpak on the specified port), and e
 </div><div class="memdoc">
 
 <p>Format a controller pak. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000045">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>This function formats a controller pak, resetting to a pristine, valid empty state. By default, the function only erases the filesystem metadata but does not purge content from all the pages. This is OK for most use cases.</p>
 <p>If <code>erase</code> is true, all pages are written with zeros, effectively erasing all the content from the controller pak.</p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -818,7 +824,7 @@ negative If a physical error occurred (eg: no cpak on the specified port), and e
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>int 0 on success, negative on error </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>0 on success, negative on error </dd></dl>
 
 </div>
 </div>
@@ -855,6 +861,7 @@ negative If a physical error occurred (eg: no cpak on the specified port), and e
 </div><div class="memdoc">
 
 <p>Parse a cpakfs fullpath into its components. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000046">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>This function parses a full path in the format "GAMECODE.PU-filename.ext" and extracts the game code, publisher code, filename, and extension into the provided <a class="el" href="cpakfs_8h.html#structcpakfs__path__t" title="Cpakfs path components.">cpakfs_path_t</a> structure.</p>
 <p>Parsing a path might fail if the input full path is not in the expected format (eg: too long components), or if the filename or extension contains unsupported characters. If <code>error_pos</code> is provided, it will be set to point to the first character that caused the error.</p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -902,6 +909,7 @@ negative If a physical error occurred (eg: no cpak on the specified port), and e
 </div><div class="memdoc">
 
 <p>Format a cpakfs path structure into a full path string. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000047">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>This function will always succeed, as it will find a way to format any combination of game code, publisher code, filename, and extension, including invalid byte sequences according to the expected codepages and rules, falling back to hex encoding if necessary.</p>
 <p>For instance, if the gamecode is not a valid ASCII string but a random sequence of bytes like eg: <code>"\x04\x05\x06\x07"</code>, the function will format it as <code>"04050607.PU-filename.ext"</code>.</p>
 <p>So it is guaranteed that any input path structure can be formatted into a valid UTF-8 string as full name, and that the resulting string will always be parsable back to the same path structure using <a class="el" href="cpakfs_8h.html#a7029e93e1b5bab3cf3b94b8658676648" title="Parse a cpakfs fullpath into its components.">cpakfs_path_parse</a>.</p>
@@ -913,14 +921,14 @@ negative If a physical error occurred (eg: no cpak on the specified port), and e
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>int 0 on success, -1 if the buffer was too small </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>0 on success, -1 if the buffer was too small </dd></dl>
 
 </div>
 </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jun 10 2026 22:36:47 for libdragon by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
+Generated on Fri Aug 21 2026 21:04:46 for libdragon by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
 </small></address>
 </body>
 </html>

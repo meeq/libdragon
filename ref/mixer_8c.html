@@ -92,18 +92,27 @@ Data Structures</h2></td></tr>
 <tr class="memitem:structmixer__channel__t" id="r_structmixer__channel__t"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mixer_8c.html#structmixer__channel__t">mixer_channel_t</a></td></tr>
 <tr class="memdesc:structmixer__channel__t"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mixer channel state - CPU side.  <a href="mixer_8c.html#structmixer__channel__t">More...</a><br /></td></tr>
 <tr class="separator:structmixer__channel__t"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:structrsp__mixer__channel__t" id="r_structrsp__mixer__channel__t"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mixer_8c.html#structrsp__mixer__channel__t">rsp_mixer_channel_t</a></td></tr>
-<tr class="memdesc:structrsp__mixer__channel__t"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mixer channel state - RSP side.  <a href="mixer_8c.html#structrsp__mixer__channel__t">More...</a><br /></td></tr>
-<tr class="separator:structrsp__mixer__channel__t"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:structrsp__mixer__settings__t" id="r_structrsp__mixer__settings__t"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mixer_8c.html#structrsp__mixer__settings__t">rsp_mixer_settings_t</a></td></tr>
-<tr class="memdesc:structrsp__mixer__settings__t"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mixer ucode settings.  <a href="mixer_8c.html#structrsp__mixer__settings__t">More...</a><br /></td></tr>
-<tr class="separator:structrsp__mixer__settings__t"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:structmixer__ramp__t" id="r_structmixer__ramp__t"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mixer_8c.html#structmixer__ramp__t">mixer_ramp_t</a></td></tr>
+<tr class="memdesc:structmixer__ramp__t"><td class="mdescLeft">&#160;</td><td class="mdescRight">One scalar level ramp (volume L/R, gain, or frequency).  <a href="mixer_8c.html#structmixer__ramp__t">More...</a><br /></td></tr>
+<tr class="separator:structmixer__ramp__t"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:structmixer__round__vol__t" id="r_structmixer__round__vol__t"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mixer_8c.html#structmixer__round__vol__t">mixer_round_vol_t</a></td></tr>
+<tr class="memdesc:structmixer__round__vol__t"><td class="mdescLeft">&#160;</td><td class="mdescRight">Volumes a channel is mixed with over one round.  <a href="mixer_8c.html#structmixer__round__vol__t">More...</a><br /></td></tr>
+<tr class="separator:structmixer__round__vol__t"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:structmixer__overlay__state__t" id="r_structmixer__overlay__state__t"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mixer_8c.html#structmixer__overlay__state__t">mixer_overlay_state_t</a></td></tr>
+<tr class="memdesc:structmixer__overlay__state__t"><td class="mdescLeft">&#160;</td><td class="mdescRight">Overlay saved-state layout (must match rsp_mixer.S)  <a href="mixer_8c.html#structmixer__overlay__state__t">More...</a><br /></td></tr>
+<tr class="separator:structmixer__overlay__state__t"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:structmixer__chtbl__t" id="r_structmixer__chtbl__t"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mixer_8c.html#structmixer__chtbl__t">mixer_chtbl_t</a></td></tr>
+<tr class="memdesc:structmixer__chtbl__t"><td class="mdescLeft">&#160;</td><td class="mdescRight">Shadow of the VADPCM pointers currently held by the ucode table.  <a href="mixer_8c.html#structmixer__chtbl__t">More...</a><br /></td></tr>
+<tr class="separator:structmixer__chtbl__t"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:structchannel__limit__t" id="r_structchannel__limit__t"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mixer_8c.html#structchannel__limit__t">channel_limit_t</a></td></tr>
 <tr class="memdesc:structchannel__limit__t"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configured limits of a mixer channel.  <a href="mixer_8c.html#structchannel__limit__t">More...</a><br /></td></tr>
 <tr class="separator:structchannel__limit__t"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:structmixer__event__t" id="r_structmixer__event__t"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mixer_8c.html#structmixer__event__t">mixer_event_t</a></td></tr>
 <tr class="memdesc:structmixer__event__t"><td class="mdescLeft">&#160;</td><td class="mdescRight">A mixer event (synchronized with sample playback)  <a href="mixer_8c.html#structmixer__event__t">More...</a><br /></td></tr>
 <tr class="separator:structmixer__event__t"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:structmixer__soft__event__t" id="r_structmixer__soft__event__t"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mixer_8c.html#structmixer__soft__event__t">mixer_soft_event_t</a></td></tr>
+<tr class="memdesc:structmixer__soft__event__t"><td class="mdescLeft">&#160;</td><td class="mdescRight">Per-round soft callback (does not split mix rounds)  <a href="mixer_8c.html#structmixer__soft__event__t">More...</a><br /></td></tr>
+<tr class="separator:structmixer__soft__event__t"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
 Macros</h2></td></tr>
@@ -119,13 +128,27 @@ Macros</h2></td></tr>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>MAX_EVENTS</b>&#160;&#160;&#160;32</td></tr>
 <tr class="memdesc:ae42954bb8545d24e3e9dcde5920c9a0b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum number of mixer events. <br /></td></tr>
 <tr class="separator:ae42954bb8545d24e3e9dcde5920c9a0b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a52c0cc1b063cbf10871de6a8a35bf085" id="r_a52c0cc1b063cbf10871de6a8a35bf085"><td class="memItemLeft" align="right" valign="top"><a id="a52c0cc1b063cbf10871de6a8a35bf085" name="a52c0cc1b063cbf10871de6a8a35bf085"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>MAX_SOFT_EVENTS</b>&#160;&#160;&#160;8</td></tr>
+<tr class="memdesc:a52c0cc1b063cbf10871de6a8a35bf085"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum number of soft (per-round) mixer callbacks. <br /></td></tr>
+<tr class="separator:a52c0cc1b063cbf10871de6a8a35bf085"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acf679d48fd22fa095552abc65a72b198" id="r_acf679d48fd22fa095552abc65a72b198"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mixer_8c.html#acf679d48fd22fa095552abc65a72b198">MIXER_POLL_PER_SECOND</a>&#160;&#160;&#160;8</td></tr>
-<tr class="memdesc:acf679d48fd22fa095552abc65a72b198"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of expected <a class="el" href="mixer_8c.html#ace40b3a7cefa9951fb5f956ca0afa2ac" title="Run the mixer to produce output samples.">mixer_poll</a> calls per second.  <br /></td></tr>
+<tr class="memdesc:acf679d48fd22fa095552abc65a72b198"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fallback samplebuffer depth when <a class="el" href="group__audio.html#ga85a214e9d8a48388ea44d926686b36ad" title="Initialize the audio subsystem.">audio_init</a> has not been called yet.  <br /></td></tr>
 <tr class="separator:acf679d48fd22fa095552abc65a72b198"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a686e0bb66bb146f27ecb316f6ff8ec90" id="r_a686e0bb66bb146f27ecb316f6ff8ec90"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mixer_8c.html#a686e0bb66bb146f27ecb316f6ff8ec90">MIXER_POLL_LOOKAHEAD</a>&#160;&#160;&#160;2</td></tr>
+<tr class="memdesc:a686e0bb66bb146f27ecb316f6ff8ec90"><td class="mdescLeft">&#160;</td><td class="mdescRight">Polls the sample buffers are sized to hold at once.  <br /></td></tr>
+<tr class="separator:a686e0bb66bb146f27ecb316f6ff8ec90"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5df3bed5fd6578afbe01235d44993b18" id="r_a5df3bed5fd6578afbe01235d44993b18"><td class="memItemLeft" align="right" valign="top"><a id="a5df3bed5fd6578afbe01235d44993b18" name="a5df3bed5fd6578afbe01235d44993b18"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>MIXER_STATE_SIZE</b>&#160;&#160;&#160;128</td></tr>
-<tr class="memdesc:a5df3bed5fd6578afbe01235d44993b18"><td class="mdescLeft">&#160;</td><td class="mdescRight">Size of the ucode state that is automatically persisted by rspq. <br /></td></tr>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>MIXER_STATE_SIZE</b>&#160;&#160;&#160;384</td></tr>
+<tr class="memdesc:a5df3bed5fd6578afbe01235d44993b18"><td class="mdescLeft">&#160;</td><td class="mdescRight">Size of the ucode state that is automatically persisted by rspq. Layout must match RSPQ_BeginSavedState in rsp_mixer.S: just the per-channel VADPCM pointer table. ACCUM lives in .bss (not saved state) so the VADPCM bssovl1 bank still fits. <br /></td></tr>
 <tr class="separator:a5df3bed5fd6578afbe01235d44993b18"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a884d3aca83f85305db87d05dffdc34ad" id="r_a884d3aca83f85305db87d05dffdc34ad"><td class="memItemLeft" align="right" valign="top"><a id="a884d3aca83f85305db87d05dffdc34ad" name="a884d3aca83f85305db87d05dffdc34ad"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>MIXER_MAX_SAMPLES_PER_ROUND</b>&#160;&#160;&#160;512</td></tr>
+<tr class="memdesc:a884d3aca83f85305db87d05dffdc34ad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Max output samples per mix round (must match rsp_mixer.S). <br /></td></tr>
+<tr class="separator:a884d3aca83f85305db87d05dffdc34ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa1957d36ddfccd309b9225893f898994" id="r_aa1957d36ddfccd309b9225893f898994"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mixer_8c.html#aa1957d36ddfccd309b9225893f898994">MIXER_DECLICK_SAMPLES</a>&#160;&#160;&#160;128</td></tr>
+<tr class="memdesc:aa1957d36ddfccd309b9225893f898994"><td class="mdescLeft">&#160;</td><td class="mdescRight">Length of the ramp <a class="el" href="mixer_8c.html#a56bc7f412e9cd0cde06c44e8acaa85ae" title="Set channel volume (as left/right).">mixer_ch_set_vol</a> spreads a volume change over.  <br /></td></tr>
+<tr class="separator:aa1957d36ddfccd309b9225893f898994"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ace31dad1b574b632b637a59ab3213428" id="r_ace31dad1b574b632b637a59ab3213428"><td class="memItemLeft" align="right" valign="top"><a id="ace31dad1b574b632b637a59ab3213428" name="ace31dad1b574b632b637a59ab3213428"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>CH_FLAGS_BPS_SHIFT</b>&#160;&#160;&#160;(3&lt;&lt;0)</td></tr>
 <tr class="memdesc:ace31dad1b574b632b637a59ab3213428"><td class="mdescLeft">&#160;</td><td class="mdescRight">BPS shift value. <br /></td></tr>
@@ -142,14 +165,54 @@ Macros</h2></td></tr>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>CH_FLAGS_STEREO_SUB</b>&#160;&#160;&#160;(1&lt;&lt;4)</td></tr>
 <tr class="memdesc:ae3afc740f203dd8ee2c91f4bc131ba4e"><td class="mdescLeft">&#160;</td><td class="mdescRight">The channel is the second half of a stereo (right) <br /></td></tr>
 <tr class="separator:ae3afc740f203dd8ee2c91f4bc131ba4e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a881aa6f81a2bc79cb68ecac9efbf8431" id="r_a881aa6f81a2bc79cb68ecac9efbf8431"><td class="memItemLeft" align="right" valign="top"><a id="a881aa6f81a2bc79cb68ecac9efbf8431" name="a881aa6f81a2bc79cb68ecac9efbf8431"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>CH_FLAGS_VADPCM</b>&#160;&#160;&#160;(1&lt;&lt;5)</td></tr>
+<tr class="memdesc:a881aa6f81a2bc79cb68ecac9efbf8431"><td class="mdescLeft">&#160;</td><td class="mdescRight">In-mixer VADPCM mono (wire + CPU) <br /></td></tr>
+<tr class="separator:a881aa6f81a2bc79cb68ecac9efbf8431"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8ed432f9bb8b1f56924c94a639694391" id="r_a8ed432f9bb8b1f56924c94a639694391"><td class="memItemLeft" align="right" valign="top"><a id="a8ed432f9bb8b1f56924c94a639694391" name="a8ed432f9bb8b1f56924c94a639694391"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>CH_FLAGS_VLOOP_STATE</b>&#160;&#160;&#160;(1&lt;&lt;6)</td></tr>
+<tr class="memdesc:a8ed432f9bb8b1f56924c94a639694391"><td class="mdescLeft">&#160;</td><td class="mdescRight">VADPCM: decode from the loop-start state (wire only, see mixer_emit_channel) <br /></td></tr>
+<tr class="separator:a8ed432f9bb8b1f56924c94a639694391"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3b6fd55a0d4b3230d1a12509539c112f" id="r_a3b6fd55a0d4b3230d1a12509539c112f"><td class="memItemLeft" align="right" valign="top"><a id="a3b6fd55a0d4b3230d1a12509539c112f" name="a3b6fd55a0d4b3230d1a12509539c112f"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>CH_FLAGS_CLEAR_ACCUM</b>&#160;&#160;&#160;(1&lt;&lt;7)</td></tr>
+<tr class="memdesc:a3b6fd55a0d4b3230d1a12509539c112f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Zero ACCUM before mixing (first MIX_CHANNEL of a round) <br /></td></tr>
+<tr class="separator:a3b6fd55a0d4b3230d1a12509539c112f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab204f6f25dcb418be86a12f13068734a" id="r_ab204f6f25dcb418be86a12f13068734a"><td class="memItemLeft" align="right" valign="top"><a id="ab204f6f25dcb418be86a12f13068734a" name="ab204f6f25dcb418be86a12f13068734a"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>CH_FLAGS_RESIDENT</b>&#160;&#160;&#160;(1&lt;&lt;8)</td></tr>
+<tr class="memdesc:ab204f6f25dcb418be86a12f13068734a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Channel plays from waveform-&gt;mem (no samplebuffer) <br /></td></tr>
+<tr class="separator:ab204f6f25dcb418be86a12f13068734a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afc873954cd3cde06b068c9cc1c445904" id="r_afc873954cd3cde06b068c9cc1c445904"><td class="memItemLeft" align="right" valign="top"><a id="afc873954cd3cde06b068c9cc1c445904" name="afc873954cd3cde06b068c9cc1c445904"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>CH_FLAGS_LOOP_CACHED</b>&#160;&#160;&#160;(1&lt;&lt;10)</td></tr>
+<tr class="memdesc:afc873954cd3cde06b068c9cc1c445904"><td class="mdescLeft">&#160;</td><td class="mdescRight">Streamed loop pinned in the samplebuffer; RSP wraps. <br /></td></tr>
+<tr class="separator:afc873954cd3cde06b068c9cc1c445904"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7584bc65bfc76f291d878e8588bd3d6a" id="r_a7584bc65bfc76f291d878e8588bd3d6a"><td class="memItemLeft" align="right" valign="top"><a id="a7584bc65bfc76f291d878e8588bd3d6a" name="a7584bc65bfc76f291d878e8588bd3d6a"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>CH_FLAGS_STEREO_ALLOC</b>&#160;&#160;&#160;(1&lt;&lt;5)</td></tr>
-<tr class="memdesc:a7584bc65bfc76f291d878e8588bd3d6a"><td class="mdescLeft">&#160;</td><td class="mdescRight">The channel has a buffer sized for stereo. <br /></td></tr>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>CH_FLAGS_STEREO_ALLOC</b>&#160;&#160;&#160;(1&lt;&lt;9)</td></tr>
+<tr class="memdesc:a7584bc65bfc76f291d878e8588bd3d6a"><td class="mdescLeft">&#160;</td><td class="mdescRight">The channel has a buffer sized for stereo (CPU-side only) <br /></td></tr>
 <tr class="separator:a7584bc65bfc76f291d878e8588bd3d6a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4a559494d2e96a3cb44998c6a5167e34" id="r_a4a559494d2e96a3cb44998c6a5167e34"><td class="memItemLeft" align="right" valign="top"><a id="a4a559494d2e96a3cb44998c6a5167e34" name="a4a559494d2e96a3cb44998c6a5167e34"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>CH_FLAGS_FORCE_MONO</b>&#160;&#160;&#160;(1&lt;&lt;6)</td></tr>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>CH_FLAGS_FORCE_MONO</b>&#160;&#160;&#160;(1&lt;&lt;11)</td></tr>
 <tr class="memdesc:a4a559494d2e96a3cb44998c6a5167e34"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fold this channel's output to both buses (mono downmix). CPU-side only; RSP ucode ignores this bit. <br /></td></tr>
 <tr class="separator:a4a559494d2e96a3cb44998c6a5167e34"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a06491e9254c7369a83fcb243bae24ec3" id="r_a06491e9254c7369a83fcb243bae24ec3"><td class="memItemLeft" align="right" valign="top"><a id="a06491e9254c7369a83fcb243bae24ec3" name="a06491e9254c7369a83fcb243bae24ec3"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>MIXER_CMD_CHANNEL</b>&#160;&#160;&#160;0x0</td></tr>
+<tr class="memdesc:a06491e9254c7369a83fcb243bae24ec3"><td class="mdescLeft">&#160;</td><td class="mdescRight">rspq command ID for channel setup <br /></td></tr>
+<tr class="separator:a06491e9254c7369a83fcb243bae24ec3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a32ebf0b714224a858659200da7981dfe" id="r_a32ebf0b714224a858659200da7981dfe"><td class="memItemLeft" align="right" valign="top"><a id="a32ebf0b714224a858659200da7981dfe" name="a32ebf0b714224a858659200da7981dfe"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>MIXER_CMD_SETCHANNEL</b>&#160;&#160;&#160;0x1</td></tr>
+<tr class="memdesc:a32ebf0b714224a858659200da7981dfe"><td class="mdescLeft">&#160;</td><td class="mdescRight">rspq command ID for setting a channel <br /></td></tr>
+<tr class="separator:a32ebf0b714224a858659200da7981dfe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab3b8770d68293f41f9fdcafbfb083759" id="r_ab3b8770d68293f41f9fdcafbfb083759"><td class="memItemLeft" align="right" valign="top"><a id="ab3b8770d68293f41f9fdcafbfb083759" name="ab3b8770d68293f41f9fdcafbfb083759"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>MIXER_CMD_FLUSH</b>&#160;&#160;&#160;0x2</td></tr>
+<tr class="memdesc:ab3b8770d68293f41f9fdcafbfb083759"><td class="mdescLeft">&#160;</td><td class="mdescRight">rspq command ID for flushing the mixer <br /></td></tr>
+<tr class="separator:ab3b8770d68293f41f9fdcafbfb083759"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4abc201f3d9ca304856f8632690250e1" id="r_a4abc201f3d9ca304856f8632690250e1"><td class="memItemLeft" align="right" valign="top"><a id="a4abc201f3d9ca304856f8632690250e1" name="a4abc201f3d9ca304856f8632690250e1"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>MIXER_CMD_SETSTATE</b>&#160;&#160;&#160;0x3</td></tr>
+<tr class="memdesc:a4abc201f3d9ca304856f8632690250e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">rspq command ID for seeding a VADPCM state <br /></td></tr>
+<tr class="separator:a4abc201f3d9ca304856f8632690250e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af76457d7a73f03c4e933deba8810f5c2" id="r_af76457d7a73f03c4e933deba8810f5c2"><td class="memItemLeft" align="right" valign="top"><a id="af76457d7a73f03c4e933deba8810f5c2" name="af76457d7a73f03c4e933deba8810f5c2"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>MIXER_CMD_COPY</b>&#160;&#160;&#160;0x4</td></tr>
+<tr class="memdesc:af76457d7a73f03c4e933deba8810f5c2"><td class="mdescLeft">&#160;</td><td class="mdescRight">rspq command ID for an RDRAM to RDRAM copy <br /></td></tr>
+<tr class="separator:af76457d7a73f03c4e933deba8810f5c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2ea77e91bbb1541f75bd80cf3ccd202c" id="r_a2ea77e91bbb1541f75bd80cf3ccd202c"><td class="memItemLeft" align="right" valign="top"><a id="a2ea77e91bbb1541f75bd80cf3ccd202c" name="a2ea77e91bbb1541f75bd80cf3ccd202c"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>MIXER_FX64_FRAC</b>&#160;&#160;&#160;12</td></tr>
 <tr class="memdesc:a2ea77e91bbb1541f75bd80cf3ccd202c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of fractional bits in <a class="el" href="mixer_8c.html#a069b3606e77970b602abe506f449254c" title="Fixed point value used in waveform position calculations. This is a signed 64-bit integer with the fr...">mixer_fx64_t</a>. <br /></td></tr>
@@ -171,18 +234,21 @@ Macros</h2></td></tr>
 <tr class="memdesc:a4497109d72b2f0afe429b875b16a4d62"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of fractional bits for a fixed 16.16 value. <br /></td></tr>
 <tr class="separator:a4497109d72b2f0afe429b875b16a4d62"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab9d424238a4f69e3c75030fffdb3d7fe" id="r_ab9d424238a4f69e3c75030fffdb3d7fe"><td class="memItemLeft" align="right" valign="top"><a id="ab9d424238a4f69e3c75030fffdb3d7fe" name="ab9d424238a4f69e3c75030fffdb3d7fe"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>MIXER_FX16</b>(f)&#160;&#160;&#160;(int16_t)((f) * ((1&lt;&lt;<a class="el" href="mixer_8c.html#a4497109d72b2f0afe429b875b16a4d62">MIXER_FX16_FRAC</a>)-1))</td></tr>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>MIXER_FX16</b>(f)&#160;&#160;&#160;(<a class="el" href="mixer_8c.html#a5bf50a6753880f7389702d2714ad2c3a">mixer_fx16_t</a>)((f) * (1&lt;&lt;<a class="el" href="mixer_8c.html#a4497109d72b2f0afe429b875b16a4d62">MIXER_FX16_FRAC</a>))</td></tr>
 <tr class="memdesc:ab9d424238a4f69e3c75030fffdb3d7fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert a floating point value to a fixed 16.16 value. <br /></td></tr>
 <tr class="separator:ab9d424238a4f69e3c75030fffdb3d7fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr><td colspan="2"><div class="groupHeader">AI Status Register Values</div></td></tr>
-<tr class="memitem:a7811a8498f902f7ba4ab71ace71996ad" id="r_a7811a8498f902f7ba4ab71ace71996ad"><td class="memItemLeft" align="right" valign="top"><a id="a7811a8498f902f7ba4ab71ace71996ad" name="a7811a8498f902f7ba4ab71ace71996ad"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>AI_STATUS_BUSY</b>&#160;&#160;&#160;( 1 &lt;&lt; 30 )</td></tr>
-<tr class="memdesc:a7811a8498f902f7ba4ab71ace71996ad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bit representing that the AI is busy. <br /></td></tr>
-<tr class="separator:a7811a8498f902f7ba4ab71ace71996ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae6fa307322df53a3592ddf7379864b55" id="r_ae6fa307322df53a3592ddf7379864b55"><td class="memItemLeft" align="right" valign="top"><a id="ae6fa307322df53a3592ddf7379864b55" name="ae6fa307322df53a3592ddf7379864b55"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>AI_STATUS_FULL</b>&#160;&#160;&#160;( 1 &lt;&lt; 31 )</td></tr>
-<tr class="memdesc:ae6fa307322df53a3592ddf7379864b55"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bit representing that the AI is full. <br /></td></tr>
-<tr class="separator:ae6fa307322df53a3592ddf7379864b55"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a48449fa7321c978f970d3b59267da34b" id="r_a48449fa7321c978f970d3b59267da34b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mixer_8c.html#a48449fa7321c978f970d3b59267da34b">MIXER_RAMP_EXP_SILENCE</a>&#160;&#160;&#160;9.226f</td></tr>
+<tr class="separator:a48449fa7321c978f970d3b59267da34b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae8b5853efff027803ce3f63e1dcd279b" id="r_ae8b5853efff027803ce3f63e1dcd279b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mixer_8c.html#ae8b5853efff027803ce3f63e1dcd279b">MIXER_LOG2E</a>&#160;&#160;&#160;1.44269504f</td></tr>
+<tr class="separator:ae8b5853efff027803ce3f63e1dcd279b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acdf030cf378480563b8c21308359048a" id="r_acdf030cf378480563b8c21308359048a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mixer_8c.html#acdf030cf378480563b8c21308359048a">MIXER_ALLOC_BUSY</a>&#160;&#160;&#160;(1ull &lt;&lt; 63)</td></tr>
+<tr class="separator:acdf030cf378480563b8c21308359048a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a56bcbc1e3d9445f8b97181f9a1f44010" id="r_a56bcbc1e3d9445f8b97181f9a1f44010"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mixer_8c.html#a56bcbc1e3d9445f8b97181f9a1f44010">MIXER_ALLOC_NOKEY</a>&#160;&#160;&#160;UINT64_MAX</td></tr>
+<tr class="separator:a56bcbc1e3d9445f8b97181f9a1f44010"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a412d8c4ca2aa6a9013b85a9696c18daf" id="r_a412d8c4ca2aa6a9013b85a9696c18daf"><td class="memItemLeft" align="right" valign="top"><a id="a412d8c4ca2aa6a9013b85a9696c18daf" name="a412d8c4ca2aa6a9013b85a9696c18daf"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>MIXER_COPY_MAX_BYTES</b>&#160;&#160;&#160;320</td></tr>
+<tr class="memdesc:a412d8c4ca2aa6a9013b85a9696c18daf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Largest block MIX_COPY can move at once (the ucode's sample cache). <br /></td></tr>
+<tr class="separator:a412d8c4ca2aa6a9013b85a9696c18daf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="typedef-members" name="typedef-members"></a>
 Typedefs</h2></td></tr>
@@ -194,14 +260,38 @@ typedef uint64_t&#160;</td><td class="memItemRight" valign="bottom"><b>mixer_fx6
 typedef int16_t&#160;</td><td class="memItemRight" valign="bottom"><b>mixer_fx15_t</b></td></tr>
 <tr class="memdesc:aee2190129b07ce99d0364788a0d01ba9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fixed point value used for volume and panning calculations. You can use <a class="el" href="mixer_8c.html#ade5785806d49411387136c246cd40b6a" title="Convert a floating point value to mixer_fx15_t.">MIXER_FX15</a> to convert from float. <br /></td></tr>
 <tr class="separator:aee2190129b07ce99d0364788a0d01ba9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5bf50a6753880f7389702d2714ad2c3a" id="r_a5bf50a6753880f7389702d2714ad2c3a"><td class="memItemLeft" align="right" valign="top"><a id="a5bf50a6753880f7389702d2714ad2c3a" name="a5bf50a6753880f7389702d2714ad2c3a"></a>
+typedef int32_t&#160;</td><td class="memItemRight" valign="bottom"><b>mixer_fx16_t</b></td></tr>
+<tr class="memdesc:a5bf50a6753880f7389702d2714ad2c3a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fixed point 16.16 value, used for the global volume. You can use <a class="el" href="mixer_8c.html#ab9d424238a4f69e3c75030fffdb3d7fe" title="Convert a floating point value to a fixed 16.16 value.">MIXER_FX16</a> to convert from float. <br /></td></tr>
+<tr class="separator:a5bf50a6753880f7389702d2714ad2c3a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a98f886978b2b60e04dea226db3ca084c" id="r_a98f886978b2b60e04dea226db3ca084c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mixer_8c.html#a98f886978b2b60e04dea226db3ca084c">DEFINE_RSP_UCODE</a> (rsp_mixer)</td></tr>
 <tr class="separator:a98f886978b2b60e04dea226db3ca084c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1cf36947e437bceda1e72ea985bd42ce" id="r_a1cf36947e437bceda1e72ea985bd42ce"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mixer_8c.html#a1cf36947e437bceda1e72ea985bd42ce">mixer_ramp_linear</a> (float start, float end, float u)</td></tr>
+<tr class="memdesc:a1cf36947e437bceda1e72ea985bd42ce"><td class="mdescLeft">&#160;</td><td class="mdescRight">Linear ramp: <code>start + (end - start) * u</code>.  <br /></td></tr>
+<tr class="separator:a1cf36947e437bceda1e72ea985bd42ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a35b3cc56e8a6e04178e5a38a6c9610ff" id="r_a35b3cc56e8a6e04178e5a38a6c9610ff"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mixer_8c.html#a35b3cc56e8a6e04178e5a38a6c9610ff">mixer_ramp_exp</a> (float start, float end, float u)</td></tr>
+<tr class="memdesc:a35b3cc56e8a6e04178e5a38a6c9610ff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Exponential ramp (linear in log): <code>start * (end/start)^u</code>.  <br /></td></tr>
+<tr class="separator:a35b3cc56e8a6e04178e5a38a6c9610ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4911dbcd59750bc97a9dbebe1d5ce473" id="r_a4911dbcd59750bc97a9dbebe1d5ce473"><td class="memItemLeft" align="right" valign="top"><a id="a4911dbcd59750bc97a9dbebe1d5ce473" name="a4911dbcd59750bc97a9dbebe1d5ce473"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>__mixer_profile_init</b> (void)</td></tr>
+<tr class="memdesc:a4911dbcd59750bc97a9dbebe1d5ce473"><td class="mdescLeft">&#160;</td><td class="mdescRight">Register mixer profile slots with <a class="el" href="profile_8c.html#ad79b2e6dfd8b37c11497f5c689f78fee" title="Initialize the profiler.">profile_init</a>. <br /></td></tr>
+<tr class="separator:a4911dbcd59750bc97a9dbebe1d5ce473"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6d0758de0074e1a44dea7cf1b8d298d5" id="r_a6d0758de0074e1a44dea7cf1b8d298d5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mixer_8c.html#a6d0758de0074e1a44dea7cf1b8d298d5">mixer_init</a> (int num_channels)</td></tr>
 <tr class="memdesc:a6d0758de0074e1a44dea7cf1b8d298d5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize the mixer.  <br /></td></tr>
 <tr class="separator:a6d0758de0074e1a44dea7cf1b8d298d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7f99d843ac962b336c6d46ebe02e1647" id="r_a7f99d843ac962b336c6d46ebe02e1647"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mixer_8c.html#a7f99d843ac962b336c6d46ebe02e1647">__mixer_inflight_samples</a> (void)</td></tr>
+<tr class="memdesc:a7f99d843ac962b336c6d46ebe02e1647"><td class="mdescLeft">&#160;</td><td class="mdescRight">Output samples the CPU may mix without ever waiting for the RSP.  <br /></td></tr>
+<tr class="separator:a7f99d843ac962b336c6d46ebe02e1647"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a51e9507d777603c01281a1c49cb13c77" id="r_a51e9507d777603c01281a1c49cb13c77"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mixer_8c.html#a51e9507d777603c01281a1c49cb13c77">__mixer_round_done</a> (uint32_t id)</td></tr>
+<tr class="memdesc:a51e9507d777603c01281a1c49cb13c77"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rounds: how the CPU knows what the RSP has already read.  <br /></td></tr>
+<tr class="separator:a51e9507d777603c01281a1c49cb13c77"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a48792dbfb4567332e1035403b527c572" id="r_a48792dbfb4567332e1035403b527c572"><td class="memItemLeft" align="right" valign="top"><a id="a48792dbfb4567332e1035403b527c572" name="a48792dbfb4567332e1035403b527c572"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>__mixer_round_wait</b> (uint32_t id)</td></tr>
+<tr class="memdesc:a48792dbfb4567332e1035403b527c572"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wait for the RSP to finish the given round. <br /></td></tr>
+<tr class="separator:a48792dbfb4567332e1035403b527c572"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae8ed9fdb3bfcb119d56764dd401848ba" id="r_ae8ed9fdb3bfcb119d56764dd401848ba"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mixer_8c.html#ae8ed9fdb3bfcb119d56764dd401848ba">mixer_set_vol</a> (float vol)</td></tr>
 <tr class="memdesc:ae8ed9fdb3bfcb119d56764dd401848ba"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set master volume.  <br /></td></tr>
 <tr class="separator:ae8ed9fdb3bfcb119d56764dd401848ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -212,18 +302,29 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>mixer_close</b> (void
 <tr class="memitem:af8c01ae2bc402901e8fbf7e61e5cd9d6" id="r_af8c01ae2bc402901e8fbf7e61e5cd9d6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mixer_8c.html#af8c01ae2bc402901e8fbf7e61e5cd9d6">mixer_ch_set_freq</a> (int ch, float frequency)</td></tr>
 <tr class="memdesc:af8c01ae2bc402901e8fbf7e61e5cd9d6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Change the frequency for the specified channel.  <br /></td></tr>
 <tr class="separator:af8c01ae2bc402901e8fbf7e61e5cd9d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a46eaa4084a682640cdc962f98a398a0a" id="r_a46eaa4084a682640cdc962f98a398a0a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mixer_8c.html#a46eaa4084a682640cdc962f98a398a0a">mixer_ch_set_freq_ramp</a> (int ch, float frequency, int duration, <a class="el" href="mixer_8h.html#a3aa59104a558b40543d0474be1e64d72">mixer_ramp_fn_t</a> curve, int started_ago)</td></tr>
+<tr class="memdesc:a46eaa4084a682640cdc962f98a398a0a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ramp the playback frequency of a channel.  <br /></td></tr>
+<tr class="separator:a46eaa4084a682640cdc962f98a398a0a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a56bc7f412e9cd0cde06c44e8acaa85ae" id="r_a56bc7f412e9cd0cde06c44e8acaa85ae"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mixer_8c.html#a56bc7f412e9cd0cde06c44e8acaa85ae">mixer_ch_set_vol</a> (int ch, float lvol, float rvol)</td></tr>
 <tr class="memdesc:a56bc7f412e9cd0cde06c44e8acaa85ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set channel volume (as left/right).  <br /></td></tr>
 <tr class="separator:a56bc7f412e9cd0cde06c44e8acaa85ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad165b4a1a3c86a2d4c991ff5fc6075a3" id="r_ad165b4a1a3c86a2d4c991ff5fc6075a3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mixer_8c.html#ad165b4a1a3c86a2d4c991ff5fc6075a3">mixer_ch_set_vol_ramp</a> (int ch, float lvol, float rvol, int duration)</td></tr>
+<tr class="memdesc:ad165b4a1a3c86a2d4c991ff5fc6075a3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Linearly ramp channel volume to the specified values.  <br /></td></tr>
+<tr class="separator:ad165b4a1a3c86a2d4c991ff5fc6075a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad6b6dd6103e684bc54123b09e6594bdb" id="r_ad6b6dd6103e684bc54123b09e6594bdb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mixer_8c.html#ad6b6dd6103e684bc54123b09e6594bdb">mixer_ch_set_gain</a> (int ch, float gain)</td></tr>
+<tr class="memdesc:ad6b6dd6103e684bc54123b09e6594bdb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the mono gain of a channel.  <br /></td></tr>
+<tr class="separator:ad6b6dd6103e684bc54123b09e6594bdb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a31ef30625f1b4e87ef82ed365891ed7d" id="r_a31ef30625f1b4e87ef82ed365891ed7d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mixer_8c.html#a31ef30625f1b4e87ef82ed365891ed7d">mixer_ch_set_gain_ramp</a> (int ch, float gain, int duration, <a class="el" href="mixer_8h.html#a3aa59104a558b40543d0474be1e64d72">mixer_ramp_fn_t</a> curve, int started_ago)</td></tr>
+<tr class="memdesc:a31ef30625f1b4e87ef82ed365891ed7d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ramp the mono gain of a channel.  <br /></td></tr>
+<tr class="separator:a31ef30625f1b4e87ef82ed365891ed7d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5fbe88215add4d8f5cd68807616ae9b1" id="r_a5fbe88215add4d8f5cd68807616ae9b1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mixer_8c.html#a5fbe88215add4d8f5cd68807616ae9b1">mixer_ch_set_vol_pan</a> (int ch, float vol, float pan)</td></tr>
 <tr class="memdesc:a5fbe88215add4d8f5cd68807616ae9b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set channel volume (as volume and panning).  <br /></td></tr>
 <tr class="separator:a5fbe88215add4d8f5cd68807616ae9b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afcca189f1c3c51d0d1927ebc018e432c" id="r_afcca189f1c3c51d0d1927ebc018e432c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mixer_8c.html#afcca189f1c3c51d0d1927ebc018e432c">mixer_ch_set_force_mono</a> (int ch, bool enable)</td></tr>
 <tr class="memdesc:afcca189f1c3c51d0d1927ebc018e432c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable or disable force-mono on a single channel.  <br /></td></tr>
 <tr class="separator:afcca189f1c3c51d0d1927ebc018e432c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8fb34a949ff8d0f06ddfe7dd05028c5e" id="r_a8fb34a949ff8d0f06ddfe7dd05028c5e"><td class="memItemLeft" align="right" valign="top"><a id="a8fb34a949ff8d0f06ddfe7dd05028c5e" name="a8fb34a949ff8d0f06ddfe7dd05028c5e"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>mixer_ch_get_force_mono</b> (int ch)</td></tr>
-<tr class="memdesc:a8fb34a949ff8d0f06ddfe7dd05028c5e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Query the force-mono flag for a channel. <br /></td></tr>
+<tr class="memitem:a8fb34a949ff8d0f06ddfe7dd05028c5e" id="r_a8fb34a949ff8d0f06ddfe7dd05028c5e"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mixer_8c.html#a8fb34a949ff8d0f06ddfe7dd05028c5e">mixer_ch_get_force_mono</a> (int ch)</td></tr>
+<tr class="memdesc:a8fb34a949ff8d0f06ddfe7dd05028c5e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Query the force-mono flag for a channel.  <br /></td></tr>
 <tr class="separator:a8fb34a949ff8d0f06ddfe7dd05028c5e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a68143a89a9cb482dcfc3dc56898c7dee" id="r_a68143a89a9cb482dcfc3dc56898c7dee"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mixer_8c.html#a68143a89a9cb482dcfc3dc56898c7dee">mixer_set_force_mono</a> (bool enable)</td></tr>
 <tr class="memdesc:a68143a89a9cb482dcfc3dc56898c7dee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable or disable force-mono on every channel at once.  <br /></td></tr>
@@ -237,48 +338,68 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>mixer_ch_get_force_mo
 <tr class="memitem:a3f02614d2efadf41b657c0d8050d7dcf" id="r_a3f02614d2efadf41b657c0d8050d7dcf"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mixer_8c.html#a3f02614d2efadf41b657c0d8050d7dcf">mixer_ch_set_pos</a> (int ch, double pos)</td></tr>
 <tr class="memdesc:a3f02614d2efadf41b657c0d8050d7dcf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Change the current playback position within a waveform.  <br /></td></tr>
 <tr class="separator:a3f02614d2efadf41b657c0d8050d7dcf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad247cf7b8fd3bb271b1de8dcb02361ae" id="r_ad247cf7b8fd3bb271b1de8dcb02361ae"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mixer_8c.html#ad247cf7b8fd3bb271b1de8dcb02361ae">mixer_ch_set_loop</a> (int ch, bool enable)</td></tr>
+<tr class="memdesc:ad247cf7b8fd3bb271b1de8dcb02361ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable or disable the sustain loop on a mixer channel.  <br /></td></tr>
+<tr class="separator:ad247cf7b8fd3bb271b1de8dcb02361ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aae46a7249a6461ba9c04514af879f798" id="r_aae46a7249a6461ba9c04514af879f798"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mixer_8c.html#aae46a7249a6461ba9c04514af879f798">mixer_ch_get_pos</a> (int ch)</td></tr>
 <tr class="separator:aae46a7249a6461ba9c04514af879f798"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae21b093a1283e06ede42363498c490cb" id="r_ae21b093a1283e06ede42363498c490cb"><td class="memItemLeft" align="right" valign="top"><a id="ae21b093a1283e06ede42363498c490cb" name="ae21b093a1283e06ede42363498c490cb"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>mixer_ch_stop</b> (int ch)</td></tr>
 <tr class="memdesc:ae21b093a1283e06ede42363498c490cb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stop playing samples on the specified channel. <br /></td></tr>
 <tr class="separator:ae21b093a1283e06ede42363498c490cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a400d823cf30a9c76f154ce13312d75d3" id="r_a400d823cf30a9c76f154ce13312d75d3"><td class="memItemLeft" align="right" valign="top"><a id="a400d823cf30a9c76f154ce13312d75d3" name="a400d823cf30a9c76f154ce13312d75d3"></a>
-<a class="el" href="mixer_8h.html#structwaveform__t">waveform_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>mixer_ch_playing_waveform</b> (int ch)</td></tr>
-<tr class="memdesc:a400d823cf30a9c76f154ce13312d75d3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the waveform being played on this channel, or NULL if none. <br /></td></tr>
+<tr class="memitem:a400d823cf30a9c76f154ce13312d75d3" id="r_a400d823cf30a9c76f154ce13312d75d3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="mixer_8h.html#structwaveform__t">waveform_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mixer_8c.html#a400d823cf30a9c76f154ce13312d75d3">mixer_ch_playing_waveform</a> (int ch)</td></tr>
+<tr class="memdesc:a400d823cf30a9c76f154ce13312d75d3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the waveform being played on this channel, or NULL if none.  <br /></td></tr>
 <tr class="separator:a400d823cf30a9c76f154ce13312d75d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1893d5fc9d44b0e37ce0ef82afb71f37" id="r_a1893d5fc9d44b0e37ce0ef82afb71f37"><td class="memItemLeft" align="right" valign="top"><a id="a1893d5fc9d44b0e37ce0ef82afb71f37" name="a1893d5fc9d44b0e37ce0ef82afb71f37"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>mixer_ch_playing</b> (int ch)</td></tr>
 <tr class="memdesc:a1893d5fc9d44b0e37ce0ef82afb71f37"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return true if the channel is currently playing samples. <br /></td></tr>
 <tr class="separator:a1893d5fc9d44b0e37ce0ef82afb71f37"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7c7e8fc1ce0dc6cfb08895a3daa6ef69" id="r_a7c7e8fc1ce0dc6cfb08895a3daa6ef69"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mixer_8c.html#a7c7e8fc1ce0dc6cfb08895a3daa6ef69">mixer_ch_set_priority</a> (int ch, int priority)</td></tr>
+<tr class="memdesc:a7c7e8fc1ce0dc6cfb08895a3daa6ef69"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the voice-stealing priority of a channel.  <br /></td></tr>
+<tr class="separator:a7c7e8fc1ce0dc6cfb08895a3daa6ef69"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9525fcdf46c960c3bf0eae3166f68bc6" id="r_a9525fcdf46c960c3bf0eae3166f68bc6"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mixer_8c.html#a9525fcdf46c960c3bf0eae3166f68bc6">mixer_ch_alloc</a> (int first_ch, int num_ch, int count, bool stereo, int priority, <a class="el" href="mixer_8h.html#structwaveform__t">waveform_t</a> *wave, int *out)</td></tr>
+<tr class="memdesc:a9525fcdf46c960c3bf0eae3166f68bc6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Plan up to <code>count</code> channels inside <code>[first_ch, first_ch+num_ch)</code>.  <br /></td></tr>
+<tr class="separator:a9525fcdf46c960c3bf0eae3166f68bc6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0b4761b8a44e6a2e2bd5370715832e4d" id="r_a0b4761b8a44e6a2e2bd5370715832e4d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mixer_8c.html#a0b4761b8a44e6a2e2bd5370715832e4d">mixer_play</a> (<a class="el" href="mixer_8h.html#structwaveform__t">waveform_t</a> *wave, int priority)</td></tr>
+<tr class="memdesc:a0b4761b8a44e6a2e2bd5370715832e4d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Play <code>wave</code> on an automatically chosen mixer channel.  <br /></td></tr>
+<tr class="separator:a0b4761b8a44e6a2e2bd5370715832e4d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa6151c20fc5ddfa953c9d2dabe1da294" id="r_aa6151c20fc5ddfa953c9d2dabe1da294"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mixer_8c.html#aa6151c20fc5ddfa953c9d2dabe1da294">mixer_ch_set_limits</a> (int ch, int max_bits, float max_frequency, int max_buf_sz)</td></tr>
 <tr class="memdesc:aa6151c20fc5ddfa953c9d2dabe1da294"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configure the limits of a channel with respect to sample bit size, and frequency.  <br /></td></tr>
 <tr class="separator:aa6151c20fc5ddfa953c9d2dabe1da294"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa59050c9fcf02d3ba96a3451e7e7141e" id="r_aa59050c9fcf02d3ba96a3451e7e7141e"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mixer_8c.html#aa59050c9fcf02d3ba96a3451e7e7141e">__mixer_rdram_copy</a> (void *dst, void *src, int nbytes)</td></tr>
+<tr class="memdesc:aa59050c9fcf02d3ba96a3451e7e7141e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy a block of RDRAM onto another one through the mixer ucode.  <br /></td></tr>
+<tr class="separator:aa59050c9fcf02d3ba96a3451e7e7141e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a21ead4fd7433fbf4a328a216dc5a56a8" id="r_a21ead4fd7433fbf4a328a216dc5a56a8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mixer_8c.html#a21ead4fd7433fbf4a328a216dc5a56a8">mixer_add_event</a> (int64_t delay, <a class="el" href="mixer_8h.html#a509fb916b04893006f91d4bc5f7fc69e">MixerEvent</a> cb, void *ctx)</td></tr>
 <tr class="memdesc:a21ead4fd7433fbf4a328a216dc5a56a8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Register a time-based event into the mixer.  <br /></td></tr>
 <tr class="separator:a21ead4fd7433fbf4a328a216dc5a56a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aab616cf94c3df83670ca62236177b246" id="r_aab616cf94c3df83670ca62236177b246"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mixer_8c.html#aab616cf94c3df83670ca62236177b246">mixer_remove_event</a> (<a class="el" href="mixer_8h.html#a509fb916b04893006f91d4bc5f7fc69e">MixerEvent</a> cb, void *ctx)</td></tr>
 <tr class="memdesc:aab616cf94c3df83670ca62236177b246"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deregister a time-based event from the mixer.  <br /></td></tr>
 <tr class="separator:aab616cf94c3df83670ca62236177b246"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae720743cde6d1d6be0847bb9b15d220c" id="r_ae720743cde6d1d6be0847bb9b15d220c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mixer_8c.html#ae720743cde6d1d6be0847bb9b15d220c">mixer_add_soft_event</a> (<a class="el" href="mixer_8h.html#a4fd4fb768b3bd352891ff68e789dfbd2">MixerSoftEvent</a> cb, void *ctx)</td></tr>
+<tr class="memdesc:ae720743cde6d1d6be0847bb9b15d220c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Register a per-round soft callback.  <br /></td></tr>
+<tr class="separator:ae720743cde6d1d6be0847bb9b15d220c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad68644fd49e805b565aab8095d308bae" id="r_ad68644fd49e805b565aab8095d308bae"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mixer_8c.html#ad68644fd49e805b565aab8095d308bae">mixer_remove_soft_event</a> (<a class="el" href="mixer_8h.html#a4fd4fb768b3bd352891ff68e789dfbd2">MixerSoftEvent</a> cb, void *ctx)</td></tr>
+<tr class="memdesc:ad68644fd49e805b565aab8095d308bae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deregister a soft callback.  <br /></td></tr>
+<tr class="separator:ad68644fd49e805b565aab8095d308bae"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a609e245914f93ed2070304e68b42db6a" id="r_a609e245914f93ed2070304e68b42db6a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mixer_8c.html#a609e245914f93ed2070304e68b42db6a">mixer_throttle</a> (float num_samples)</td></tr>
-<tr class="memdesc:a609e245914f93ed2070304e68b42db6a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Throttle the mixer by specifying the maximum number of samples it can generate.  <br /></td></tr>
+<tr class="memdesc:a609e245914f93ed2070304e68b42db6a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Throttle the mixer by specifying the maximum number of samples.  <br /></td></tr>
 <tr class="separator:a609e245914f93ed2070304e68b42db6a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6b982bb4ca20959ae4a12aec9e014c8c" id="r_a6b982bb4ca20959ae4a12aec9e014c8c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mixer_8c.html#a6b982bb4ca20959ae4a12aec9e014c8c">mixer_unthrottle</a> (void)</td></tr>
 <tr class="memdesc:a6b982bb4ca20959ae4a12aec9e014c8c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unthrottle the mixer.  <br /></td></tr>
 <tr class="separator:a6b982bb4ca20959ae4a12aec9e014c8c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a00631ec3a7b6a40e4a9158d987ea7ea7" id="r_a00631ec3a7b6a40e4a9158d987ea7ea7"><td class="memItemLeft" align="right" valign="top"><a id="a00631ec3a7b6a40e4a9158d987ea7ea7" name="a00631ec3a7b6a40e4a9158d987ea7ea7"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>mixer_poll_async</b> (int16_t *out16, int num_samples)</td></tr>
+<tr class="memdesc:a00631ec3a7b6a40e4a9158d987ea7ea7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Poll the mixer asynchronously. <br /></td></tr>
+<tr class="separator:a00631ec3a7b6a40e4a9158d987ea7ea7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ace40b3a7cefa9951fb5f956ca0afa2ac" id="r_ace40b3a7cefa9951fb5f956ca0afa2ac"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mixer_8c.html#ace40b3a7cefa9951fb5f956ca0afa2ac">mixer_poll</a> (int16_t *out16, int num_samples)</td></tr>
 <tr class="memdesc:ace40b3a7cefa9951fb5f956ca0afa2ac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Run the mixer to produce output samples.  <br /></td></tr>
 <tr class="separator:ace40b3a7cefa9951fb5f956ca0afa2ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab63653dee62b67707c375c54aed98079" id="r_ab63653dee62b67707c375c54aed98079"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mixer_8c.html#ab63653dee62b67707c375c54aed98079">mixer_try_play</a> ()</td></tr>
-<tr class="memdesc:ab63653dee62b67707c375c54aed98079"><td class="mdescLeft">&#160;</td><td class="mdescRight">Request the mixer to try and write audio samples to be played, if possible.  <br /></td></tr>
-<tr class="separator:ab63653dee62b67707c375c54aed98079"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acf17ef188e199bf6bf26109d60225905" id="r_acf17ef188e199bf6bf26109d60225905"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mixer_8c.html#acf17ef188e199bf6bf26109d60225905">mixer_try_play</a> (void)</td></tr>
+<tr class="memdesc:acf17ef188e199bf6bf26109d60225905"><td class="mdescLeft">&#160;</td><td class="mdescRight">Request the mixer to try and write audio samples to be played,.  <br /></td></tr>
+<tr class="separator:acf17ef188e199bf6bf26109d60225905"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:adb6462ba394e665c815abb852d8e341f" id="r_adb6462ba394e665c815abb852d8e341f"><td class="memItemLeft" align="right" valign="top"><a id="adb6462ba394e665c815abb852d8e341f" name="adb6462ba394e665c815abb852d8e341f"></a>
-int64_t&#160;</td><td class="memItemRight" valign="bottom"><b>__mixer_profile_rsp</b> = 0</td></tr>
-<tr class="memdesc:adb6462ba394e665c815abb852d8e341f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Count of ticks spent in mixer RSP, used for debugging purposes. <br /></td></tr>
-<tr class="separator:adb6462ba394e665c815abb852d8e341f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a728b6be978ab3d502aa747add3151db3" id="r_a728b6be978ab3d502aa747add3151db3"><td class="memItemLeft" align="right" valign="top"><a id="a728b6be978ab3d502aa747add3151db3" name="a728b6be978ab3d502aa747add3151db3"></a>
 uint32_t&#160;</td><td class="memItemRight" valign="bottom"><b>__mixer_overlay_id</b></td></tr>
 <tr class="memdesc:a728b6be978ab3d502aa747add3151db3"><td class="mdescLeft">&#160;</td><td class="mdescRight">RSPQ overlay ID assigned to the mixer ucode. <br /></td></tr>
@@ -307,31 +428,49 @@ uint32_t&#160;</td><td class="memItemRight" valign="bottom"><b>__mixer_overlay_i
 <td class="fieldname">
 pos</td>
 <td class="fielddoc">
-Current position within the waveform (in bytes) </td></tr>
+Position (bytes for PCM, samples for VADPCM) </td></tr>
 <tr><td class="fieldtype">
 <a id="acfaf33ab47c2f024c9aab06118ecceb0" name="acfaf33ab47c2f024c9aab06118ecceb0"></a><a class="el" href="mixer_8c.html#a069b3606e77970b602abe506f449254c">mixer_fx64_t</a></td>
 <td class="fieldname">
 step</td>
 <td class="fielddoc">
-Step between samples (in bytes) to playback at the correct frequency. </td></tr>
+Step per output sample (same units as pos) </td></tr>
 <tr><td class="fieldtype">
 <a id="aef320e995c34836585d6c00bfba18e86" name="aef320e995c34836585d6c00bfba18e86"></a><a class="el" href="mixer_8c.html#a069b3606e77970b602abe506f449254c">mixer_fx64_t</a></td>
 <td class="fieldname">
 len</td>
 <td class="fielddoc">
-Length of the waveform (in bytes) </td></tr>
+Active end: loop end while looping, waveform length otherwise. </td></tr>
 <tr><td class="fieldtype">
 <a id="ab0d6e84fc49e19da02a2d1659b7d5704" name="ab0d6e84fc49e19da02a2d1659b7d5704"></a><a class="el" href="mixer_8c.html#a069b3606e77970b602abe506f449254c">mixer_fx64_t</a></td>
 <td class="fieldname">
 loop_len</td>
 <td class="fielddoc">
-Length of the loop in the waveform (in bytes) </td></tr>
+Loop length, 0 if not looping (see <a class="el" href="mixer_8c.html#ad247cf7b8fd3bb271b1de8dcb02361ae" title="Enable or disable the sustain loop on a mixer channel.">mixer_ch_set_loop</a>) </td></tr>
 <tr><td class="fieldtype">
 <a id="a8b74c9de55d58a7ab7fdd0e76c719538" name="a8b74c9de55d58a7ab7fdd0e76c719538"></a>void *</td>
 <td class="fieldname">
 ptr</td>
 <td class="fielddoc">
-Pointer to the waveform. </td></tr>
+Waveform data base (PCM samples or VADPCM frames) </td></tr>
+<tr><td class="fieldtype">
+<a id="a08a0d1a6830b11c81630b7554f1e4a12" name="a08a0d1a6830b11c81630b7554f1e4a12"></a>void *</td>
+<td class="fieldname">
+codec_state</td>
+<td class="fielddoc">
+Per-channel codec state, CPU side. </td></tr>
+<tr><td class="fieldtype">
+<a id="ad7f2a4f021fdbc8394e022a55a725a61" name="ad7f2a4f021fdbc8394e022a55a725a61"></a>void *</td>
+<td class="fieldname">
+codebook</td>
+<td class="fielddoc">
+VADPCM codebook (NULL for PCM) </td></tr>
+<tr><td class="fieldtype">
+<a id="a0f54508133236d6d4d9d14cd613080f4" name="a0f54508133236d6d4d9d14cd613080f4"></a>void *</td>
+<td class="fieldname">
+loop_state</td>
+<td class="fielddoc">
+VADPCM state at loop start (NULL if none) </td></tr>
 <tr><td class="fieldtype">
 <a id="ab30009fbbf5708d9ae6a4851dcbb173d" name="ab30009fbbf5708d9ae6a4851dcbb173d"></a>uint32_t</td>
 <td class="fieldname">
@@ -344,96 +483,210 @@ Misc flags (see CH_FLAGS_*) </td></tr>
 wave</td>
 <td class="fielddoc">
 Waveform being played back on this channel. </td></tr>
+<tr><td class="fieldtype">
+<a id="a5ec81622b65010d672af3fc704fff6fc" name="a5ec81622b65010d672af3fc704fff6fc"></a>uint32_t</td>
+<td class="fieldname">
+wave_uuid</td>
+<td class="fielddoc">
+UUID of last configured waveform (survives stop) </td></tr>
+<tr><td class="fieldtype">
+<a id="a956f37f92e8091d2699767ec56fb4e32" name="a956f37f92e8091d2699767ec56fb4e32"></a>int</td>
+<td class="fieldname">
+vframe</td>
+<td class="fielddoc">
+VADPCM frame the decoder state in RDRAM refers to. </td></tr>
+<tr><td class="fieldtype">
+<a id="a32db586cfdd0081e271879f15e738e7c" name="a32db586cfdd0081e271879f15e738e7c"></a>uint8_t</td>
+<td class="fieldname">
+vbits</td>
+<td class="fielddoc">
+VADPCM residual width (see <a class="el" href="mixer__internal_8h.html#a71686d6630e8f391fd7d67687898f812" title="Size in bytes of a VADPCM frame with residuals of bits bits.">VADPCM_FRAME_BYTES</a>) </td></tr>
+<tr><td class="fieldtype">
+<a id="ab77de0f0e18fa5fa90fc63aa93c7e5c9" name="ab77de0f0e18fa5fa90fc63aa93c7e5c9"></a>int</td>
+<td class="fieldname">
+max_round_ns</td>
+<td class="fielddoc">
+Max round length from step + samplebuffer margin (streamed) </td></tr>
 </table>
 
 </div>
 </div>
-<a name="structrsp__mixer__channel__t" id="structrsp__mixer__channel__t"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#structrsp__mixer__channel__t">&#9670;&#160;</a></span>rsp_mixer_channel_t</h2>
+<a name="structmixer__ramp__t" id="structmixer__ramp__t"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#structmixer__ramp__t">&#9670;&#160;</a></span>mixer_ramp_t</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">struct rsp_mixer_channel_t</td>
+          <td class="memname">struct mixer_ramp_t</td>
         </tr>
       </table>
 </div><div class="memdoc">
-<div class="textblock"><p>Mixer channel state - RSP side. </p>
-<p>This structure represents the state of a mixer channel as stored in RSP DMEM. Structure-wise, it is similar to <a class="el" href="mixer_8c.html#structmixer__channel__t" title="Mixer channel state - CPU side.">mixer_channel_t</a>, but waveform-related offsets are 32-bit wide rather than 64-bit, since RSP cannot easily work with 64-bit integers. Check <a class="el" href="mixer_8c.html#ace40b3a7cefa9951fb5f956ca0afa2ac" title="Run the mixer to produce output samples.">mixer_poll</a> to see how this difference is handled. </p>
+<div class="textblock"><p>One scalar level ramp (volume L/R, gain, or frequency). </p>
+<p>Target lives next to the ramp in Mixer; this stores the start value and the <a class="el" href="mixer_8h.html#a3aa59104a558b40543d0474be1e64d72" title="Scalar ramp curve: value at normalized time u ∈ [0, 1].">mixer_ramp_fn_t</a> so any point is <code><a class="el" href="mixer_8c.html#a56977c7f3436adabd2aecfcc910cc0c8" title="Curve (ignored when duration is 0)">fn(start, target, u(t))</a></code>. </p>
 </div><table class="fieldtable">
 <tr><th colspan="3">Data Fields</th></tr>
 <tr><td class="fieldtype">
-<a id="aeba049cbcc8f2e1bd9db07a5ed7621dc" name="aeba049cbcc8f2e1bd9db07a5ed7621dc"></a>uint32_t</td>
+<a id="acd365087ed8aa047bb49159c5d31e32f" name="acd365087ed8aa047bb49159c5d31e32f"></a>float</td>
 <td class="fieldname">
-pos</td>
+start</td>
 <td class="fielddoc">
-Current position within the waveform (in bytes) </td></tr>
+Value at <a class="el" href="mixer_8c.html#ad04f2a580bb8b98487c2cc144807d38f" title="Absolute tick the ramp started at.">start_tick</a>. </td></tr>
 <tr><td class="fieldtype">
-<a id="a5ec038931e32199a4d310d956d42a301" name="a5ec038931e32199a4d310d956d42a301"></a>uint32_t</td>
+<a id="ad04f2a580bb8b98487c2cc144807d38f" name="ad04f2a580bb8b98487c2cc144807d38f"></a>int64_t</td>
 <td class="fieldname">
-step</td>
+start_tick</td>
 <td class="fielddoc">
-Step between samples (in bytes) to playback at the correct frequency. </td></tr>
+Absolute tick the ramp started at. </td></tr>
 <tr><td class="fieldtype">
-<a id="a9968bce758e83ee4f6ff5e7c9ecfa93c" name="a9968bce758e83ee4f6ff5e7c9ecfa93c"></a>uint32_t</td>
+<a id="a7dcfd2dab3178873e8cfc613d2947eac" name="a7dcfd2dab3178873e8cfc613d2947eac"></a>int32_t</td>
 <td class="fieldname">
-len</td>
+duration</td>
 <td class="fielddoc">
-Length of the waveform (in bytes) </td></tr>
+Length in output samples, 0 if idle. </td></tr>
 <tr><td class="fieldtype">
-<a id="ad455a6924ba7ba8f41cb4d51665fde49" name="ad455a6924ba7ba8f41cb4d51665fde49"></a>uint32_t</td>
+<a id="aa9fa75bfc96e1929d439b446573c739a" name="aa9fa75bfc96e1929d439b446573c739a"></a>float</td>
 <td class="fieldname">
-loop_len</td>
+inv_duration</td>
 <td class="fielddoc">
-Length of the loop in the waveform (in bytes) </td></tr>
+1 / <a class="el" href="mixer_8c.html#a7dcfd2dab3178873e8cfc613d2947eac" title="Length in output samples, 0 if idle.">duration</a> (valid while <a class="el" href="mixer_8c.html#a7dcfd2dab3178873e8cfc613d2947eac" title="Length in output samples, 0 if idle.">duration</a> &gt; 0) </td></tr>
 <tr><td class="fieldtype">
-<a id="a1c4438f0e2ee8a04b3a4664a88d4a25d" name="a1c4438f0e2ee8a04b3a4664a88d4a25d"></a>void *</td>
+<a id="a67ed252cfb969d7e9c4e5f55d76d8b6a" name="a67ed252cfb969d7e9c4e5f55d76d8b6a"></a>float</td>
 <td class="fieldname">
-ptr</td>
+k</td>
 <td class="fielddoc">
-Pointer to the waveform. </td></tr>
+Exp curve: log2(end/start); silence asymptote if end≤0. </td></tr>
 <tr><td class="fieldtype">
-<a id="a9da4f34c33e22b64029bced99af520f7" name="a9da4f34c33e22b64029bced99af520f7"></a>uint32_t</td>
+<a id="a56977c7f3436adabd2aecfcc910cc0c8" name="a56977c7f3436adabd2aecfcc910cc0c8"></a><a class="el" href="mixer_8h.html#a3aa59104a558b40543d0474be1e64d72">mixer_ramp_fn_t</a></td>
 <td class="fieldname">
-flags</td>
+fn</td>
 <td class="fielddoc">
-Misc flags (see CH_FLAGS_*) </td></tr>
+Curve (ignored when <a class="el" href="mixer_8c.html#a7dcfd2dab3178873e8cfc613d2947eac" title="Length in output samples, 0 if idle.">duration</a> is 0) </td></tr>
 </table>
 
 </div>
 </div>
-<a name="structrsp__mixer__settings__t" id="structrsp__mixer__settings__t"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#structrsp__mixer__settings__t">&#9670;&#160;</a></span>rsp_mixer_settings_t</h2>
+<a name="structmixer__round__vol__t" id="structmixer__round__vol__t"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#structmixer__round__vol__t">&#9670;&#160;</a></span>mixer_round_vol_t</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">struct rsp_mixer_settings_t</td>
+          <td class="memname">struct mixer_round_vol_t</td>
         </tr>
       </table>
 </div><div class="memdoc">
-<div class="textblock"><p>Mixer ucode settings. </p>
-<p>This struct reflects the settings defined in rsp_mixer.S. </p>
+<div class="textblock"><p>Volumes a channel is mixed with over one round. </p>
+<p>The ucode is given a slope and the value the slope is heading for: it walks the volume one output sample at a time and clamps it between the two ends of the ramp, which is what lets a ramp end in the middle of a round. With no ramp running the target equals the starting volume and the clamp holds it there. </p>
 </div><table class="fieldtable">
 <tr><th colspan="3">Data Fields</th></tr>
 <tr><td class="fieldtype">
-<a id="a7af6b79d2331b68223247cf2e4324a7f" name="a7af6b79d2331b68223247cf2e4324a7f"></a>uint16_t</td>
+<a id="aa2b0a90d149f83a66f42df41d6210532" name="aa2b0a90d149f83a66f42df41d6210532"></a><a class="el" href="mixer_8c.html#aee2190129b07ce99d0364788a0d01ba9">mixer_fx15_t</a></td>
 <td class="fieldname">
-lvol[<a class="el" href="mixer_8h.html#a8c4e507c0d1930fd5bd9a9d5f5ca3b13">MIXER_MAX_CHANNELS</a>]</td>
+l</td>
+<td class="fielddoc">
+Left volume at the first sample of the round. </td></tr>
+<tr><td class="fieldtype">
+<a id="a8b4c6452fdd6ac900f181b950ef8f7cc" name="a8b4c6452fdd6ac900f181b950ef8f7cc"></a><a class="el" href="mixer_8c.html#aee2190129b07ce99d0364788a0d01ba9">mixer_fx15_t</a></td>
+<td class="fieldname">
+r</td>
+<td class="fielddoc">
+Right volume at the first sample of the round. </td></tr>
+<tr><td class="fieldtype">
+<a id="ac0b6b32205ac276f8f58749e3e6f9292" name="ac0b6b32205ac276f8f58749e3e6f9292"></a><a class="el" href="mixer_8c.html#aee2190129b07ce99d0364788a0d01ba9">mixer_fx15_t</a></td>
+<td class="fieldname">
+dl</td>
+<td class="fielddoc">
+Left increment per block of 4 samples. </td></tr>
+<tr><td class="fieldtype">
+<a id="a10e05868be1743bdac2726156b327d91" name="a10e05868be1743bdac2726156b327d91"></a><a class="el" href="mixer_8c.html#aee2190129b07ce99d0364788a0d01ba9">mixer_fx15_t</a></td>
+<td class="fieldname">
+dr</td>
+<td class="fielddoc">
+Right increment per block of 4 samples. </td></tr>
+<tr><td class="fieldtype">
+<a id="a8b73a7ac0f7dfc50dbb871dc91e84215" name="a8b73a7ac0f7dfc50dbb871dc91e84215"></a><a class="el" href="mixer_8c.html#aee2190129b07ce99d0364788a0d01ba9">mixer_fx15_t</a></td>
+<td class="fieldname">
+tl</td>
+<td class="fielddoc">
+Left volume the round ends on. </td></tr>
+<tr><td class="fieldtype">
+<a id="a07b14e937cb3dff9daa9596276d411e4" name="a07b14e937cb3dff9daa9596276d411e4"></a><a class="el" href="mixer_8c.html#aee2190129b07ce99d0364788a0d01ba9">mixer_fx15_t</a></td>
+<td class="fieldname">
+tr</td>
+<td class="fielddoc">
+Right volume the round ends on. </td></tr>
+</table>
+
+</div>
+</div>
+<a name="structmixer__overlay__state__t" id="structmixer__overlay__state__t"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#structmixer__overlay__state__t">&#9670;&#160;</a></span>mixer_overlay_state_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct mixer_overlay_state_t</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="textblock"><p>Overlay saved-state layout (must match rsp_mixer.S) </p>
+</div><table class="fieldtable">
+<tr><th colspan="3">Data Fields</th></tr>
+<tr><td class="fieldtype">
+<a id="ad23166f2c40a81f175e26343e0669bc1" name="ad23166f2c40a81f175e26343e0669bc1"></a>uint32_t</td>
+<td class="fieldname">
+codebook[<a class="el" href="mixer_8h.html#a8c4e507c0d1930fd5bd9a9d5f5ca3b13">MIXER_MAX_CHANNELS</a>]</td>
 <td class="fielddoc">
 </td></tr>
 <tr><td class="fieldtype">
-<a id="af0df738d5d710bad1620ceae86583b1f" name="af0df738d5d710bad1620ceae86583b1f"></a>uint16_t</td>
+<a id="ac9333993ebc09249005dc5ef1e2bf1dc" name="ac9333993ebc09249005dc5ef1e2bf1dc"></a>uint32_t</td>
 <td class="fieldname">
-rvol[<a class="el" href="mixer_8h.html#a8c4e507c0d1930fd5bd9a9d5f5ca3b13">MIXER_MAX_CHANNELS</a>]</td>
+state[<a class="el" href="mixer_8h.html#a8c4e507c0d1930fd5bd9a9d5f5ca3b13">MIXER_MAX_CHANNELS</a>]</td>
 <td class="fielddoc">
 </td></tr>
 <tr><td class="fieldtype">
-<a id="a5cb2114bd499c9667b08bdfb5d56dd1e" name="a5cb2114bd499c9667b08bdfb5d56dd1e"></a><a class="el" href="mixer_8c.html#structrsp__mixer__channel__t">rsp_mixer_channel_t</a></td>
+<a id="a72cf2a855b708e98dceee05c5c88724e" name="a72cf2a855b708e98dceee05c5c88724e"></a>uint32_t</td>
 <td class="fieldname">
-channels[<a class="el" href="mixer_8h.html#a8c4e507c0d1930fd5bd9a9d5f5ca3b13">MIXER_MAX_CHANNELS</a>]</td>
+loop_state[<a class="el" href="mixer_8h.html#a8c4e507c0d1930fd5bd9a9d5f5ca3b13">MIXER_MAX_CHANNELS</a>]</td>
+<td class="fielddoc">
+</td></tr>
+</table>
+
+</div>
+</div>
+<a name="structmixer__chtbl__t" id="structmixer__chtbl__t"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#structmixer__chtbl__t">&#9670;&#160;</a></span>mixer_chtbl_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct mixer_chtbl_t</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="textblock"><p>Shadow of the VADPCM pointers currently held by the ucode table. </p>
+</div><table class="fieldtable">
+<tr><th colspan="3">Data Fields</th></tr>
+<tr><td class="fieldtype">
+<a id="aab7c9df59985c51c37a374150df7996a" name="aab7c9df59985c51c37a374150df7996a"></a>void *</td>
+<td class="fieldname">
+codebook</td>
+<td class="fielddoc">
+</td></tr>
+<tr><td class="fieldtype">
+<a id="a547b571af60c7e287480ef5232ad0401" name="a547b571af60c7e287480ef5232ad0401"></a>void *</td>
+<td class="fieldname">
+state</td>
+<td class="fielddoc">
+</td></tr>
+<tr><td class="fieldtype">
+<a id="aca9ce28ce5b9e941725efa6622e46ea3" name="aca9ce28ce5b9e941725efa6622e46ea3"></a>void *</td>
+<td class="fieldname">
+loop_state</td>
 <td class="fielddoc">
 </td></tr>
 </table>
@@ -513,6 +766,36 @@ Opaque context pointer to pass to the callback. </td></tr>
 
 </div>
 </div>
+<a name="structmixer__soft__event__t" id="structmixer__soft__event__t"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#structmixer__soft__event__t">&#9670;&#160;</a></span>mixer_soft_event_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct mixer_soft_event_t</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="textblock"><p>Per-round soft callback (does not split mix rounds) </p>
+</div><table class="fieldtable">
+<tr><th colspan="3">Data Fields</th></tr>
+<tr><td class="fieldtype">
+<a id="a12e1be804751f9df92087dad23acd85b" name="a12e1be804751f9df92087dad23acd85b"></a><a class="el" href="mixer_8h.html#a4fd4fb768b3bd352891ff68e789dfbd2">MixerSoftEvent</a></td>
+<td class="fieldname">
+cb</td>
+<td class="fielddoc">
+</td></tr>
+<tr><td class="fieldtype">
+<a id="aed71347450373bbdb7794f0abad9abdc" name="aed71347450373bbdb7794f0abad9abdc"></a>void *</td>
+<td class="fieldname">
+ctx</td>
+<td class="fielddoc">
+</td></tr>
+</table>
+
+</div>
+</div>
 <h2 class="groupheader">Macro Definition Documentation</h2>
 <a id="acf679d48fd22fa095552abc65a72b198" name="acf679d48fd22fa095552abc65a72b198"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#acf679d48fd22fa095552abc65a72b198">&#9670;&#160;</a></span>MIXER_POLL_PER_SECOND</h2>
@@ -526,8 +809,102 @@ Opaque context pointer to pass to the callback. </td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Number of expected <a class="el" href="mixer_8c.html#ace40b3a7cefa9951fb5f956ca0afa2ac" title="Run the mixer to produce output samples.">mixer_poll</a> calls per second. </p>
-<p>This is used to allocate memory for the sample buffers according to the expected number of samples that must be calculated and held in memory. </p>
+<p>Fallback samplebuffer depth when <a class="el" href="group__audio.html#ga85a214e9d8a48388ea44d926686b36ad" title="Initialize the audio subsystem.">audio_init</a> has not been called yet. </p>
+<p>Sizing normally follows the AI queue (<a class="el" href="group__audio.html#ga422419b9ea99a8a00c65c5b07fd156d4" title="Return the number of internal audio buffers.">audio_get_num_buffers</a> × <a class="el" href="group__audio.html#ga12decba34a007365bf749874e044b88d" title="Get the number of stereo samples that fit into an allocated buffer.">audio_get_buffer_length</a>). This rate is only the fallback and the <a class="el" href="mixer_8c.html#a609e245914f93ed2070304e68b42db6a" title="Throttle the mixer by specifying the maximum number of samples.">mixer_throttle</a> extra, so it stays conservative. </p>
+
+</div>
+</div>
+<a id="a686e0bb66bb146f27ecb316f6ff8ec90" name="a686e0bb66bb146f27ecb316f6ff8ec90"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a686e0bb66bb146f27ecb316f6ff8ec90">&#9670;&#160;</a></span>MIXER_POLL_LOOKAHEAD</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MIXER_POLL_LOOKAHEAD&#160;&#160;&#160;2</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Polls the sample buffers are sized to hold at once. </p>
+<p>One is the minimum: a single <a class="el" href="mixer_8c.html#a00631ec3a7b6a40e4a9158d987ea7ea7" title="Poll the mixer asynchronously.">mixer_poll_async</a> must never have to wait for the RSP, whatever the number of rounds it splits into. The second one is what keeps the CPU from waiting in practice, since by the time it starts a poll the RSP is normally done with the one before the last (see <a class="el" href="mixer_8c.html#a7f99d843ac962b336c6d46ebe02e1647" title="Output samples the CPU may mix without ever waiting for the RSP.">__mixer_inflight_samples</a>). </p>
+
+</div>
+</div>
+<a id="aa1957d36ddfccd309b9225893f898994" name="aa1957d36ddfccd309b9225893f898994"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa1957d36ddfccd309b9225893f898994">&#9670;&#160;</a></span>MIXER_DECLICK_SAMPLES</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MIXER_DECLICK_SAMPLES&#160;&#160;&#160;128</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Length of the ramp <a class="el" href="mixer_8c.html#a56bc7f412e9cd0cde06c44e8acaa85ae" title="Set channel volume (as left/right).">mixer_ch_set_vol</a> spreads a volume change over. </p>
+<p>A volume that jumps from one sample to the next is a step in the waveform, and a step is heard as a click. Music players change volumes constantly (an XM does it on every tick, on every channel), so the change is walked over a few milliseconds instead. That is short enough that nothing sounds delayed, and it replaces the one-pole filter the ucode used to run on every channel. <a class="el" href="mixer_8c.html#ad165b4a1a3c86a2d4c991ff5fc6075a3" title="Linearly ramp channel volume to the specified values.">mixer_ch_set_vol_ramp</a> is left alone: a caller that names a duration means it, zero included. </p>
+
+</div>
+</div>
+<a id="a48449fa7321c978f970d3b59267da34b" name="a48449fa7321c978f970d3b59267da34b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a48449fa7321c978f970d3b59267da34b">&#9670;&#160;</a></span>MIXER_RAMP_EXP_SILENCE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MIXER_RAMP_EXP_SILENCE&#160;&#160;&#160;9.226f</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Fade-to-silence exponent for <a class="el" href="mixer_8c.html#a35b3cc56e8a6e04178e5a38a6c9610ff" title="Exponential ramp (linear in log): start * (end/start)^u.">mixer_ramp_exp</a> when the target is 0. </p>
+
+</div>
+</div>
+<a id="ae8b5853efff027803ce3f63e1dcd279b" name="ae8b5853efff027803ce3f63e1dcd279b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae8b5853efff027803ce3f63e1dcd279b">&#9670;&#160;</a></span>MIXER_LOG2E</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MIXER_LOG2E&#160;&#160;&#160;1.44269504f</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>log2(e): converts the natural silence asymptote into an <a class="el" href="fmath_8c.html#aa648f493f9566d127fdd2d5c5ccd5c85" title="Faster version of exp2f (2^x).">fm_exp2f</a> argument. </p>
+
+</div>
+</div>
+<a id="acdf030cf378480563b8c21308359048a" name="acdf030cf378480563b8c21308359048a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acdf030cf378480563b8c21308359048a">&#9670;&#160;</a></span>MIXER_ALLOC_BUSY</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MIXER_ALLOC_BUSY&#160;&#160;&#160;(1ull &lt;&lt; 63)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Ranking key bit set on an occupied slot: free slots sort before any steal. </p>
+
+</div>
+</div>
+<a id="a56bcbc1e3d9445f8b97181f9a1f44010" name="a56bcbc1e3d9445f8b97181f9a1f44010"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a56bcbc1e3d9445f8b97181f9a1f44010">&#9670;&#160;</a></span>MIXER_ALLOC_NOKEY</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MIXER_ALLOC_NOKEY&#160;&#160;&#160;UINT64_MAX</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Ranking key of a slot that cannot be used at all. </p>
 
 </div>
 </div>
@@ -548,6 +925,81 @@ Opaque context pointer to pass to the callback. </td></tr>
       </table>
 </div><div class="memdoc">
 <p>RSP mixer ucode (rsp_mixer.S) </p>
+
+</div>
+</div>
+<a id="a1cf36947e437bceda1e72ea985bd42ce" name="a1cf36947e437bceda1e72ea985bd42ce"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1cf36947e437bceda1e72ea985bd42ce">&#9670;&#160;</a></span>mixer_ramp_linear()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float mixer_ramp_linear </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>start</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>end</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>u</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Linear ramp: <code>start + (end - start) * u</code>. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000285">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it. </dd></dl>
+
+</div>
+</div>
+<a id="a35b3cc56e8a6e04178e5a38a6c9610ff" name="a35b3cc56e8a6e04178e5a38a6c9610ff"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a35b3cc56e8a6e04178e5a38a6c9610ff">&#9670;&#160;</a></span>mixer_ramp_exp()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float mixer_ramp_exp </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>start</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>end</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>u</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Exponential ramp (linear in log): <code>start * (end/start)^u</code>. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000286">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
+<p>For amplitude this is a constant-dB fade; for frequency, linear in cents. If <code>end</code> is ≤ 0, fades toward silence over the duration (then snaps to 0 when the ramp completes). If <code>start</code> is ≤ 0, rises as <code>end * u</code>. </p>
 
 </div>
 </div>
@@ -575,6 +1027,49 @@ Opaque context pointer to pass to the callback. </td></tr>
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a id="a7f99d843ac962b336c6d46ebe02e1647" name="a7f99d843ac962b336c6d46ebe02e1647"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7f99d843ac962b336c6d46ebe02e1647">&#9670;&#160;</a></span>__mixer_inflight_samples()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int __mixer_inflight_samples </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Output samples the CPU may mix without ever waiting for the RSP. </p>
+<p>A poll enqueues its rounds and returns, so the input windows it handed out stay live until the RSP gets to them: sample buffers are sized to span that much input (<a class="el" href="mixer_8c.html#a686e0bb66bb146f27ecb316f6ff8ec90" title="Polls the sample buffers are sized to hold at once.">MIXER_POLL_LOOKAHEAD</a> polls of it). The next poll waits for the oldest of those before starting (see <a class="el" href="mixer_8c.html#a00631ec3a7b6a40e4a9158d987ea7ea7" title="Poll the mixer asynchronously.">mixer_poll_async</a>). </p>
+
+</div>
+</div>
+<a id="a51e9507d777603c01281a1c49cb13c77" name="a51e9507d777603c01281a1c49cb13c77"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a51e9507d777603c01281a1c49cb13c77">&#9670;&#160;</a></span>__mixer_round_done()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool __mixer_round_done </td>
+          <td>(</td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>id</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Rounds: how the CPU knows what the RSP has already read. </p>
+<p>The CPU queues mix rounds without waiting for them, so the input windows it hands out stay live until the RSP gets to them. Each round carries an id that MIX_FLUSH writes back to RDRAM once the round is over. <a class="el" href="mixer_8c.html#a00631ec3a7b6a40e4a9158d987ea7ea7" title="Poll the mixer asynchronously.">mixer_poll_async</a> waits for the round that closed the poll MIXER_POLL_LOOKAHEAD polls ago before starting a new one, which is what keeps samplebuffer refills from overwriting live windows. Ids start at 1, so 0 means "no round".</p>
+<p>True if the RSP has finished the given round. </p>
 
 </div>
 </div>
@@ -632,12 +1127,74 @@ Opaque context pointer to pass to the callback. </td></tr>
 </div><div class="memdoc">
 
 <p>Change the frequency for the specified channel. </p>
-<p>By default, the frequency is the one required by the waveform associated to the channel, but this function allows to override.</p>
+<p>By default, the frequency is the one required by the waveform associated to the channel, but this function allows to override. The change is immediate and cancels a running <a class="el" href="mixer_8h.html#a46eaa4084a682640cdc962f98a398a0a" title="Ramp the playback frequency of a channel.">mixer_ch_set_freq_ramp</a>.</p>
 <p>This function must be called after <a class="el" href="mixer_8h.html#a1aa94701f22d086d624fb7d938ba0062" title="Start playing the specified waveform on the specified channel.">mixer_ch_play</a>, as otherwise the frequency is reset to the default of the waveform.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">ch</td><td>Channel index </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">frequency</td><td>Playback frequency (in Hz / samples per second) </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a46eaa4084a682640cdc962f98a398a0a" name="a46eaa4084a682640cdc962f98a398a0a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a46eaa4084a682640cdc962f98a398a0a">&#9670;&#160;</a></span>mixer_ch_set_freq_ramp()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void mixer_ch_set_freq_ramp </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>ch</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>frequency</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>duration</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="mixer_8h.html#a3aa59104a558b40543d0474be1e64d72">mixer_ramp_fn_t</a>&#160;</td>
+          <td class="paramname"><em>curve</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>started_ago</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Ramp the playback frequency of a channel. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000293">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
+<p>Walks frequency from its current value to <code>frequency</code> over <code>duration</code> output samples. The mixer runs the ramp by itself (no <a class="el" href="mixer_8h.html#a21ead4fd7433fbf4a328a216dc5a56a8" title="Register a time-based event into the mixer.">mixer_add_event</a> while it is in progress). <code>curve</code> selects the shape (<a class="el" href="mixer_8h.html#a1cf36947e437bceda1e72ea985bd42ce" title="Linear ramp: start + (end - start) * u.">mixer_ramp_linear</a> in Hz, <a class="el" href="mixer_8h.html#a35b3cc56e8a6e04178e5a38a6c9610ff" title="Exponential ramp (linear in log): start * (end/start)^u.">mixer_ramp_exp</a> for linear cents, or a custom <a class="el" href="mixer_8h.html#a3aa59104a558b40543d0474be1e64d72" title="Scalar ramp curve: value at normalized time u ∈ [0, 1].">mixer_ramp_fn_t</a>).</p>
+<p>A new ramp replaces any previous one, starting from the frequency already reached. Duration 0, or <a class="el" href="mixer_8h.html#af8c01ae2bc402901e8fbf7e61e5cd9d6" title="Change the frequency for the specified channel.">mixer_ch_set_freq</a>, cancels the ramp and sets the frequency immediately; stopping the channel cancels it as well.</p>
+<p><code>started_ago</code> is how many output samples ago this ramp should be treated as having begun (0 = start now). Use it when catching up an envelope that was due earlier than the current mixer time.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">ch</td><td>Channel index </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">frequency</td><td>Target playback frequency (Hz) </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">duration</td><td>Length of the ramp, in output samples </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">curve</td><td>Ramp curve (must not be NULL if duration &gt; 0) </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">started_ago</td><td>Samples since the ramp's logical start (&gt;= 0) </td></tr>
   </table>
   </dd>
 </dl>
@@ -677,7 +1234,7 @@ Opaque context pointer to pass to the callback. </td></tr>
 </div><div class="memdoc">
 
 <p>Set channel volume (as left/right). </p>
-<p>Configure channel volume for the specified channel, specifying two values: one for the left output and one for the right output.</p>
+<p>Configure channel volume for the specified channel, specifying two values: one for the left output and one for the right output. The mixed level is <a class="el" href="mixer_8h.html#ad6b6dd6103e684bc54123b09e6594bdb" title="Set the mono gain of a channel.">mixer_ch_set_gain</a> times these volumes (gain defaults to 1.0).</p>
 <p>The volume is an attenuation (no amplification is performed). Valid volume range in [0..1], where 0 is silence and 1 is original channel sample volume (no attenuation performed).</p>
 <p>Notice that it's perfectly valid to set left/right volumes even if the channel itself will play a mono waveforms, as it allows to balance a mono sample between the two final output channels.</p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -685,6 +1242,164 @@ Opaque context pointer to pass to the callback. </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">ch</td><td>Channel index </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">lvol</td><td>Left volume (range [0..1]) </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">rvol</td><td>Right volume (range [0..1]) </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ad165b4a1a3c86a2d4c991ff5fc6075a3" name="ad165b4a1a3c86a2d4c991ff5fc6075a3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad165b4a1a3c86a2d4c991ff5fc6075a3">&#9670;&#160;</a></span>mixer_ch_set_vol_ramp()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void mixer_ch_set_vol_ramp </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>ch</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>lvol</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>rvol</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>duration</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Linearly ramp channel volume to the specified values. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000287">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
+<p>This is the same as <a class="el" href="mixer_8h.html#a56bc7f412e9cd0cde06c44e8acaa85ae" title="Set channel volume (as left/right).">mixer_ch_set_vol</a>, but instead of changing the volume right away, the mixer walks it linearly from its current value to the specified one over <code>duration</code> output samples. Independent of <a class="el" href="mixer_8h.html#a31ef30625f1b4e87ef82ed365891ed7d" title="Ramp the mono gain of a channel.">mixer_ch_set_gain_ramp</a>: both apply at once (gain × volume).</p>
+<p>The ramp is run by the mixer itself, across RSP rounds and audio buffers: it does not need any <a class="el" href="mixer_8h.html#a21ead4fd7433fbf4a328a216dc5a56a8" title="Register a time-based event into the mixer.">mixer_add_event</a> callback while it is in progress, and it is smooth well below the granularity of a mix round. Use it for stereo fades and crossfades; for a mono amplitude envelope prefer <a class="el" href="mixer_8h.html#a31ef30625f1b4e87ef82ed365891ed7d" title="Ramp the mono gain of a channel.">mixer_ch_set_gain_ramp</a>.</p>
+<p>A ramp replaces whatever volume ramp was running on the channel, starting from the volume that one had reached. Calling <a class="el" href="mixer_8h.html#a56bc7f412e9cd0cde06c44e8acaa85ae" title="Set channel volume (as left/right).">mixer_ch_set_vol</a> (or passing a <code>duration</code> of 0 here) cancels the volume ramp and sets the volume immediately; stopping the channel cancels it as well.</p>
+<p>The RSP walks the volume one output sample at a time, in steps it recomputes every four of them, so <code>duration</code> is effectively rounded up to a multiple of 4.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">ch</td><td>Channel index </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">lvol</td><td>Target left volume (range [0..1]) </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">rvol</td><td>Target right volume (range [0..1]) </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">duration</td><td>Length of the ramp, in output samples </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ad6b6dd6103e684bc54123b09e6594bdb" name="ad6b6dd6103e684bc54123b09e6594bdb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad6b6dd6103e684bc54123b09e6594bdb">&#9670;&#160;</a></span>mixer_ch_set_gain()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void mixer_ch_set_gain </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>ch</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>gain</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set the mono gain of a channel. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000288">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
+<p>Gain is a per-channel attenuation in [0..1] (default 1.0), multiplied with <a class="el" href="mixer_8h.html#a56bc7f412e9cd0cde06c44e8acaa85ae" title="Set channel volume (as left/right).">mixer_ch_set_vol</a> when mixing. The change is immediate: it cancels a running gain ramp, and does not affect a running volume ramp.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">ch</td><td>Channel index </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">gain</td><td>Target gain (range [0..1]) </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a31ef30625f1b4e87ef82ed365891ed7d" name="a31ef30625f1b4e87ef82ed365891ed7d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a31ef30625f1b4e87ef82ed365891ed7d">&#9670;&#160;</a></span>mixer_ch_set_gain_ramp()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void mixer_ch_set_gain_ramp </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>ch</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>gain</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>duration</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="mixer_8h.html#a3aa59104a558b40543d0474be1e64d72">mixer_ramp_fn_t</a>&#160;</td>
+          <td class="paramname"><em>curve</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>started_ago</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Ramp the mono gain of a channel. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000289">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
+<p>Walks gain from its current value to <code>gain</code> over <code>duration</code> output samples, independently of <a class="el" href="mixer_8h.html#ad165b4a1a3c86a2d4c991ff5fc6075a3" title="Linearly ramp channel volume to the specified values.">mixer_ch_set_vol_ramp</a>. The mixer runs the ramp by itself (no <a class="el" href="mixer_8h.html#a21ead4fd7433fbf4a328a216dc5a56a8" title="Register a time-based event into the mixer.">mixer_add_event</a> while it is in progress).</p>
+<p><code>curve</code> maps normalized time to the gain value (<a class="el" href="mixer_8h.html#a1cf36947e437bceda1e72ea985bd42ce" title="Linear ramp: start + (end - start) * u.">mixer_ramp_linear</a>, <a class="el" href="mixer_8h.html#a35b3cc56e8a6e04178e5a38a6c9610ff" title="Exponential ramp (linear in log): start * (end/start)^u.">mixer_ramp_exp</a>, or a custom <a class="el" href="mixer_8h.html#a3aa59104a558b40543d0474be1e64d72" title="Scalar ramp curve: value at normalized time u ∈ [0, 1].">mixer_ramp_fn_t</a>).</p>
+<p>A new gain ramp replaces any previous one, starting from the gain already reached. Duration 0, or <a class="el" href="mixer_8h.html#ad6b6dd6103e684bc54123b09e6594bdb" title="Set the mono gain of a channel.">mixer_ch_set_gain</a>, cancels the ramp and sets the gain immediately; stopping the channel cancels it as well.</p>
+<p><code>started_ago</code> is how many output samples ago this ramp should be treated as having begun (0 = start now). Use it when catching up an envelope that was due earlier than the current mixer time.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">ch</td><td>Channel index </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">gain</td><td>Target gain (range [0..1]) </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">duration</td><td>Length of the ramp, in output samples </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">curve</td><td>Ramp curve (must not be NULL if duration &gt; 0) </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">started_ago</td><td>Samples since the ramp's logical start (&gt;= 0) </td></tr>
   </table>
   </dd>
 </dl>
@@ -766,6 +1481,7 @@ Opaque context pointer to pass to the callback. </td></tr>
 </div><div class="memdoc">
 
 <p>Enable or disable force-mono on a single channel. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000290">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>When enabled, the channel's output is folded equally onto both output buses regardless of its panning or stereo routing:</p><ul>
 <li>Mono channel: both buses receive (lvol + rvol) / 2 of the sample.</li>
 <li>Stereo waveform (owner + sub pair): L and R sample streams are each routed at half amplitude to both buses, yielding L_out = R_out = 0.5 * (L*lvol + R*rvol).</li>
@@ -778,6 +1494,27 @@ Opaque context pointer to pass to the callback. </td></tr>
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a id="a8fb34a949ff8d0f06ddfe7dd05028c5e" name="a8fb34a949ff8d0f06ddfe7dd05028c5e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8fb34a949ff8d0f06ddfe7dd05028c5e">&#9670;&#160;</a></span>mixer_ch_get_force_mono()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool mixer_ch_get_force_mono </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>ch</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Query the force-mono flag for a channel. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000291">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it. </dd></dl>
 
 </div>
 </div>
@@ -798,6 +1535,7 @@ Opaque context pointer to pass to the callback. </td></tr>
 </div><div class="memdoc">
 
 <p>Enable or disable force-mono on every channel at once. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000292">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>Convenience wrapper for a global "Mono" output preference. Applies the flag to all currently-allocated channels. </p>
 
 </div>
@@ -940,10 +1678,51 @@ Opaque context pointer to pass to the callback. </td></tr>
 <p>Change the current playback position within a waveform. </p>
 <p>This function can be useful to seek to a specific point of the waveform. The position must be specified in number of samples (not bytes). Fractional values account for accurate resampling position.</p>
 <p>This function must be called after <a class="el" href="mixer_8h.html#a1aa94701f22d086d624fb7d938ba0062" title="Start playing the specified waveform on the specified channel.">mixer_ch_play</a>, as otherwise the position is reset to the beginning of the waveform.</p>
+<p>Some compressed formats can only restart their decoder on the seek points their asset was built with: a VADPCM waveform, for instance, accepts the start of the waveform and its loop point. Seeking elsewhere on one of those is an error.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">ch</td><td>Channel index </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">pos</td><td>Playback position (in number of samples) </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ad247cf7b8fd3bb271b1de8dcb02361ae" name="ad247cf7b8fd3bb271b1de8dcb02361ae"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad247cf7b8fd3bb271b1de8dcb02361ae">&#9670;&#160;</a></span>mixer_ch_set_loop()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void mixer_ch_set_loop </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>ch</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>enable</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Enable or disable the sustain loop on a mixer channel. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000294">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
+<p>The loop bounds come from the waveform (<code>#<a class="el" href="mixer_8h.html#a4a7d318ddfbb4eeb1ec144f6163b5e15" title="Length of the loop, in samples.">waveform_t::loop_len</a></code> / <code>#<a class="el" href="mixer_8h.html#a637f31ac476b392bb104cb4782d63ede" title="Exclusive end of the loop, in samples.">waveform_t::loop_end</a></code>). Disabling does not seek: playback continues from the current position through to <code>#<a class="el" href="mixer_8h.html#a85d404d379af0cb389239dc987496cb9" title="Length of the waveform, in number of samples.">waveform_t::len</a></code> (the release tail, when present) and then stops. Enabling again restores looping at the waveform's loop region.</p>
+<p>Must be called while the channel is playing a waveform that defines a loop.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">ch</td><td>Channel index </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">enable</td><td>True to loop, false to play through to the end </td></tr>
   </table>
   </dd>
 </dl>
@@ -974,6 +1753,182 @@ Opaque context pointer to pass to the callback. </td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Playback position (in number of samples) </dd></dl>
+
+</div>
+</div>
+<a id="a400d823cf30a9c76f154ce13312d75d3" name="a400d823cf30a9c76f154ce13312d75d3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a400d823cf30a9c76f154ce13312d75d3">&#9670;&#160;</a></span>mixer_ch_playing_waveform()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="mixer_8h.html#structwaveform__t">waveform_t</a> * mixer_ch_playing_waveform </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>ch</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Return the waveform being played on this channel, or NULL if none. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000295">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it. </dd></dl>
+
+</div>
+</div>
+<a id="a7c7e8fc1ce0dc6cfb08895a3daa6ef69" name="a7c7e8fc1ce0dc6cfb08895a3daa6ef69"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7c7e8fc1ce0dc6cfb08895a3daa6ef69">&#9670;&#160;</a></span>mixer_ch_set_priority()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void mixer_ch_set_priority </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>ch</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>priority</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set the voice-stealing priority of a channel. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000296">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
+<p>Higher values are more expensive to steal. Valid range is [<a class="el" href="mixer_8h.html#a7a400781e08c8c3723d1cac7b04ec5ce" title="Priority: always reusable / cheapest to steal.">MIXER_PRIORITY_MIN</a>]..[<a class="el" href="mixer_8h.html#a2e4c512211f71e3aab5215612250092e" title="Priority: never stolen (default after mixer_ch_play).">MIXER_PRIORITY_MAX</a>]. <a class="el" href="mixer_8h.html#a1aa94701f22d086d624fb7d938ba0062" title="Start playing the specified waveform on the specified channel.">mixer_ch_play</a> resets the channel to <a class="el" href="mixer_8h.html#a2e4c512211f71e3aab5215612250092e" title="Priority: never stolen (default after mixer_ch_play).">MIXER_PRIORITY_MAX</a>; <a class="el" href="mixer_8h.html#ae21b093a1283e06ede42363498c490cb" title="Stop playing samples on the specified channel.">mixer_ch_stop</a> resets it to <a class="el" href="mixer_8h.html#a7a400781e08c8c3723d1cac7b04ec5ce" title="Priority: always reusable / cheapest to steal.">MIXER_PRIORITY_MIN</a>. Players that participate in stealing (e.g. SF64) lower the priority of their channels before calling <a class="el" href="mixer_8h.html#a9525fcdf46c960c3bf0eae3166f68bc6" title="Plan up to count channels inside [first_ch, first_ch+num_ch).">mixer_ch_alloc</a>.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">ch</td><td>Channel index </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">priority</td><td>Stealing priority </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a9525fcdf46c960c3bf0eae3166f68bc6" name="a9525fcdf46c960c3bf0eae3166f68bc6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9525fcdf46c960c3bf0eae3166f68bc6">&#9670;&#160;</a></span>mixer_ch_alloc()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int mixer_ch_alloc </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>first_ch</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>num_ch</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>count</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>stereo</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>priority</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="mixer_8h.html#structwaveform__t">waveform_t</a> *&#160;</td>
+          <td class="paramname"><em>wave</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int *&#160;</td>
+          <td class="paramname"><em>out</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Plan up to <code>count</code> channels inside <code>[first_ch, first_ch+num_ch)</code>. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000297">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
+<p>Plan-only: nothing is stopped or started. Occupied channels returned in <code>out</code> must be stopped by the caller before reuse. Free channels are preferred; among occupied ones, lower priority, then quieter instantaneous volume, then older start time. A channel is stealable only when its priority is <code>&lt;= @p priority</code>.</p>
+<p>If <code>stereo</code> is true, each entry in <code>out</code> is the primary of a contiguous pair (<code>ch</code>, <code>ch+1</code>); the secondary of an existing stereo pair is never returned as a primary. If <code>wave</code> is non-NULL, channels whose configured limits cannot play it are skipped.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">first_ch</td><td>First channel of the search window </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">num_ch</td><td>Size of the search window </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">count</td><td>Maximum number of channels to plan </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">stereo</td><td>Request contiguous stereo pairs </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">priority</td><td>Maximum victim priority that may be stolen </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">wave</td><td>Waveform for limit filtering, or NULL </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">out</td><td>Buffer of at least <code>count</code> ints </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Number of channels planned (0..<code>count</code>) </dd></dl>
+
+</div>
+</div>
+<a id="a0b4761b8a44e6a2e2bd5370715832e4d" name="a0b4761b8a44e6a2e2bd5370715832e4d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0b4761b8a44e6a2e2bd5370715832e4d">&#9670;&#160;</a></span>mixer_play()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int mixer_play </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="mixer_8h.html#structwaveform__t">waveform_t</a> *&#160;</td>
+          <td class="paramname"><em>wave</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>priority</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Play <code>wave</code> on an automatically chosen mixer channel. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000298">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
+<p>Allocates with <a class="el" href="mixer_8h.html#a9525fcdf46c960c3bf0eae3166f68bc6" title="Plan up to count channels inside [first_ch, first_ch+num_ch).">mixer_ch_alloc</a> over the full mixer (stereo deduced from <code>wave-&gt;channels</code>), stops any victim, resets volume/pan to <code>(1,1)</code> and clears force-mono, then calls <a class="el" href="mixer_8h.html#a1aa94701f22d086d624fb7d938ba0062" title="Start playing the specified waveform on the specified channel.">mixer_ch_play</a> and sets the channel priority to <code>priority</code>.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">wave</td><td>Waveform to play </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">priority</td><td>Stealing priority for the new voice </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Channel index, or -1 if none available </dd></dl>
 
 </div>
 </div>
@@ -1025,11 +1980,49 @@ Opaque context pointer to pass to the callback. </td></tr>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">ch</td><td>Channel index </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">max_bits</td><td>Maximum number of bits per sample (or 0 to reset this to default, which is currently 16). </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">max_frequency</td><td>Maximum playback frequency for this channel in Hz / samples per seconds (or 0 to reset this to default, which is the output sample rate as specified in <a class="el" href="group__audio.html#ga8ef2eb966a8552f3d19526753b98427f" title="Initialize the audio subsystem.">audio_init</a>). </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">max_buf_sz</td><td>Maximum buffer size in bytes (or 0 to reset this default, which is calculated using the other limits, the playback output rate, and the number of audio buffers specified in <a class="el" href="group__audio.html#ga8ef2eb966a8552f3d19526753b98427f" title="Initialize the audio subsystem.">audio_init</a>). </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">max_frequency</td><td>Maximum playback frequency for this channel in Hz / samples per seconds (or 0 to reset this to default, which is the output sample rate as specified in <a class="el" href="group__audio.html#ga85a214e9d8a48388ea44d926686b36ad" title="Initialize the audio subsystem.">audio_init</a>). </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">max_buf_sz</td><td>Maximum buffer size in bytes (or 0 to reset this default, which is calculated using the other limits, the playback output rate, and the number of audio buffers specified in <a class="el" href="group__audio.html#ga85a214e9d8a48388ea44d926686b36ad" title="Initialize the audio subsystem.">audio_init</a>). </td></tr>
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a id="aa59050c9fcf02d3ba96a3451e7e7141e" name="aa59050c9fcf02d3ba96a3451e7e7141e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa59050c9fcf02d3ba96a3451e7e7141e">&#9670;&#160;</a></span>__mixer_rdram_copy()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool __mixer_rdram_copy </td>
+          <td>(</td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>dst</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>src</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>nbytes</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Copy a block of RDRAM onto another one through the mixer ucode. </p>
+<p>What the RSP brings here is ordering: the copy runs where it is enqueued, which is what mirroring data that an audio codec overlay has been asked to write, and may not have written yet, requires (see <a class="el" href="mixer_8h.html#aebf88169231e7d9fa90d56273ddd7483" title="True if read produces samples through an RSP overlay.">waveform_t::rsp_written</a>).</p>
+<p>Both addresses and the length must be 8-byte aligned. Returns false if the mixer is not running, leaving the copy to the caller. </p>
 
 </div>
 </div>
@@ -1116,6 +2109,83 @@ Opaque context pointer to pass to the callback. </td></tr>
 
 </div>
 </div>
+<a id="ae720743cde6d1d6be0847bb9b15d220c" name="ae720743cde6d1d6be0847bb9b15d220c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae720743cde6d1d6be0847bb9b15d220c">&#9670;&#160;</a></span>mixer_add_soft_event()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void mixer_add_soft_event </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="mixer_8h.html#a4fd4fb768b3bd352891ff68e789dfbd2">MixerSoftEvent</a>&#160;</td>
+          <td class="paramname"><em>cb</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>ctx</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Register a per-round soft callback. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000302">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
+<p>The callback is invoked after every mixer round until removed. It must not call <a class="el" href="mixer_8h.html#a49057735de9c408b332975d72c05390c" title="Run the mixer to produce output samples.">mixer_poll</a> / <a class="el" href="mixer_8h.html#acf17ef188e199bf6bf26109d60225905" title="Request the mixer to try and write audio samples to be played,.">mixer_try_play</a>.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">cb</td><td>Soft callback </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">ctx</td><td>Opaque pointer passed to <code>cb</code> </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ad68644fd49e805b565aab8095d308bae" name="ad68644fd49e805b565aab8095d308bae"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad68644fd49e805b565aab8095d308bae">&#9670;&#160;</a></span>mixer_remove_soft_event()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void mixer_remove_soft_event </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="mixer_8h.html#a4fd4fb768b3bd352891ff68e789dfbd2">MixerSoftEvent</a>&#160;</td>
+          <td class="paramname"><em>cb</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>ctx</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Deregister a soft callback. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000303">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">cb</td><td>Callback registered via <a class="el" href="mixer_8h.html#ae720743cde6d1d6be0847bb9b15d220c" title="Register a per-round soft callback.">mixer_add_soft_event</a> </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">ctx</td><td>Opaque pointer registered with the callback </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="a609e245914f93ed2070304e68b42db6a" name="a609e245914f93ed2070304e68b42db6a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a609e245914f93ed2070304e68b42db6a">&#9670;&#160;</a></span>mixer_throttle()</h2>
 
@@ -1132,11 +2202,12 @@ Opaque context pointer to pass to the callback. </td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Throttle the mixer by specifying the maximum number of samples it can generate. </p>
+<p>Throttle the mixer by specifying the maximum number of samples. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000299">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it. it can generate.</dd></dl>
 <p>This is an advanced function that should only be called to achieve perfect sync between a possibly slowing-down video and audio.</p>
 <p>Normally, once the mixer is initiated and assuming mixer_poll is called frequently enough, the audio will playback uninterrupted, irrespective of any slow down in the main loop. This is the expected behavior for background music for instance, but it does not work for video players or cut-scenes in which the music must be perfectly synchronized with the video. If the video happens to slowdown, the music will desynchronize.</p>
 <p>mixer_throttle sets a budget of samples that the mixer is allowed to generate. Every time the function is called, the specified number of samples is added to the budget. Every time the mixer playbacks the channel, the budget is decreased. If the budget reaches zero, the mixer will automatically pause playback until the budget is increased again, possibly creating audio cracks.</p>
-<p>To achieve perfect sync, call <a class="el" href="mixer_8h.html#a609e245914f93ed2070304e68b42db6a" title="Throttle the mixer by specifying the maximum number of samples it can generate.">mixer_throttle</a> every time a video frame was generated, and pass the maximum number of samples that the mixer is allowed to produce. Typically, you will want to pass the audio samplerate divided by the video framerate, which corresponds to the number of audio samples per video frame.</p>
+<p>To achieve perfect sync, call <a class="el" href="mixer_8h.html#a609e245914f93ed2070304e68b42db6a" title="Throttle the mixer by specifying the maximum number of samples.">mixer_throttle</a> every time a video frame was generated, and pass the maximum number of samples that the mixer is allowed to produce. Typically, you will want to pass the audio samplerate divided by the video framerate, which corresponds to the number of audio samples per video frame.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">num_samples</td><td>Number of new samples that the mixer is allowed to produce for this channel. This will be added to whatever allowance was left.</td></tr>
@@ -1164,9 +2235,10 @@ Opaque context pointer to pass to the callback. </td></tr>
 </div><div class="memdoc">
 
 <p>Unthrottle the mixer. </p>
-<p>Switch back the mixer to the default unthrottled status, after some calls to <a class="el" href="mixer_8h.html#a609e245914f93ed2070304e68b42db6a" title="Throttle the mixer by specifying the maximum number of samples it can generate.">mixer_throttle</a>.</p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000300">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
+<p>Switch back the mixer to the default unthrottled status, after some calls to <a class="el" href="mixer_8h.html#a609e245914f93ed2070304e68b42db6a" title="Throttle the mixer by specifying the maximum number of samples.">mixer_throttle</a>.</p>
 <p>After calling <a class="el" href="mixer_8h.html#a6b982bb4ca20959ae4a12aec9e014c8c" title="Unthrottle the mixer.">mixer_unthrottle</a>, the mixer will no longer be limited and will produce all the samples requested via <a class="el" href="mixer_8h.html#a49057735de9c408b332975d72c05390c" title="Run the mixer to produce output samples.">mixer_poll</a>.</p>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="mixer_8h.html#a609e245914f93ed2070304e68b42db6a" title="Throttle the mixer by specifying the maximum number of samples it can generate.">mixer_throttle</a> </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="mixer_8h.html#a609e245914f93ed2070304e68b42db6a" title="Throttle the mixer by specifying the maximum number of samples.">mixer_throttle</a> </dd></dl>
 
 </div>
 </div>
@@ -1199,9 +2271,9 @@ Opaque context pointer to pass to the callback. </td></tr>
 <p>Run the mixer to produce output samples. </p>
 <p>This function will fetch the required samples from all the channels and mix them together according to each channel's settings. The output will be written into the specified buffer (out). nsamples is the number of samples that should be produced.</p>
 <p>A common pattern would be to call <a class="el" href="group__audio.html#ga8aee840f13aa6903fef4c092d0ffa704" title="Start writing to the first free internal buffer.">audio_write_begin</a> to obtain an audio buffer's pointer, and pass it to mixer_poll.</p>
-<p>mixer_poll performs mixing using RSP. If RSP is busy, mixer_poll will spin-wait until the RSP is free, to perform audio processing.</p>
+<p>mixer_poll performs mixing using RSP: it enqueues the mix commands in the high priority queue and waits for the RSP to execute them before returning.</p>
 <p>Since the N64 AI can only be fed with an even number of samples, mixer_poll does not accept odd numbers.</p>
-<p>This function will respect throttling, if configured via <a class="el" href="mixer_8h.html#a609e245914f93ed2070304e68b42db6a" title="Throttle the mixer by specifying the maximum number of samples it can generate.">mixer_throttle</a>. In this case, it may produce less samples than requested, depending on the current allowance. The rest of the output buffer will be zeroed.</p>
+<p>This function will respect throttling, if configured via <a class="el" href="mixer_8h.html#a609e245914f93ed2070304e68b42db6a" title="Throttle the mixer by specifying the maximum number of samples.">mixer_throttle</a>. In this case, it may produce less samples than requested, depending on the current allowance. The rest of the output buffer will be zeroed.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">out</td><td>Output buffer were samples will be written. </td></tr>
@@ -1212,8 +2284,8 @@ Opaque context pointer to pass to the callback. </td></tr>
 
 </div>
 </div>
-<a id="ab63653dee62b67707c375c54aed98079" name="ab63653dee62b67707c375c54aed98079"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab63653dee62b67707c375c54aed98079">&#9670;&#160;</a></span>mixer_try_play()</h2>
+<a id="acf17ef188e199bf6bf26109d60225905" name="acf17ef188e199bf6bf26109d60225905"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acf17ef188e199bf6bf26109d60225905">&#9670;&#160;</a></span>mixer_try_play()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1221,13 +2293,15 @@ Opaque context pointer to pass to the callback. </td></tr>
         <tr>
           <td class="memname">void mixer_try_play </td>
           <td>(</td>
+          <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Request the mixer to try and write audio samples to be played, if possible. </p>
+<p>Request the mixer to try and write audio samples to be played,. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000301">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it. if possible.</dd></dl>
 <p>This function is a user helper for asking the mixer and audio subsystems to play audio during a game frame. You should call this function many times during one frame (eg. during the render step or after processing each game object) as many times as necessary. Not polling the audio subsystem often enough will result in audio stutter. </p>
 
 </div>
@@ -1235,7 +2309,7 @@ Opaque context pointer to pass to the callback. </td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jun 10 2026 22:36:48 for libdragon by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
+Generated on Fri Aug 21 2026 21:04:47 for libdragon by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
 </small></address>
 </body>
 </html>

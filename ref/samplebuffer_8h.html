@@ -95,12 +95,14 @@ Data Structures</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:a31279a3669c49567f9a00608cf37fd7f" id="r_a31279a3669c49567f9a00608cf37fd7f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="samplebuffer_8h.html#a31279a3669c49567f9a00608cf37fd7f">SAMPLES_BPS_SHIFT</a>(buf)&#160;&#160;&#160;((buf)-&gt;ptr_and_flags &amp; 3)</td></tr>
-<tr class="separator:a31279a3669c49567f9a00608cf37fd7f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6b5bbcbef2291aa1528e5846a867394b" id="r_a6b5bbcbef2291aa1528e5846a867394b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="samplebuffer_8h.html#a6b5bbcbef2291aa1528e5846a867394b">SAMPLES_PTR</a>(buf)&#160;&#160;&#160;(void*)((buf)-&gt;ptr_and_flags ^ <a class="el" href="samplebuffer_8h.html#a31279a3669c49567f9a00608cf37fd7f">SAMPLES_BPS_SHIFT</a>(buf))</td></tr>
+<tr class="memitem:a6b5bbcbef2291aa1528e5846a867394b" id="r_a6b5bbcbef2291aa1528e5846a867394b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="samplebuffer_8h.html#a6b5bbcbef2291aa1528e5846a867394b">SAMPLES_PTR</a>(buf)&#160;&#160;&#160;((void*)(uintptr_t)((buf)-&gt;ptr_and_flags))</td></tr>
 <tr class="separator:a6b5bbcbef2291aa1528e5846a867394b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1d53989292b861ff3e246c550fc9be31" id="r_a1d53989292b861ff3e246c550fc9be31"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="samplebuffer_8h.html#a1d53989292b861ff3e246c550fc9be31">SAMPLES_PTR_MAKE</a>(ptr,  bps)&#160;&#160;&#160;((<a class="el" href="samplebuffer_8h.html#aef020c0b192c534ea79e1f94c8c7228f">sample_ptr_t</a>)(ptr) | (bps))</td></tr>
-<tr class="separator:a1d53989292b861ff3e246c550fc9be31"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaeb4959dd3dc17bc1df114726ba1fc43" id="r_aaeb4959dd3dc17bc1df114726ba1fc43"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="samplebuffer_8h.html#aaeb4959dd3dc17bc1df114726ba1fc43">SAMPLEBUFFER_MARGIN_UNITS</a>&#160;&#160;&#160;128</td></tr>
+<tr class="separator:aaeb4959dd3dc17bc1df114726ba1fc43"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a59e80f41a897302f694ba33cc958e043" id="r_a59e80f41a897302f694ba33cc958e043"><td class="memItemLeft" align="right" valign="top"><a id="a59e80f41a897302f694ba33cc958e043" name="a59e80f41a897302f694ba33cc958e043"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>SAMPLEBUFFER_PREFETCH_UNITS</b>&#160;&#160;&#160;<a class="el" href="samplebuffer_8h.html#aaeb4959dd3dc17bc1df114726ba1fc43">SAMPLEBUFFER_MARGIN_UNITS</a></td></tr>
+<tr class="memdesc:a59e80f41a897302f694ba33cc958e043"><td class="mdescLeft">&#160;</td><td class="mdescRight">Units that <a class="el" href="samplebuffer_8h.html#adc4195a62a4fba4a07434e1db8075917" title="Start fetching samples that will be requested later (zero-wait).">samplebuffer_prefetch</a> keeps ready ahead of the mixer. <br /></td></tr>
+<tr class="separator:a59e80f41a897302f694ba33cc958e043"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="typedef-members" name="typedef-members"></a>
 Typedefs</h2></td></tr>
@@ -109,29 +111,40 @@ Typedefs</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
+<tr class="memitem:a4df43ba113dc4268cf33c22974e8423b" id="r_a4df43ba113dc4268cf33c22974e8423b"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="samplebuffer_8h.html#a4df43ba113dc4268cf33c22974e8423b">samplebuffer_margin_units</a> (int append_units)</td></tr>
+<tr class="memdesc:a4df43ba113dc4268cf33c22974e8423b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Size of the mirrored tail, in units, for the given append granularity.  <br /></td></tr>
+<tr class="separator:a4df43ba113dc4268cf33c22974e8423b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa58ac1191442fa5f0ae4e811dce5fe66" id="r_aa58ac1191442fa5f0ae4e811dce5fe66"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="samplebuffer_8h.html#aa58ac1191442fa5f0ae4e811dce5fe66">samplebuffer_init</a> (<a class="el" href="samplebuffer_8h.html#structsamplebuffer__t">samplebuffer_t</a> *buf, uint8_t *uncached_mem, int size, int state_size)</td></tr>
 <tr class="separator:aa58ac1191442fa5f0ae4e811dce5fe66"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7252a6b63af132338f6e1b8a10cb1c03" id="r_a7252a6b63af132338f6e1b8a10cb1c03"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="samplebuffer_8h.html#a7252a6b63af132338f6e1b8a10cb1c03">samplebuffer_is_inited</a> (<a class="el" href="samplebuffer_8h.html#structsamplebuffer__t">samplebuffer_t</a> *buf)</td></tr>
-<tr class="memdesc:a7252a6b63af132338f6e1b8a10cb1c03"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return true if the samplebuffer is initialized.  <br /></td></tr>
+<tr class="memitem:a7252a6b63af132338f6e1b8a10cb1c03" id="r_a7252a6b63af132338f6e1b8a10cb1c03"><td class="memItemLeft" align="right" valign="top"><a id="a7252a6b63af132338f6e1b8a10cb1c03" name="a7252a6b63af132338f6e1b8a10cb1c03"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>samplebuffer_is_inited</b> (<a class="el" href="samplebuffer_8h.html#structsamplebuffer__t">samplebuffer_t</a> *buf)</td></tr>
+<tr class="memdesc:a7252a6b63af132338f6e1b8a10cb1c03"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return true if the samplebuffer is initialized. <br /></td></tr>
 <tr class="separator:a7252a6b63af132338f6e1b8a10cb1c03"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab36c29dc062a982b02d90c8515121b9a" id="r_ab36c29dc062a982b02d90c8515121b9a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="samplebuffer_8h.html#ab36c29dc062a982b02d90c8515121b9a">samplebuffer_set_bps</a> (<a class="el" href="samplebuffer_8h.html#structsamplebuffer__t">samplebuffer_t</a> *buf, int bps)</td></tr>
-<tr class="memdesc:ab36c29dc062a982b02d90c8515121b9a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configure the bit width of the samples stored in the buffer.  <br /></td></tr>
-<tr class="separator:ab36c29dc062a982b02d90c8515121b9a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad5df93d76722cb676388d11f3634e4af" id="r_ad5df93d76722cb676388d11f3634e4af"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="samplebuffer_8h.html#ad5df93d76722cb676388d11f3634e4af">samplebuffer_set_unit_bytes</a> (<a class="el" href="samplebuffer_8h.html#structsamplebuffer__t">samplebuffer_t</a> *buf, int unit_bytes)</td></tr>
+<tr class="memdesc:ad5df93d76722cb676388d11f3634e4af"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configure the logical unit size (bytes per wpos/widx step).  <br /></td></tr>
+<tr class="separator:ad5df93d76722cb676388d11f3634e4af"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af568e1f6ef1e00daeaa84e235a21c713" id="r_af568e1f6ef1e00daeaa84e235a21c713"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="samplebuffer_8h.html#af568e1f6ef1e00daeaa84e235a21c713">samplebuffer_set_waveform</a> (<a class="el" href="samplebuffer_8h.html#structsamplebuffer__t">samplebuffer_t</a> *buf, <a class="el" href="mixer_8h.html#structwaveform__t">waveform_t</a> *wave, <a class="el" href="mixer_8h.html#ab0e995bf04880a3e14f689f48fdb2475">WaveformRead</a> <a class="el" href="system_8c.html#a0b746547993d7baf3b092ae620bfa666">read</a>)</td></tr>
 <tr class="separator:af568e1f6ef1e00daeaa84e235a21c713"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7b810c10cdb970e8bebbfddce80fdea1" id="r_a7b810c10cdb970e8bebbfddce80fdea1"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="samplebuffer_8h.html#a7b810c10cdb970e8bebbfddce80fdea1">samplebuffer_get</a> (<a class="el" href="samplebuffer_8h.html#structsamplebuffer__t">samplebuffer_t</a> *buf, int wpos, int *wlen)</td></tr>
 <tr class="memdesc:a7b810c10cdb970e8bebbfddce80fdea1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a pointer to specific set of samples in the buffer (zero-copy).  <br /></td></tr>
 <tr class="separator:a7b810c10cdb970e8bebbfddce80fdea1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adc4195a62a4fba4a07434e1db8075917" id="r_adc4195a62a4fba4a07434e1db8075917"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="samplebuffer_8h.html#adc4195a62a4fba4a07434e1db8075917">samplebuffer_prefetch</a> (<a class="el" href="samplebuffer_8h.html#structsamplebuffer__t">samplebuffer_t</a> *buf, int wpos, int wlen)</td></tr>
+<tr class="memdesc:adc4195a62a4fba4a07434e1db8075917"><td class="mdescLeft">&#160;</td><td class="mdescRight">Start fetching samples that will be requested later (zero-wait).  <br /></td></tr>
+<tr class="separator:adc4195a62a4fba4a07434e1db8075917"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad6f97f02099021c43794059974f359dd" id="r_ad6f97f02099021c43794059974f359dd"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="samplebuffer_8h.html#ad6f97f02099021c43794059974f359dd">samplebuffer_align_units</a> (const <a class="el" href="samplebuffer_8h.html#structsamplebuffer__t">samplebuffer_t</a> *buf)</td></tr>
+<tr class="memdesc:ad6f97f02099021c43794059974f359dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Granularity, in units, that keeps appends 8-byte aligned.  <br /></td></tr>
+<tr class="separator:ad6f97f02099021c43794059974f359dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a392b4b826167c5157e983a18493cd4b5" id="r_a392b4b826167c5157e983a18493cd4b5"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="samplebuffer_8h.html#a392b4b826167c5157e983a18493cd4b5">samplebuffer_append</a> (<a class="el" href="samplebuffer_8h.html#structsamplebuffer__t">samplebuffer_t</a> *buf, int wlen)</td></tr>
 <tr class="memdesc:a392b4b826167c5157e983a18493cd4b5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Append samples into the buffer (zero-copy).  <br /></td></tr>
 <tr class="separator:a392b4b826167c5157e983a18493cd4b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac38268641091505733db16c3b79c569d" id="r_ac38268641091505733db16c3b79c569d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="samplebuffer_8h.html#ac38268641091505733db16c3b79c569d">samplebuffer_undo</a> (<a class="el" href="samplebuffer_8h.html#structsamplebuffer__t">samplebuffer_t</a> *buf, int wlen)</td></tr>
-<tr class="memdesc:ac38268641091505733db16c3b79c569d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remove the a specified number of samples from the tail of the buffer.  <br /></td></tr>
+<tr class="memitem:ac38268641091505733db16c3b79c569d" id="r_ac38268641091505733db16c3b79c569d"><td class="memItemLeft" align="right" valign="top"><a id="ac38268641091505733db16c3b79c569d" name="ac38268641091505733db16c3b79c569d"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>samplebuffer_undo</b> (<a class="el" href="samplebuffer_8h.html#structsamplebuffer__t">samplebuffer_t</a> *buf, int wlen)</td></tr>
+<tr class="memdesc:ac38268641091505733db16c3b79c569d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remove the a specified number of samples from the tail of the buffer. <br /></td></tr>
 <tr class="separator:ac38268641091505733db16c3b79c569d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af577070f844a4ab787911a647bf51f22" id="r_af577070f844a4ab787911a647bf51f22"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="samplebuffer_8h.html#af577070f844a4ab787911a647bf51f22">samplebuffer_discard</a> (<a class="el" href="samplebuffer_8h.html#structsamplebuffer__t">samplebuffer_t</a> *buf, int wpos)</td></tr>
-<tr class="separator:af577070f844a4ab787911a647bf51f22"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae3fe6abffc750a427326ed2490a64067" id="r_ae3fe6abffc750a427326ed2490a64067"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="samplebuffer_8h.html#ae3fe6abffc750a427326ed2490a64067">samplebuffer_flush</a> (<a class="el" href="samplebuffer_8h.html#structsamplebuffer__t">samplebuffer_t</a> *buf)</td></tr>
 <tr class="separator:ae3fe6abffc750a427326ed2490a64067"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3bca09756ff9879fbf8382bee94ea70a" id="r_a3bca09756ff9879fbf8382bee94ea70a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="samplebuffer_8h.html#a3bca09756ff9879fbf8382bee94ea70a">samplebuffer_dma_wait</a> (<a class="el" href="samplebuffer_8h.html#structsamplebuffer__t">samplebuffer_t</a> *buf)</td></tr>
+<tr class="separator:a3bca09756ff9879fbf8382bee94ea70a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4648f973933db48c4aa1c3252333e8c7" id="r_a4648f973933db48c4aa1c3252333e8c7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="samplebuffer_8h.html#a4648f973933db48c4aa1c3252333e8c7">samplebuffer_close</a> (<a class="el" href="samplebuffer_8h.html#structsamplebuffer__t">samplebuffer_t</a> *buf)</td></tr>
 <tr class="separator:a4648f973933db48c4aa1c3252333e8c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
@@ -150,10 +163,10 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<div class="textblock"><p><a class="el" href="samplebuffer_8h.html#structsamplebuffer__t">samplebuffer_t</a> is a circular buffer of samples. It is used by the mixer to store and cache the samples required for playback on each channel. The mixer creates a sample buffer for each initialized channel. The size of the buffers is calculated for optimal playback, and might grow depending on channel usage (what waveforms are played on each channel).</p>
-<p>The mixer follows a "pull" architecture. During mixer_poll, it will call <a class="el" href="samplebuffer_8c.html#a7b810c10cdb970e8bebbfddce80fdea1" title="Get a pointer to specific set of samples in the buffer (zero-copy).">samplebuffer_get()</a> to extract samples from the buffer. If the required samples are not available, the sample buffer will callback the waveform decoder to produce more samples, through the WaveformRead API. The waveform read function will push samples into the buffer via samplebuffer_append, so that they become available for the mixer. The decoder can be configured with samplebuffer_set_decoder.</p>
-<p>The current implementation of samplebuffer does not achieve full zero copy, because when the buffer is full, it is flushed and samples that need to be preserved (that is, already in the buffer but not yet played back) are copied back at the beginning of the buffer with the CPU. This limitation exists because the RSP ucode (rsp_audio.S) isn't currently able to "wrap around" in the sample buffer. In future, this limitation could be lifted to achieve full zero copy.</p>
-<p>The sample buffer tries to always stay 8-byte aligned to simplify operations of decoders that might need to use DMA transfers (either PI DMA or RSP DMA). To guarantee this property, <a class="el" href="mixer_8h.html#ab0e995bf04880a3e14f689f48fdb2475" title="Waveform callback function invoked by the mixer to read/generate samples.">WaveformRead</a> must collaborate by decoding the requested number of samples. If WaveformRead decodes a different number of samples, the alignment might be lost. Moreover, it always guarantees that the buffer has the same 2-byte phase of the waveforms (that is, odd samples of the waveforms are stored at odd addresses in memory); this is the minimal property required by <a class="el" href="group__dma.html#ga9c79d4f41eacb14335a0fac57fecf0a0" title="Read data from a peripheral through PI DMA, waiting for completion.">dma_read</a> (libdragon's optimized PI DMA transfer for unaligned addresses).</p>
+<div class="textblock"><p><a class="el" href="samplebuffer_8h.html#structsamplebuffer__t">samplebuffer_t</a> holds samples used by the mixer to feed the RSP.</p>
+<p>The mixer follows a "pull" architecture. During mixer_poll, it will call <a class="el" href="samplebuffer_8c.html#a7b810c10cdb970e8bebbfddce80fdea1" title="Get a pointer to specific set of samples in the buffer (zero-copy).">samplebuffer_get()</a> to extract samples from the buffer. If the required samples are not available, the sample buffer will callback the waveform decoder to produce more samples, through the WaveformRead API. The waveform read function will push samples into the buffer via samplebuffer_append, so that they become available for the mixer.</p>
+<p>Layout: <code>[0, size)</code> is the circular sample area; <code>[size, size+margin_units)</code> is a contiguous spill/mirror region so that any append of up to <a class="el" href="samplebuffer_8h.html#af22fea33dc675fdc9e5d8cc5d8467fa3">margin_units</a> units and any <a class="el" href="samplebuffer_8c.html#a7b810c10cdb970e8bebbfddce80fdea1" title="Get a pointer to specific set of samples in the buffer (zero-copy).">samplebuffer_get</a> window of up to <a class="el" href="samplebuffer_8h.html#aaeb4959dd3dc17bc1df114726ba1fc43">SAMPLEBUFFER_MARGIN_UNITS</a> units is always linear in physical memory (required by RSP DMA). size * unit_bytes is kept a multiple of 8 so that absolute waveform positions preserve their 2-byte phase in the samplebuffer (dma_read / dfs compatibility).</p>
+<p>Physical cleanup has a single home: <a class="el" href="samplebuffer_8c.html#a7b810c10cdb970e8bebbfddce80fdea1" title="Get a pointer to specific set of samples in the buffer (zero-copy).">samplebuffer_get</a> mirrors the leading units into the tail when a window straddles the wrap, and a pending spill from a wrapping append is flushed back to the start before the next get/append/flush/undo. The samplebuffer itself does not wait on the RSP; that is the mixer's job (see mixer_poll_async).</p>
 <p>In general, the sample buffer assumes that the contained data is committed to physical memory, not just CPU cache. It is responsibility of the client to flush DMA cache (via data_cache_writeback) if samples are written via CPU. </p>
 </div><table class="fieldtable">
 <tr><th colspan="3">Data Fields</th></tr>
@@ -162,62 +175,84 @@ Functions</h2></td></tr>
 <td class="fieldname">
 ptr_and_flags</td>
 <td class="fielddoc">
-<p>Tagged pointer to the actual buffer. Lower bits contain bit-per-shift. </p>
+<p>Pointer to the sample area (8-byte aligned, uncached). </p>
+</td></tr>
+<tr><td class="fieldtype">
+<a id="a7359e367ed028a6e0172ceb0932ef5da" name="a7359e367ed028a6e0172ceb0932ef5da"></a>uint8_t</td>
+<td class="fieldname">
+unit_bytes</td>
+<td class="fielddoc">
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000415">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it. Bytes per logical unit counted by wpos/widx/size. PCM: 1, 2, or 4. Compressed frame stores: e.g. 9 for mono VADPCM. </dd></dl>
 </td></tr>
 <tr><td class="fieldtype">
 <a id="a426c286528e201d0b4c555819a4632cd" name="a426c286528e201d0b4c555819a4632cd"></a>int</td>
 <td class="fieldname">
 size</td>
 <td class="fielddoc">
-<p>Size of the buffer (in samples). </p>
+<p>Usable size in units (excludes the tail margin). </p>
+</td></tr>
+<tr><td class="fieldtype">
+<a id="a06e61abc52d4c5698070bbe3fb8d269f" name="a06e61abc52d4c5698070bbe3fb8d269f"></a>int</td>
+<td class="fieldname">
+append_units</td>
+<td class="fielddoc">
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000416">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it. Granularity in units of the appends done by the producer, or 0 if unknown: declared via <a class="el" href="mixer_8h.html#a81dc704ba906cecd6e9878a27d1228b1" title="Granularity in units of the appends made by read (0 if unknown).">waveform_t::append_units</a>. The mirrored tail is sized to <a class="el" href="samplebuffer_8h.html#af22fea33dc675fdc9e5d8cc5d8467fa3">margin_units</a> = MAX(<a class="el" href="samplebuffer_8h.html#aaeb4959dd3dc17bc1df114726ba1fc43">SAMPLEBUFFER_MARGIN_UNITS</a>, this), so a single append of that size is always contiguous. </dd></dl>
+</td></tr>
+<tr><td class="fieldtype">
+<a id="af22fea33dc675fdc9e5d8cc5d8467fa3" name="af22fea33dc675fdc9e5d8cc5d8467fa3"></a>int</td>
+<td class="fieldname">
+margin_units</td>
+<td class="fielddoc">
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000417">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it. Size of the mirrored tail in units: MAX(<a class="el" href="samplebuffer_8h.html#aaeb4959dd3dc17bc1df114726ba1fc43">SAMPLEBUFFER_MARGIN_UNITS</a>, <a class="el" href="samplebuffer_8h.html#a06e61abc52d4c5698070bbe3fb8d269f">append_units</a>). Fixed for the life of a configuration. </dd></dl>
 </td></tr>
 <tr><td class="fieldtype">
 <a id="a73e969a4d788679d42b3abae10258ada" name="a73e969a4d788679d42b3abae10258ada"></a>int</td>
 <td class="fieldname">
 wpos</td>
 <td class="fielddoc">
-<p>Absolute position in the waveform of the first sample in the sample buffer (the sample at index 0). It keeps track of which part of the waveform this sample buffer contains. </p>
+<p>Absolute position in the waveform of the first sample currently valid in the samplebuffer. </p>
 </td></tr>
 <tr><td class="fieldtype">
 <a id="acddf24dc95038f2a3c91119d224cb0b4" name="acddf24dc95038f2a3c91119d224cb0b4"></a>int</td>
 <td class="fieldname">
 widx</td>
 <td class="fielddoc">
-<p>Write pointer in the sample buffer (expressed as index of samples). Since sample buffers are always filled from index 0, it is also the number of samples stored in the buffer. </p>
+<p>Number of valid units currently stored in the samplebuffer. </p>
 </td></tr>
 <tr><td class="fieldtype">
 <a id="a81e7365185cf66c85fe8abf47aa34a4d" name="a81e7365185cf66c85fe8abf47aa34a4d"></a>int</td>
 <td class="fieldname">
 ridx</td>
 <td class="fielddoc">
-<p>Read pointer in the sample buffer (expressed as index of samples). It remembers which sample was last read. Assuming a forward streaming, it is used by the sample buffer to discard unused samples when not needed anymore. </p>
+<p>Read cursor relative to wpos (first unit still needed for playback). </p>
 </td></tr>
 <tr><td class="fieldtype">
 <a id="aba83de716010d8ba758a9be365af0fa4" name="aba83de716010d8ba758a9be365af0fa4"></a>int</td>
 <td class="fieldname">
 wnext</td>
 <td class="fielddoc">
-<p>Value of the "next" sample to be loaded into the sample buffer, to continue a linear reading. This is used to notify the wv_read function whether a seeking was performed or not. </p>
+<p>Next absolute position expected for a linear read (for seeking detection). </p>
 </td></tr>
 <tr><td class="fieldtype">
 <a id="ab079aed3b620a7d632ae16bc49522035" name="ab079aed3b620a7d632ae16bc49522035"></a>void *</td>
 <td class="fieldname">
 state</td>
 <td class="fielddoc">
-Pointer to the state of the waveform decoder. <p>The waveform decoder can use this pointer to store its internal state. </p>
+Pointer to the state of the waveform decoder. <dl class="preview"><dt><b><a class="el" href="preview.html#_preview000418">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it. </dd></dl>
 </td></tr>
 <tr><td class="fieldtype">
 <a id="a377c0897aa2feeb78093629d126bfad9" name="a377c0897aa2feeb78093629d126bfad9"></a>int</td>
 <td class="fieldname">
 state_size</td>
 <td class="fielddoc">
-Allocated state size. </td></tr>
+Allocated state size. <dl class="preview"><dt><b><a class="el" href="preview.html#_preview000419">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it. </dd></dl>
+</td></tr>
 <tr><td class="fieldtype">
 <a id="ad7559dff5a5d40a60a1bb66dd9a13414" name="ad7559dff5a5d40a60a1bb66dd9a13414"></a><a class="el" href="mixer_8h.html#structwaveform__t">waveform_t</a> *</td>
 <td class="fieldname">
 wave</td>
 <td class="fielddoc">
-<p>Waveform being played back on this sample buffer. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000420">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it. Waveform being played back on this sample buffer. </dd></dl>
 </td></tr>
 <tr><td class="fieldtype">
 <a id="a9bc76559025664618f3fcc8c3abde8e5" name="a9bc76559025664618f3fcc8c3abde8e5"></a><a class="el" href="mixer_8h.html#ab0e995bf04880a3e14f689f48fdb2475">WaveformRead</a></td>
@@ -227,35 +262,38 @@ wv_read</td>
 <p>wv_read is invoked by samplebuffer_get whenever more samples are requested by the mixer. See <a class="el" href="mixer_8h.html#ab0e995bf04880a3e14f689f48fdb2475" title="Waveform callback function invoked by the mixer to read/generate samples.">WaveformRead</a> for more information. </p>
 </td></tr>
 <tr><td class="fieldtype">
-<a id="aaa9bb9a0ba01663a397ea5b4d0cdb808" name="aaa9bb9a0ba01663a397ea5b4d0cdb808"></a>uint32_t</td>
+<a id="a6f6bd5523d8bb4d56c8312f6b8ced682" name="a6f6bd5523d8bb4d56c8312f6b8ced682"></a>uint64_t</td>
 <td class="fieldname">
-wave_uuid</td>
+dma_ticket</td>
 <td class="fielddoc">
-UUID of the waveform being played back on this sample buffer. </td></tr>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000421">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it. Ticket of the most recent async PI DMA into this buffer (0 = none). Producers set it when issuing dma_read_async; consumers wait via <a class="el" href="samplebuffer_8c.html#a3bca09756ff9879fbf8382bee94ea70a">samplebuffer_dma_wait</a> before touching the bytes or freeing memory. </dd></dl>
+</td></tr>
+<tr><td class="fieldtype">
+<a id="a3894c2f89bf0b3cf2dc1519892ab14e7" name="a3894c2f89bf0b3cf2dc1519892ab14e7"></a>int</td>
+<td class="fieldname">
+capacity_bytes</td>
+<td class="fielddoc">
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000422">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it. Total bytes allocated for the sample area (usable size + margin). </dd></dl>
+</td></tr>
+<tr><td class="fieldtype">
+<a id="a263bfddd6f0270cfecaff92a994d8405" name="a263bfddd6f0270cfecaff92a994d8405"></a>int</td>
+<td class="fieldname">
+head</td>
+<td class="fielddoc">
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000423">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it. Physical index (0 .. size-1) of <a class="el" href="samplebuffer_8h.html#a73e969a4d788679d42b3abae10258ada">wpos</a> in the circular sample area. A unit at relative offset <code>rel</code> from wpos lives at <code>(head + rel) % size</code>. Advances when the oldest units are discarded. </dd></dl>
+</td></tr>
+<tr><td class="fieldtype">
+<a id="a3c243fe2953e1e8f510f4db9bde46976" name="a3c243fe2953e1e8f510f4db9bde46976"></a>int</td>
+<td class="fieldname">
+spill</td>
+<td class="fielddoc">
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000424">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it. Units of the latest append that spilled past <a class="el" href="samplebuffer_8h.html#a426c286528e201d0b4c555819a4632cd">size</a> into the margin and still need to be copied back to the start of the sample area. 0 means nothing pending. Flushed by the next get/append/flush/undo. </dd></dl>
+</td></tr>
 </table>
 
 </div>
 </div>
 <h2 class="groupheader">Macro Definition Documentation</h2>
-<a id="a31279a3669c49567f9a00608cf37fd7f" name="a31279a3669c49567f9a00608cf37fd7f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a31279a3669c49567f9a00608cf37fd7f">&#9670;&#160;</a></span>SAMPLES_BPS_SHIFT</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define SAMPLES_BPS_SHIFT</td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">buf</td><td>)</td>
-          <td>&#160;&#160;&#160;((buf)-&gt;ptr_and_flags &amp; 3)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>SAMPLES_BPS_SHIFT extracts the byte-per-sample information from a sample_ptr_t. Byte-per-sample is encoded as shift value, so the actual number of bits is 1 &lt;&lt; BPS. Valid shift values are 0, 1, 2 (which corresponds to 1, 2 or 4 bytes per sample). </p>
-
-</div>
-</div>
 <a id="a6b5bbcbef2291aa1528e5846a867394b" name="a6b5bbcbef2291aa1528e5846a867394b"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a6b5bbcbef2291aa1528e5846a867394b">&#9670;&#160;</a></span>SAMPLES_PTR</h2>
 
@@ -267,40 +305,26 @@ UUID of the waveform being played back on this sample buffer. </td></tr>
           <td>(</td>
           <td class="paramtype">&#160;</td>
           <td class="paramname">buf</td><td>)</td>
-          <td>&#160;&#160;&#160;(void*)((buf)-&gt;ptr_and_flags ^ <a class="el" href="samplebuffer_8h.html#a31279a3669c49567f9a00608cf37fd7f">SAMPLES_BPS_SHIFT</a>(buf))</td>
+          <td>&#160;&#160;&#160;((void*)(uintptr_t)((buf)-&gt;ptr_and_flags))</td>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>SAMPLES_PTR extract the raw void* to the sample array. The size of array is not encoded in the tagged pointer. Notice that it is implemented with a XOR because on MIPS it's faster than using a reverse mask. </p>
+<p>Extract the raw void* to the sample array from a samplebuffer. </p>
 
 </div>
 </div>
-<a id="a1d53989292b861ff3e246c550fc9be31" name="a1d53989292b861ff3e246c550fc9be31"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1d53989292b861ff3e246c550fc9be31">&#9670;&#160;</a></span>SAMPLES_PTR_MAKE</h2>
+<a id="aaeb4959dd3dc17bc1df114726ba1fc43" name="aaeb4959dd3dc17bc1df114726ba1fc43"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaeb4959dd3dc17bc1df114726ba1fc43">&#9670;&#160;</a></span>SAMPLEBUFFER_MARGIN_UNITS</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define SAMPLES_PTR_MAKE</td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">ptr, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">bps&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td>&#160;&#160;&#160;((<a class="el" href="samplebuffer_8h.html#aef020c0b192c534ea79e1f94c8c7228f">sample_ptr_t</a>)(ptr) | (bps))</td>
+          <td class="memname">#define SAMPLEBUFFER_MARGIN_UNITS&#160;&#160;&#160;128</td>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>SAMPLES_PTR_MAKE create a tagged pointer, given a pointer to an array of samples and a byte-per-sample value (encoded as shift value). </p>
+<p>Maximum window (in units) that <a class="el" href="samplebuffer_8h.html#a7b810c10cdb970e8bebbfddce80fdea1" title="Get a pointer to specific set of samples in the buffer (zero-copy).">samplebuffer_get</a> may request across the ring wrap. Matches one MIX_CHANNEL input span plus RSP sample-cache overread. Also the default size of the mirrored tail (see <a class="el" href="samplebuffer_8h.html#af22fea33dc675fdc9e5d8cc5d8467fa3">samplebuffer_t::margin_units</a>). </p>
 
 </div>
 </div>
@@ -316,11 +340,41 @@ UUID of the waveform being played back on this sample buffer. </td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Tagged pointer to an array of samples. It contains both the void* sample pointer, and byte-per-sample information (encoded as shift value). </p>
+<p>Pointer to the sample area (historically a tagged pointer; the low bits are unused and the width of each unit lives in <a class="el" href="samplebuffer_8h.html#a7359e367ed028a6e0172ceb0932ef5da">samplebuffer_t::unit_bytes</a>). </p>
 
 </div>
 </div>
 <h2 class="groupheader">Function Documentation</h2>
+<a id="a4df43ba113dc4268cf33c22974e8423b" name="a4df43ba113dc4268cf33c22974e8423b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4df43ba113dc4268cf33c22974e8423b">&#9670;&#160;</a></span>samplebuffer_margin_units()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int samplebuffer_margin_units </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>append_units</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Size of the mirrored tail, in units, for the given append granularity. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000411">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
+<p>The caller that allocates the memory of a samplebuffer has to add this on top of the usable size it wants (see <a class="el" href="samplebuffer_8h.html#af22fea33dc675fdc9e5d8cc5d8467fa3">samplebuffer_t::margin_units</a>). </p>
+
+</div>
+</div>
 <a id="aa58ac1191442fa5f0ae4e811dce5fe66" name="aa58ac1191442fa5f0ae4e811dce5fe66"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aa58ac1191442fa5f0ae4e811dce5fe66">&#9670;&#160;</a></span>samplebuffer_init()</h2>
 
@@ -360,7 +414,7 @@ UUID of the waveform being played back on this sample buffer. </td></tr>
 </div><div class="memdoc">
 <p>Initialize the sample buffer by binding it to the specified memory buffer.</p>
 <p>The sample buffer is guaranteed to be 8-bytes aligned, so the specified memory buffer must follow this constraint. Moreover, the buffer must be in the uncached segment and not loaded in any CPU cacheline. It is strongly advised to allocate the buffer via <a class="el" href="group__n64sys.html#gaf9f812fb3f12eaee7f5186b893266d3a" title="Allocate a buffer that will be accessed as uncached memory.">malloc_uncached</a>, that takes care of these constraints.</p>
-<p>The memory buffer will be used for storing samples and for the state.</p>
+<p>The memory buffer will be used for storing samples and for the state. Part of the sample area is reserved as a tail margin for contiguous RSP DMA across the wrap.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">buf</td><td>Sample buffer </td></tr>
@@ -373,43 +427,14 @@ UUID of the waveform being played back on this sample buffer. </td></tr>
 
 </div>
 </div>
-<a id="a7252a6b63af132338f6e1b8a10cb1c03" name="a7252a6b63af132338f6e1b8a10cb1c03"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7252a6b63af132338f6e1b8a10cb1c03">&#9670;&#160;</a></span>samplebuffer_is_inited()</h2>
+<a id="ad5df93d76722cb676388d11f3634e4af" name="ad5df93d76722cb676388d11f3634e4af"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad5df93d76722cb676388d11f3634e4af">&#9670;&#160;</a></span>samplebuffer_set_unit_bytes()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bool samplebuffer_is_inited </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="samplebuffer_8h.html#structsamplebuffer__t">samplebuffer_t</a> *&#160;</td>
-          <td class="paramname"><em>buf</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Return true if the samplebuffer is initialized. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">buf</td><td>Sample buffer </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>true If the sample buffer is initialized. </dd>
-<dd>
-false If the sample buffer is not initialized. </dd></dl>
-
-</div>
-</div>
-<a id="ab36c29dc062a982b02d90c8515121b9a" name="ab36c29dc062a982b02d90c8515121b9a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab36c29dc062a982b02d90c8515121b9a">&#9670;&#160;</a></span>samplebuffer_set_bps()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void samplebuffer_set_bps </td>
+          <td class="memname">void samplebuffer_set_unit_bytes </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="samplebuffer_8h.html#structsamplebuffer__t">samplebuffer_t</a> *&#160;</td>
           <td class="paramname"><em>buf</em>, </td>
@@ -418,7 +443,7 @@ false If the sample buffer is not initialized. </dd></dl>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>bps</em>&#160;</td>
+          <td class="paramname"><em>unit_bytes</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -428,15 +453,8 @@ false If the sample buffer is not initialized. </dd></dl>
       </table>
 </div><div class="memdoc">
 
-<p>Configure the bit width of the samples stored in the buffer. </p>
-<p>Valid values for "bps" are 1, 2, or 4: 1 can be used for 8-bit mono samples, 2 for either 8-bit interleaved stereo or 16-bit mono, and 4 for 16-bit interleaved stereo.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">buf</td><td>Sample buffer </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">bps</td><td>Bytes per sample. </td></tr>
-  </table>
-  </dd>
-</dl>
+<p>Configure the logical unit size (bytes per wpos/widx step). </p>
+<p>After this call, wpos/widx/size are expressed in units of <code>unit_bytes</code> each (e.g. 2 for 16-bit mono PCM, 9 for mono VADPCM frames). The buffer must be empty. </p>
 
 </div>
 </div>
@@ -471,16 +489,7 @@ false If the sample buffer is not initialized. </dd></dl>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Connect a waveform reader callback to this sample buffer. The waveform will be use to produce samples whenever they are required by the mixer as playback progresses.</p>
-<p>"read" is the main decoding function, that is invoked to produce a specified number of samples. Normally, the function is invoked by <a class="el" href="samplebuffer_8h.html#a7b810c10cdb970e8bebbfddce80fdea1" title="Get a pointer to specific set of samples in the buffer (zero-copy).">samplebuffer_get</a>, whenever the mixer requests more samples. See <a class="el" href="mixer_8h.html#ab0e995bf04880a3e14f689f48fdb2475" title="Waveform callback function invoked by the mixer to read/generate samples.">WaveformRead</a> for more information.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">buf</td><td>Sample buffer </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">wave</td><td>Waveform to connect to the sample buffer </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">read</td><td>Waveform read function </td></tr>
-  </table>
-  </dd>
-</dl>
+<p>Connect a waveform reader callback to this sample buffer. </p>
 
 </div>
 </div>
@@ -517,19 +526,76 @@ false If the sample buffer is not initialized. </dd></dl>
 </div><div class="memdoc">
 
 <p>Get a pointer to specific set of samples in the buffer (zero-copy). </p>
-<p>"wpos" is the absolute waveform position of the first sample that the caller needs access to. "wlen" is the number of requested samples.</p>
-<p>The function returns a pointer within the sample buffer where the samples should be read, and optionally changes "wlen" with the maximum number of samples that can be read. "wlen" is always less or equal to the requested value.</p>
-<p>If the samples are available in the buffer, they will be returned immediately. Otherwise, if the samplebuffer has a sample decoder registered via samplebuffer_set_decoder, the decoder "read" function is called once to produce the samples.</p>
-<p>If "wlen" is changed with a value less than "wlen", it means that not all samples were available in the buffer and it was not possible to generate more, so the caller should not loop calling this function, but rather use what was obtained and possibly pad with silence.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">buf</td><td>Sample buffer </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">wpos</td><td>Absolute waveform position of the first samples to return. </td></tr>
-    <tr><td class="paramdir">[in,out]</td><td class="paramname">wlen</td><td>Number of samples to return. After return, it is modified with the actual number of samples that have been returned. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>Pointer to samples. </dd></dl>
+<p>"wpos" is the absolute waveform position of the first sample that the caller needs access to. "wlen" is the number of requested samples. wpos must be monotonic between seeks. </p>
+
+</div>
+</div>
+<a id="adc4195a62a4fba4a07434e1db8075917" name="adc4195a62a4fba4a07434e1db8075917"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adc4195a62a4fba4a07434e1db8075917">&#9670;&#160;</a></span>samplebuffer_prefetch()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void samplebuffer_prefetch </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="samplebuffer_8h.html#structsamplebuffer__t">samplebuffer_t</a> *&#160;</td>
+          <td class="paramname"><em>buf</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>wpos</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>wlen</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Start fetching samples that will be requested later (zero-wait). </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000412">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
+<p>Fetches the part of [wpos, wpos+wlen) that the buffer does not hold yet, leaving any PI DMA in flight: the next <a class="el" href="samplebuffer_8h.html#a7b810c10cdb970e8bebbfddce80fdea1" title="Get a pointer to specific set of samples in the buffer (zero-copy).">samplebuffer_get</a> finds the samples already there and only has to wait for a transfer that ran meanwhile.</p>
+<p>This is best-effort: the call does nothing unless the waveform declares <a class="el" href="mixer_8h.html#a8b1c2ac82832d2fcd33dfbd1a8081844" title="True if read returns with its transfer still in flight.">waveform_t::async_read</a> (there would be nothing to overlap with), and likewise if the window is already available, if it is not contiguous with what the buffer holds (a seek is coming, so anything fetched now would be discarded), or if the samplebuffer has no room for it. </p>
+
+</div>
+</div>
+<a id="ad6f97f02099021c43794059974f359dd" name="ad6f97f02099021c43794059974f359dd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad6f97f02099021c43794059974f359dd">&#9670;&#160;</a></span>samplebuffer_align_units()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int samplebuffer_align_units </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="samplebuffer_8h.html#structsamplebuffer__t">samplebuffer_t</a> *&#160;</td>
+          <td class="paramname"><em>buf</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Granularity, in units, that keeps appends 8-byte aligned. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000413">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
+<p>A producer that writes through the RSP (<a class="el" href="mixer_8h.html#aebf88169231e7d9fa90d56273ddd7483" title="True if read produces samples through an RSP overlay.">waveform_t::rsp_written</a>) deposits its samples with SP DMA, which needs an 8-byte aligned destination. Appends of whole blocks preserve that alignment on their own, but a producer that undoes part of what it appended — a block codec trimming the samples past the end of a waveform — has to round the part it keeps to this granularity, or the next append lands mid-word. <a class="el" href="samplebuffer_8h.html#a392b4b826167c5157e983a18493cd4b5" title="Append samples into the buffer (zero-copy).">samplebuffer_append</a> checks it. </p>
 
 </div>
 </div>
@@ -560,95 +626,7 @@ false If the sample buffer is not initialized. </dd></dl>
 </div><div class="memdoc">
 
 <p>Append samples into the buffer (zero-copy). </p>
-<p>"wlen" is the number of samples that the caller will append.</p>
-<p>The function returns a pointer within the sample buffer where the samples should be written. The samples to be written to physical memory, not just CPU cache, and to enforce this, the function returns a pointer in the uncached segment. Most of the times, we expect samples to be generated or manipulated via RSP/DMA anyway.</p>
-<p>The function is meant only to "append" samples, as in add samples that are consecutive within the waveform to the ones already stored in the sample buffer. This is necessary because <a class="el" href="samplebuffer_8h.html#structsamplebuffer__t">samplebuffer_t</a> can only store a single range of samples of the waveform; there is no way to hold two disjoint ranges.</p>
-<p>For instance, if the sample buffer currently contains 50 samples starting from position 100 in the waverform, the next call to samplebuffer_append will append samples starting at 150.</p>
-<p>If required, samplebuffer_append will discard older samples to make space for the new ones, through <a class="el" href="samplebuffer_8h.html#af577070f844a4ab787911a647bf51f22">samplebuffer_discard</a>. It will only discard samples that come before the "wpos" specified in the last <a class="el" href="samplebuffer_8h.html#a7b810c10cdb970e8bebbfddce80fdea1" title="Get a pointer to specific set of samples in the buffer (zero-copy).">samplebuffer_get</a> call, so to make sure that nothing required for playback is discarded. If there is not enough space in the buffer, it will assert.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">buf</td><td>Sample buffer </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">wlen</td><td>Number of samples to append. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>Pointer to the area where new samples can be written. </dd></dl>
-
-</div>
-</div>
-<a id="ac38268641091505733db16c3b79c569d" name="ac38268641091505733db16c3b79c569d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac38268641091505733db16c3b79c569d">&#9670;&#160;</a></span>samplebuffer_undo()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void samplebuffer_undo </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="samplebuffer_8h.html#structsamplebuffer__t">samplebuffer_t</a> *&#160;</td>
-          <td class="paramname"><em>buf</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>wlen</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Remove the a specified number of samples from the tail of the buffer. </p>
-<p>This function removes the last <em>wlen</em> samples from the buffer. It can be used to revert the behavior of a <a class="el" href="samplebuffer_8h.html#a392b4b826167c5157e983a18493cd4b5" title="Append samples into the buffer (zero-copy).">samplebuffer_append</a> call, if the data written to the buffer was too much.</p>
-<p>A common situation is an implementation of a waveform codec with fixed audio frames. The last frame at the end of the waveform will likely need to be truncated, but the compressor would have likely padded it with zeros to make it the same size as the others. In this case, at playing time, it is possible to call <a class="el" href="samplebuffer_8h.html#a392b4b826167c5157e983a18493cd4b5" title="Append samples into the buffer (zero-copy).">samplebuffer_append</a> to append the whole frame, but then remove the unneeded padding with a call to <a class="el" href="samplebuffer_8h.html#ac38268641091505733db16c3b79c569d" title="Remove the a specified number of samples from the tail of the buffer.">samplebuffer_undo</a>.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">buf</td><td>Sample buffer </td></tr>
-    <tr><td class="paramname">wlen</td><td>Number of samples to remove </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="af577070f844a4ab787911a647bf51f22" name="af577070f844a4ab787911a647bf51f22"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af577070f844a4ab787911a647bf51f22">&#9670;&#160;</a></span>samplebuffer_discard()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void samplebuffer_discard </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="samplebuffer_8h.html#structsamplebuffer__t">samplebuffer_t</a> *&#160;</td>
-          <td class="paramname"><em>buf</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>wpos</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>Discard all samples from the buffer that come before a specified absolute waveform position.</p>
-<p>This function can be used to discard samples that are not needed anymore in the sample buffer. "wpos" specifies the absolute position of the first sample that should be kept: all samples that come before will be discarded. This function will silently do nothing if there are no samples to discard.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">buf</td><td>Sample buffer </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">wpos</td><td>Absolute waveform position of the first sample that must be kept. </td></tr>
-  </table>
-  </dd>
-</dl>
+<p>Returns a contiguous uncached pointer where the caller must write <code>wlen</code> units. <code>wlen</code> must not exceed <a class="el" href="samplebuffer_8h.html#af22fea33dc675fdc9e5d8cc5d8467fa3">samplebuffer_t::margin_units</a> when the write would wrap past the usable end (declare large chunks in <a class="el" href="mixer_8h.html#a81dc704ba906cecd6e9878a27d1228b1" title="Granularity in units of the appends made by read (0 if unknown).">waveform_t::append_units</a> so the margin covers them). </p>
 
 </div>
 </div>
@@ -667,13 +645,26 @@ false If the sample buffer is not initialized. </dd></dl>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Flush (reset) the sample buffer to empty status, discarding all samples.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">buf</td><td>Sample buffer. </td></tr>
-  </table>
-  </dd>
-</dl>
+<p>Flush (reset) the sample buffer to empty status, discarding all samples. </p>
+
+</div>
+</div>
+<a id="a3bca09756ff9879fbf8382bee94ea70a" name="a3bca09756ff9879fbf8382bee94ea70a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3bca09756ff9879fbf8382bee94ea70a">&#9670;&#160;</a></span>samplebuffer_dma_wait()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void samplebuffer_dma_wait </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="samplebuffer_8h.html#structsamplebuffer__t">samplebuffer_t</a> *&#160;</td>
+          <td class="paramname"><em>buf</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000414">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it. Wait for any in-flight async PI DMA into this buffer to complete. </dd></dl>
 
 </div>
 </div>
@@ -692,21 +683,14 @@ false If the sample buffer is not initialized. </dd></dl>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Close the sample buffer.</p>
-<p>After calling close, the sample buffer must be initialized again before using it.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">buf</td><td>Sample buffer. </td></tr>
-  </table>
-  </dd>
-</dl>
+<p>Close the sample buffer. </p>
 
 </div>
 </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jun 10 2026 22:36:47 for libdragon by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
+Generated on Fri Aug 21 2026 21:04:46 for libdragon by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
 </small></address>
 </body>
 </html>

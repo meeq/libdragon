@@ -200,14 +200,16 @@ File size in bytes. <p>In order to make the most use of limited EEPROM space, fi
 <td class="fieldname">
 checksum</td>
 <td class="fielddoc">
-Automatically store and verify a checksum of the file. <p>When this flag is set, eepfs will calculate a 16-bit checksum of the file and append it to the file itself. The checksum will also be automatically verified when the file is read. </p>
+Automatically store and verify a checksum of the file. <dl class="preview"><dt><b><a class="el" href="preview.html#_preview000068">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
+<p>When this flag is set, eepfs will calculate a 16-bit checksum of the file and append it to the file itself. The checksum will also be automatically verified when the file is read. </p>
 </td></tr>
 <tr><td class="fieldtype">
 <a id="a247f1a0ad97080e222eec46324bcc421" name="a247f1a0ad97080e222eec46324bcc421"></a>bool</td>
 <td class="fieldname">
 backup</td>
 <td class="fielddoc">
-Keep a backup copy of the file in the EEPROM. <p>When this flag is set, eepfs will automatically keep a backup copy of the file in the EEPROM. The backup copy is automatically retrieved if the main copy is corrupted (use of checksum is strongly recommended if backup is enabled).</p>
+Keep a backup copy of the file in the EEPROM. <dl class="preview"><dt><b><a class="el" href="preview.html#_preview000069">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
+<p>When this flag is set, eepfs will automatically keep a backup copy of the file in the EEPROM. The backup copy is automatically retrieved if the main copy is corrupted (use of checksum is strongly recommended if backup is enabled).</p>
 <p>This is useful to prevent data loss in case of corruption or power failure.</p>
 <p>In addition to the backup copy, the filesystem will also need to store 2 extra bytes (1 per copy) to keep a reference to the newest copy of the file. </p>
 </td></tr>
@@ -470,7 +472,7 @@ Keep a backup copy of the file in the EEPROM. <p>When this flag is set, eepfs wi
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jun 10 2026 22:36:47 for libdragon by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
+Generated on Fri Aug 21 2026 21:04:46 for libdragon by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
 </small></address>
 </body>
 </html>

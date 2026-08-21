@@ -104,7 +104,9 @@ Enumerations</h2></td></tr>
 &#160;&#160;<a class="el" href="accounting__internal_8h.html#a6cfb09cba06dec6a88f7120c9a33c8cea894e60a035338f797e24f43d345db0f8">ACCT_CAT_RSPQ</a> = 4
 , <a class="el" href="accounting__internal_8h.html#a6cfb09cba06dec6a88f7120c9a33c8ceae160d7b13d715a8fc54ff655de2f2901">ACCT_CAT_VI</a> = 5
 , <a class="el" href="accounting__internal_8h.html#a6cfb09cba06dec6a88f7120c9a33c8cea0c3403978897eb0aa614e9e572c05753">ACCT_CAT_JOYBUS</a> = 6
-, <a class="el" href="accounting__internal_8h.html#a6cfb09cba06dec6a88f7120c9a33c8cea10e102099926cec32ada08dbde114584">ACCT_CAT_MAX</a> = 8
+, <a class="el" href="accounting__internal_8h.html#a6cfb09cba06dec6a88f7120c9a33c8cea3dfd43ae898fdbfb3fddeb9b7f69a367">ACCT_CAT_PI</a> = 7
+, <br />
+&#160;&#160;<a class="el" href="accounting__internal_8h.html#a6cfb09cba06dec6a88f7120c9a33c8cea10e102099926cec32ada08dbde114584">ACCT_CAT_MAX</a> = 8
 <br />
  }</td></tr>
 <tr class="memdesc:a6cfb09cba06dec6a88f7120c9a33c8ce"><td class="mdescLeft">&#160;</td><td class="mdescRight">Accounting categories.  <a href="accounting__internal_8h.html#a6cfb09cba06dec6a88f7120c9a33c8ce">More...</a><br /></td></tr>
@@ -148,7 +150,7 @@ uint64_t&#160;</td><td class="memItemRight" valign="bottom"><b>acct_get_ticks</b
 <div class="line">    <span class="comment">// time spent here is attributed to ACCT_CAT_VI</span></div>
 <div class="line">}</div>
 <div class="ttc" id="aaccounting__internal_8h_html_a6cfb09cba06dec6a88f7120c9a33c8ceae160d7b13d715a8fc54ff655de2f2901"><div class="ttname"><a href="accounting__internal_8h.html#a6cfb09cba06dec6a88f7120c9a33c8ceae160d7b13d715a8fc54ff655de2f2901">ACCT_CAT_VI</a></div><div class="ttdeci">@ ACCT_CAT_VI</div><div class="ttdoc">VI time (vi_wait_vblank)</div><div class="ttdef"><b>Definition</b> accounting_internal.h:26</div></div>
-<div class="ttc" id="aaccounting__internal_8h_html_ae6a21798f838b91c41bac4c31d1c1cbe"><div class="ttname"><a href="accounting__internal_8h.html#ae6a21798f838b91c41bac4c31d1c1cbe">ACCT_SCOPE</a></div><div class="ttdeci">#define ACCT_SCOPE(cat)</div><div class="ttdoc">Create a scope that attributes time to a specific category.</div><div class="ttdef"><b>Definition</b> accounting_internal.h:65</div></div>
+<div class="ttc" id="aaccounting__internal_8h_html_ae6a21798f838b91c41bac4c31d1c1cbe"><div class="ttname"><a href="accounting__internal_8h.html#ae6a21798f838b91c41bac4c31d1c1cbe">ACCT_SCOPE</a></div><div class="ttdeci">#define ACCT_SCOPE(cat)</div><div class="ttdoc">Create a scope that attributes time to a specific category.</div><div class="ttdef"><b>Definition</b> accounting_internal.h:66</div></div>
 </div><!-- fragment --><p>Internally, this macro uses <a class="el" href="accounting__internal_8h.html#a117afefd88e6fd34a6d68f33841ec172" title="Switch to a new accounting category.">acct_switch</a> to change category on scope entry, and restores the previous category on scope exit. </p>
 
 </div>
@@ -182,6 +184,8 @@ uint64_t&#160;</td><td class="memItemRight" valign="bottom"><b>acct_get_ticks</b
 </td></tr>
 <tr><td class="fieldname"><a id="a6cfb09cba06dec6a88f7120c9a33c8cea0c3403978897eb0aa614e9e572c05753" name="a6cfb09cba06dec6a88f7120c9a33c8cea0c3403978897eb0aa614e9e572c05753"></a>ACCT_CAT_JOYBUS&#160;</td><td class="fielddoc"><p>Joybus time (<a class="el" href="group__joybus.html#ga6d62432ce8ecd83cd1588716fd28fdb7" title="Write a 64-byte block of data to the PIF and read the 64-byte result.">joybus_exec</a>) </p>
 </td></tr>
+<tr><td class="fieldname"><a id="a6cfb09cba06dec6a88f7120c9a33c8cea3dfd43ae898fdbfb3fddeb9b7f69a367" name="a6cfb09cba06dec6a88f7120c9a33c8cea3dfd43ae898fdbfb3fddeb9b7f69a367"></a>ACCT_CAT_PI&#160;</td><td class="fielddoc"><p>PI wait time (DMA and I/O) </p>
+</td></tr>
 <tr><td class="fieldname"><a id="a6cfb09cba06dec6a88f7120c9a33c8cea10e102099926cec32ada08dbde114584" name="a6cfb09cba06dec6a88f7120c9a33c8cea10e102099926cec32ada08dbde114584"></a>ACCT_CAT_MAX&#160;</td><td class="fielddoc"><p>Keep this last. Buckets are addressed by index. </p>
 </td></tr>
 </table>
@@ -214,7 +218,7 @@ uint64_t&#160;</td><td class="memItemRight" valign="bottom"><b>acct_get_ticks</b
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>acct_category_t Previous category</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Previous category</dd></dl>
 <p>Switch to a new accounting category. </p>
 
 </div>
@@ -222,7 +226,7 @@ uint64_t&#160;</td><td class="memItemRight" valign="bottom"><b>acct_get_ticks</b
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jun 10 2026 22:36:48 for libdragon by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
+Generated on Fri Aug 21 2026 21:04:46 for libdragon by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
 </small></address>
 </body>
 </html>

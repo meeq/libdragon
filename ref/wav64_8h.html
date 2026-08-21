@@ -211,12 +211,12 @@ Streaming mode for the wav64. <p>See <a class="el" href="wav64_8h.html#a6a04294d
 
 <p>Enable a non-default compression level. </p>
 <p>This function must be called if any wav64 that will be loaded use a non-default compression level. The default compression level is 1 (VADPCM) for which no initialization is required. Level 0 (uncompressed) also requires no initialization.</p>
-<p>Currently, only level 3 requires initialization (level 2 does not exist yet). If you have any wav64 compressed with level 3, you must call this function before opening them.</p>
+<p>Levels 2 and 3 require initialization. If you have any wav64 compressed with either level, you must call this function before opening them.</p>
 <div class="fragment"><div class="line"><a class="code hl_define" href="wav64_8h.html#a41067fd01f39b23852945f418e0f3d90">wav64_init_compression</a>(3); </div>
 <div class="line"> </div>
 <div class="line"><a class="code hl_function" href="wav64_8c.html#a62b743c8c56bd67b3f2231f770c99e78">wav64_open</a>(&amp;jingle, <span class="stringliteral">&quot;rom:/jingle.wav64&quot;</span>);</div>
-<div class="ttc" id="awav64_8c_html_a62b743c8c56bd67b3f2231f770c99e78"><div class="ttname"><a href="wav64_8c.html#a62b743c8c56bd67b3f2231f770c99e78">wav64_open</a></div><div class="ttdeci">void wav64_open(wav64_t *wav, const char *file_name)</div><div class="ttdoc">Open a WAV64 file for playback.</div><div class="ttdef"><b>Definition</b> wav64.c:234</div></div>
-<div class="ttc" id="awav64_8h_html_a41067fd01f39b23852945f418e0f3d90"><div class="ttname"><a href="wav64_8h.html#a41067fd01f39b23852945f418e0f3d90">wav64_init_compression</a></div><div class="ttdeci">#define wav64_init_compression(level)</div><div class="ttdoc">Enable a non-default compression level.</div><div class="ttdef"><b>Definition</b> wav64.h:69</div></div>
+<div class="ttc" id="awav64_8c_html_a62b743c8c56bd67b3f2231f770c99e78"><div class="ttname"><a href="wav64_8c.html#a62b743c8c56bd67b3f2231f770c99e78">wav64_open</a></div><div class="ttdeci">void wav64_open(wav64_t *wav, const char *file_name)</div><div class="ttdoc">Open a WAV64 file for playback.</div><div class="ttdef"><b>Definition</b> wav64.c:294</div></div>
+<div class="ttc" id="awav64_8h_html_a41067fd01f39b23852945f418e0f3d90"><div class="ttname"><a href="wav64_8h.html#a41067fd01f39b23852945f418e0f3d90">wav64_init_compression</a></div><div class="ttdeci">#define wav64_init_compression(level)</div><div class="ttdoc">Enable a non-default compression level.</div><div class="ttdef"><b>Definition</b> wav64.h:71</div></div>
 </div><!-- fragment --><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">level</td><td>Compression level to initialize</td></tr>
@@ -319,6 +319,7 @@ Streaming mode for the wav64. <p>See <a class="el" href="wav64_8h.html#a6a04294d
 </div><div class="memdoc">
 
 <p>Load a WAV64 file for playback. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000539">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>This function opens the file, parses the header, and initializes for playing back through the audio mixer.</p>
 <p>You can use the <a class="el" href="wav64_8h.html#structwav64__loadparms__t" title="WAV64 loading parameters (to be passed to wav64_load)">wav64_loadparms_t</a> structure to specify additional parameters for the loading process, like the maximum number of simultaneous playbacks or the streaming mode.</p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -403,6 +404,7 @@ Streaming mode for the wav64. <p>See <a class="el" href="wav64_8h.html#a6a04294d
 </div><div class="memdoc">
 
 <p>Seek a playing WAV64 to a given time position (in seconds). </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000540">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>This is a convenience wrapper around <a class="el" href="mixer_8c.html#a3f02614d2efadf41b657c0d8050d7dcf" title="Change the current playback position within a waveform.">mixer_ch_set_pos</a> that calculates the nearest seekable position for the given time position, depending on how the file was compressed. In general, compressed audio files can only seek to specific precomputed skip points.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -439,7 +441,7 @@ Streaming mode for the wav64. <p>See <a class="el" href="wav64_8h.html#a6a04294d
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>int Bitrate in bits per second </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Bitrate in bits per second </dd></dl>
 
 </div>
 </div>
@@ -473,7 +475,7 @@ Streaming mode for the wav64. <p>See <a class="el" href="wav64_8h.html#a6a04294d
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jun 10 2026 22:36:48 for libdragon by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
+Generated on Fri Aug 21 2026 21:04:46 for libdragon by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
 </small></address>
 </body>
 </html>

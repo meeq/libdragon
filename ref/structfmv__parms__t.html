@@ -123,6 +123,9 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>loop</b></td></tr>
 void *&#160;</td><td class="memItemRight" valign="bottom"><b>osd_ctx</b></td></tr>
 <tr class="memdesc:a54fcdd526a34d3f187c3cf876822654c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Context pointer passed to the OSD callback. <br /></td></tr>
 <tr class="separator:a54fcdd526a34d3f187c3cf876822654c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a85371c347513d4168331b959b654067a" id="r_a85371c347513d4168331b959b654067a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="yuv_8h.html#structyuv__blitter__t">yuv_blitter_t</a>(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structfmv__parms__t.html#a85371c347513d4168331b959b654067a">create_yuv_blitter</a> )(void *<a class="el" href="structfmv__parms__t.html#a54fcdd526a34d3f187c3cf876822654c">osd_ctx</a>, <a class="el" href="video_8h.html#structvideo__info__t">video_info_t</a> *info)</td></tr>
+<tr class="memdesc:a85371c347513d4168331b959b654067a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Custom YUV blitter factory (optional)  <br /></td></tr>
+<tr class="separator:a85371c347513d4168331b959b654067a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>FMV playback parameters. </p>
@@ -264,13 +267,37 @@ void *&#160;</td><td class="memItemRight" valign="bottom"><b>osd_ctx</b></td></t
 
 </div>
 </div>
+<a id="a85371c347513d4168331b959b654067a" name="a85371c347513d4168331b959b654067a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a85371c347513d4168331b959b654067a">&#9670;&#160;</a></span>create_yuv_blitter</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="yuv_8h.html#structyuv__blitter__t">yuv_blitter_t</a>(* fmv_parms_t::create_yuv_blitter) (void *<a class="el" href="structfmv__parms__t.html#a54fcdd526a34d3f187c3cf876822654c">osd_ctx</a>, <a class="el" href="video_8h.html#structvideo__info__t">video_info_t</a> *info)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Custom YUV blitter factory (optional) </p>
+<p>If provided, replaces the default <a class="el" href="yuv_8h.html#a148a50a467fcb547b0237c38ff58c775" title="Create a YUV blitter optimized for FMV drawing (full screen movie player)">yuv_blitter_new_fmv</a> blitter used by <a class="el" href="fmv_8h.html#af1029a5df525b33c697c3ad734bd8fb5" title="Play a full-motion video from a video file.">fmv_play</a>. This allows customizing how video frames are scaled and drawn onto the framebuffer (eg: for mirroring or custom letterboxing).</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">osd_ctx</td><td>Value of <a class="el" href="structfmv__parms__t.html#a54fcdd526a34d3f187c3cf876822654c" title="Context pointer passed to the OSD callback.">fmv_parms_t::osd_ctx</a> </td></tr>
+    <tr><td class="paramname">info</td><td>Video metadata from the opened stream </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
 <li><a class="el" href="fmv_8h_source.html">fmv.h</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jun 10 2026 22:36:48 for libdragon by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
+Generated on Fri Aug 21 2026 21:04:47 for libdragon by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
 </small></address>
 </body>
 </html>

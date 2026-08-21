@@ -313,23 +313,23 @@ Internal commands</h2>
 <p>To manage the queue and implement all the various features, rspq reserves for itself the overlay ID 0x0 to implement internal commands. You can look at the list of commands and their description below. All command IDs are defined with <code>RSPQ_CMD_*</code> macros.</p>
 <h2><a class="anchor" id="autotoc_md49"></a>
 Buffer swapping</h2>
-<p>Internally, double buffering is used to implement the queue. The size of each of the buffers is RSPQ_DRAM_LOWPRI_BUFFER_SIZE. When a buffer is full, the queue engine writes a <a class="el" href="rspq__internal_8h.html#ac205be2172292384dd687b5471a87edda58023050f9d78e7cf4dc6c6cee07b6e5" title="RSPQ command: Jump to another buffer.">RSPQ_CMD_JUMP</a> command with the address of the other buffer, to tell the RSP to jump there when it is done.</p>
-<p>Moreover, just before the jump, the engine also enqueue a <a class="el" href="rspq__internal_8h.html#ac205be2172292384dd687b5471a87eddae0ee81ba2ae47bd82a5cf662bab63ca5" title="RSPQ Command: write SP_STATUS register.">RSPQ_CMD_WRITE_STATUS</a> command that sets the SP_STATUS_SIG_BUFDONE_LOW signal. This is used to keep track when the RSP has finished processing a buffer, so that we know it becomes free again for more commands.</p>
+<p>Internally, double buffering is used to implement the queue. The size of each of the buffers is RSPQ_DRAM_LOWPRI_BUFFER_SIZE. When a buffer is full, the queue engine writes a <a class="el" href="rspq__internal_8h.html#a1fb9092bcdeada2d206bdc74afbbe122a58023050f9d78e7cf4dc6c6cee07b6e5" title="RSPQ command: Jump to another buffer.">RSPQ_CMD_JUMP</a> command with the address of the other buffer, to tell the RSP to jump there when it is done.</p>
+<p>Moreover, just before the jump, the engine also enqueue a <a class="el" href="rspq__internal_8h.html#a1fb9092bcdeada2d206bdc74afbbe122ae0ee81ba2ae47bd82a5cf662bab63ca5" title="RSPQ Command: write SP_STATUS register.">RSPQ_CMD_WRITE_STATUS</a> command that sets the SP_STATUS_SIG_BUFDONE_LOW signal. This is used to keep track when the RSP has finished processing a buffer, so that we know it becomes free again for more commands.</p>
 <p>This logic is implemented in <a class="el" href="rspq_8c.html#a6d24ce57cd1b2cdb69297c97dab0eb21" title="Switch to the next write buffer for the current RSP queue.">rspq_next_buffer</a>.</p>
 <h2><a class="anchor" id="autotoc_md50"></a>
 Blocks</h2>
-<p>Blocks are implemented by redirecting <a class="el" href="rspq_8h.html#aefec193be7de05f725738beeb3775634" title="Write a new command into the RSP queue.">rspq_write</a> to a different memory buffer, allocated for the block. The starting size for this buffer is RSPQ_BLOCK_MIN_SIZE. If the buffer becomes full, a new buffer is allocated with double the size (to achieve exponential growth), and it is linked to the previous buffer via a <a class="el" href="rspq__internal_8h.html#ac205be2172292384dd687b5471a87edda58023050f9d78e7cf4dc6c6cee07b6e5" title="RSPQ command: Jump to another buffer.">RSPQ_CMD_JUMP</a>. So a block can end up being defined by multiple memory buffers linked via jumps.</p>
-<p>Calling a block requires some work because of the nesting calls we want to support. To make the RSP ucode as short as possible, the two internal command dedicated to block calls (<a class="el" href="rspq__internal_8h.html#ac205be2172292384dd687b5471a87edda3bcc1ebb86dbfab31f34d0153d3a9a14" title="RSPQ command: Call a block.">RSPQ_CMD_CALL</a> and <a class="el" href="rspq__internal_8h.html#ac205be2172292384dd687b5471a87eddae3aa621c30e8ea451128c8ff98d14f44" title="RSPQ command: Return from a block.">RSPQ_CMD_RET</a>) do not manage a call stack by themselves, but only allow to save/restore the current queue position from a "save slot", whose index must be provided by the CPU.</p>
+<p>Blocks are implemented by redirecting <a class="el" href="rspq_8h.html#aefec193be7de05f725738beeb3775634" title="Write a new command into the RSP queue.">rspq_write</a> to a different memory buffer, allocated for the block. The starting size for this buffer is RSPQ_BLOCK_MIN_SIZE. If the buffer becomes full, a new buffer is allocated with double the size (to achieve exponential growth), and it is linked to the previous buffer via a <a class="el" href="rspq__internal_8h.html#a1fb9092bcdeada2d206bdc74afbbe122a58023050f9d78e7cf4dc6c6cee07b6e5" title="RSPQ command: Jump to another buffer.">RSPQ_CMD_JUMP</a>. So a block can end up being defined by multiple memory buffers linked via jumps.</p>
+<p>Calling a block requires some work because of the nesting calls we want to support. To make the RSP ucode as short as possible, the two internal command dedicated to block calls (<a class="el" href="rspq__internal_8h.html#a1fb9092bcdeada2d206bdc74afbbe122a3bcc1ebb86dbfab31f34d0153d3a9a14" title="RSPQ command: Call a block.">RSPQ_CMD_CALL</a> and <a class="el" href="rspq__internal_8h.html#a1fb9092bcdeada2d206bdc74afbbe122ae3aa621c30e8ea451128c8ff98d14f44" title="RSPQ command: Return from a block.">RSPQ_CMD_RET</a>) do not manage a call stack by themselves, but only allow to save/restore the current queue position from a "save slot", whose index must be provided by the CPU.</p>
 <p>Thus, the CPU has to make sure that each CALL opcode saves the position into a save slot which will not be overwritten by nested block calls. To do this, it calculates the "nesting level" of a block at block creation time: the nesting level of a block is defined by the smallest number greater than the nesting levels of all blocks that are called within the block itself. So for instance if a block calls another block whose nesting level is 5, it will get assigned a level of 6. The nesting level is then used as call slot in both all future calls to the block, and by the RSPQ_CMD_RET command placed at the end of the block itself.</p>
 <h2><a class="anchor" id="autotoc_md51"></a>
 Queues</h2>
-<p>Queues are mutable command chains built in RDRAM, similar to blocks but intended to be reused and cleared. Internally, a queue consists of one or more chunks linked by <a class="el" href="rspq__internal_8h.html#ac205be2172292384dd687b5471a87edda58023050f9d78e7cf4dc6c6cee07b6e5" title="RSPQ command: Jump to another buffer.">RSPQ_CMD_JUMP</a> guards at the end of each chunk, with the last chunk ending in <a class="el" href="rspq__internal_8h.html#ac205be2172292384dd687b5471a87eddae3aa621c30e8ea451128c8ff98d14f44" title="RSPQ command: Return from a block.">RSPQ_CMD_RET</a>. Chunk growth reuses the same doubling strategy used by blocks.</p>
+<p>Queues are mutable command chains built in RDRAM, similar to blocks but intended to be reused and cleared. Internally, a queue consists of one or more chunks linked by <a class="el" href="rspq__internal_8h.html#a1fb9092bcdeada2d206bdc74afbbe122a58023050f9d78e7cf4dc6c6cee07b6e5" title="RSPQ command: Jump to another buffer.">RSPQ_CMD_JUMP</a> guards at the end of each chunk, with the last chunk ending in <a class="el" href="rspq__internal_8h.html#a1fb9092bcdeada2d206bdc74afbbe122ae3aa621c30e8ea451128c8ff98d14f44" title="RSPQ command: Return from a block.">RSPQ_CMD_RET</a>. Chunk growth reuses the same doubling strategy used by blocks.</p>
 <p>Recording a queue redirects <a class="el" href="rspq_8h.html#aefec193be7de05f725738beeb3775634" title="Write a new command into the RSP queue.">rspq_write</a> into the queue buffer, just like blocks. The main difference is that <a class="el" href="rspq_8c.html#aa90924bef39695961628acd175c8baae" title="Execute the RSP commands in the queue.">rspq_queue_run</a> enqueues a CALL in the lowpri queue and advances an internal run_start pointer. The current write pointer remains in the queue, so commands appended during execution will be picked up on the next <a class="el" href="rspq_8c.html#aa90924bef39695961628acd175c8baae" title="Execute the RSP commands in the queue.">rspq_queue_run</a> call.</p>
 <h2><a class="anchor" id="autotoc_md52"></a>
 Highpri queue</h2>
 <p>The high priority queue is implemented as an alternative couple of buffers, that replace the standard buffers when the high priority mode is activated.</p>
-<p>When <a class="el" href="rspq_8c.html#ae546104d15d469518ac5fba15521e965" title="Start building a high-priority queue.">rspq_highpri_begin</a> is called, the CPU notifies the RSP that it must switch to the highpri queues by setting signal SP_STATUS_SIG_HIGHPRI_REQUESTED. The RSP checks for that signal between each command, and when it sees it, it internally calls <a class="el" href="rspq__internal_8h.html#ac205be2172292384dd687b5471a87edda8d8fd35254ac74cdb0b1abdb364fb64e" title="RSPQ Command: Swap lowpri/highpri buffers.">RSPQ_CMD_SWAP_BUFFERS</a>. This command loads the highpri queue pointer from a special call slot, saves the current lowpri queue position in another special save slot, and finally clear SP_STATUS_SIG_HIGHPRI_REQUESTED and set SP_STATUS_SIG_HIGHPRI_RUNNING instead.</p>
-<p>When the <a class="el" href="rspq_8c.html#ae495b6d8ec49169f05e523fe564f9f4b" title="Finish building the high-priority queue and close it.">rspq_highpri_end</a> is called, the opposite is done. The CPU writes in the queue a <a class="el" href="rspq__internal_8h.html#ac205be2172292384dd687b5471a87edda8d8fd35254ac74cdb0b1abdb364fb64e" title="RSPQ Command: Swap lowpri/highpri buffers.">RSPQ_CMD_SWAP_BUFFERS</a> that saves the current highpri pointer into its call slot, recover the previous lowpri position, and turns off SP_STATUS_SIG_HIGHPRI_RUNNING.</p>
+<p>When <a class="el" href="rspq_8c.html#ae546104d15d469518ac5fba15521e965" title="Start building a high-priority queue.">rspq_highpri_begin</a> is called, the CPU notifies the RSP that it must switch to the highpri queues by setting signal SP_STATUS_SIG_HIGHPRI_REQUESTED. The RSP checks for that signal between each command, and when it sees it, it internally calls <a class="el" href="rspq__internal_8h.html#a1fb9092bcdeada2d206bdc74afbbe122a8d8fd35254ac74cdb0b1abdb364fb64e" title="RSPQ Command: Swap lowpri/highpri buffers.">RSPQ_CMD_SWAP_BUFFERS</a>. This command loads the highpri queue pointer from a special call slot, saves the current lowpri queue position in another special save slot, and finally clear SP_STATUS_SIG_HIGHPRI_REQUESTED and set SP_STATUS_SIG_HIGHPRI_RUNNING instead.</p>
+<p>When the <a class="el" href="rspq_8c.html#ae495b6d8ec49169f05e523fe564f9f4b" title="Finish building the high-priority queue and close it.">rspq_highpri_end</a> is called, the opposite is done. The CPU writes in the queue a <a class="el" href="rspq__internal_8h.html#a1fb9092bcdeada2d206bdc74afbbe122a8d8fd35254ac74cdb0b1abdb364fb64e" title="RSPQ Command: Swap lowpri/highpri buffers.">RSPQ_CMD_SWAP_BUFFERS</a> that saves the current highpri pointer into its call slot, recover the previous lowpri position, and turns off SP_STATUS_SIG_HIGHPRI_RUNNING.</p>
 <p>Some careful tricks are necessary to allow multiple highpri queues to be pending, see <a class="el" href="rspq_8c.html#ae546104d15d469518ac5fba15521e965" title="Start building a high-priority queue.">rspq_highpri_begin</a> for details.</p>
 <h2><a class="anchor" id="autotoc_md53"></a>
 rdpq integrations</h2>
@@ -971,6 +971,7 @@ First chunk contents. </td></tr>
 </div><div class="memdoc">
 
 <p>Make an overlay share the state with another. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000393">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>Sometimes it is useful for two overlays to share their state. This is common when a larger ucode is split into several ucodes for IMEM limit size, but the state must be shared among them.</p>
 <p>This function "patches" overlay_dest so that it will actually use the state of overlay_source. If the state of the dest overlay was declared as smaller, it is assumed to be a prefix of the source overlay state. It is not possible for the dest overlay to have a split state (part shared with source, part kept private).</p>
 <p>It is allowed for the state in the source and dest overlay to be kept at different offsets in DMEM.</p>
@@ -1073,8 +1074,8 @@ First chunk contents. </td></tr>
 <div class="line">   <span class="comment">// to call rspq_flush once to make sure the RSP runs them (in case</span></div>
 <div class="line">   <span class="comment">// it was idling).</span></div>
 <div class="line">   <a class="code hl_function" href="rspq_8c.html#a115e1839ffd27c126ed6076e2b5de0b8">rspq_flush</a>();</div>
-<div class="ttc" id="arspq_8c_html_a115e1839ffd27c126ed6076e2b5de0b8"><div class="ttname"><a href="rspq_8c.html#a115e1839ffd27c126ed6076e2b5de0b8">rspq_flush</a></div><div class="ttdeci">void rspq_flush(void)</div><div class="ttdoc">Make sure that RSP starts executing up to the last written command.</div><div class="ttdef"><b>Definition</b> rspq.c:1190</div></div>
-<div class="ttc" id="arspq_8h_html_aefec193be7de05f725738beeb3775634"><div class="ttname"><a href="rspq_8h.html#aefec193be7de05f725738beeb3775634">rspq_write</a></div><div class="ttdeci">#define rspq_write(ovl_id, cmd_id,...)</div><div class="ttdoc">Write a new command into the RSP queue.</div><div class="ttdef"><b>Definition</b> rspq.h:488</div></div>
+<div class="ttc" id="arspq_8c_html_a115e1839ffd27c126ed6076e2b5de0b8"><div class="ttname"><a href="rspq_8c.html#a115e1839ffd27c126ed6076e2b5de0b8">rspq_flush</a></div><div class="ttdeci">void rspq_flush(void)</div><div class="ttdoc">Make sure that RSP starts executing up to the last written command.</div><div class="ttdef"><b>Definition</b> rspq.c:1192</div></div>
+<div class="ttc" id="arspq_8h_html_aefec193be7de05f725738beeb3775634"><div class="ttname"><a href="rspq_8h.html#aefec193be7de05f725738beeb3775634">rspq_write</a></div><div class="ttdeci">#define rspq_write(ovl_id, cmd_id,...)</div><div class="ttdoc">Write a new command into the RSP queue.</div><div class="ttdef"><b>Definition</b> rspq.h:492</div></div>
 </div><!-- fragment --><dl class="section note"><dt>Note</dt><dd>This is an experimental API. In the future, it might become a no-op, and flushing could happen automatically at every <a class="el" href="rspq_8h.html#aefec193be7de05f725738beeb3775634" title="Write a new command into the RSP queue.">rspq_write</a>. We are keeping it separate from <a class="el" href="rspq_8h.html#aefec193be7de05f725738beeb3775634" title="Write a new command into the RSP queue.">rspq_write</a> while experimenting more with the RSPQ API.</dd>
 <dd>
 This function is a no-op if it is called while a block is being recorded (see <a class="el" href="rspq_8h.html#a41f292fc1f7b261f84c55fc356f86acf" title="Begin creating a new block.">rspq_block_begin</a> / <a class="el" href="rspq_8h.html#a81339d69802148a09829d1c6d9a9f9f6" title="Finish creating a block.">rspq_block_end</a>). This means calling this function in a block recording context will not guarantee the execution of commands that were queued prior to starting the block. </dd></dl>
@@ -1147,7 +1148,8 @@ It is currently not possible to call a block from the high-priority queue. (FIXM
 </div><div class="memdoc">
 
 <p>Wait for the RSP to finish processing all high-priority queues. </p>
-<p>This function will spin-lock waiting for the RSP to finish processing all high-priority queues. It is meant for debugging purposes or for situations in which the high-priority queue is known to be very short and fast to run. Also note that it is not possible to create syncpoints in the high-priority queue. </p>
+<p>This function will spin-lock waiting for the RSP to finish processing all high-priority queues. It is meant for debugging purposes or for situations in which the high-priority queue is known to be very short and fast to run. Also note that it is not possible to create syncpoints in the high-priority queue.</p>
+<p>The function can either be called while a high-priority queue is being built (that is, between <a class="el" href="rspq_8h.html#ae546104d15d469518ac5fba15521e965" title="Start building a high-priority queue.">rspq_highpri_begin</a> and <a class="el" href="rspq_8h.html#ae495b6d8ec49169f05e523fe564f9f4b" title="Finish building the high-priority queue and close it.">rspq_highpri_end</a>), or after the high-priority queue has been closed (that is, after <a class="el" href="rspq_8h.html#ae495b6d8ec49169f05e523fe564f9f4b" title="Finish building the high-priority queue and close it.">rspq_highpri_end</a>). </p>
 
 </div>
 </div>
@@ -1229,7 +1231,7 @@ It is currently not possible to call a block from the high-priority queue. (FIXM
 
 <p>Free a block that is not needed any more. </p>
 <p>After calling this function, the block is invalid and must not be called anymore. Notice that a block that was recently run via <a class="el" href="rspq_8h.html#ad078c001303a1b2153ba99f3184194f3" title="Add to the RSP queue a command that runs a block.">rspq_block_run</a> might still be referenced in the RSP queue, and in that case it is invalid to free it before the RSP has processed it.</p>
-<p>In this case, you must free it once you are absolutely sure that the RSP has processed it (eg: at the end of a frame), or use <a class="el" href="rspq_8h.html#a3a6c09abcb40109a0b0df12d40bf78f4" title="Enqueue a callback to be called by the CPU.">rspq_call_deferred</a> or <a class="el" href="rdpq_8c.html#a662e5d1f8e05dff7bb673aafed1a643c" title="Enqueue a callback that will be called after the RSP and the RDP have finished processing all command...">rdpq_call_deferred</a>, that handle the synchronization for you.</p>
+<p>In this case, you must free it once you are absolutely sure that the RSP has processed it (eg: at the end of a frame), or use <a class="el" href="rspq_8h.html#a3a6c09abcb40109a0b0df12d40bf78f4" title="Enqueue a callback to be called by the CPU.">rspq_call_deferred</a> or <a class="el" href="rdpq_8c.html#a662e5d1f8e05dff7bb673aafed1a643c" title="Enqueue a callback that will be called after the RSP and the RDP have.">rdpq_call_deferred</a>, that handle the synchronization for you.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">block</td><td>The block</td></tr>
@@ -1267,6 +1269,7 @@ It is currently not possible to call a block from the high-priority queue. (FIXM
 </div><div class="memdoc">
 
 <p>Sets the target for a placeholder in a block. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000396">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>If a block contains calls to placeholders, for example:</p>
 <div class="fragment"><div class="line"><a class="code hl_function" href="rspq_8c.html#a41f292fc1f7b261f84c55fc356f86acf">rspq_block_begin</a>();</div>
 <div class="line">   ...</div>
@@ -1276,18 +1279,18 @@ It is currently not possible to call a block from the high-priority queue. (FIXM
 <div class="line">  <a class="code hl_function" href="rdpq__tex_8c.html#a5767fbc372c1bfc589371b974177491b">rdpq_tex_multi_end</a>();</div>
 <div class="line">  ...</div>
 <div class="line">rspq_block_t *block_caller = <a class="code hl_function" href="rspq_8c.html#a81339d69802148a09829d1c6d9a9f9f6">rspq_block_end</a>();</div>
-<div class="ttc" id="ardpq_8h_html_a8d34f311d2e71435652a57adb1d6931ea65f7d9bde93f125384f419cc6e9b27a7"><div class="ttname"><a href="rdpq_8h.html#a8d34f311d2e71435652a57adb1d6931ea65f7d9bde93f125384f419cc6e9b27a7">TILE0</a></div><div class="ttdeci">@ TILE0</div><div class="ttdoc">Tile #0 (for code readability)</div><div class="ttdef"><b>Definition</b> rdpq.h:255</div></div>
+<div class="ttc" id="ardpq_8h_html_a8d34f311d2e71435652a57adb1d6931ea65f7d9bde93f125384f419cc6e9b27a7"><div class="ttname"><a href="rdpq_8h.html#a8d34f311d2e71435652a57adb1d6931ea65f7d9bde93f125384f419cc6e9b27a7">TILE0</a></div><div class="ttdeci">@ TILE0</div><div class="ttdoc">Tile #0 (for code readability)</div><div class="ttdef"><b>Definition</b> rdpq.h:257</div></div>
 <div class="ttc" id="ardpq__sprite_8c_html_a4455ad310d3a18a04c2ffee53dd0f944"><div class="ttname"><a href="rdpq__sprite_8c.html#a4455ad310d3a18a04c2ffee53dd0f944">rdpq_sprite_upload</a></div><div class="ttdeci">int rdpq_sprite_upload(rdpq_tile_t tile, sprite_t *sprite, const rdpq_texparms_t *parms)</div><div class="ttdoc">Upload a sprite to TMEM, making it ready for drawing.</div><div class="ttdef"><b>Definition</b> rdpq_sprite.c:133</div></div>
-<div class="ttc" id="ardpq__tex_8c_html_a5767fbc372c1bfc589371b974177491b"><div class="ttname"><a href="rdpq__tex_8c.html#a5767fbc372c1bfc589371b974177491b">rdpq_tex_multi_end</a></div><div class="ttdeci">int rdpq_tex_multi_end(void)</div><div class="ttdoc">Finish a multi-texture upload.</div><div class="ttdef"><b>Definition</b> rdpq_tex.c:722</div></div>
-<div class="ttc" id="ardpq__tex_8c_html_ac11f8d4ea6150c99080d1e4db70542eb"><div class="ttname"><a href="rdpq__tex_8c.html#ac11f8d4ea6150c99080d1e4db70542eb">rdpq_tex_multi_begin</a></div><div class="ttdeci">void rdpq_tex_multi_begin(void)</div><div class="ttdoc">Begin a multi-texture upload.</div><div class="ttdef"><b>Definition</b> rdpq_tex.c:710</div></div>
-<div class="ttc" id="arspq_8c_html_a41f292fc1f7b261f84c55fc356f86acf"><div class="ttname"><a href="rspq_8c.html#a41f292fc1f7b261f84c55fc356f86acf">rspq_block_begin</a></div><div class="ttdeci">void rspq_block_begin(void)</div><div class="ttdoc">Begin creating a new block.</div><div class="ttdef"><b>Definition</b> rspq.h:836</div></div>
-<div class="ttc" id="arspq_8c_html_a81339d69802148a09829d1c6d9a9f9f6"><div class="ttname"><a href="rspq_8c.html#a81339d69802148a09829d1c6d9a9f9f6">rspq_block_end</a></div><div class="ttdeci">rspq_block_t * rspq_block_end(void)</div><div class="ttdoc">Finish creating a block.</div><div class="ttdef"><b>Definition</b> rspq.c:1336</div></div>
-<div class="ttc" id="arspq_8c_html_ad078c001303a1b2153ba99f3184194f3"><div class="ttname"><a href="rspq_8c.html#ad078c001303a1b2153ba99f3184194f3">rspq_block_run</a></div><div class="ttdeci">void rspq_block_run(rspq_block_t *block)</div><div class="ttdoc">Add to the RSP queue a command that runs a block.</div><div class="ttdef"><b>Definition</b> rspq.c:1386</div></div>
-<div class="ttc" id="arspq_8h_html_a9dc3f5d80035a6491074cbe4476e7584"><div class="ttname"><a href="rspq_8h.html#a9dc3f5d80035a6491074cbe4476e7584">RSPQ_BLOCK_PLACEHOLDER_0</a></div><div class="ttdeci">#define RSPQ_BLOCK_PLACEHOLDER_0</div><div class="ttdoc">Placeholder #0 pointer to be used with rspq_block_run()</div><div class="ttdef"><b>Definition</b> rspq.h:255</div></div>
+<div class="ttc" id="ardpq__tex_8c_html_a5767fbc372c1bfc589371b974177491b"><div class="ttname"><a href="rdpq__tex_8c.html#a5767fbc372c1bfc589371b974177491b">rdpq_tex_multi_end</a></div><div class="ttdeci">int rdpq_tex_multi_end(void)</div><div class="ttdoc">Finish a multi-texture upload.</div><div class="ttdef"><b>Definition</b> rdpq_tex.c:724</div></div>
+<div class="ttc" id="ardpq__tex_8c_html_ac11f8d4ea6150c99080d1e4db70542eb"><div class="ttname"><a href="rdpq__tex_8c.html#ac11f8d4ea6150c99080d1e4db70542eb">rdpq_tex_multi_begin</a></div><div class="ttdeci">void rdpq_tex_multi_begin(void)</div><div class="ttdoc">Begin a multi-texture upload.</div><div class="ttdef"><b>Definition</b> rdpq_tex.c:712</div></div>
+<div class="ttc" id="arspq_8c_html_a41f292fc1f7b261f84c55fc356f86acf"><div class="ttname"><a href="rspq_8c.html#a41f292fc1f7b261f84c55fc356f86acf">rspq_block_begin</a></div><div class="ttdeci">void rspq_block_begin(void)</div><div class="ttdoc">Begin creating a new block.</div><div class="ttdef"><b>Definition</b> rspq.h:844</div></div>
+<div class="ttc" id="arspq_8c_html_a81339d69802148a09829d1c6d9a9f9f6"><div class="ttname"><a href="rspq_8c.html#a81339d69802148a09829d1c6d9a9f9f6">rspq_block_end</a></div><div class="ttdeci">rspq_block_t * rspq_block_end(void)</div><div class="ttdoc">Finish creating a block.</div><div class="ttdef"><b>Definition</b> rspq.c:1376</div></div>
+<div class="ttc" id="arspq_8c_html_ad078c001303a1b2153ba99f3184194f3"><div class="ttname"><a href="rspq_8c.html#ad078c001303a1b2153ba99f3184194f3">rspq_block_run</a></div><div class="ttdeci">void rspq_block_run(rspq_block_t *block)</div><div class="ttdoc">Add to the RSP queue a command that runs a block.</div><div class="ttdef"><b>Definition</b> rspq.c:1426</div></div>
+<div class="ttc" id="arspq_8h_html_a9dc3f5d80035a6491074cbe4476e7584"><div class="ttname"><a href="rspq_8h.html#a9dc3f5d80035a6491074cbe4476e7584">RSPQ_BLOCK_PLACEHOLDER_0</a></div><div class="ttdeci">#define RSPQ_BLOCK_PLACEHOLDER_0</div><div class="ttdoc">Placeholder #0 pointer to be used with rspq_block_run()</div><div class="ttdef"><b>Definition</b> rspq.h:257</div></div>
 </div><!-- fragment --><p>Then this function can be used to set the actual target before running it:</p>
 <div class="fragment"><div class="line"><a class="code hl_function" href="rspq_8c.html#a5df6c761ea2a607d36a1bd31e0ecd079">rspq_block_set_placeholder</a>(<a class="code hl_define" href="rspq_8h.html#a9dc3f5d80035a6491074cbe4476e7584">RSPQ_BLOCK_PLACEHOLDER_0</a>, the_target_block);</div>
 <div class="line"><a class="code hl_function" href="rspq_8c.html#ad078c001303a1b2153ba99f3184194f3">rspq_block_run</a>(<a class="code hl_define" href="rspq_8h.html#a9dc3f5d80035a6491074cbe4476e7584">RSPQ_BLOCK_PLACEHOLDER_0</a>);</div>
-<div class="ttc" id="arspq_8c_html_a5df6c761ea2a607d36a1bd31e0ecd079"><div class="ttname"><a href="rspq_8c.html#a5df6c761ea2a607d36a1bd31e0ecd079">rspq_block_set_placeholder</a></div><div class="ttdeci">void rspq_block_set_placeholder(rspq_block_t *ph, rspq_block_t *ph_target)</div><div class="ttdoc">Sets the target for a placeholder in a block.</div><div class="ttdef"><b>Definition</b> rspq.c:1369</div></div>
+<div class="ttc" id="arspq_8c_html_a5df6c761ea2a607d36a1bd31e0ecd079"><div class="ttname"><a href="rspq_8c.html#a5df6c761ea2a607d36a1bd31e0ecd079">rspq_block_set_placeholder</a></div><div class="ttdeci">void rspq_block_set_placeholder(rspq_block_t *ph, rspq_block_t *ph_target)</div><div class="ttdoc">Sets the target for a placeholder in a block.</div><div class="ttdef"><b>Definition</b> rspq.c:1409</div></div>
 </div><!-- fragment --><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">ph</td><td>the placeholder slot (RSPQ_BLOCK_PLACEHOLDER_0 - RSPQ_BLOCK_PLACEHOLDER_6) </td></tr>
@@ -1355,6 +1358,7 @@ It is currently not possible to call a block from the high-priority queue. (FIXM
 </div><div class="memdoc">
 
 <p>Register a callback to be called when the current block is freed. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000398">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>Calling this function is only valid when a block is currently being recorded (see <a class="el" href="rspq_8h.html#a41f292fc1f7b261f84c55fc356f86acf" title="Begin creating a new block.">rspq_block_begin</a>). The callback will be called with the given context when the currently recorded block is freed using <a class="el" href="rspq_8h.html#aa1d3fe8768ca839b49421bf08ac5b5c2" title="Free a block that is not needed any more.">rspq_block_free</a>.</p>
 <p>It is possible to call this function multiple times during the recording of the same block. In that case the callbacks will be called in the reverse order that they were passed into this function.</p>
 <p>This function is useful for binding the lifetime of resources to that of a block. For example if a certain command in an rspq overlay accesses a buffer and that command is recorded into a block, it's possible to make sure that the block never outlives that buffer without any additionally required scaffolding.</p>
@@ -1385,6 +1389,7 @@ It is currently not possible to call a block from the high-priority queue. (FIXM
 </div><div class="memdoc">
 
 <p>Create a new buffered queue. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000399">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>The queue is created empty and is not active by default. Use <a class="el" href="rspq_8h.html#ab275d752f89d3ce1b133eb38e020e40f" title="Switch the current recording target to a queue.">rspq_queue_switch</a> to start recording commands into it.</p>
 <dl class="section return"><dt>Returns</dt><dd>A pointer to the newly created queue </dd></dl>
 
@@ -1407,6 +1412,7 @@ It is currently not possible to call a block from the high-priority queue. (FIXM
 </div><div class="memdoc">
 
 <p>Switch the current recording target to a queue. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000400">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>After this call, all <a class="el" href="rspq_8h.html#aefec193be7de05f725738beeb3775634" title="Write a new command into the RSP queue.">rspq_write</a> commands will go into the specified queue, and they will not be executed immediately. Use <a class="el" href="rspq_8h.html#aa90924bef39695961628acd175c8baae" title="Execute the RSP commands in the queue.">rspq_queue_run</a> to execute the queue.</p>
 <p>Passing NULL switches back to the default standard command ring buffer.</p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -1435,6 +1441,7 @@ It is currently not possible to call a block from the high-priority queue. (FIXM
 </div><div class="memdoc">
 
 <p>Execute the RSP commands in the queue. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000401">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>This function will execute all pending RSP commands in the queue, in order. It is safe to call this function multiple times: each time, it will execute only new commands that were enqueued since the last call.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -1462,6 +1469,7 @@ It is currently not possible to call a block from the high-priority queue. (FIXM
 </div><div class="memdoc">
 
 <p>Clear a queue contents, keeping its memory for reuse. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000402">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>This function clears the queue contents, basically resetting its internal write pointer to the start.</p>
 <p>Notice that this function cannot check if the RSP is still running the queue; given that the RSP is asynchronous, you must make sure that the RSP is not running the queue before calling this function. A good way to do this is to use a syncpoint, or double/triple buffer the queue(s).</p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -1490,6 +1498,7 @@ It is currently not possible to call a block from the high-priority queue. (FIXM
 </div><div class="memdoc">
 
 <p>Destroy a queue and free all its memory. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000403">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>After this call, the queue is invalid and must not be used anymore.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -1658,6 +1667,7 @@ false if there are no more callbacks to be processed </dd></dl>
 </div><div class="memdoc">
 
 <p>Create a syncpoint in the queue that triggers a callback on the CPU. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000394">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>This function is similar to <a class="el" href="rspq_8h.html#a4d6fb26b5312a98ad83f758cd7514e6e" title="Create a syncpoint in the queue.">rspq_syncpoint_new</a>: it creates a new "syncpoint" that references the current position in the queue. When the RSP reaches the syncpoint, it notifies the CPU, that will invoke the provided callback function.</p>
 <p>The callback function will be called <em>outside</em> of the interrupt context, so that it is safe for instance to call into most the standard library.</p>
 <p>The callback function is guaranteed to be called after the RSP has reached the syncpoint, but there is no guarantee on "how much" after. In general the callbacks will be treated as "lower priority" by rspq, so they will be called in best effort.</p>
@@ -2028,9 +2038,10 @@ false if there are no more callbacks to be processed </dd></dl>
 </div><div class="memdoc">
 
 <p>Enqueue a callback to be called by the CPU. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000395">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>This function enqueues a callback that will be called by the CPU when the RSP has finished all commands put in the queue until now.</p>
 <p>An example of a use case for this function is to free resources such as rspq blocks that are no longer needed, but that you want to make sure that are not referenced anymore by the RSP.</p>
-<p>See also <a class="el" href="rdpq_8c.html#a662e5d1f8e05dff7bb673aafed1a643c" title="Enqueue a callback that will be called after the RSP and the RDP have finished processing all command...">rdpq_call_deferred</a> that, in addition to waiting for RSP, it also waits for RDP to process all pending commands before calling the callback.</p>
+<p>See also <a class="el" href="rdpq_8c.html#a662e5d1f8e05dff7bb673aafed1a643c" title="Enqueue a callback that will be called after the RSP and the RDP have.">rdpq_call_deferred</a> that, in addition to waiting for RSP, it also waits for RDP to process all pending commands before calling the callback.</p>
 <dl class="section note"><dt>Note</dt><dd>DO NOT CALL RSPQ FUNCTIONS INSIDE THE CALLBACK (including enqueueing new rspq commands). This might cause a deadlock or corruption, and it is not supported.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -2039,7 +2050,7 @@ false if there are no more callbacks to be processed </dd></dl>
   </table>
   </dd>
 </dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="rdpq_8c.html#a662e5d1f8e05dff7bb673aafed1a643c" title="Enqueue a callback that will be called after the RSP and the RDP have finished processing all command...">rdpq_call_deferred</a> </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="rdpq_8c.html#a662e5d1f8e05dff7bb673aafed1a643c" title="Enqueue a callback that will be called after the RSP and the RDP have.">rdpq_call_deferred</a> </dd></dl>
 
 </div>
 </div>
@@ -2064,7 +2075,7 @@ false if there are no more callbacks to be processed </dd></dl>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jun 10 2026 22:36:48 for libdragon by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
+Generated on Fri Aug 21 2026 21:04:47 for libdragon by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
 </small></address>
 </body>
 </html>

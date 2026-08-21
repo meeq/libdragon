@@ -78,6 +78,7 @@ $(function() {
 <a href="#nested-classes">Data Structures</a> &#124;
 <a href="#define-members">Macros</a> &#124;
 <a href="#typedef-members">Typedefs</a> &#124;
+<a href="#enum-members">Enumerations</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle"><div class="title">mixer.h File Reference<div class="ingroups"><a class="el" href="group__libdragon.html">libdragon</a> &raquo; <a class="el" href="group__audio.html">Audio Subsystem</a> &raquo; <a class="el" href="group__mixer.html">Audio mixer</a></div></div></div>
 </div><!--header-->
@@ -100,6 +101,22 @@ Macros</h2></td></tr>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>MIXER_MAX_CHANNELS</b>&#160;&#160;&#160;32</td></tr>
 <tr class="memdesc:a8c4e507c0d1930fd5bd9a9d5f5ca3b13"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum number of channels supported by the mixer. <br /></td></tr>
 <tr class="separator:a8c4e507c0d1930fd5bd9a9d5f5ca3b13"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7a400781e08c8c3723d1cac7b04ec5ce" id="r_a7a400781e08c8c3723d1cac7b04ec5ce"><td class="memItemLeft" align="right" valign="top"><a id="a7a400781e08c8c3723d1cac7b04ec5ce" name="a7a400781e08c8c3723d1cac7b04ec5ce"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>MIXER_PRIORITY_MIN</b>&#160;&#160;&#160;0</td></tr>
+<tr class="memdesc:a7a400781e08c8c3723d1cac7b04ec5ce"><td class="mdescLeft">&#160;</td><td class="mdescRight">Priority: always reusable / cheapest to steal. <br /></td></tr>
+<tr class="separator:a7a400781e08c8c3723d1cac7b04ec5ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a49fb80987eb21647cc469b2ef4bb2246" id="r_a49fb80987eb21647cc469b2ef4bb2246"><td class="memItemLeft" align="right" valign="top"><a id="a49fb80987eb21647cc469b2ef4bb2246" name="a49fb80987eb21647cc469b2ef4bb2246"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>MIXER_PRIORITY_SFX</b>&#160;&#160;&#160;64</td></tr>
+<tr class="memdesc:a49fb80987eb21647cc469b2ef4bb2246"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base priority recommended for one-shot sound effects. <br /></td></tr>
+<tr class="separator:a49fb80987eb21647cc469b2ef4bb2246"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a90ee8baaff7ce77ce451fc6887e4e0cc" id="r_a90ee8baaff7ce77ce451fc6887e4e0cc"><td class="memItemLeft" align="right" valign="top"><a id="a90ee8baaff7ce77ce451fc6887e4e0cc" name="a90ee8baaff7ce77ce451fc6887e4e0cc"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>MIXER_PRIORITY_MUSIC</b>&#160;&#160;&#160;192</td></tr>
+<tr class="memdesc:a90ee8baaff7ce77ce451fc6887e4e0cc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base priority recommended for music players (e.g. SF64). <br /></td></tr>
+<tr class="separator:a90ee8baaff7ce77ce451fc6887e4e0cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2e4c512211f71e3aab5215612250092e" id="r_a2e4c512211f71e3aab5215612250092e"><td class="memItemLeft" align="right" valign="top"><a id="a2e4c512211f71e3aab5215612250092e" name="a2e4c512211f71e3aab5215612250092e"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>MIXER_PRIORITY_MAX</b>&#160;&#160;&#160;255</td></tr>
+<tr class="memdesc:a2e4c512211f71e3aab5215612250092e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Priority: never stolen (default after <a class="el" href="mixer_8h.html#a1aa94701f22d086d624fb7d938ba0062" title="Start playing the specified waveform on the specified channel.">mixer_ch_play</a>). <br /></td></tr>
+<tr class="separator:a2e4c512211f71e3aab5215612250092e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a68ffdd651925d1fa7dc533602c508fc6" id="r_a68ffdd651925d1fa7dc533602c508fc6"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mixer_8h.html#a68ffdd651925d1fa7dc533602c508fc6">MIXER_LOOP_OVERREAD</a>&#160;&#160;&#160;64</td></tr>
 <tr class="separator:a68ffdd651925d1fa7dc533602c508fc6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a91f923e9b125bdd3b240842849fdbf3d" id="r_a91f923e9b125bdd3b240842849fdbf3d"><td class="memItemLeft" align="right" valign="top"><a id="a91f923e9b125bdd3b240842849fdbf3d" name="a91f923e9b125bdd3b240842849fdbf3d"></a>
@@ -112,15 +129,29 @@ Macros</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="typedef-members" name="typedef-members"></a>
 Typedefs</h2></td></tr>
+<tr class="memitem:a3aa59104a558b40543d0474be1e64d72" id="r_a3aa59104a558b40543d0474be1e64d72"><td class="memItemLeft" align="right" valign="top">typedef float(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mixer_8h.html#a3aa59104a558b40543d0474be1e64d72">mixer_ramp_fn_t</a>) (float start, float end, float u)</td></tr>
+<tr class="memdesc:a3aa59104a558b40543d0474be1e64d72"><td class="mdescLeft">&#160;</td><td class="mdescRight">Scalar ramp curve: value at normalized time <code>u</code> ∈ [0, 1].  <br /></td></tr>
+<tr class="separator:a3aa59104a558b40543d0474be1e64d72"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a509fb916b04893006f91d4bc5f7fc69e" id="r_a509fb916b04893006f91d4bc5f7fc69e"><td class="memItemLeft" align="right" valign="top">typedef int(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mixer_8h.html#a509fb916b04893006f91d4bc5f7fc69e">MixerEvent</a>) (void *ctx)</td></tr>
 <tr class="memdesc:a509fb916b04893006f91d4bc5f7fc69e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback invoked by mixer_poll at a specified time.  <br /></td></tr>
 <tr class="separator:a509fb916b04893006f91d4bc5f7fc69e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4fd4fb768b3bd352891ff68e789dfbd2" id="r_a4fd4fb768b3bd352891ff68e789dfbd2"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mixer_8h.html#a4fd4fb768b3bd352891ff68e789dfbd2">MixerSoftEvent</a>) (void *ctx, int round_ns)</td></tr>
+<tr class="memdesc:a4fd4fb768b3bd352891ff68e789dfbd2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback invoked after every mixer round.  <br /></td></tr>
+<tr class="separator:a4fd4fb768b3bd352891ff68e789dfbd2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab0e995bf04880a3e14f689f48fdb2475" id="r_ab0e995bf04880a3e14f689f48fdb2475"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mixer_8h.html#ab0e995bf04880a3e14f689f48fdb2475">WaveformRead</a>) (void *ctx, <a class="el" href="samplebuffer_8h.html#structsamplebuffer__t">samplebuffer_t</a> *sbuf, int wpos, int wlen, bool seeking)</td></tr>
 <tr class="memdesc:ab0e995bf04880a3e14f689f48fdb2475"><td class="mdescLeft">&#160;</td><td class="mdescRight">Waveform callback function invoked by the mixer to read/generate samples.  <br /></td></tr>
 <tr class="separator:ab0e995bf04880a3e14f689f48fdb2475"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac0b60f65c1fdb178ad9e80df348a46e7" id="r_ac0b60f65c1fdb178ad9e80df348a46e7"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mixer_8h.html#ac0b60f65c1fdb178ad9e80df348a46e7">WaveformStart</a>) (void *ctx, <a class="el" href="samplebuffer_8h.html#structsamplebuffer__t">samplebuffer_t</a> *sbuf)</td></tr>
 <tr class="memdesc:ac0b60f65c1fdb178ad9e80df348a46e7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Notify the start of playback of a waveform.  <br /></td></tr>
 <tr class="separator:ac0b60f65c1fdb178ad9e80df348a46e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="enum-members" name="enum-members"></a>
+Enumerations</h2></td></tr>
+<tr class="memitem:a94bed47ee7b4b986916b7403fddb4ac5" id="r_a94bed47ee7b4b986916b7403fddb4ac5"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mixer_8h.html#a94bed47ee7b4b986916b7403fddb4ac5">waveform_format_t</a> { <a class="el" href="mixer_8h.html#a94bed47ee7b4b986916b7403fddb4ac5ab0477bcdea0ebb2f97441a86166b16fb">WAVEFORM_FORMAT_PCM</a> = 0
+, <a class="el" href="mixer_8h.html#a94bed47ee7b4b986916b7403fddb4ac5a2885be0ed36e5da1ddb75794ff1df12e">WAVEFORM_FORMAT_VADPCM</a> = 1
+ }</td></tr>
+<tr class="memdesc:a94bed47ee7b4b986916b7403fddb4ac5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Waveform sample format (stored in <a class="el" href="mixer_8h.html#a0fbcc864870db42e01707ebbcbec824b" title="Sample format (see waveform_format_t).">waveform_t::format</a>).  <a href="mixer_8h.html#a94bed47ee7b4b986916b7403fddb4ac5">More...</a><br /></td></tr>
+<tr class="separator:a94bed47ee7b4b986916b7403fddb4ac5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
@@ -134,9 +165,24 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>mixer_close</b> (void
 <tr class="memitem:ae8ed9fdb3bfcb119d56764dd401848ba" id="r_ae8ed9fdb3bfcb119d56764dd401848ba"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mixer_8h.html#ae8ed9fdb3bfcb119d56764dd401848ba">mixer_set_vol</a> (float vol)</td></tr>
 <tr class="memdesc:ae8ed9fdb3bfcb119d56764dd401848ba"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set master volume.  <br /></td></tr>
 <tr class="separator:ae8ed9fdb3bfcb119d56764dd401848ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1cf36947e437bceda1e72ea985bd42ce" id="r_a1cf36947e437bceda1e72ea985bd42ce"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mixer_8h.html#a1cf36947e437bceda1e72ea985bd42ce">mixer_ramp_linear</a> (float start, float end, float u)</td></tr>
+<tr class="memdesc:a1cf36947e437bceda1e72ea985bd42ce"><td class="mdescLeft">&#160;</td><td class="mdescRight">Linear ramp: <code>start + (end - start) * u</code>.  <br /></td></tr>
+<tr class="separator:a1cf36947e437bceda1e72ea985bd42ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a35b3cc56e8a6e04178e5a38a6c9610ff" id="r_a35b3cc56e8a6e04178e5a38a6c9610ff"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mixer_8h.html#a35b3cc56e8a6e04178e5a38a6c9610ff">mixer_ramp_exp</a> (float start, float end, float u)</td></tr>
+<tr class="memdesc:a35b3cc56e8a6e04178e5a38a6c9610ff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Exponential ramp (linear in log): <code>start * (end/start)^u</code>.  <br /></td></tr>
+<tr class="separator:a35b3cc56e8a6e04178e5a38a6c9610ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a56bc7f412e9cd0cde06c44e8acaa85ae" id="r_a56bc7f412e9cd0cde06c44e8acaa85ae"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mixer_8h.html#a56bc7f412e9cd0cde06c44e8acaa85ae">mixer_ch_set_vol</a> (int ch, float lvol, float rvol)</td></tr>
 <tr class="memdesc:a56bc7f412e9cd0cde06c44e8acaa85ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set channel volume (as left/right).  <br /></td></tr>
 <tr class="separator:a56bc7f412e9cd0cde06c44e8acaa85ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad165b4a1a3c86a2d4c991ff5fc6075a3" id="r_ad165b4a1a3c86a2d4c991ff5fc6075a3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mixer_8h.html#ad165b4a1a3c86a2d4c991ff5fc6075a3">mixer_ch_set_vol_ramp</a> (int ch, float lvol, float rvol, int duration)</td></tr>
+<tr class="memdesc:ad165b4a1a3c86a2d4c991ff5fc6075a3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Linearly ramp channel volume to the specified values.  <br /></td></tr>
+<tr class="separator:ad165b4a1a3c86a2d4c991ff5fc6075a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad6b6dd6103e684bc54123b09e6594bdb" id="r_ad6b6dd6103e684bc54123b09e6594bdb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mixer_8h.html#ad6b6dd6103e684bc54123b09e6594bdb">mixer_ch_set_gain</a> (int ch, float gain)</td></tr>
+<tr class="memdesc:ad6b6dd6103e684bc54123b09e6594bdb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the mono gain of a channel.  <br /></td></tr>
+<tr class="separator:ad6b6dd6103e684bc54123b09e6594bdb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a31ef30625f1b4e87ef82ed365891ed7d" id="r_a31ef30625f1b4e87ef82ed365891ed7d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mixer_8h.html#a31ef30625f1b4e87ef82ed365891ed7d">mixer_ch_set_gain_ramp</a> (int ch, float gain, int duration, <a class="el" href="mixer_8h.html#a3aa59104a558b40543d0474be1e64d72">mixer_ramp_fn_t</a> curve, int started_ago)</td></tr>
+<tr class="memdesc:a31ef30625f1b4e87ef82ed365891ed7d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ramp the mono gain of a channel.  <br /></td></tr>
+<tr class="separator:a31ef30625f1b4e87ef82ed365891ed7d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5fbe88215add4d8f5cd68807616ae9b1" id="r_a5fbe88215add4d8f5cd68807616ae9b1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mixer_8h.html#a5fbe88215add4d8f5cd68807616ae9b1">mixer_ch_set_vol_pan</a> (int ch, float vol, float pan)</td></tr>
 <tr class="memdesc:a5fbe88215add4d8f5cd68807616ae9b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set channel volume (as volume and panning).  <br /></td></tr>
 <tr class="separator:a5fbe88215add4d8f5cd68807616ae9b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -146,9 +192,8 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>mixer_close</b> (void
 <tr class="memitem:afcca189f1c3c51d0d1927ebc018e432c" id="r_afcca189f1c3c51d0d1927ebc018e432c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mixer_8h.html#afcca189f1c3c51d0d1927ebc018e432c">mixer_ch_set_force_mono</a> (int ch, bool enable)</td></tr>
 <tr class="memdesc:afcca189f1c3c51d0d1927ebc018e432c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable or disable force-mono on a single channel.  <br /></td></tr>
 <tr class="separator:afcca189f1c3c51d0d1927ebc018e432c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8fb34a949ff8d0f06ddfe7dd05028c5e" id="r_a8fb34a949ff8d0f06ddfe7dd05028c5e"><td class="memItemLeft" align="right" valign="top"><a id="a8fb34a949ff8d0f06ddfe7dd05028c5e" name="a8fb34a949ff8d0f06ddfe7dd05028c5e"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>mixer_ch_get_force_mono</b> (int ch)</td></tr>
-<tr class="memdesc:a8fb34a949ff8d0f06ddfe7dd05028c5e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Query the force-mono flag for a channel. <br /></td></tr>
+<tr class="memitem:a8fb34a949ff8d0f06ddfe7dd05028c5e" id="r_a8fb34a949ff8d0f06ddfe7dd05028c5e"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mixer_8h.html#a8fb34a949ff8d0f06ddfe7dd05028c5e">mixer_ch_get_force_mono</a> (int ch)</td></tr>
+<tr class="memdesc:a8fb34a949ff8d0f06ddfe7dd05028c5e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Query the force-mono flag for a channel.  <br /></td></tr>
 <tr class="separator:a8fb34a949ff8d0f06ddfe7dd05028c5e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a68143a89a9cb482dcfc3dc56898c7dee" id="r_a68143a89a9cb482dcfc3dc56898c7dee"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mixer_8h.html#a68143a89a9cb482dcfc3dc56898c7dee">mixer_set_force_mono</a> (bool enable)</td></tr>
 <tr class="memdesc:a68143a89a9cb482dcfc3dc56898c7dee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable or disable force-mono on every channel at once.  <br /></td></tr>
@@ -159,6 +204,12 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>mixer_ch_get_force_mo
 <tr class="memitem:af8c01ae2bc402901e8fbf7e61e5cd9d6" id="r_af8c01ae2bc402901e8fbf7e61e5cd9d6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mixer_8h.html#af8c01ae2bc402901e8fbf7e61e5cd9d6">mixer_ch_set_freq</a> (int ch, float frequency)</td></tr>
 <tr class="memdesc:af8c01ae2bc402901e8fbf7e61e5cd9d6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Change the frequency for the specified channel.  <br /></td></tr>
 <tr class="separator:af8c01ae2bc402901e8fbf7e61e5cd9d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a46eaa4084a682640cdc962f98a398a0a" id="r_a46eaa4084a682640cdc962f98a398a0a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mixer_8h.html#a46eaa4084a682640cdc962f98a398a0a">mixer_ch_set_freq_ramp</a> (int ch, float frequency, int duration, <a class="el" href="mixer_8h.html#a3aa59104a558b40543d0474be1e64d72">mixer_ramp_fn_t</a> curve, int started_ago)</td></tr>
+<tr class="memdesc:a46eaa4084a682640cdc962f98a398a0a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ramp the playback frequency of a channel.  <br /></td></tr>
+<tr class="separator:a46eaa4084a682640cdc962f98a398a0a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad247cf7b8fd3bb271b1de8dcb02361ae" id="r_ad247cf7b8fd3bb271b1de8dcb02361ae"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mixer_8h.html#ad247cf7b8fd3bb271b1de8dcb02361ae">mixer_ch_set_loop</a> (int ch, bool enable)</td></tr>
+<tr class="memdesc:ad247cf7b8fd3bb271b1de8dcb02361ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable or disable the sustain loop on a mixer channel.  <br /></td></tr>
+<tr class="separator:ad247cf7b8fd3bb271b1de8dcb02361ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3f02614d2efadf41b657c0d8050d7dcf" id="r_a3f02614d2efadf41b657c0d8050d7dcf"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mixer_8h.html#a3f02614d2efadf41b657c0d8050d7dcf">mixer_ch_set_pos</a> (int ch, double pos)</td></tr>
 <tr class="memdesc:a3f02614d2efadf41b657c0d8050d7dcf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Change the current playback position within a waveform.  <br /></td></tr>
 <tr class="separator:a3f02614d2efadf41b657c0d8050d7dcf"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -172,15 +223,23 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>mixer_ch_stop</b> (in
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>mixer_ch_playing</b> (int ch)</td></tr>
 <tr class="memdesc:a1893d5fc9d44b0e37ce0ef82afb71f37"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return true if the channel is currently playing samples. <br /></td></tr>
 <tr class="separator:a1893d5fc9d44b0e37ce0ef82afb71f37"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a400d823cf30a9c76f154ce13312d75d3" id="r_a400d823cf30a9c76f154ce13312d75d3"><td class="memItemLeft" align="right" valign="top"><a id="a400d823cf30a9c76f154ce13312d75d3" name="a400d823cf30a9c76f154ce13312d75d3"></a>
-<a class="el" href="mixer_8h.html#structwaveform__t">waveform_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>mixer_ch_playing_waveform</b> (int ch)</td></tr>
-<tr class="memdesc:a400d823cf30a9c76f154ce13312d75d3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the waveform being played on this channel, or NULL if none. <br /></td></tr>
+<tr class="memitem:a400d823cf30a9c76f154ce13312d75d3" id="r_a400d823cf30a9c76f154ce13312d75d3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="mixer_8h.html#structwaveform__t">waveform_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mixer_8h.html#a400d823cf30a9c76f154ce13312d75d3">mixer_ch_playing_waveform</a> (int ch)</td></tr>
+<tr class="memdesc:a400d823cf30a9c76f154ce13312d75d3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the waveform being played on this channel, or NULL if none.  <br /></td></tr>
 <tr class="separator:a400d823cf30a9c76f154ce13312d75d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7c7e8fc1ce0dc6cfb08895a3daa6ef69" id="r_a7c7e8fc1ce0dc6cfb08895a3daa6ef69"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mixer_8h.html#a7c7e8fc1ce0dc6cfb08895a3daa6ef69">mixer_ch_set_priority</a> (int ch, int priority)</td></tr>
+<tr class="memdesc:a7c7e8fc1ce0dc6cfb08895a3daa6ef69"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the voice-stealing priority of a channel.  <br /></td></tr>
+<tr class="separator:a7c7e8fc1ce0dc6cfb08895a3daa6ef69"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9525fcdf46c960c3bf0eae3166f68bc6" id="r_a9525fcdf46c960c3bf0eae3166f68bc6"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mixer_8h.html#a9525fcdf46c960c3bf0eae3166f68bc6">mixer_ch_alloc</a> (int first_ch, int num_ch, int count, bool stereo, int priority, <a class="el" href="mixer_8h.html#structwaveform__t">waveform_t</a> *wave, int *out)</td></tr>
+<tr class="memdesc:a9525fcdf46c960c3bf0eae3166f68bc6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Plan up to <code>count</code> channels inside <code>[first_ch, first_ch+num_ch)</code>.  <br /></td></tr>
+<tr class="separator:a9525fcdf46c960c3bf0eae3166f68bc6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0b4761b8a44e6a2e2bd5370715832e4d" id="r_a0b4761b8a44e6a2e2bd5370715832e4d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mixer_8h.html#a0b4761b8a44e6a2e2bd5370715832e4d">mixer_play</a> (<a class="el" href="mixer_8h.html#structwaveform__t">waveform_t</a> *wave, int priority)</td></tr>
+<tr class="memdesc:a0b4761b8a44e6a2e2bd5370715832e4d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Play <code>wave</code> on an automatically chosen mixer channel.  <br /></td></tr>
+<tr class="separator:a0b4761b8a44e6a2e2bd5370715832e4d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa6151c20fc5ddfa953c9d2dabe1da294" id="r_aa6151c20fc5ddfa953c9d2dabe1da294"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mixer_8h.html#aa6151c20fc5ddfa953c9d2dabe1da294">mixer_ch_set_limits</a> (int ch, int max_bits, float max_frequency, int max_buf_sz)</td></tr>
 <tr class="memdesc:aa6151c20fc5ddfa953c9d2dabe1da294"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configure the limits of a channel with respect to sample bit size, and frequency.  <br /></td></tr>
 <tr class="separator:aa6151c20fc5ddfa953c9d2dabe1da294"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a609e245914f93ed2070304e68b42db6a" id="r_a609e245914f93ed2070304e68b42db6a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mixer_8h.html#a609e245914f93ed2070304e68b42db6a">mixer_throttle</a> (float num_samples)</td></tr>
-<tr class="memdesc:a609e245914f93ed2070304e68b42db6a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Throttle the mixer by specifying the maximum number of samples it can generate.  <br /></td></tr>
+<tr class="memdesc:a609e245914f93ed2070304e68b42db6a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Throttle the mixer by specifying the maximum number of samples.  <br /></td></tr>
 <tr class="separator:a609e245914f93ed2070304e68b42db6a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6b982bb4ca20959ae4a12aec9e014c8c" id="r_a6b982bb4ca20959ae4a12aec9e014c8c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mixer_8h.html#a6b982bb4ca20959ae4a12aec9e014c8c">mixer_unthrottle</a> (void)</td></tr>
 <tr class="memdesc:a6b982bb4ca20959ae4a12aec9e014c8c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unthrottle the mixer.  <br /></td></tr>
@@ -188,15 +247,21 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>mixer_ch_playing</b> 
 <tr class="memitem:a49057735de9c408b332975d72c05390c" id="r_a49057735de9c408b332975d72c05390c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mixer_8h.html#a49057735de9c408b332975d72c05390c">mixer_poll</a> (int16_t *out, int nsamples)</td></tr>
 <tr class="memdesc:a49057735de9c408b332975d72c05390c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Run the mixer to produce output samples.  <br /></td></tr>
 <tr class="separator:a49057735de9c408b332975d72c05390c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab63653dee62b67707c375c54aed98079" id="r_ab63653dee62b67707c375c54aed98079"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mixer_8h.html#ab63653dee62b67707c375c54aed98079">mixer_try_play</a> ()</td></tr>
-<tr class="memdesc:ab63653dee62b67707c375c54aed98079"><td class="mdescLeft">&#160;</td><td class="mdescRight">Request the mixer to try and write audio samples to be played, if possible.  <br /></td></tr>
-<tr class="separator:ab63653dee62b67707c375c54aed98079"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acf17ef188e199bf6bf26109d60225905" id="r_acf17ef188e199bf6bf26109d60225905"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mixer_8h.html#acf17ef188e199bf6bf26109d60225905">mixer_try_play</a> (void)</td></tr>
+<tr class="memdesc:acf17ef188e199bf6bf26109d60225905"><td class="mdescLeft">&#160;</td><td class="mdescRight">Request the mixer to try and write audio samples to be played,.  <br /></td></tr>
+<tr class="separator:acf17ef188e199bf6bf26109d60225905"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a21ead4fd7433fbf4a328a216dc5a56a8" id="r_a21ead4fd7433fbf4a328a216dc5a56a8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mixer_8h.html#a21ead4fd7433fbf4a328a216dc5a56a8">mixer_add_event</a> (int64_t delay, <a class="el" href="mixer_8h.html#a509fb916b04893006f91d4bc5f7fc69e">MixerEvent</a> cb, void *ctx)</td></tr>
 <tr class="memdesc:a21ead4fd7433fbf4a328a216dc5a56a8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Register a time-based event into the mixer.  <br /></td></tr>
 <tr class="separator:a21ead4fd7433fbf4a328a216dc5a56a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aab616cf94c3df83670ca62236177b246" id="r_aab616cf94c3df83670ca62236177b246"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mixer_8h.html#aab616cf94c3df83670ca62236177b246">mixer_remove_event</a> (<a class="el" href="mixer_8h.html#a509fb916b04893006f91d4bc5f7fc69e">MixerEvent</a> cb, void *ctx)</td></tr>
 <tr class="memdesc:aab616cf94c3df83670ca62236177b246"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deregister a time-based event from the mixer.  <br /></td></tr>
 <tr class="separator:aab616cf94c3df83670ca62236177b246"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae720743cde6d1d6be0847bb9b15d220c" id="r_ae720743cde6d1d6be0847bb9b15d220c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mixer_8h.html#ae720743cde6d1d6be0847bb9b15d220c">mixer_add_soft_event</a> (<a class="el" href="mixer_8h.html#a4fd4fb768b3bd352891ff68e789dfbd2">MixerSoftEvent</a> cb, void *ctx)</td></tr>
+<tr class="memdesc:ae720743cde6d1d6be0847bb9b15d220c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Register a per-round soft callback.  <br /></td></tr>
+<tr class="separator:ae720743cde6d1d6be0847bb9b15d220c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad68644fd49e805b565aab8095d308bae" id="r_ad68644fd49e805b565aab8095d308bae"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mixer_8h.html#ad68644fd49e805b565aab8095d308bae">mixer_remove_soft_event</a> (<a class="el" href="mixer_8h.html#a4fd4fb768b3bd352891ff68e789dfbd2">MixerSoftEvent</a> cb, void *ctx)</td></tr>
+<tr class="memdesc:ad68644fd49e805b565aab8095d308bae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deregister a soft callback.  <br /></td></tr>
+<tr class="separator:ad68644fd49e805b565aab8095d308bae"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>RSP Audio mixer. </p>
@@ -230,7 +295,7 @@ Name of the waveform (for debugging purposes) </td></tr>
 <td class="fieldname">
 bits</td>
 <td class="fielddoc">
-Width of a sample of this waveform, in bits. <p>Supported values are 8 or 16. Notice that samples must always be signed. </p>
+Width of a sample of this waveform, in bits. <p>Supported values are 8 or 16. Notice that samples must always be signed. For <a class="el" href="mixer_8h.html#a94bed47ee7b4b986916b7403fddb4ac5a2885be0ed36e5da1ddb75794ff1df12e">WAVEFORM_FORMAT_VADPCM</a> this is the decoded width (always 16). </p>
 </td></tr>
 <tr><td class="fieldtype">
 <a id="a71d6099676db476a406a323e4e871a41" name="a71d6099676db476a406a323e4e871a41"></a>uint8_t</td>
@@ -238,6 +303,14 @@ Width of a sample of this waveform, in bits. <p>Supported values are 8 or 16. No
 channels</td>
 <td class="fielddoc">
 Number of interleaved audio channels in this waveforms. <p>Supported values are 1 and 2 (mono and stereo waveforms). Notice that a stereo waveform will use two consecutive mixer channels to be played back. </p>
+</td></tr>
+<tr><td class="fieldtype">
+<a id="a0fbcc864870db42e01707ebbcbec824b" name="a0fbcc864870db42e01707ebbcbec824b"></a>uint8_t</td>
+<td class="fieldname">
+format</td>
+<td class="fielddoc">
+Sample format (see <a class="el" href="mixer_8h.html#a94bed47ee7b4b986916b7403fddb4ac5" title="Waveform sample format (stored in waveform_t::format).">waveform_format_t</a>). <dl class="preview"><dt><b><a class="el" href="preview.html#_preview000304">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
+<p>Defaults to <a class="el" href="mixer_8h.html#a94bed47ee7b4b986916b7403fddb4ac5ab0477bcdea0ebb2f97441a86166b16fb">WAVEFORM_FORMAT_PCM</a> when zero-initialized. </p>
 </td></tr>
 <tr><td class="fieldtype">
 <a id="abf0009a0d23a1c1f93e21d64d7d18027" name="abf0009a0d23a1c1f93e21d64d7d18027"></a>float</td>
@@ -257,14 +330,26 @@ Length of the waveform, in number of samples. <p>If the length is not known, thi
 <td class="fieldname">
 loop_len</td>
 <td class="fielddoc">
-Length of the loop of the waveform (from the end). <p>This value describes how many samples of the tail of the waveform needs to be played in a loop. For instance, if len==1200 and loop_len=500, the waveform will be played once, and then the last 700 samples will be repeated in loop. </p>
+Length of the loop, in samples. <p>The loop occupies <code>[loop_end - loop_len, loop_end)</code>. With the default <code>#loop_end</code> of zero (meaning <code>#len</code>), this is a terminal loop: e.g. <code>len==1200</code> and <code>loop_len==500</code> repeats the last 500 samples.</p>
+<p>Loop will be enabled by default during playback if configured here, but can still be toggled using <a class="el" href="mixer_8c.html#ad247cf7b8fd3bb271b1de8dcb02361ae" title="Enable or disable the sustain loop on a mixer channel.">mixer_ch_set_loop</a>. </p>
+</td></tr>
+<tr><td class="fieldtype">
+<a id="a637f31ac476b392bb104cb4782d63ede" name="a637f31ac476b392bb104cb4782d63ede"></a>int</td>
+<td class="fieldname">
+loop_end</td>
+<td class="fielddoc">
+Exclusive end of the loop, in samples. <dl class="preview"><dt><b><a class="el" href="preview.html#_preview000305">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
+<p>The loop occupies <code>[loop_end - loop_len, loop_end)</code>. With the default value of zero, this is a terminal loop: e.g. <code>len==1200</code>, <code>loop_len==500</code>, and <code>loop_end==0</code>, repeats the last 500 samples.</p>
+<p>Otherwise, set it to create a non-terminal loop. For example, <code>len==1200</code>, <code>loop_len==500</code>, and <code>loop_end==1000</code>, creates a loop that repeats the samples from 500 to 1000.</p>
+<p>You can toggle the loop at runtime with <a class="el" href="mixer_8c.html#ad247cf7b8fd3bb271b1de8dcb02361ae" title="Enable or disable the sustain loop on a mixer channel.">mixer_ch_set_loop</a>, including during playback. For instance, if you disable a loop while it was already playing, the playback will continue until the end of the waveform is reached (thus going through the post-loop tail). </p>
 </td></tr>
 <tr><td class="fieldtype">
 <a id="a8b38151dd6e5c5543565c8be10f7165e" name="a8b38151dd6e5c5543565c8be10f7165e"></a><a class="el" href="mixer_8h.html#ac0b60f65c1fdb178ad9e80df348a46e7">WaveformStart</a></td>
 <td class="fieldname">
 start</td>
 <td class="fielddoc">
-Callback to notify the start of playback of the waveform. <p>This might be useful to perform one-time initializations of the channel state. See <a class="el" href="mixer_8h.html#ac0b60f65c1fdb178ad9e80df348a46e7" title="Notify the start of playback of a waveform.">WaveformStart</a> for more information. </p>
+Callback to notify the start of playback of the waveform. <dl class="preview"><dt><b><a class="el" href="preview.html#_preview000306">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
+<p>This might be useful to perform one-time initializations of the channel state. See <a class="el" href="mixer_8h.html#ac0b60f65c1fdb178ad9e80df348a46e7" title="Notify the start of playback of a waveform.">WaveformStart</a> for more information. </p>
 </td></tr>
 <tr><td class="fieldtype">
 <a id="a5bcbece8e4db3e873a29bb9a227ac4e4" name="a5bcbece8e4db3e873a29bb9a227ac4e4"></a><a class="el" href="mixer_8h.html#ab0e995bf04880a3e14f689f48fdb2475">WaveformRead</a></td>
@@ -280,12 +365,56 @@ ctx</td>
 <td class="fielddoc">
 Opaque pointer provided as context to the read function. </td></tr>
 <tr><td class="fieldtype">
+<a id="a8b1c2ac82832d2fcd33dfbd1a8081844" name="a8b1c2ac82832d2fcd33dfbd1a8081844"></a>bool</td>
+<td class="fieldname">
+async_read</td>
+<td class="fielddoc">
+True if <a class="el" href="mixer_8h.html#a5bcbece8e4db3e873a29bb9a227ac4e4" title="Read function of the waveform.">read</a> returns with its transfer still in flight. <dl class="preview"><dt><b><a class="el" href="preview.html#_preview000307">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
+<p>Set this when the samples are fetched with an asynchronous PI DMA (see <a class="el" href="samplebuffer_8c.html#a3bca09756ff9879fbf8382bee94ea70a">samplebuffer_dma_wait</a>). The mixer then fetches ahead of time (<a class="el" href="samplebuffer_8c.html#adc4195a62a4fba4a07434e1db8075917" title="Start fetching samples that will be requested later (zero-wait).">samplebuffer_prefetch</a>), so that the transfer runs while the CPU does something else. Leave it false for readers that produce the samples synchronously (CPU decoding, filesystem reads): fetching those early would just move the same work around, and waste it on a seek. </p>
+</td></tr>
+<tr><td class="fieldtype">
+<a id="aebf88169231e7d9fa90d56273ddd7483" name="aebf88169231e7d9fa90d56273ddd7483"></a>bool</td>
+<td class="fieldname">
+rsp_written</td>
+<td class="fielddoc">
+True if <a class="el" href="mixer_8h.html#a5bcbece8e4db3e873a29bb9a227ac4e4" title="Read function of the waveform.">read</a> produces samples through an RSP overlay. <dl class="preview"><dt><b><a class="el" href="preview.html#_preview000308">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
+<p>Set this when the bytes <a class="el" href="samplebuffer_8c.html#a392b4b826167c5157e983a18493cd4b5" title="Append samples into the buffer (zero-copy).">samplebuffer_append</a> returns are filled by RSP commands still in the queue (e.g. ULC). The samplebuffer then mirrors those bytes through the same queue (MIX_COPY) so the copy lands after the decode. Leave it false for CPU or PI producers.</p>
+<p>SP DMA needs an 8-byte aligned destination, so such a producer must also leave the write cursor on a boundary it can write to: whatever it keeps of a decoded block has to be a multiple of <a class="el" href="samplebuffer_8c.html#ad6f97f02099021c43794059974f359dd" title="Granularity, in units, that keeps appends 8-byte aligned.">samplebuffer_align_units</a>. Appending whole blocks does that by itself; <a class="el" href="samplebuffer_8c.html#ac38268641091505733db16c3b79c569d" title="Remove the a specified number of samples from the tail of the buffer.">samplebuffer_undo</a> of a partial block (trimming the samples past the end of the waveform) is where it has to be rounded, or the next append lands mid-word. </p>
+</td></tr>
+<tr><td class="fieldtype">
+<a id="a81dc704ba906cecd6e9878a27d1228b1" name="a81dc704ba906cecd6e9878a27d1228b1"></a>int</td>
+<td class="fieldname">
+append_units</td>
+<td class="fielddoc">
+Granularity in units of the appends made by <a class="el" href="mixer_8h.html#a5bcbece8e4db3e873a29bb9a227ac4e4" title="Read function of the waveform.">read</a> (0 if unknown). <dl class="preview"><dt><b><a class="el" href="preview.html#_preview000309">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
+<p>Set this when <a class="el" href="mixer_8h.html#a5bcbece8e4db3e873a29bb9a227ac4e4" title="Read function of the waveform.">read</a> always appends a whole multiple of a fixed chunk (a codec frame: 1024 samples for ULC, one audioframe for YM64). The samplebuffer sizes its mirrored tail to MAX(<a class="el" href="samplebuffer_8h.html#aaeb4959dd3dc17bc1df114726ba1fc43">SAMPLEBUFFER_MARGIN_UNITS</a>, this), so a single append of that size stays contiguous across the wrap.</p>
+<p>Leave it 0 if the appends have no fixed size (or always fit the default margin of <a class="el" href="samplebuffer_8h.html#aaeb4959dd3dc17bc1df114726ba1fc43">SAMPLEBUFFER_MARGIN_UNITS</a>). </p>
+</td></tr>
+<tr><td class="fieldtype">
+<a id="a84f6544b2b22c37a13ebf3df65726a75" name="a84f6544b2b22c37a13ebf3df65726a75"></a>bool</td>
+<td class="fieldname">
+loop_restart_only</td>
+<td class="fielddoc">
+True if <a class="el" href="mixer_8h.html#a5bcbece8e4db3e873a29bb9a227ac4e4" title="Read function of the waveform.">read</a> can only restart a loop exactly on its start. <dl class="preview"><dt><b><a class="el" href="preview.html#_preview000310">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
+<p>Set this for transform codecs, which resume a stream only on one of their seek points: the loop start is the only position that a looping waveform guarantees to be one. When a loop is too large to be pinned in the samplebuffer, the mixer then wraps it exactly there, replaying the few samples that a round may have mixed past the loop point rather than restarting on them.</p>
+<p>Leave it false for readers that can restart anywhere (PCM, VADPCM): those resume right where the round stopped, with nothing replayed. That matters for the very short loops of tracker instruments, where even a single repeated sample per iteration lengthens the loop period enough to detune the note. </p>
+</td></tr>
+<tr><td class="fieldtype">
 <a id="a103f3c6266b8235bdfea389a50d395f2" name="a103f3c6266b8235bdfea389a50d395f2"></a>int</td>
 <td class="fieldname">
 state_size</td>
 <td class="fielddoc">
-State size required for this waveform to operate. <p>The waveform can request the mixer to allocate a specific amount of memory for its internal state. This is useful to store a per-channel state (eg: decompressor state).</p>
+State size required for this waveform to operate. <dl class="preview"><dt><b><a class="el" href="preview.html#_preview000311">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
+<p>The waveform can request the mixer to allocate a specific amount of memory for its internal state. This is useful to store a per-channel state (eg: decompressor state).</p>
 <p>If this variable is not 0, the mixer will allocate the specified amount of memory for the waveform, and make it available to the read function via the "state" field of the <a class="el" href="samplebuffer_8h.html#structsamplebuffer__t">samplebuffer_t</a>. </p>
+</td></tr>
+<tr><td class="fieldtype">
+<a id="add182ca8b54dc37133e57b9d80bc6e74" name="add182ca8b54dc37133e57b9d80bc6e74"></a>const void *</td>
+<td class="fieldname">
+mem</td>
+<td class="fielddoc">
+Resident sample data in RDRAM, or NULL if streamed. <dl class="preview"><dt><b><a class="el" href="preview.html#_preview000312">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
+<p>When non-NULL, the mixer addresses these bytes directly (PCM samples or compressed VADPCM frames) and does not allocate a samplebuffer for this waveform. <a class="el" href="mixer_8h.html#a5bcbece8e4db3e873a29bb9a227ac4e4" title="Read function of the waveform.">read</a> is still invoked for seeking side-effects when <a class="el" href="mixer_8h.html#a103f3c6266b8235bdfea389a50d395f2" title="State size required for this waveform to operate.">state_size</a> is non-zero (e.g. VADPCM predictor state). </p>
 </td></tr>
 </table>
 
@@ -327,6 +456,32 @@ State size required for this waveform to operate. <p>The waveform can request th
 </div>
 </div>
 <h2 class="groupheader">Typedef Documentation</h2>
+<a id="a3aa59104a558b40543d0474be1e64d72" name="a3aa59104a558b40543d0474be1e64d72"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3aa59104a558b40543d0474be1e64d72">&#9670;&#160;</a></span>mixer_ramp_fn_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef float(* mixer_ramp_fn_t) (float start, float end, float u)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Scalar ramp curve: value at normalized time <code>u</code> ∈ [0, 1]. </p>
+<p>Used by <a class="el" href="mixer_8h.html#a31ef30625f1b4e87ef82ed365891ed7d" title="Ramp the mono gain of a channel.">mixer_ch_set_gain_ramp</a> and <a class="el" href="mixer_8h.html#a46eaa4084a682640cdc962f98a398a0a" title="Ramp the playback frequency of a channel.">mixer_ch_set_freq_ramp</a>. The mixer samples the curve once per mix round and walks linearly between those points on the RSP. Built-ins: <a class="el" href="mixer_8h.html#a1cf36947e437bceda1e72ea985bd42ce" title="Linear ramp: start + (end - start) * u.">mixer_ramp_linear</a>, <a class="el" href="mixer_8h.html#a35b3cc56e8a6e04178e5a38a6c9610ff" title="Exponential ramp (linear in log): start * (end/start)^u.">mixer_ramp_exp</a>. Sequencers may pass their own (e.g. SoundFont convex attack).</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">start</td><td>Value at u = 0 (already reached when the ramp arms) </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">end</td><td>Value at u = 1 (the ramp target) </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">u</td><td>Progress in [0, 1] </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Interpolated value </dd></dl>
+
+</div>
+</div>
 <a id="a509fb916b04893006f91d4bc5f7fc69e" name="a509fb916b04893006f91d4bc5f7fc69e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a509fb916b04893006f91d4bc5f7fc69e">&#9670;&#160;</a></span>MixerEvent</h2>
 
@@ -350,6 +505,30 @@ State size required for this waveform to operate. <p>The waveform can request th
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>0 if the event can be deregistered, otherwise a positive number of samples to wait before calling again. </dd></dl>
+
+</div>
+</div>
+<a id="a4fd4fb768b3bd352891ff68e789dfbd2" name="a4fd4fb768b3bd352891ff68e789dfbd2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4fd4fb768b3bd352891ff68e789dfbd2">&#9670;&#160;</a></span>MixerSoftEvent</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef void(* MixerSoftEvent) (void *ctx, int round_ns)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Callback invoked after every mixer round. </p>
+<p>A soft event does not force the mixer to split a round or poll segment. After each round of <code>round_ns</code> output samples has been mixed, every registered soft callback is invoked with that length so clients can advance their own clocks (envelopes, sequencers) without affecting mix granularity.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">ctx</td><td>Opaque pointer from <a class="el" href="mixer_8h.html#ae720743cde6d1d6be0847bb9b15d220c" title="Register a per-round soft callback.">mixer_add_soft_event</a> </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">round_ns</td><td>Output samples mixed in the round that just ended </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -415,6 +594,29 @@ State size required for this waveform to operate. <p>The waveform can request th
 
 </div>
 </div>
+<h2 class="groupheader">Enumeration Type Documentation</h2>
+<a id="a94bed47ee7b4b986916b7403fddb4ac5" name="a94bed47ee7b4b986916b7403fddb4ac5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a94bed47ee7b4b986916b7403fddb4ac5">&#9670;&#160;</a></span>waveform_format_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="mixer_8h.html#a94bed47ee7b4b986916b7403fddb4ac5">waveform_format_t</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Waveform sample format (stored in <a class="el" href="mixer_8h.html#a0fbcc864870db42e01707ebbcbec824b" title="Sample format (see waveform_format_t).">waveform_t::format</a>). </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a94bed47ee7b4b986916b7403fddb4ac5ab0477bcdea0ebb2f97441a86166b16fb" name="a94bed47ee7b4b986916b7403fddb4ac5ab0477bcdea0ebb2f97441a86166b16fb"></a>WAVEFORM_FORMAT_PCM&#160;</td><td class="fielddoc"><p>Interleaved PCM samples (8/16-bit). Default. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a94bed47ee7b4b986916b7403fddb4ac5a2885be0ed36e5da1ddb75794ff1df12e" name="a94bed47ee7b4b986916b7403fddb4ac5a2885be0ed36e5da1ddb75794ff1df12e"></a>WAVEFORM_FORMAT_VADPCM&#160;</td><td class="fielddoc"><p>Mono or stereo VADPCM: the samplebuffer holds compressed 9-byte frames (one plane per mixer channel); the mixer ucode decodes them in DMEM during mixing. Stereo files are block-planar on disk and use two consecutive mixer channels as independent mono VADPCM streams. </p>
+</td></tr>
+</table>
+
+</div>
+</div>
 <h2 class="groupheader">Function Documentation</h2>
 <a id="a6d0758de0074e1a44dea7cf1b8d298d5" name="a6d0758de0074e1a44dea7cf1b8d298d5"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a6d0758de0074e1a44dea7cf1b8d298d5">&#9670;&#160;</a></span>mixer_init()</h2>
@@ -470,6 +672,81 @@ State size required for this waveform to operate. <p>The waveform can request th
 
 </div>
 </div>
+<a id="a1cf36947e437bceda1e72ea985bd42ce" name="a1cf36947e437bceda1e72ea985bd42ce"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1cf36947e437bceda1e72ea985bd42ce">&#9670;&#160;</a></span>mixer_ramp_linear()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float mixer_ramp_linear </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>start</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>end</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>u</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Linear ramp: <code>start + (end - start) * u</code>. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000285">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it. </dd></dl>
+
+</div>
+</div>
+<a id="a35b3cc56e8a6e04178e5a38a6c9610ff" name="a35b3cc56e8a6e04178e5a38a6c9610ff"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a35b3cc56e8a6e04178e5a38a6c9610ff">&#9670;&#160;</a></span>mixer_ramp_exp()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float mixer_ramp_exp </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>start</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>end</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>u</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Exponential ramp (linear in log): <code>start * (end/start)^u</code>. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000286">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
+<p>For amplitude this is a constant-dB fade; for frequency, linear in cents. If <code>end</code> is ≤ 0, fades toward silence over the duration (then snaps to 0 when the ramp completes). If <code>start</code> is ≤ 0, rises as <code>end * u</code>. </p>
+
+</div>
+</div>
 <a id="a56bc7f412e9cd0cde06c44e8acaa85ae" name="a56bc7f412e9cd0cde06c44e8acaa85ae"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a56bc7f412e9cd0cde06c44e8acaa85ae">&#9670;&#160;</a></span>mixer_ch_set_vol()</h2>
 
@@ -503,7 +780,7 @@ State size required for this waveform to operate. <p>The waveform can request th
 </div><div class="memdoc">
 
 <p>Set channel volume (as left/right). </p>
-<p>Configure channel volume for the specified channel, specifying two values: one for the left output and one for the right output.</p>
+<p>Configure channel volume for the specified channel, specifying two values: one for the left output and one for the right output. The mixed level is <a class="el" href="mixer_8h.html#ad6b6dd6103e684bc54123b09e6594bdb" title="Set the mono gain of a channel.">mixer_ch_set_gain</a> times these volumes (gain defaults to 1.0).</p>
 <p>The volume is an attenuation (no amplification is performed). Valid volume range in [0..1], where 0 is silence and 1 is original channel sample volume (no attenuation performed).</p>
 <p>Notice that it's perfectly valid to set left/right volumes even if the channel itself will play a mono waveforms, as it allows to balance a mono sample between the two final output channels.</p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -511,6 +788,164 @@ State size required for this waveform to operate. <p>The waveform can request th
     <tr><td class="paramdir">[in]</td><td class="paramname">ch</td><td>Channel index </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">lvol</td><td>Left volume (range [0..1]) </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">rvol</td><td>Right volume (range [0..1]) </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ad165b4a1a3c86a2d4c991ff5fc6075a3" name="ad165b4a1a3c86a2d4c991ff5fc6075a3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad165b4a1a3c86a2d4c991ff5fc6075a3">&#9670;&#160;</a></span>mixer_ch_set_vol_ramp()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void mixer_ch_set_vol_ramp </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>ch</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>lvol</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>rvol</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>duration</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Linearly ramp channel volume to the specified values. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000287">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
+<p>This is the same as <a class="el" href="mixer_8h.html#a56bc7f412e9cd0cde06c44e8acaa85ae" title="Set channel volume (as left/right).">mixer_ch_set_vol</a>, but instead of changing the volume right away, the mixer walks it linearly from its current value to the specified one over <code>duration</code> output samples. Independent of <a class="el" href="mixer_8h.html#a31ef30625f1b4e87ef82ed365891ed7d" title="Ramp the mono gain of a channel.">mixer_ch_set_gain_ramp</a>: both apply at once (gain × volume).</p>
+<p>The ramp is run by the mixer itself, across RSP rounds and audio buffers: it does not need any <a class="el" href="mixer_8h.html#a21ead4fd7433fbf4a328a216dc5a56a8" title="Register a time-based event into the mixer.">mixer_add_event</a> callback while it is in progress, and it is smooth well below the granularity of a mix round. Use it for stereo fades and crossfades; for a mono amplitude envelope prefer <a class="el" href="mixer_8h.html#a31ef30625f1b4e87ef82ed365891ed7d" title="Ramp the mono gain of a channel.">mixer_ch_set_gain_ramp</a>.</p>
+<p>A ramp replaces whatever volume ramp was running on the channel, starting from the volume that one had reached. Calling <a class="el" href="mixer_8h.html#a56bc7f412e9cd0cde06c44e8acaa85ae" title="Set channel volume (as left/right).">mixer_ch_set_vol</a> (or passing a <code>duration</code> of 0 here) cancels the volume ramp and sets the volume immediately; stopping the channel cancels it as well.</p>
+<p>The RSP walks the volume one output sample at a time, in steps it recomputes every four of them, so <code>duration</code> is effectively rounded up to a multiple of 4.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">ch</td><td>Channel index </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">lvol</td><td>Target left volume (range [0..1]) </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">rvol</td><td>Target right volume (range [0..1]) </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">duration</td><td>Length of the ramp, in output samples </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ad6b6dd6103e684bc54123b09e6594bdb" name="ad6b6dd6103e684bc54123b09e6594bdb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad6b6dd6103e684bc54123b09e6594bdb">&#9670;&#160;</a></span>mixer_ch_set_gain()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void mixer_ch_set_gain </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>ch</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>gain</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set the mono gain of a channel. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000288">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
+<p>Gain is a per-channel attenuation in [0..1] (default 1.0), multiplied with <a class="el" href="mixer_8h.html#a56bc7f412e9cd0cde06c44e8acaa85ae" title="Set channel volume (as left/right).">mixer_ch_set_vol</a> when mixing. The change is immediate: it cancels a running gain ramp, and does not affect a running volume ramp.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">ch</td><td>Channel index </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">gain</td><td>Target gain (range [0..1]) </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a31ef30625f1b4e87ef82ed365891ed7d" name="a31ef30625f1b4e87ef82ed365891ed7d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a31ef30625f1b4e87ef82ed365891ed7d">&#9670;&#160;</a></span>mixer_ch_set_gain_ramp()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void mixer_ch_set_gain_ramp </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>ch</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>gain</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>duration</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="mixer_8h.html#a3aa59104a558b40543d0474be1e64d72">mixer_ramp_fn_t</a>&#160;</td>
+          <td class="paramname"><em>curve</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>started_ago</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Ramp the mono gain of a channel. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000289">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
+<p>Walks gain from its current value to <code>gain</code> over <code>duration</code> output samples, independently of <a class="el" href="mixer_8h.html#ad165b4a1a3c86a2d4c991ff5fc6075a3" title="Linearly ramp channel volume to the specified values.">mixer_ch_set_vol_ramp</a>. The mixer runs the ramp by itself (no <a class="el" href="mixer_8h.html#a21ead4fd7433fbf4a328a216dc5a56a8" title="Register a time-based event into the mixer.">mixer_add_event</a> while it is in progress).</p>
+<p><code>curve</code> maps normalized time to the gain value (<a class="el" href="mixer_8h.html#a1cf36947e437bceda1e72ea985bd42ce" title="Linear ramp: start + (end - start) * u.">mixer_ramp_linear</a>, <a class="el" href="mixer_8h.html#a35b3cc56e8a6e04178e5a38a6c9610ff" title="Exponential ramp (linear in log): start * (end/start)^u.">mixer_ramp_exp</a>, or a custom <a class="el" href="mixer_8h.html#a3aa59104a558b40543d0474be1e64d72" title="Scalar ramp curve: value at normalized time u ∈ [0, 1].">mixer_ramp_fn_t</a>).</p>
+<p>A new gain ramp replaces any previous one, starting from the gain already reached. Duration 0, or <a class="el" href="mixer_8h.html#ad6b6dd6103e684bc54123b09e6594bdb" title="Set the mono gain of a channel.">mixer_ch_set_gain</a>, cancels the ramp and sets the gain immediately; stopping the channel cancels it as well.</p>
+<p><code>started_ago</code> is how many output samples ago this ramp should be treated as having begun (0 = start now). Use it when catching up an envelope that was due earlier than the current mixer time.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">ch</td><td>Channel index </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">gain</td><td>Target gain (range [0..1]) </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">duration</td><td>Length of the ramp, in output samples </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">curve</td><td>Ramp curve (must not be NULL if duration &gt; 0) </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">started_ago</td><td>Samples since the ramp's logical start (&gt;= 0) </td></tr>
   </table>
   </dd>
 </dl>
@@ -659,6 +1094,7 @@ State size required for this waveform to operate. <p>The waveform can request th
 </div><div class="memdoc">
 
 <p>Enable or disable force-mono on a single channel. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000290">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>When enabled, the channel's output is folded equally onto both output buses regardless of its panning or stereo routing:</p><ul>
 <li>Mono channel: both buses receive (lvol + rvol) / 2 of the sample.</li>
 <li>Stereo waveform (owner + sub pair): L and R sample streams are each routed at half amplitude to both buses, yielding L_out = R_out = 0.5 * (L*lvol + R*rvol).</li>
@@ -671,6 +1107,27 @@ State size required for this waveform to operate. <p>The waveform can request th
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a id="a8fb34a949ff8d0f06ddfe7dd05028c5e" name="a8fb34a949ff8d0f06ddfe7dd05028c5e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8fb34a949ff8d0f06ddfe7dd05028c5e">&#9670;&#160;</a></span>mixer_ch_get_force_mono()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool mixer_ch_get_force_mono </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>ch</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Query the force-mono flag for a channel. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000291">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it. </dd></dl>
 
 </div>
 </div>
@@ -691,6 +1148,7 @@ State size required for this waveform to operate. <p>The waveform can request th
 </div><div class="memdoc">
 
 <p>Enable or disable force-mono on every channel at once. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000292">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>Convenience wrapper for a global "Mono" output preference. Applies the flag to all currently-allocated channels. </p>
 
 </div>
@@ -764,12 +1222,114 @@ State size required for this waveform to operate. <p>The waveform can request th
 </div><div class="memdoc">
 
 <p>Change the frequency for the specified channel. </p>
-<p>By default, the frequency is the one required by the waveform associated to the channel, but this function allows to override.</p>
+<p>By default, the frequency is the one required by the waveform associated to the channel, but this function allows to override. The change is immediate and cancels a running <a class="el" href="mixer_8h.html#a46eaa4084a682640cdc962f98a398a0a" title="Ramp the playback frequency of a channel.">mixer_ch_set_freq_ramp</a>.</p>
 <p>This function must be called after <a class="el" href="mixer_8h.html#a1aa94701f22d086d624fb7d938ba0062" title="Start playing the specified waveform on the specified channel.">mixer_ch_play</a>, as otherwise the frequency is reset to the default of the waveform.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">ch</td><td>Channel index </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">frequency</td><td>Playback frequency (in Hz / samples per second) </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a46eaa4084a682640cdc962f98a398a0a" name="a46eaa4084a682640cdc962f98a398a0a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a46eaa4084a682640cdc962f98a398a0a">&#9670;&#160;</a></span>mixer_ch_set_freq_ramp()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void mixer_ch_set_freq_ramp </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>ch</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>frequency</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>duration</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="mixer_8h.html#a3aa59104a558b40543d0474be1e64d72">mixer_ramp_fn_t</a>&#160;</td>
+          <td class="paramname"><em>curve</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>started_ago</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Ramp the playback frequency of a channel. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000293">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
+<p>Walks frequency from its current value to <code>frequency</code> over <code>duration</code> output samples. The mixer runs the ramp by itself (no <a class="el" href="mixer_8h.html#a21ead4fd7433fbf4a328a216dc5a56a8" title="Register a time-based event into the mixer.">mixer_add_event</a> while it is in progress). <code>curve</code> selects the shape (<a class="el" href="mixer_8h.html#a1cf36947e437bceda1e72ea985bd42ce" title="Linear ramp: start + (end - start) * u.">mixer_ramp_linear</a> in Hz, <a class="el" href="mixer_8h.html#a35b3cc56e8a6e04178e5a38a6c9610ff" title="Exponential ramp (linear in log): start * (end/start)^u.">mixer_ramp_exp</a> for linear cents, or a custom <a class="el" href="mixer_8h.html#a3aa59104a558b40543d0474be1e64d72" title="Scalar ramp curve: value at normalized time u ∈ [0, 1].">mixer_ramp_fn_t</a>).</p>
+<p>A new ramp replaces any previous one, starting from the frequency already reached. Duration 0, or <a class="el" href="mixer_8h.html#af8c01ae2bc402901e8fbf7e61e5cd9d6" title="Change the frequency for the specified channel.">mixer_ch_set_freq</a>, cancels the ramp and sets the frequency immediately; stopping the channel cancels it as well.</p>
+<p><code>started_ago</code> is how many output samples ago this ramp should be treated as having begun (0 = start now). Use it when catching up an envelope that was due earlier than the current mixer time.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">ch</td><td>Channel index </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">frequency</td><td>Target playback frequency (Hz) </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">duration</td><td>Length of the ramp, in output samples </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">curve</td><td>Ramp curve (must not be NULL if duration &gt; 0) </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">started_ago</td><td>Samples since the ramp's logical start (&gt;= 0) </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ad247cf7b8fd3bb271b1de8dcb02361ae" name="ad247cf7b8fd3bb271b1de8dcb02361ae"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad247cf7b8fd3bb271b1de8dcb02361ae">&#9670;&#160;</a></span>mixer_ch_set_loop()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void mixer_ch_set_loop </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>ch</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>enable</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Enable or disable the sustain loop on a mixer channel. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000294">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
+<p>The loop bounds come from the waveform (<code>#<a class="el" href="mixer_8h.html#a4a7d318ddfbb4eeb1ec144f6163b5e15" title="Length of the loop, in samples.">waveform_t::loop_len</a></code> / <code>#<a class="el" href="mixer_8h.html#a637f31ac476b392bb104cb4782d63ede" title="Exclusive end of the loop, in samples.">waveform_t::loop_end</a></code>). Disabling does not seek: playback continues from the current position through to <code>#<a class="el" href="mixer_8h.html#a85d404d379af0cb389239dc987496cb9" title="Length of the waveform, in number of samples.">waveform_t::len</a></code> (the release tail, when present) and then stops. Enabling again restores looping at the waveform's loop region.</p>
+<p>Must be called while the channel is playing a waveform that defines a loop.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">ch</td><td>Channel index </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">enable</td><td>True to loop, false to play through to the end </td></tr>
   </table>
   </dd>
 </dl>
@@ -805,6 +1365,7 @@ State size required for this waveform to operate. <p>The waveform can request th
 <p>Change the current playback position within a waveform. </p>
 <p>This function can be useful to seek to a specific point of the waveform. The position must be specified in number of samples (not bytes). Fractional values account for accurate resampling position.</p>
 <p>This function must be called after <a class="el" href="mixer_8h.html#a1aa94701f22d086d624fb7d938ba0062" title="Start playing the specified waveform on the specified channel.">mixer_ch_play</a>, as otherwise the position is reset to the beginning of the waveform.</p>
+<p>Some compressed formats can only restart their decoder on the seek points their asset was built with: a VADPCM waveform, for instance, accepts the start of the waveform and its loop point. Seeking elsewhere on one of those is an error.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">ch</td><td>Channel index </td></tr>
@@ -839,6 +1400,182 @@ State size required for this waveform to operate. <p>The waveform can request th
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Playback position (in number of samples) </dd></dl>
+
+</div>
+</div>
+<a id="a400d823cf30a9c76f154ce13312d75d3" name="a400d823cf30a9c76f154ce13312d75d3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a400d823cf30a9c76f154ce13312d75d3">&#9670;&#160;</a></span>mixer_ch_playing_waveform()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="mixer_8h.html#structwaveform__t">waveform_t</a> * mixer_ch_playing_waveform </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>ch</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Return the waveform being played on this channel, or NULL if none. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000295">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it. </dd></dl>
+
+</div>
+</div>
+<a id="a7c7e8fc1ce0dc6cfb08895a3daa6ef69" name="a7c7e8fc1ce0dc6cfb08895a3daa6ef69"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7c7e8fc1ce0dc6cfb08895a3daa6ef69">&#9670;&#160;</a></span>mixer_ch_set_priority()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void mixer_ch_set_priority </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>ch</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>priority</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set the voice-stealing priority of a channel. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000296">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
+<p>Higher values are more expensive to steal. Valid range is [<a class="el" href="mixer_8h.html#a7a400781e08c8c3723d1cac7b04ec5ce" title="Priority: always reusable / cheapest to steal.">MIXER_PRIORITY_MIN</a>]..[<a class="el" href="mixer_8h.html#a2e4c512211f71e3aab5215612250092e" title="Priority: never stolen (default after mixer_ch_play).">MIXER_PRIORITY_MAX</a>]. <a class="el" href="mixer_8h.html#a1aa94701f22d086d624fb7d938ba0062" title="Start playing the specified waveform on the specified channel.">mixer_ch_play</a> resets the channel to <a class="el" href="mixer_8h.html#a2e4c512211f71e3aab5215612250092e" title="Priority: never stolen (default after mixer_ch_play).">MIXER_PRIORITY_MAX</a>; <a class="el" href="mixer_8h.html#ae21b093a1283e06ede42363498c490cb" title="Stop playing samples on the specified channel.">mixer_ch_stop</a> resets it to <a class="el" href="mixer_8h.html#a7a400781e08c8c3723d1cac7b04ec5ce" title="Priority: always reusable / cheapest to steal.">MIXER_PRIORITY_MIN</a>. Players that participate in stealing (e.g. SF64) lower the priority of their channels before calling <a class="el" href="mixer_8h.html#a9525fcdf46c960c3bf0eae3166f68bc6" title="Plan up to count channels inside [first_ch, first_ch+num_ch).">mixer_ch_alloc</a>.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">ch</td><td>Channel index </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">priority</td><td>Stealing priority </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a9525fcdf46c960c3bf0eae3166f68bc6" name="a9525fcdf46c960c3bf0eae3166f68bc6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9525fcdf46c960c3bf0eae3166f68bc6">&#9670;&#160;</a></span>mixer_ch_alloc()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int mixer_ch_alloc </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>first_ch</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>num_ch</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>count</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>stereo</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>priority</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="mixer_8h.html#structwaveform__t">waveform_t</a> *&#160;</td>
+          <td class="paramname"><em>wave</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int *&#160;</td>
+          <td class="paramname"><em>out</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Plan up to <code>count</code> channels inside <code>[first_ch, first_ch+num_ch)</code>. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000297">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
+<p>Plan-only: nothing is stopped or started. Occupied channels returned in <code>out</code> must be stopped by the caller before reuse. Free channels are preferred; among occupied ones, lower priority, then quieter instantaneous volume, then older start time. A channel is stealable only when its priority is <code>&lt;= @p priority</code>.</p>
+<p>If <code>stereo</code> is true, each entry in <code>out</code> is the primary of a contiguous pair (<code>ch</code>, <code>ch+1</code>); the secondary of an existing stereo pair is never returned as a primary. If <code>wave</code> is non-NULL, channels whose configured limits cannot play it are skipped.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">first_ch</td><td>First channel of the search window </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">num_ch</td><td>Size of the search window </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">count</td><td>Maximum number of channels to plan </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">stereo</td><td>Request contiguous stereo pairs </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">priority</td><td>Maximum victim priority that may be stolen </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">wave</td><td>Waveform for limit filtering, or NULL </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">out</td><td>Buffer of at least <code>count</code> ints </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Number of channels planned (0..<code>count</code>) </dd></dl>
+
+</div>
+</div>
+<a id="a0b4761b8a44e6a2e2bd5370715832e4d" name="a0b4761b8a44e6a2e2bd5370715832e4d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0b4761b8a44e6a2e2bd5370715832e4d">&#9670;&#160;</a></span>mixer_play()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int mixer_play </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="mixer_8h.html#structwaveform__t">waveform_t</a> *&#160;</td>
+          <td class="paramname"><em>wave</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>priority</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Play <code>wave</code> on an automatically chosen mixer channel. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000298">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
+<p>Allocates with <a class="el" href="mixer_8h.html#a9525fcdf46c960c3bf0eae3166f68bc6" title="Plan up to count channels inside [first_ch, first_ch+num_ch).">mixer_ch_alloc</a> over the full mixer (stereo deduced from <code>wave-&gt;channels</code>), stops any victim, resets volume/pan to <code>(1,1)</code> and clears force-mono, then calls <a class="el" href="mixer_8h.html#a1aa94701f22d086d624fb7d938ba0062" title="Start playing the specified waveform on the specified channel.">mixer_ch_play</a> and sets the channel priority to <code>priority</code>.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">wave</td><td>Waveform to play </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">priority</td><td>Stealing priority for the new voice </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Channel index, or -1 if none available </dd></dl>
 
 </div>
 </div>
@@ -890,8 +1627,8 @@ State size required for this waveform to operate. <p>The waveform can request th
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">ch</td><td>Channel index </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">max_bits</td><td>Maximum number of bits per sample (or 0 to reset this to default, which is currently 16). </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">max_frequency</td><td>Maximum playback frequency for this channel in Hz / samples per seconds (or 0 to reset this to default, which is the output sample rate as specified in <a class="el" href="group__audio.html#ga8ef2eb966a8552f3d19526753b98427f" title="Initialize the audio subsystem.">audio_init</a>). </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">max_buf_sz</td><td>Maximum buffer size in bytes (or 0 to reset this default, which is calculated using the other limits, the playback output rate, and the number of audio buffers specified in <a class="el" href="group__audio.html#ga8ef2eb966a8552f3d19526753b98427f" title="Initialize the audio subsystem.">audio_init</a>). </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">max_frequency</td><td>Maximum playback frequency for this channel in Hz / samples per seconds (or 0 to reset this to default, which is the output sample rate as specified in <a class="el" href="group__audio.html#ga85a214e9d8a48388ea44d926686b36ad" title="Initialize the audio subsystem.">audio_init</a>). </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">max_buf_sz</td><td>Maximum buffer size in bytes (or 0 to reset this default, which is calculated using the other limits, the playback output rate, and the number of audio buffers specified in <a class="el" href="group__audio.html#ga85a214e9d8a48388ea44d926686b36ad" title="Initialize the audio subsystem.">audio_init</a>). </td></tr>
   </table>
   </dd>
 </dl>
@@ -914,11 +1651,12 @@ State size required for this waveform to operate. <p>The waveform can request th
       </table>
 </div><div class="memdoc">
 
-<p>Throttle the mixer by specifying the maximum number of samples it can generate. </p>
+<p>Throttle the mixer by specifying the maximum number of samples. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000299">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it. it can generate.</dd></dl>
 <p>This is an advanced function that should only be called to achieve perfect sync between a possibly slowing-down video and audio.</p>
 <p>Normally, once the mixer is initiated and assuming mixer_poll is called frequently enough, the audio will playback uninterrupted, irrespective of any slow down in the main loop. This is the expected behavior for background music for instance, but it does not work for video players or cut-scenes in which the music must be perfectly synchronized with the video. If the video happens to slowdown, the music will desynchronize.</p>
 <p>mixer_throttle sets a budget of samples that the mixer is allowed to generate. Every time the function is called, the specified number of samples is added to the budget. Every time the mixer playbacks the channel, the budget is decreased. If the budget reaches zero, the mixer will automatically pause playback until the budget is increased again, possibly creating audio cracks.</p>
-<p>To achieve perfect sync, call <a class="el" href="mixer_8h.html#a609e245914f93ed2070304e68b42db6a" title="Throttle the mixer by specifying the maximum number of samples it can generate.">mixer_throttle</a> every time a video frame was generated, and pass the maximum number of samples that the mixer is allowed to produce. Typically, you will want to pass the audio samplerate divided by the video framerate, which corresponds to the number of audio samples per video frame.</p>
+<p>To achieve perfect sync, call <a class="el" href="mixer_8h.html#a609e245914f93ed2070304e68b42db6a" title="Throttle the mixer by specifying the maximum number of samples.">mixer_throttle</a> every time a video frame was generated, and pass the maximum number of samples that the mixer is allowed to produce. Typically, you will want to pass the audio samplerate divided by the video framerate, which corresponds to the number of audio samples per video frame.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">num_samples</td><td>Number of new samples that the mixer is allowed to produce for this channel. This will be added to whatever allowance was left.</td></tr>
@@ -946,9 +1684,10 @@ State size required for this waveform to operate. <p>The waveform can request th
 </div><div class="memdoc">
 
 <p>Unthrottle the mixer. </p>
-<p>Switch back the mixer to the default unthrottled status, after some calls to <a class="el" href="mixer_8h.html#a609e245914f93ed2070304e68b42db6a" title="Throttle the mixer by specifying the maximum number of samples it can generate.">mixer_throttle</a>.</p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000300">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
+<p>Switch back the mixer to the default unthrottled status, after some calls to <a class="el" href="mixer_8h.html#a609e245914f93ed2070304e68b42db6a" title="Throttle the mixer by specifying the maximum number of samples.">mixer_throttle</a>.</p>
 <p>After calling <a class="el" href="mixer_8h.html#a6b982bb4ca20959ae4a12aec9e014c8c" title="Unthrottle the mixer.">mixer_unthrottle</a>, the mixer will no longer be limited and will produce all the samples requested via <a class="el" href="mixer_8h.html#a49057735de9c408b332975d72c05390c" title="Run the mixer to produce output samples.">mixer_poll</a>.</p>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="mixer_8h.html#a609e245914f93ed2070304e68b42db6a" title="Throttle the mixer by specifying the maximum number of samples it can generate.">mixer_throttle</a> </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="mixer_8h.html#a609e245914f93ed2070304e68b42db6a" title="Throttle the mixer by specifying the maximum number of samples.">mixer_throttle</a> </dd></dl>
 
 </div>
 </div>
@@ -981,9 +1720,9 @@ State size required for this waveform to operate. <p>The waveform can request th
 <p>Run the mixer to produce output samples. </p>
 <p>This function will fetch the required samples from all the channels and mix them together according to each channel's settings. The output will be written into the specified buffer (out). nsamples is the number of samples that should be produced.</p>
 <p>A common pattern would be to call <a class="el" href="group__audio.html#ga8aee840f13aa6903fef4c092d0ffa704" title="Start writing to the first free internal buffer.">audio_write_begin</a> to obtain an audio buffer's pointer, and pass it to mixer_poll.</p>
-<p>mixer_poll performs mixing using RSP. If RSP is busy, mixer_poll will spin-wait until the RSP is free, to perform audio processing.</p>
+<p>mixer_poll performs mixing using RSP: it enqueues the mix commands in the high priority queue and waits for the RSP to execute them before returning.</p>
 <p>Since the N64 AI can only be fed with an even number of samples, mixer_poll does not accept odd numbers.</p>
-<p>This function will respect throttling, if configured via <a class="el" href="mixer_8h.html#a609e245914f93ed2070304e68b42db6a" title="Throttle the mixer by specifying the maximum number of samples it can generate.">mixer_throttle</a>. In this case, it may produce less samples than requested, depending on the current allowance. The rest of the output buffer will be zeroed.</p>
+<p>This function will respect throttling, if configured via <a class="el" href="mixer_8h.html#a609e245914f93ed2070304e68b42db6a" title="Throttle the mixer by specifying the maximum number of samples.">mixer_throttle</a>. In this case, it may produce less samples than requested, depending on the current allowance. The rest of the output buffer will be zeroed.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">out</td><td>Output buffer were samples will be written. </td></tr>
@@ -994,8 +1733,8 @@ State size required for this waveform to operate. <p>The waveform can request th
 
 </div>
 </div>
-<a id="ab63653dee62b67707c375c54aed98079" name="ab63653dee62b67707c375c54aed98079"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab63653dee62b67707c375c54aed98079">&#9670;&#160;</a></span>mixer_try_play()</h2>
+<a id="acf17ef188e199bf6bf26109d60225905" name="acf17ef188e199bf6bf26109d60225905"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acf17ef188e199bf6bf26109d60225905">&#9670;&#160;</a></span>mixer_try_play()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1003,13 +1742,15 @@ State size required for this waveform to operate. <p>The waveform can request th
         <tr>
           <td class="memname">void mixer_try_play </td>
           <td>(</td>
+          <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Request the mixer to try and write audio samples to be played, if possible. </p>
+<p>Request the mixer to try and write audio samples to be played,. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000301">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it. if possible.</dd></dl>
 <p>This function is a user helper for asking the mixer and audio subsystems to play audio during a game frame. You should call this function many times during one frame (eg. during the render step or after processing each game object) as many times as necessary. Not polling the audio subsystem often enough will result in audio stutter. </p>
 
 </div>
@@ -1097,10 +1838,87 @@ State size required for this waveform to operate. <p>The waveform can request th
 
 </div>
 </div>
+<a id="ae720743cde6d1d6be0847bb9b15d220c" name="ae720743cde6d1d6be0847bb9b15d220c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae720743cde6d1d6be0847bb9b15d220c">&#9670;&#160;</a></span>mixer_add_soft_event()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void mixer_add_soft_event </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="mixer_8h.html#a4fd4fb768b3bd352891ff68e789dfbd2">MixerSoftEvent</a>&#160;</td>
+          <td class="paramname"><em>cb</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>ctx</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Register a per-round soft callback. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000302">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
+<p>The callback is invoked after every mixer round until removed. It must not call <a class="el" href="mixer_8h.html#a49057735de9c408b332975d72c05390c" title="Run the mixer to produce output samples.">mixer_poll</a> / <a class="el" href="mixer_8h.html#acf17ef188e199bf6bf26109d60225905" title="Request the mixer to try and write audio samples to be played,.">mixer_try_play</a>.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">cb</td><td>Soft callback </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">ctx</td><td>Opaque pointer passed to <code>cb</code> </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ad68644fd49e805b565aab8095d308bae" name="ad68644fd49e805b565aab8095d308bae"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad68644fd49e805b565aab8095d308bae">&#9670;&#160;</a></span>mixer_remove_soft_event()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void mixer_remove_soft_event </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="mixer_8h.html#a4fd4fb768b3bd352891ff68e789dfbd2">MixerSoftEvent</a>&#160;</td>
+          <td class="paramname"><em>cb</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>ctx</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Deregister a soft callback. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000303">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">cb</td><td>Callback registered via <a class="el" href="mixer_8h.html#ae720743cde6d1d6be0847bb9b15d220c" title="Register a per-round soft callback.">mixer_add_soft_event</a> </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">ctx</td><td>Opaque pointer registered with the callback </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jun 10 2026 22:36:47 for libdragon by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
+Generated on Fri Aug 21 2026 21:04:46 for libdragon by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
 </small></address>
 </body>
 </html>

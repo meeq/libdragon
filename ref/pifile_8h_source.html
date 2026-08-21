@@ -86,22 +86,27 @@ $(document).ready(function() { init_codefold(0); });
 <div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="preprocessor">#ifndef LIBDRAGON_PIFILE_H</span></div>
 <div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span><span class="preprocessor">#define LIBDRAGON_PIFILE_H</span></div>
 <div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span><span class="preprocessor">#include &quot;<a class="code" href="n64types_8h.html">n64types.h</a>&quot;</span></div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span><span class="preprocessor">#include &lt;stdio.h&gt;</span></div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span><span class="keywordtype">void</span> <a class="code hl_function" href="pifile_8h.html#a95ecd8fd68a27594b1291757f232d5f3">pifile_init</a>(<span class="keywordtype">void</span>);</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>FILE *<a class="code hl_function" href="pifile_8h.html#aa99b4452dbdfe636026636fdee6fb3be">pifile_open</a>(<a class="code hl_typedef" href="n64types_8h.html#abbde255c6ff18b478f46cb7fdf1357e6">pi_addr_t</a> base, <span class="keywordtype">size_t</span> size, uint32_t flags);</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span> </div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span><span class="preprocessor">#include &quot;<a class="code" href="preview_8h.html">preview.h</a>&quot;</span></div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span><span class="preprocessor">#include &quot;<a class="code" href="n64types_8h.html">n64types.h</a>&quot;</span></div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span><span class="preprocessor">#include &lt;stdio.h&gt;</span></div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span><a class="code hl_define" href="preview_8h.html#ab1912250c8ac23a2fa1af9360cb533bd">LIBDRAGON_PREVIEW_API</a></div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span><span class="keywordtype">void</span> <a class="code hl_function" href="pifile_8h.html#a95ecd8fd68a27594b1291757f232d5f3">pifile_init</a>(<span class="keywordtype">void</span>);</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span><a class="code hl_define" href="preview_8h.html#ab1912250c8ac23a2fa1af9360cb533bd">LIBDRAGON_PREVIEW_API</a></div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>FILE *<a class="code hl_function" href="pifile_8h.html#aa99b4452dbdfe636026636fdee6fb3be">pifile_open</a>(<a class="code hl_typedef" href="n64types_8h.html#abbde255c6ff18b478f46cb7fdf1357e6">pi_addr_t</a> base, <span class="keywordtype">size_t</span> size, uint32_t flags);</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span> </div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span><span class="preprocessor">#endif</span></div>
 <div class="ttc" id="an64types_8h_html"><div class="ttname"><a href="n64types_8h.html">n64types.h</a></div><div class="ttdoc">Custom types used by libdragon.</div></div>
-<div class="ttc" id="an64types_8h_html_abbde255c6ff18b478f46cb7fdf1357e6"><div class="ttname"><a href="n64types_8h.html#abbde255c6ff18b478f46cb7fdf1357e6">pi_addr_t</a></div><div class="ttdeci">uint32_t pi_addr_t</div><div class="ttdoc">A PI address (on the peripheral bus)</div><div class="ttdef"><b>Definition</b> n64types.h:77</div></div>
+<div class="ttc" id="an64types_8h_html_abbde255c6ff18b478f46cb7fdf1357e6"><div class="ttname"><a href="n64types_8h.html#abbde255c6ff18b478f46cb7fdf1357e6">pi_addr_t</a></div><div class="ttdeci">uint32_t pi_addr_t</div><div class="ttdoc">A PI address (on the peripheral bus)</div><div class="ttdef"><b>Definition</b> n64types.h:79</div></div>
 <div class="ttc" id="apifile_8h_html_a95ecd8fd68a27594b1291757f232d5f3"><div class="ttname"><a href="pifile_8h.html#a95ecd8fd68a27594b1291757f232d5f3">pifile_init</a></div><div class="ttdeci">void pifile_init(void)</div><div class="ttdoc">Initialize the PI file system.</div><div class="ttdef"><b>Definition</b> pifile.c:141</div></div>
 <div class="ttc" id="apifile_8h_html_aa99b4452dbdfe636026636fdee6fb3be"><div class="ttname"><a href="pifile_8h.html#aa99b4452dbdfe636026636fdee6fb3be">pifile_open</a></div><div class="ttdeci">FILE * pifile_open(pi_addr_t base, size_t size, uint32_t flags)</div><div class="ttdoc">Open a file from the PI bus given a base address and size.</div><div class="ttdef"><b>Definition</b> pifile.c:146</div></div>
+<div class="ttc" id="apreview_8h_html"><div class="ttname"><a href="preview_8h.html">preview.h</a></div><div class="ttdoc">Preview APIs.</div></div>
+<div class="ttc" id="apreview_8h_html_ab1912250c8ac23a2fa1af9360cb533bd"><div class="ttname"><a href="preview_8h.html#ab1912250c8ac23a2fa1af9360cb533bd">LIBDRAGON_PREVIEW_API</a></div><div class="ttdeci">#define LIBDRAGON_PREVIEW_API</div><div class="ttdoc">Mark a function as preview.</div><div class="ttdef"><b>Definition</b> preview.h:149</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jun 10 2026 22:36:47 for libdragon by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
+Generated on Fri Aug 21 2026 21:04:46 for libdragon by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
 </small></address>
 </body>
 </html>

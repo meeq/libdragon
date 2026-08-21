@@ -383,7 +383,7 @@ Helpers for known commands</h2>
 <div class="line">    uint8_t *send_ptr = &amp;pkt[idx]; \</div>
 <div class="line">    pkt[63] = idx + send_len + recv_len - 1; \</div>
 <div class="line">    assertf(pkt[63] &lt; 64, <span class="stringliteral">&quot;joybus frame overflow&quot;</span>); \</div>
-<div class="line">    (send_len || recv_len) ? send_ptr : NULL; \</div>
+<div class="line">    (send_len | recv_len) ? send_ptr : NULL; \</div>
 <div class="line">})</div>
 </div><!-- fragment -->
 <p>Write a Joybus frame. </p>
@@ -600,7 +600,7 @@ Helpers for known commands</h2>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>joyframe_err_t Negative values for errors, 0 or positive values for success </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Negative values for errors, 0 or positive values for success </dd></dl>
 
 </div>
 </div>
@@ -910,7 +910,7 @@ Helpers for known commands</h2>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jun 10 2026 22:36:47 for libdragon by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
+Generated on Fri Aug 21 2026 21:04:46 for libdragon by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
 </small></address>
 </body>
 </html>

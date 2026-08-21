@@ -94,9 +94,13 @@ Data Structures</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
 Macros</h2></td></tr>
 <tr class="memitem:ad1acedb68d15deb8dd15c7dfc58343b8" id="r_ad1acedb68d15deb8dd15c7dfc58343b8"><td class="memItemLeft" align="right" valign="top"><a id="ad1acedb68d15deb8dd15c7dfc58343b8" name="ad1acedb68d15deb8dd15c7dfc58343b8"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>H264I_VERSION</b>&#160;&#160;&#160;4</td></tr>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>H264I_VERSION</b>&#160;&#160;&#160;5</td></tr>
 <tr class="memdesc:ad1acedb68d15deb8dd15c7dfc58343b8"><td class="mdescLeft">&#160;</td><td class="mdescRight">H264I version number. <br /></td></tr>
 <tr class="separator:ad1acedb68d15deb8dd15c7dfc58343b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3ccd7c9d4d3f44221e41ba776a9c2dd1" id="r_a3ccd7c9d4d3f44221e41ba776a9c2dd1"><td class="memItemLeft" align="right" valign="top"><a id="a3ccd7c9d4d3f44221e41ba776a9c2dd1" name="a3ccd7c9d4d3f44221e41ba776a9c2dd1"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>LSPR3_FLAG_ALPHA1</b>&#160;&#160;&#160;0x01</td></tr>
+<tr class="memdesc:a3ccd7c9d4d3f44221e41ba776a9c2dd1"><td class="mdescLeft">&#160;</td><td class="mdescRight">H264I header flag: file carries a 1-bit alpha bitmap after the H.264 payload. <br /></td></tr>
+<tr class="separator:a3ccd7c9d4d3f44221e41ba776a9c2dd1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3e05f7103a9983fa507f1ba1f51230c4" id="r_a3e05f7103a9983fa507f1ba1f51230c4"><td class="memItemLeft" align="right" valign="top"><a id="a3e05f7103a9983fa507f1ba1f51230c4" name="a3e05f7103a9983fa507f1ba1f51230c4"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>H264I_MB_RING</b>&#160;&#160;&#160;2</td></tr>
 <tr class="memdesc:a3e05f7103a9983fa507f1ba1f51230c4"><td class="mdescLeft">&#160;</td><td class="mdescRight">H264I decode macroblock ring size. <br /></td></tr>
@@ -117,7 +121,9 @@ Functions</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Lossy-sprite Level 3: H264I decoder. </p>
-<dl class="section author"><dt>Author</dt><dd>Christopher Bonhage <a href="#" onclick="location.href='mai'+'lto:'+'chr'+'is'+'top'+'he'+'r.b'+'on'+'hag'+'e@'+'mee'+'q.'+'tec'+'h'; return false;">chris<span class="obfuscator">.nosp@m.</span>toph<span class="obfuscator">.nosp@m.</span>er.bo<span class="obfuscator">.nosp@m.</span>nhag<span class="obfuscator">.nosp@m.</span>e@mee<span class="obfuscator">.nosp@m.</span>q.te<span class="obfuscator">.nosp@m.</span>ch</a> </dd></dl>
+<dl class="section author"><dt>Author</dt><dd>Christopher Bonhage <a href="#" onclick="location.href='mai'+'lto:'+'chr'+'is'+'top'+'he'+'r.b'+'on'+'hag'+'e@'+'mee'+'q.'+'tec'+'h'; return false;">chris<span class="obfuscator">.nosp@m.</span>toph<span class="obfuscator">.nosp@m.</span>er.bo<span class="obfuscator">.nosp@m.</span>nhag<span class="obfuscator">.nosp@m.</span>e@mee<span class="obfuscator">.nosp@m.</span>q.te<span class="obfuscator">.nosp@m.</span>ch</a> </dd>
+<dd>
+Giovanni Bajo <a href="#" onclick="location.href='mai'+'lto:'+'gio'+'va'+'nni'+'ba'+'jo@'+'gm'+'ail'+'.c'+'om'; return false;">giova<span class="obfuscator">.nosp@m.</span>nnib<span class="obfuscator">.nosp@m.</span>ajo@g<span class="obfuscator">.nosp@m.</span>mail<span class="obfuscator">.nosp@m.</span>.com</a> </dd></dl>
 </div><hr/><h2 class="groupheader">Data Structure Documentation</h2>
 <a name="structlspr3__header__t" id="structlspr3__header__t"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#structlspr3__header__t">&#9670;&#160;</a></span>lspr3_header_t</h2>
@@ -183,6 +189,24 @@ chroma_qp_index_offset</td>
 <td class="fielddoc">
 </td></tr>
 <tr><td class="fieldtype">
+<a id="a85a8f95e048602ea5e5e28f9e958916a" name="a85a8f95e048602ea5e5e28f9e958916a"></a>uint8_t</td>
+<td class="fieldname">
+flags</td>
+<td class="fielddoc">
+</td></tr>
+<tr><td class="fieldtype">
+<a id="a1270612e299ca7ba006d9fbd0d81f819" name="a1270612e299ca7ba006d9fbd0d81f819"></a>uint8_t</td>
+<td class="fieldname">
+reserved[3]</td>
+<td class="fielddoc">
+</td></tr>
+<tr><td class="fieldtype">
+<a id="aab447428967f234fc483ba806b054664" name="aab447428967f234fc483ba806b054664"></a>uint32_t</td>
+<td class="fieldname">
+alpha_size</td>
+<td class="fielddoc">
+</td></tr>
+<tr><td class="fieldtype">
 <a id="a4e4593639d3ed2dfdcae7846d1d38890" name="a4e4593639d3ed2dfdcae7846d1d38890"></a>uint8_t</td>
 <td class="fieldname">
 payload[]</td>
@@ -210,6 +234,7 @@ payload[]</td>
 </div><div class="memdoc">
 
 <p>Register the H264I (Lossy-sprite Level 3) decoder with the sprite loader. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000244">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>After registering, <a class="el" href="sprite_8c.html#a746970338ac3f8db984b4f08fc6e9a21" title="Load a sprite from a filesystem (eg: ROM)">sprite_load</a> recognizes the <code>H264</code> magic and decodes matching files transparently. Until then, loading an H264I file via <a class="el" href="sprite_8c.html#a746970338ac3f8db984b4f08fc6e9a21" title="Load a sprite from a filesystem (eg: ROM)">sprite_load</a> fails with an assertion.</p>
 <p>Refcounted; calling this increments the refcount and will require the same number of <a class="el" href="lspr3_8h.html#a5fce7c4e0b0fc582c303b349f9c37be1" title="Unregister the H264I (Lossy-sprite Level 3) decoder.">lspr3_close</a> calls to fully unregister. </p>
 
@@ -232,6 +257,7 @@ payload[]</td>
 </div><div class="memdoc">
 
 <p>Unregister the H264I (Lossy-sprite Level 3) decoder. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000245">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>Refcounted; calling this decrements the refcount and once it reaches zero, <a class="el" href="sprite_8c.html#a746970338ac3f8db984b4f08fc6e9a21" title="Load a sprite from a filesystem (eg: ROM)">sprite_load</a> no longer recognizes H264I files and attempts to load them will fail with an assertion. </p>
 
 </div>
@@ -239,7 +265,7 @@ payload[]</td>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jun 10 2026 22:36:48 for libdragon by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
+Generated on Fri Aug 21 2026 21:04:47 for libdragon by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
 </small></address>
 </body>
 </html>

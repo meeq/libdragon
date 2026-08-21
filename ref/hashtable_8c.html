@@ -118,6 +118,9 @@ Functions</h2></td></tr>
 <tr class="memitem:a54564d7b27345160fb392939bf5ff15f" id="r_a54564d7b27345160fb392939bf5ff15f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hashtable_8c.html#a54564d7b27345160fb392939bf5ff15f">hashtable_visit</a> (<a class="el" href="hashtable__internal_8h.html#structhashtable__t">hashtable_t</a> *h, void(*visitor)(uint32_t key, void *value, int refcount))</td></tr>
 <tr class="memdesc:a54564d7b27345160fb392939bf5ff15f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Visit all objects in the hashtable.  <br /></td></tr>
 <tr class="separator:a54564d7b27345160fb392939bf5ff15f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a22c49667e1925a7ad68b13338a523e9f" id="r_a22c49667e1925a7ad68b13338a523e9f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hashtable_8c.html#a22c49667e1925a7ad68b13338a523e9f">hashtable_clear</a> (<a class="el" href="hashtable__internal_8h.html#structhashtable__t">hashtable_t</a> *h)</td></tr>
+<tr class="memdesc:a22c49667e1925a7ad68b13338a523e9f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remove all objects from the hashtable, regardless of their reference count.  <br /></td></tr>
+<tr class="separator:a22c49667e1925a7ad68b13338a523e9f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><dl class="section author"><dt>Author</dt><dd>Giovanni Bajo <a href="#" onclick="location.href='mai'+'lto:'+'gio'+'va'+'nni'+'ba'+'jo@'+'gm'+'ail'+'.c'+'om'; return false;">giova<span class="obfuscator">.nosp@m.</span>nnib<span class="obfuscator">.nosp@m.</span>ajo@g<span class="obfuscator">.nosp@m.</span>mail<span class="obfuscator">.nosp@m.</span>.com</a> </dd></dl>
@@ -334,7 +337,7 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>void* The value associated with the key before removal, or NULL if the key did not exist or its reference count did not reach zero. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The value associated with the key before removal, or NULL if the key did not exist or its reference count did not reach zero. </dd></dl>
 
 </div>
 </div>
@@ -375,10 +378,36 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a22c49667e1925a7ad68b13338a523e9f" name="a22c49667e1925a7ad68b13338a523e9f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a22c49667e1925a7ad68b13338a523e9f">&#9670;&#160;</a></span>hashtable_clear()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hashtable_clear </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="hashtable__internal_8h.html#structhashtable__t">hashtable_t</a> *&#160;</td>
+          <td class="paramname"><em>h</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Remove all objects from the hashtable, regardless of their reference count. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">h</td><td>Pointer to a <a class="el" href="hashtable__internal_8h.html#structhashtable__t" title="A hashtable structure.">hashtable_t</a>. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jun 10 2026 22:36:48 for libdragon by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
+Generated on Fri Aug 21 2026 21:04:47 for libdragon by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
 </small></address>
 </body>
 </html>

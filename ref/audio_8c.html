@@ -86,17 +86,17 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:aac028f4c15ac7f78a44be5db76cfbec7" id="r_aac028f4c15ac7f78a44be5db76cfbec7"><td class="memItemLeft" align="right" valign="top"><a id="aac028f4c15ac7f78a44be5db76cfbec7" name="aac028f4c15ac7f78a44be5db76cfbec7"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>NUM_BUFFERS</b>&#160;&#160;&#160;4</td></tr>
-<tr class="memdesc:aac028f4c15ac7f78a44be5db76cfbec7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of buffers the audio subsytem allocates and manages. <br /></td></tr>
-<tr class="separator:aac028f4c15ac7f78a44be5db76cfbec7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a517eab55c83f18dba8405316f23b02d2" id="r_a517eab55c83f18dba8405316f23b02d2"><td class="memItemLeft" align="right" valign="top"><a id="a517eab55c83f18dba8405316f23b02d2" name="a517eab55c83f18dba8405316f23b02d2"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>BUFFERS_PER_SECOND</b>&#160;&#160;&#160;25</td></tr>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>BUFFERS_PER_SECOND</b>&#160;&#160;&#160;50</td></tr>
 <tr class="memdesc:a517eab55c83f18dba8405316f23b02d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">How many different audio buffers we want to schedule in one second. <br /></td></tr>
 <tr class="separator:a517eab55c83f18dba8405316f23b02d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1b0880357ad7cafc9780a3ed72447816" id="r_a1b0880357ad7cafc9780a3ed72447816"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="audio_8c.html#a1b0880357ad7cafc9780a3ed72447816">CALC_BUFFER</a>(x)&#160;&#160;&#160;( ( ( ( x ) / <a class="el" href="audio_8c.html#a517eab55c83f18dba8405316f23b02d2">BUFFERS_PER_SECOND</a> ) &gt;&gt; 3 ) &lt;&lt; 3 )</td></tr>
+<tr class="memitem:a1b0880357ad7cafc9780a3ed72447816" id="r_a1b0880357ad7cafc9780a3ed72447816"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="audio_8c.html#a1b0880357ad7cafc9780a3ed72447816">CALC_BUFFER</a>(x)&#160;&#160;&#160;( ( ( ( x ) / <a class="el" href="audio_8c.html#a517eab55c83f18dba8405316f23b02d2">BUFFERS_PER_SECOND</a> ) + 15 ) &amp; ~15 )</td></tr>
 <tr class="memdesc:a1b0880357ad7cafc9780a3ed72447816"><td class="mdescLeft">&#160;</td><td class="mdescRight">Macro that calculates the size of a buffer based on frequency.  <br /></td></tr>
 <tr class="separator:a1b0880357ad7cafc9780a3ed72447816"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a19592973a61ba5c5b9fc45b204179456" id="r_a19592973a61ba5c5b9fc45b204179456"><td class="memItemLeft" align="right" valign="top"><a id="a19592973a61ba5c5b9fc45b204179456" name="a19592973a61ba5c5b9fc45b204179456"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>AUDIO_MAX_BUFFERS</b>&#160;&#160;&#160;32</td></tr>
+<tr class="memdesc:a19592973a61ba5c5b9fc45b204179456"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum number of AI buffers (width of the buf_full bitmask) <br /></td></tr>
+<tr class="separator:a19592973a61ba5c5b9fc45b204179456"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">DAC rates for different regions</div></td></tr>
 <tr class="memitem:a20d82d21fbcc87d5fe0aa5d89362e38b" id="r_a20d82d21fbcc87d5fe0aa5d89362e38b"><td class="memItemLeft" align="right" valign="top"><a id="a20d82d21fbcc87d5fe0aa5d89362e38b" name="a20d82d21fbcc87d5fe0aa5d89362e38b"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>AI_NTSC_DACRATE</b>&#160;&#160;&#160;48681818</td></tr>
@@ -122,9 +122,12 @@ Macros</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ga8ef2eb966a8552f3d19526753b98427f" id="r_ga8ef2eb966a8552f3d19526753b98427f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__audio.html#ga8ef2eb966a8552f3d19526753b98427f">audio_init</a> (const int frequency, int numbuffers)</td></tr>
-<tr class="memdesc:ga8ef2eb966a8552f3d19526753b98427f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize the audio subsystem.  <br /></td></tr>
-<tr class="separator:ga8ef2eb966a8552f3d19526753b98427f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga85a214e9d8a48388ea44d926686b36ad" id="r_ga85a214e9d8a48388ea44d926686b36ad"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__audio.html#ga85a214e9d8a48388ea44d926686b36ad">audio_init</a> (const int frequency, float latency)</td></tr>
+<tr class="memdesc:ga85a214e9d8a48388ea44d926686b36ad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize the audio subsystem.  <br /></td></tr>
+<tr class="separator:ga85a214e9d8a48388ea44d926686b36ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga9d6e945ab33900dc551ae0e102fead4e" id="r_ga9d6e945ab33900dc551ae0e102fead4e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__audio.html#ga9d6e945ab33900dc551ae0e102fead4e">audio_set_buffer_granularity</a> (int nsamples)</td></tr>
+<tr class="memdesc:ga9d6e945ab33900dc551ae0e102fead4e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Require AI buffer lengths to be a multiple of <code>nsamples</code>.  <br /></td></tr>
+<tr class="separator:ga9d6e945ab33900dc551ae0e102fead4e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga456542c1cf5d749b2a351778f932f7a6" id="r_ga456542c1cf5d749b2a351778f932f7a6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__audio.html#ga456542c1cf5d749b2a351778f932f7a6">audio_set_buffer_callback</a> (<a class="el" href="group__audio.html#gaecfbc74a751594695ce3706d199da203">audio_fill_buffer_callback</a> fill_buffer_callback)</td></tr>
 <tr class="memdesc:ga456542c1cf5d749b2a351778f932f7a6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Install a audio callback to fill the audio buffer when required.  <br /></td></tr>
 <tr class="separator:ga456542c1cf5d749b2a351778f932f7a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -158,6 +161,12 @@ Functions</h2></td></tr>
 <tr class="memitem:ga12decba34a007365bf749874e044b88d" id="r_ga12decba34a007365bf749874e044b88d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__audio.html#ga12decba34a007365bf749874e044b88d">audio_get_buffer_length</a> ()</td></tr>
 <tr class="memdesc:ga12decba34a007365bf749874e044b88d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the number of stereo samples that fit into an allocated buffer.  <br /></td></tr>
 <tr class="separator:ga12decba34a007365bf749874e044b88d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga422419b9ea99a8a00c65c5b07fd156d4" id="r_ga422419b9ea99a8a00c65c5b07fd156d4"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__audio.html#ga422419b9ea99a8a00c65c5b07fd156d4">audio_get_num_buffers</a> ()</td></tr>
+<tr class="memdesc:ga422419b9ea99a8a00c65c5b07fd156d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the number of internal audio buffers.  <br /></td></tr>
+<tr class="separator:ga422419b9ea99a8a00c65c5b07fd156d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gad0b1a391239efde7694833c13da25d14" id="r_gad0b1a391239efde7694833c13da25d14"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__audio.html#gad0b1a391239efde7694833c13da25d14">audio_get_queued_buffers</a> ()</td></tr>
+<tr class="memdesc:gad0b1a391239efde7694833c13da25d14"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the number of audio buffers currently containing data.  <br /></td></tr>
+<tr class="separator:gad0b1a391239efde7694833c13da25d14"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Audio Subsystem. </p>
@@ -176,7 +185,7 @@ Giovanni Bajo <a href="#" onclick="location.href='mai'+'lto:'+'gio'+'va'+'nni'+'
           <td>(</td>
           <td class="paramtype">&#160;</td>
           <td class="paramname">x</td><td>)</td>
-          <td>&#160;&#160;&#160;( ( ( ( x ) / <a class="el" href="audio_8c.html#a517eab55c83f18dba8405316f23b02d2">BUFFERS_PER_SECOND</a> ) &gt;&gt; 3 ) &lt;&lt; 3 )</td>
+          <td>&#160;&#160;&#160;( ( ( ( x ) / <a class="el" href="audio_8c.html#a517eab55c83f18dba8405316f23b02d2">BUFFERS_PER_SECOND</a> ) + 15 ) &amp; ~15 )</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -188,14 +197,14 @@ Giovanni Bajo <a href="#" onclick="location.href='mai'+'lto:'+'gio'+'va'+'nni'+'
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>The size of the buffer in bytes rounded to an 8 byte boundary </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The number of stereo samples per buffer, rounded up to a multiple of 16 (~64 bytes) to simplify code producing batches of samples. </dd></dl>
 
 </div>
 </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jun 10 2026 22:36:48 for libdragon by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
+Generated on Fri Aug 21 2026 21:04:46 for libdragon by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
 </small></address>
 </body>
 </html>

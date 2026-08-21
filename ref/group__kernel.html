@@ -528,6 +528,7 @@ interrupt_sr</td>
 </div><div class="memdoc">
 
 <p>Initialize the multi-threading kernel. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000190">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>The current execution context becomes the main thread of the program, with priority set to 0 (you can change priority to the main thread as well using <a class="el" href="group__kernel.html#gab60c7527a712441eb099bf5eee4012da" title="Change priority of a thread.">kthread_set_pri</a>).</p>
 <p>The main thread uses the original stack allocated for the whole process, so it is technically unbounded (or limited by heap size). The priority of the main thread is 0.</p>
 <dl class="section return"><dt>Returns</dt><dd>a pointer to the main thread. </dd></dl>
@@ -551,6 +552,7 @@ interrupt_sr</td>
 </div><div class="memdoc">
 
 <p>Shutdown the multi-threading kernel. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000191">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>This function is mostly useful for testing purposes. Since the kernel does not keep track of all created threads, this function should be called only when all created threads are exited or have been killed. </p>
 
 </div>
@@ -600,6 +602,7 @@ interrupt_sr</td>
 </div><div class="memdoc">
 
 <p>Create a new thread. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000192">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>Create a new thread, with a specified stack size and priority. The thread is immediately made ready after creation, so if it has a priority higher than or equal to the current thread, it will be scheduled immediately, before thread_new returns.</p>
 <p>The thread will begin execution from the specified entry point function. If the function ever returns, the thread is automatically killed.</p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -633,7 +636,8 @@ interrupt_sr</td>
 </div><div class="memdoc">
 
 <p>Return a reference to the current running thread. </p>
-<dl class="section return"><dt>Returns</dt><dd><a class="el" href="structkthread__t.html" title="a kernel thread for parallel execution">kthread_t</a> Reference to the current thread </dd></dl>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000193">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Reference to the current thread </dd></dl>
 
 </div>
 </div>
@@ -654,6 +658,7 @@ interrupt_sr</td>
 </div><div class="memdoc">
 
 <p>Yield execution of the current thread and run the scheduler. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000194">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>This function allows the current thread to cooperatively yield its execution to allow other threads to run.</p>
 <p>The scheduler will switch to the highest priority thread that is currently ready to run. If no ready thread has a priority higher than the current thread, the scheduler will switch to a different thread of the same priority of the current one (the scheduler will guarantee a correct round-robin scheduling among threads of the same priority). If no ready thread has a priority higher or equal than the current one, the scheduler will reschedule the current thread, that will continue execution.</p>
 <dl class="section note"><dt>Note</dt><dd>The scheduler is semi-preemptive. Any interrupt could cause a thread switch to happen if the interrupt itself makes a thread become ready. If you need a block of code to be executed without any context switch, make sure to disable interrupts. </dd></dl>
@@ -677,6 +682,7 @@ interrupt_sr</td>
 </div><div class="memdoc">
 
 <p>Suspend the specified thread. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000195">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>Suspends the specified thread, so that it will not be scheduled anymore. The thread will be put in a "suspended" state, and will not be scheduled until it is resumed.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -704,6 +710,7 @@ interrupt_sr</td>
 </div><div class="memdoc">
 
 <p>Resume a thread that was previously suspended. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000196">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">th</td><td>Reference to the thread to resume </td></tr>
@@ -746,6 +753,7 @@ interrupt_sr</td>
 </div><div class="memdoc">
 
 <p>Return the backtrace of the specified thread. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000197">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>This function has the same semantic of <a class="el" href="group__backtrace.html#ga3747bea884034d32d4d558872223969e" title="Walk the stack and return the current call stack.">backtrace</a>, but it returns the backtrace of the specified thread instead of the current one.</p>
 <p>When called with a NULL argument, this function returns the backtrace of the current thread, and thus behaves identical to <a class="el" href="group__backtrace.html#ga3747bea884034d32d4d558872223969e" title="Walk the stack and return the current call stack.">backtrace</a>.</p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -777,6 +785,7 @@ interrupt_sr</td>
 </div><div class="memdoc">
 
 <p>Sleep for the specified interval, allowing execution of other threads. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000198">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>This function will put the current thread to sleep for a specified time interval, allowing other threads to run.</p>
 <p>The sleeping interval is expressed in hardware ticks. See <a class="el" href="group__n64sys.html#ga3f00b2f3f7a3bb391282d0b2da8969f1" title="Returns the 32-bit hardware tick counter.">TICKS_READ</a> for an explanation of hardware ticks, and <a class="el" href="group__n64sys.html#ga3dd7b7d41c220904632461a2d95d61cf" title="Number of updates to the count register per second.">TICKS_PER_SECOND</a> and <a class="el" href="group__n64sys.html#gac393c76be44d9322b9b06c2b334f38ad" title="Returns equivalent count ticks for the given milliseconds.">TICKS_FROM_MS</a> for constants and macros that simplify conversion to standard time units.</p>
 <p>Notice that <a class="el" href="group__n64sys.html#gaf92492d6d351321a5974768b17e16d82" title="Spin wait until the number of ticks have elapsed.">wait_ticks</a> and <a class="el" href="group__n64sys.html#ga2ae016ad196fd951c5ce81d0f775f4ed" title="Spin wait until the number of milliseconds have elapsed.">wait_ms</a> are not threading aware, so they will just spin-wait while keeping the current thread ready. Other higher-priority threads might still be scheduled if they are awaken by an interrupt, but in general thread_sleep is a better primitive if you want the current thread to yield.</p>
@@ -817,6 +826,7 @@ interrupt_sr</td>
 </div><div class="memdoc">
 
 <p>Change priority of a thread. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000199">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>Change priority of the specified thread. If the argument is NULL, this function changes priority to the current thread.</p>
 <p>The change of priority is immediately effective. It may cause a context switch if the changed thread is ready and its priority is changed in a way to start/stop it relative to the other ready threads.</p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -856,6 +866,7 @@ interrupt_sr</td>
 </div><div class="memdoc">
 
 <p>Kill a thread, aborting its execution. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000200">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>The specified thread is aborted, and its memory freed (including its stack). The execution will be aborted and the memory released to the heap for further use.</p>
 <p>This function can executed for any thread, including the current one, in which case it becomes equivalent to <a class="el" href="group__kernel.html#ga03024332d405c8a4a403718b7dc9bb88" title="Exit from a thread, providing a result value.">kthread_exit</a>.</p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -886,6 +897,7 @@ interrupt_sr</td>
 </div><div class="memdoc">
 
 <p>Exit from a thread, providing a result value. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000201">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>This function allows to abort the execution of the current thread, optionally providing a result value. If the thread is not detached, the result value can be read by the joiner thread via <a class="el" href="group__kernel.html#ga637cffb0438755ff4c5379b50c23ad3d" title="Wait for a thread to finish.">kthread_join</a>. If the thread is detached, the return value will be ignored.</p>
 <p>Returning from a thread's entry point is equivalent to calling kthread_exit.</p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -914,6 +926,7 @@ interrupt_sr</td>
 </div><div class="memdoc">
 
 <p>Detach a thread, so that it can terminated without any join. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000202">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>By defaults, kernel threads are "attached" to the main thread; this means that to fully terminate, there should be a thread calling kthread_join on then. Joining a thread can happen before or after it finishes execution, but it has to happen for the thread to be fully cleaned up.</p>
 <p>If a thread is detached, it can be terminated without any join. The thread will be fully cleaned up when it finishes execution.</p>
 <p>NOTE: Pay attention to race conditions when detaching threads that you have just created. It might be advisable to let a thread detaches itself, so that you don't risk to detach a thread that is already finished.</p>
@@ -943,6 +956,7 @@ interrupt_sr</td>
 </div><div class="memdoc">
 
 <p>Wait for a thread to finish. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000203">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>This function blocks the current thread until the specified thread finishes its execution. The CPU is yielded so that other threads will be scheduled.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -981,6 +995,7 @@ interrupt_sr</td>
 </div><div class="memdoc">
 
 <p>Check if a thread is finished without blocking. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000204">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>This function is similar to <a class="el" href="group__kernel.html#ga637cffb0438755ff4c5379b50c23ad3d" title="Wait for a thread to finish.">kthread_join</a>, but it does not block if the thread is not finished yet. If the thread is finished, it returns true and stores the result code in the res argument. If the thread is still running, it returns false.</p>
 <p>Notice that the thread <em>is</em> joined if the function returns true; after that, the thread is fully cleaned up and the memory released, so the thread pointer becomes invalid.</p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -1013,6 +1028,7 @@ false if the thread is still running </dd></dl>
 </div><div class="memdoc">
 
 <p>Return the name of the specified thread. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000205">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">th</td><td>Reference to thread (NULL = current thread) </td></tr>
@@ -1049,6 +1065,7 @@ false if the thread is still running </dd></dl>
 </div><div class="memdoc">
 
 <p>Inititalize a new mutex. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000206">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>A mutex is a synchronization primitive that can be used to protect shared resources from concurrent access. A mutex can be locked by only one thread at a time; if another thread tries to lock a mutex that is already locked, it will block until the mutex is unlocked.</p>
 <p>The mutex can be created with the KMUTEX_RECURSIVE flag, so that the same thread can lock the mutex multiple times without blocking. In this case, the mutex must be unlocked the same number of times it was locked.</p>
 <p>Notice that it's not mandatory to initialize a mutex with this functions, as zeroing the memory is enough to create a valid, non-recursive mutex.</p>
@@ -1081,6 +1098,7 @@ false if the thread is still running </dd></dl>
 </div><div class="memdoc">
 
 <p>Destroy a mutex. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000207">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">mtx</td><td>Pointer to the mutex to free </td></tr>
@@ -1107,6 +1125,7 @@ false if the thread is still running </dd></dl>
 </div><div class="memdoc">
 
 <p>Acquire a lock to the mutex. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000208">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>This function tries to acquire a lock to the mutex. If the mutex is already locked, the thread will block until the mutex is unlocked.</p>
 <p>A thread can lock a mutex multiple times only if the mutex was created with the KMUTEX_RECURSIVE flag. In this case, the mutex must be unlocked the same number of times it was locked.</p>
 <p>For a non-blocking or timed version, see <a class="el" href="group__kernel.html#ga61624f94bcc4e0d3e45724731976ab2f" title="Try to acquire a lock to the mutex for a specified amount of time.">kmutex_try_lock</a>.</p>
@@ -1139,6 +1158,7 @@ false if the thread is still running </dd></dl>
 </div><div class="memdoc">
 
 <p>Release a lock to the mutex. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000209">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">mtx</td><td>Pointer to the mutex </td></tr>
@@ -1175,6 +1195,7 @@ false if the thread is still running </dd></dl>
 </div><div class="memdoc">
 
 <p>Try to acquire a lock to the mutex for a specified amount of time. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000210">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>This function tries to acquire a lock to the mutex. If the mutex is already locked, the thread will block until the mutex is unlocked but only for the specified amount of <code>ticks</code>. If the mutex is not unlocked in time, the function will return false.</p>
 <p>As a special case, if <code>ticks</code> is 0, the function will never block and will return false immediately if the mutex is already locked.</p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -1207,6 +1228,7 @@ false If the mutex was not locked in time </dd></dl>
 </div><div class="memdoc">
 
 <p>Initialize a condition variable. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000211">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>A condition variable is a synchronization primitive that allows threads to wait for a specific condition to happen. A condition variable is always associated with a mutex, and the mutex must be locked before calling <a class="el" href="group__kernel.html#gadaca5311816ea4a7ea371214f5b61cb8" title="Wait for a condition to happen.">kcond_wait</a> or <a class="el" href="group__kernel.html#gaba6177eff8388269efb91dd5089ec921" title="Signal a condition variable.">kcond_signal</a>.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -1235,6 +1257,7 @@ false If the mutex was not locked in time </dd></dl>
 </div><div class="memdoc">
 
 <p>Destroy a condition variable. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000212">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">cond</td><td>Pointer to the condition variable </td></tr>
@@ -1271,6 +1294,7 @@ false If the mutex was not locked in time </dd></dl>
 </div><div class="memdoc">
 
 <p>Wait for a condition to happen. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000213">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>This function will block the current thread until the condition variable is signaled. The mutex must be locked before calling this function. It will be released while the thread is waiting and re-acquired when the thread is woken up.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -1318,6 +1342,7 @@ false If the mutex was not locked in time </dd></dl>
 </div><div class="memdoc">
 
 <p>Wait for a condition to happen for a specified amount of time. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000214">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>This function will block the current thread until the condition variable is signaled, or until the specified amount of time has passed. The mutex must be locked before calling this function. It will be released while the thread is waiting and re-acquired when the thread is woken up.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -1350,6 +1375,7 @@ false If the condition was not signaled in time </dd></dl>
 </div><div class="memdoc">
 
 <p>Signal a condition variable. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000215">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>This function will wake up one thread that is waiting on the condition variable. If no thread is waiting, the signal is ignored.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -1380,6 +1406,7 @@ false If the condition was not signaled in time </dd></dl>
 </div><div class="memdoc">
 
 <p>Broadcast a condition variable. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000216">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>This function will wake up all threads that are waiting on the condition variable. If no thread is waiting, the broadcast is ignored.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -1422,7 +1449,7 @@ false If the condition was not signaled in time </dd></dl>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jun 10 2026 22:36:48 for libdragon by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
+Generated on Fri Aug 21 2026 21:04:47 for libdragon by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
 </small></address>
 </body>
 </html>

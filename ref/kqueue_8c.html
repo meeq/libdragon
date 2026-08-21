@@ -219,6 +219,7 @@ Buffer of the queue. </td></tr>
 </div><div class="memdoc">
 
 <p>Create a new queue. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000224">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>This function creates a new queue with the specified size. The size is the number of elements that the queue can hold.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -247,6 +248,7 @@ Buffer of the queue. </td></tr>
 </div><div class="memdoc">
 
 <p>Destroy a queue. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000225">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>This function destroys a queue, freeing all the resources associated with it.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -284,6 +286,7 @@ Buffer of the queue. </td></tr>
 </div><div class="memdoc">
 
 <p>Add an element to the queue. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000226">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>This function adds an element to the queue. If the queue is full, the function will block until there is space in the queue.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -322,6 +325,7 @@ Buffer of the queue. </td></tr>
 </div><div class="memdoc">
 
 <p>Attempt to add an element to a queue from an interrupt context. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000227">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">queue</td><td>Pointer to the queue structure </td></tr>
@@ -366,6 +370,7 @@ Buffer of the queue. </td></tr>
 </div><div class="memdoc">
 
 <p>Try to add an element to the queue with timeout. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000228">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>This function adds an element to the queue. If the queue is full, the function will block until there is space in the queue or the timer expires.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -396,6 +401,7 @@ Buffer of the queue. </td></tr>
 </div><div class="memdoc">
 
 <p>Remove an element from the queue. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000229">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>This function removes an element from the queue. If the queue is empty, the function will block until there is an element in the queue.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -440,6 +446,7 @@ Buffer of the queue. </td></tr>
 </div><div class="memdoc">
 
 <p>Try to remove an element from the queue with timeout. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000230">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>This function removes an element from the queue. If the queue is empty, the function will block until there is an element in the queue or the timeout expires.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -470,6 +477,7 @@ Buffer of the queue. </td></tr>
 </div><div class="memdoc">
 
 <p>Get the number of elements in the queue. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000231">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">queue</td><td>Pointer to the queue structure</td></tr>
@@ -497,6 +505,7 @@ Buffer of the queue. </td></tr>
 </div><div class="memdoc">
 
 <p>Get the size of the queue. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000232">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">queue</td><td>Pointer to the queue structure</td></tr>
@@ -524,6 +533,7 @@ Buffer of the queue. </td></tr>
 </div><div class="memdoc">
 
 <p>Check if the queue is empty. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000233">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">queue</td><td>Pointer to the queue structure</td></tr>
@@ -551,6 +561,7 @@ Buffer of the queue. </td></tr>
 </div><div class="memdoc">
 
 <p>Check if the queue is full. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000234">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">queue</td><td>Pointer to the queue structure</td></tr>
@@ -578,6 +589,7 @@ Buffer of the queue. </td></tr>
 </div><div class="memdoc">
 
 <p>Peek at the element at the head of the queue. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000235">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">queue</td><td>Pointer to the queue structure</td></tr>
@@ -591,7 +603,7 @@ Buffer of the queue. </td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jun 10 2026 22:36:48 for libdragon by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
+Generated on Fri Aug 21 2026 21:04:47 for libdragon by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
 </small></address>
 </body>
 </html>

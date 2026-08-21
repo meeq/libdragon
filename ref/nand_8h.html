@@ -130,9 +130,8 @@ Enumerations</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a5d09d1989118ec496942fa3c020e9e7e" id="r_a5d09d1989118ec496942fa3c020e9e7e"><td class="memItemLeft" align="right" valign="top"><a id="a5d09d1989118ec496942fa3c020e9e7e" name="a5d09d1989118ec496942fa3c020e9e7e"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>nand_init</b> (void)</td></tr>
-<tr class="memdesc:a5d09d1989118ec496942fa3c020e9e7e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize the library to access the NAND flash on the iQue Player. <br /></td></tr>
+<tr class="memitem:a5d09d1989118ec496942fa3c020e9e7e" id="r_a5d09d1989118ec496942fa3c020e9e7e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="nand_8h.html#a5d09d1989118ec496942fa3c020e9e7e">nand_init</a> (void)</td></tr>
+<tr class="memdesc:a5d09d1989118ec496942fa3c020e9e7e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize the library to access the NAND flash on the iQue Player.  <br /></td></tr>
 <tr class="separator:a5d09d1989118ec496942fa3c020e9e7e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5f7e0322b4911c281c95f09185919a3e" id="r_a5f7e0322b4911c281c95f09185919a3e"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="nand_8h.html#a5f7e0322b4911c281c95f09185919a3e">nand_get_size</a> (void)</td></tr>
 <tr class="memdesc:a5f7e0322b4911c281c95f09185919a3e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the size of the installed NAND.  <br /></td></tr>
@@ -212,6 +211,27 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>nand_init</b> (void)<
 </div>
 </div>
 <h2 class="groupheader">Function Documentation</h2>
+<a id="a5d09d1989118ec496942fa3c020e9e7e" name="a5d09d1989118ec496942fa3c020e9e7e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5d09d1989118ec496942fa3c020e9e7e">&#9670;&#160;</a></span>nand_init()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void nand_init </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Initialize the library to access the NAND flash on the iQue Player. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000343">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it. </dd></dl>
+
+</div>
+</div>
 <a id="a5f7e0322b4911c281c95f09185919a3e" name="a5f7e0322b4911c281c95f09185919a3e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a5f7e0322b4911c281c95f09185919a3e">&#9670;&#160;</a></span>nand_get_size()</h2>
 
@@ -229,7 +249,8 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>nand_init</b> (void)<
 </div><div class="memdoc">
 
 <p>Return the size of the installed NAND. </p>
-<dl class="section return"><dt>Returns</dt><dd>int Size of the NAND in bytes (either 64 MiB or 128 MiB) </dd></dl>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000344">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Size of the NAND in bytes (either 64 MiB or 128 MiB) </dd></dl>
 
 </div>
 </div>
@@ -278,6 +299,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>nand_init</b> (void)<
 </div><div class="memdoc">
 
 <p>Read one or multiple full pages from the NAND. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000345">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>This is the lower level function to read data from the NAND. It reads only full pages and optionally perform ECC correction while reading them.</p>
 <p>Each page of the flash contains 1024 bytes of data (<a class="el" href="nand_8h.html#a2e3cf7d6c572b5d3ce810048eabf7786" title="Size of a NAND page in bytes.">NAND_PAGE_SIZE</a>) and 16 bytes of so-called "spare" data. The ECC codes are stored in 6 bytes of spare data, while some of the other bytes seem used by the official iQue OS for marking bad blocks or other not fully understood purposes.</p>
 <p>You can read the spare data by providing a pointer to a buffer where to store it (16 bytes per each requested page). If you don't need the spare data, you can pass NULL. Notice that ECC correction can be performed even if you pass NULL to spare.</p>
@@ -337,6 +359,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>nand_init</b> (void)<
 </div><div class="memdoc">
 
 <p>Write pages to the NAND. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000346">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>Writing to NAND is well defined only on erased blocks. If you write to a non-erased block, the data will likely be corrupted.</p>
 <p>While technically it is possible to write even data smaller than a page, that doesn't allow the flash controller to recalculate the ECC, so it is not recommended because ECC is required to detect failures.</p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -371,6 +394,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>nand_init</b> (void)<
 </div><div class="memdoc">
 
 <p>Erase a block on the NAND. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000347">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>You must erase a block before being able to write to it. Notice that erasing only works on the whole block, so all the pages inside are erased.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -415,6 +439,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>nand_init</b> (void)<
 </div><div class="memdoc">
 
 <p>Read sequential data from the NAND. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000348">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>This function reads a sequence of bytes from the NAND, across different pages and/or blocks. It will only fetch the requested bytes.</p>
 <p>Notice that it is not possible to check ECC when using this function, because ECC only works when reading full pages. Not using ECC while reading might cause data corruption if the NAND has errors, so carefully consider whether to use this function.</p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -446,6 +471,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>nand_init</b> (void)<
 </div><div class="memdoc">
 
 <p>Initialize configuration of the NAND memory mapping to PI address space. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000349">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>On iQue, a special hardware component called the ATB (Address Translation Buffer?) allows to memory map blocks of flash to the PI bus. This allows for instance for a ROM to be mapped at 0x10000000, which is required for booting them.</p>
 <p>The configuration must be done from scratch every time it is changed; it is thus necessary to call <a class="el" href="nand_8h.html#a80b991f501a3decb4d5a46488a385882" title="Initialize configuration of the NAND memory mapping to PI address space.">nand_mmap_begin</a> to initialize the configuration, then call <a class="el" href="nand_8h.html#a501ee9a86770b5273323b9cd0e771215" title="Memory-map flash blocks to PI address space via ATB.">nand_mmap</a> for each block to map, and finally call <a class="el" href="nand_8h.html#a42d486fda09024a3348ca7689fb236d8" title="Finish configuration of the NAND memory mapping to PI address space.">nand_mmap_end</a> to finish the configuration.</p>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="nand_8h.html#a501ee9a86770b5273323b9cd0e771215" title="Memory-map flash blocks to PI address space via ATB.">nand_mmap</a> </dd>
@@ -487,6 +513,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>nand_init</b> (void)<
 </div><div class="memdoc">
 
 <p>Memory-map flash blocks to PI address space via ATB. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000350">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>On iQue, a special hardware component called the ATB (Address Translation Buffer?) allows to memory map blocks of flash to the PI bus. This allows for instance for a ROM to be mapped at 0x10000000, which is required for booting them.</p>
 <p>This function configures a specific mapping from a sequence of blocks to a PI address area. The flash blocks can be non consecutive, though there are some limits to the number of ATB entries that can be configured, so it is better to use consecutive blocks if possible.</p>
 <p>If multiple calls to <a class="el" href="nand_8h.html#a501ee9a86770b5273323b9cd0e771215" title="Memory-map flash blocks to PI address space via ATB.">nand_mmap</a> are done, they must be done in increasing <em>pi_address</em> order.</p>
@@ -499,7 +526,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>nand_init</b> (void)<
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>int 0 if OK, or -1 in case of error. A possible error is that there are not enough ATB entries available. In this case, it is necessary to defragment the file on the NAND (as a single ATB entry can map multiple consecutive blocks).</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>0 if OK, or -1 in case of error. A possible error is that there are not enough ATB entries available. In this case, it is necessary to defragment the file on the NAND (as a single ATB entry can map multiple consecutive blocks).</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="nand_8h.html#a80b991f501a3decb4d5a46488a385882" title="Initialize configuration of the NAND memory mapping to PI address space.">nand_mmap_begin</a> </dd>
 <dd>
 <a class="el" href="nand_8h.html#a42d486fda09024a3348ca7689fb236d8" title="Finish configuration of the NAND memory mapping to PI address space.">nand_mmap_end</a> </dd></dl>
@@ -523,6 +550,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>nand_init</b> (void)<
 </div><div class="memdoc">
 
 <p>Finish configuration of the NAND memory mapping to PI address space. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000351">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>On iQue, a special hardware component called the ATB (Address Translation Buffer?) allows to memory map blocks of flash to the PI bus. This allows for instance for a ROM to be mapped at 0x10000000, which is required for booting them.</p>
 <p>This function must be called to finish the configuration. Notice that it must be called even if <a class="el" href="nand_8h.html#a501ee9a86770b5273323b9cd0e771215" title="Memory-map flash blocks to PI address space via ATB.">nand_mmap</a> failed. </p>
 
@@ -555,6 +583,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>nand_init</b> (void)<
 </div><div class="memdoc">
 
 <p>Compute the ECC code for a page of data. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000352">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>iQue NAND contains a 6-byte ECC code for each 1024-byte page. This is actually the combination of two 3-byte ECC for each 512-byte half of the page. The code is stored in the spare date of each page (bytes 0x8-0xA contain the ECC of the second half, and bytes 0xD-0xF contain the ECC of the first half).</p>
 <p>This function implements the same algorithm and is provided for completeness. It is normally not required to compute the ECC code manually, as the flash controller will do that automatically when writing to the NAND (via <a class="el" href="nand_8h.html#ac3e676d20ade7b34005b2682fc5fcc36" title="Write pages to the NAND.">nand_write_pages</a>) and used to correct errors when reading from the NAND (via <a class="el" href="nand_8h.html#ac7534338b624925b7d643df7ca8ff1f0" title="Read one or multiple full pages from the NAND.">nand_read_pages</a>).</p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -570,7 +599,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>nand_init</b> (void)<
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jun 10 2026 22:36:47 for libdragon by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
+Generated on Fri Aug 21 2026 21:04:46 for libdragon by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
 </small></address>
 </body>
 </html>

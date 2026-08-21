@@ -322,6 +322,7 @@ Context to pass to the report callback. </td></tr>
 </div><div class="memdoc">
 
 <p>Check the integrity of a controller pak. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000044">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>This function checks the integrity of a controller pak filesystem, and optionally tries also to repair it if unreadable, and recover as much as possible.</p>
 <p>Found issues can be reported via the report callback, which is called for each issue found.</p>
 <p>The return value will report the number of issues found whose level is at least CPAKFS_LEVEL_WARNING. In fact, issues of kind CPAKFS_LEVEL_INFO, while fixable, do not impact filesystem integrity in any way (for instance, a backup copy of some metadata might be corrupted, but the main copy is still valid).</p>
@@ -369,6 +370,7 @@ negative If a physical error occurred (eg: no cpak on the specified port), and e
 </div><div class="memdoc">
 
 <p>Format a controller pak. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000045">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>This function formats a controller pak, resetting to a pristine, valid empty state. By default, the function only erases the filesystem metadata but does not purge content from all the pages. This is OK for most use cases.</p>
 <p>If <code>erase</code> is true, all pages are written with zeros, effectively erasing all the content from the controller pak.</p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -378,14 +380,14 @@ negative If a physical error occurred (eg: no cpak on the specified port), and e
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>int 0 on success, negative on error </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>0 on success, negative on error </dd></dl>
 
 </div>
 </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jun 10 2026 22:36:48 for libdragon by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
+Generated on Fri Aug 21 2026 21:04:47 for libdragon by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
 </small></address>
 </body>
 </html>

@@ -7,8 +7,8 @@ var searchData=
   ['ai_5fmpal_5fdacrate_4',['AI_MPAL_DACRATE',['../audio_8c.html#addf370a3192ea11675e3743c02c90cce',1,'audio.c']]],
   ['ai_5fntsc_5fdacrate_5',['AI_NTSC_DACRATE',['../audio_8c.html#a20d82d21fbcc87d5fe0aa5d89362e38b',1,'audio.c']]],
   ['ai_5fpal_5fdacrate_6',['AI_PAL_DACRATE',['../audio_8c.html#a73839b3328dad9a9280c139cd30eed0f',1,'audio.c']]],
-  ['ai_5fstatus_5fbusy_7',['ai_status_busy',['../audio_8c.html#a7811a8498f902f7ba4ab71ace71996ad',1,'AI_STATUS_BUSY:&#160;audio.c'],['../mixer_8c.html#a7811a8498f902f7ba4ab71ace71996ad',1,'AI_STATUS_BUSY:&#160;mixer.c']]],
-  ['ai_5fstatus_5ffull_8',['ai_status_full',['../audio_8c.html#ae6fa307322df53a3592ddf7379864b55',1,'AI_STATUS_FULL:&#160;audio.c'],['../mixer_8c.html#ae6fa307322df53a3592ddf7379864b55',1,'AI_STATUS_FULL:&#160;mixer.c']]],
+  ['ai_5fstatus_5fbusy_7',['AI_STATUS_BUSY',['../audio_8c.html#a7811a8498f902f7ba4ab71ace71996ad',1,'audio.c']]],
+  ['ai_5fstatus_5ffull_8',['AI_STATUS_FULL',['../audio_8c.html#ae6fa307322df53a3592ddf7379864b55',1,'audio.c']]],
   ['anim_5fcomponent_5fpos_9',['ANIM_COMPONENT_POS',['../model64__internal_8h.html#a1f5c4ef1978e895abe2bb287e22f056e',1,'model64_internal.h']]],
   ['anim_5fcomponent_5frot_10',['ANIM_COMPONENT_ROT',['../model64__internal_8h.html#a1241142985465822a2d7fd86d2d3f40a',1,'model64_internal.h']]],
   ['anim_5fcomponent_5fscale_11',['ANIM_COMPONENT_SCALE',['../model64__internal_8h.html#a2051c3b28ef0ffb885b2a14d8d3f1ceb',1,'model64_internal.h']]],
@@ -31,9 +31,10 @@ var searchData=
   ['asset_5finit_5fcompression_28',['asset_init_compression',['../asset_8h.html#a6bdfd4d8e3a7e807dd7e1b8cb00332a4',1,'asset.h']]],
   ['asset_5fmagic_29',['ASSET_MAGIC',['../asset__internal_8h.html#a2f891032dda6e567684e1362f2b20b93',1,'asset_internal.h']]],
   ['attach_5fstack_5fsize_30',['ATTACH_STACK_SIZE',['../rdpq__attach_8c.html#a0d2202d1eee440a5285578ba75f432be',1,'rdpq_attach.c']]],
-  ['ay8910_5fcenter_5fsilence_31',['AY8910_CENTER_SILENCE',['../ay8910_8h.html#a92f1e23ce912d892260f5b6546381a50',1,'ay8910.h']]],
-  ['ay8910_5fdecimate_32',['AY8910_DECIMATE',['../ay8910_8h.html#ad09121b9cba0359cf468cc9f58275821',1,'ay8910.h']]],
-  ['ay8910_5foutput_5fstereo_33',['AY8910_OUTPUT_STEREO',['../ay8910_8h.html#ad0faec4c420ff3afe0de618af7999677',1,'ay8910.h']]],
-  ['ay8910_5ftrace_34',['AY8910_TRACE',['../ay8910_8c.html#ad83d818928b39f5f2b84848d8b4e85dd',1,'ay8910.c']]],
-  ['ay8910_5fvolume_5fattenuate_35',['AY8910_VOLUME_ATTENUATE',['../ay8910_8h.html#a8dd56aea19a2dc412eb6f1dee50693cc',1,'ay8910.h']]]
+  ['audio_5fmax_5fbuffers_31',['AUDIO_MAX_BUFFERS',['../audio_8c.html#a19592973a61ba5c5b9fc45b204179456',1,'audio.c']]],
+  ['ay8910_5fcenter_5fsilence_32',['AY8910_CENTER_SILENCE',['../ay8910_8h.html#a92f1e23ce912d892260f5b6546381a50',1,'ay8910.h']]],
+  ['ay8910_5fdecimate_33',['AY8910_DECIMATE',['../ay8910_8h.html#ad09121b9cba0359cf468cc9f58275821',1,'ay8910.h']]],
+  ['ay8910_5foutput_5fstereo_34',['AY8910_OUTPUT_STEREO',['../ay8910_8h.html#ad0faec4c420ff3afe0de618af7999677',1,'ay8910.h']]],
+  ['ay8910_5ftrace_35',['AY8910_TRACE',['../ay8910_8c.html#ad83d818928b39f5f2b84848d8b4e85dd',1,'ay8910.c']]],
+  ['ay8910_5fvolume_5fattenuate_36',['AY8910_VOLUME_ATTENUATE',['../ay8910_8h.html#a8dd56aea19a2dc412eb6f1dee50693cc',1,'ay8910.h']]]
 ];

@@ -111,6 +111,24 @@ Macros</h2></td></tr>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>VADPCM_FLAG_HUFFMAN</b>&#160;&#160;&#160;(1 &lt;&lt; 0)</td></tr>
 <tr class="memdesc:a12c11dd5f6596cae7a567797042c0f52"><td class="mdescLeft">&#160;</td><td class="mdescRight">Huffman-encoded VADPCM. <br /></td></tr>
 <tr class="separator:a12c11dd5f6596cae7a567797042c0f52"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa723591b783fc6ffc9582444e5fce1b8" id="r_aa723591b783fc6ffc9582444e5fce1b8"><td class="memItemLeft" align="right" valign="top"><a id="aa723591b783fc6ffc9582444e5fce1b8" name="aa723591b783fc6ffc9582444e5fce1b8"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>VADPCM_FLAG_RESIDENT</b>&#160;&#160;&#160;(1 &lt;&lt; 1)</td></tr>
+<tr class="memdesc:aa723591b783fc6ffc9582444e5fce1b8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Preload whole body into RDRAM at open. <br /></td></tr>
+<tr class="separator:aa723591b783fc6ffc9582444e5fce1b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad1431445e15263cdc24cd15dabaca340" id="r_ad1431445e15263cdc24cd15dabaca340"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="wav64__vadpcm__internal_8h.html#ad1431445e15263cdc24cd15dabaca340">WAV64_VADPCM_BLOCK_FRAMES</a>&#160;&#160;&#160;128</td></tr>
+<tr class="separator:ad1431445e15263cdc24cd15dabaca340"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abb5d5b20da0b43a7d1f3ad5e33a96122" id="r_abb5d5b20da0b43a7d1f3ad5e33a96122"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="wav64__vadpcm__internal_8h.html#abb5d5b20da0b43a7d1f3ad5e33a96122">VADPCM_GROUP_OFFSET</a>(bits,  j)&#160;&#160;&#160;(((j) * (bits)) &gt;&gt; 1)</td></tr>
+<tr class="memdesc:abb5d5b20da0b43a7d1f3ad5e33a96122"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bitstream layout of a VADPCM frame.  <br /></td></tr>
+<tr class="separator:abb5d5b20da0b43a7d1f3ad5e33a96122"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a841a3ed5496c0456a8e61fce4abdb0a7" id="r_a841a3ed5496c0456a8e61fce4abdb0a7"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="wav64__vadpcm__internal_8h.html#a841a3ed5496c0456a8e61fce4abdb0a7">VADPCM_RESIDUAL_BITS</a>(bits)&#160;&#160;&#160;((bits) ? (bits) : 4)</td></tr>
+<tr class="memdesc:a841a3ed5496c0456a8e61fce4abdb0a7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Residual width of a VADPCM stream.  <br /></td></tr>
+<tr class="separator:a841a3ed5496c0456a8e61fce4abdb0a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4fd93d1815edb84f67fa7b5bc933c04e" id="r_a4fd93d1815edb84f67fa7b5bc933c04e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="wav64__vadpcm__internal_8h.html#a4fd93d1815edb84f67fa7b5bc933c04e">WAV64_VADPCM_FRAMES</a>(len)&#160;&#160;&#160;<a class="el" href="utils_8h.html#adecf42e26f5143647940b41d355e6a0b">DIVIDE_CEIL</a>(len, 16)</td></tr>
+<tr class="memdesc:a4fd93d1815edb84f67fa7b5bc933c04e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Frames the mixer can address in a waveform of <code>len</code> samples.  <br /></td></tr>
+<tr class="separator:a4fd93d1815edb84f67fa7b5bc933c04e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a803b30f7f37ee0a8f871e1e790f8fb52" id="r_a803b30f7f37ee0a8f871e1e790f8fb52"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="wav64__vadpcm__internal_8h.html#a803b30f7f37ee0a8f871e1e790f8fb52">WAV64_VADPCM_FILE_FRAMES</a>(len)&#160;&#160;&#160;(<a class="el" href="utils_8h.html#adecf42e26f5143647940b41d355e6a0b">DIVIDE_CEIL</a>(len, 32) * 2)</td></tr>
+<tr class="memdesc:a803b30f7f37ee0a8f871e1e790f8fb52"><td class="mdescLeft">&#160;</td><td class="mdescRight">Frames actually stored in the file for a waveform of <code>len</code> samples.  <br /></td></tr>
+<tr class="separator:a803b30f7f37ee0a8f871e1e790f8fb52"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
@@ -130,6 +148,9 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>wav64_vadpcm_get_bitra
 int&#160;</td><td class="memItemRight" valign="bottom"><b>wav64_vadpcm_adjust_seek</b> (<a class="el" href="wav64_8h.html#structwav64__t">wav64_t</a> *wav, int wpos)</td></tr>
 <tr class="memdesc:a983495a832c8574b8734dfa1bbd8f6ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adjust a requested seek position (samples) to a valid VADPCM skip point (samples). <br /></td></tr>
 <tr class="separator:a983495a832c8574b8734dfa1bbd8f6ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2242d2b61c476f09bcf6a9f45fa92a9d" id="r_a2242d2b61c476f09bcf6a9f45fa92a9d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="wav64__vadpcm__internal_8h.html#a2242d2b61c476f09bcf6a9f45fa92a9d">wav64_vadpcm_preload</a> (<a class="el" href="wav64_8h.html#structwav64__t">wav64_t</a> *wav, void *dst)</td></tr>
+<tr class="memdesc:a2242d2b61c476f09bcf6a9f45fa92a9d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Preload VADPCM body into a fully-planar plain-frame buffer at <code>dst</code>.  <br /></td></tr>
+<tr class="separator:a2242d2b61c476f09bcf6a9f45fa92a9d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><dl class="section author"><dt>Author</dt><dd>Giovanni Bajo <a href="#" onclick="location.href='mai'+'lto:'+'gio'+'va'+'nni'+'ba'+'jo@'+'gm'+'ail'+'.c'+'om'; return false;">giova<span class="obfuscator">.nosp@m.</span>nnib<span class="obfuscator">.nosp@m.</span>ajo@g<span class="obfuscator">.nosp@m.</span>mail<span class="obfuscator">.nosp@m.</span>.com</a> </dd></dl>
@@ -313,11 +334,17 @@ num_skippoints</td>
 <td class="fielddoc">
 Number of allowed skip points. </td></tr>
 <tr><td class="fieldtype">
-<a id="aebb1faaadba78a3fe9f3252cb3e7fdea" name="aebb1faaadba78a3fe9f3252cb3e7fdea"></a>uint16_t</td>
+<a id="a80f1bbf6408930aa2d50e591b0b34878" name="a80f1bbf6408930aa2d50e591b0b34878"></a>uint8_t</td>
 <td class="fieldname">
-padding1</td>
+residual_bits</td>
 <td class="fielddoc">
-Padding. </td></tr>
+Bits per residual (2, 3 or 4; 0 means 4) </td></tr>
+<tr><td class="fieldtype">
+<a id="a7faa811cd6b7e1c3b26e5441d8cb9d75" name="a7faa811cd6b7e1c3b26e5441d8cb9d75"></a>uint8_t</td>
+<td class="fieldname">
+attack_frames</td>
+<td class="fielddoc">
+RDRAM attack cache size in frames (0 = none) </td></tr>
 <tr><td class="fieldtype">
 <a id="aea0fbf6c05ff8d03cef2265b7fa47860" name="aea0fbf6c05ff8d03cef2265b7fa47860"></a><a class="el" href="wav64__vadpcm__internal_8h.html#structwav64__vadpcm__hufftable__t">wav64_vadpcm_hufftable_t</a> *</td>
 <td class="fieldname">
@@ -353,15 +380,160 @@ Padding. </td></tr>
 <td class="fieldname">
 codebook[]</td>
 <td class="fielddoc">
-Codebook of the predictors. </td></tr>
+Per-channel codebook (<a class="el" href="mixer__internal_8h.html#ad6e864b0f67f25c97e159a49e40f7216">VADPCM_CODEBOOK_STRIDE</a> bytes each) </td></tr>
 </table>
+
+</div>
+</div>
+<h2 class="groupheader">Macro Definition Documentation</h2>
+<a id="ad1431445e15263cdc24cd15dabaca340" name="ad1431445e15263cdc24cd15dabaca340"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad1431445e15263cdc24cd15dabaca340">&#9670;&#160;</a></span>WAV64_VADPCM_BLOCK_FRAMES</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define WAV64_VADPCM_BLOCK_FRAMES&#160;&#160;&#160;128</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Stereo VADPCM file layout: blocks of this many frames per channel, alternating L then R (mono is a single linear plane). Matches <a class="el" href="samplebuffer_8h.html#aaeb4959dd3dc17bc1df114726ba1fc43">SAMPLEBUFFER_MARGIN_UNITS</a> so one samplebuffer fill is one file block. </p>
+
+</div>
+</div>
+<a id="abb5d5b20da0b43a7d1f3ad5e33a96122" name="abb5d5b20da0b43a7d1f3ad5e33a96122"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abb5d5b20da0b43a7d1f3ad5e33a96122">&#9670;&#160;</a></span>VADPCM_GROUP_OFFSET</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define VADPCM_GROUP_OFFSET</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">bits, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">j&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;(((j) * (bits)) &gt;&gt; 1)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Bitstream layout of a VADPCM frame. </p>
+<p>A frame always codes 16 samples and starts with one control byte (<code>scaling &lt;&lt; 4 | predictor</code>), followed by the 16 residuals packed at <a class="el" href="wav64__vadpcm__internal_8h.html#a80f1bbf6408930aa2d50e591b0b34878" title="Bits per residual (2, 3 or 4; 0 means 4)">wav64_header_vadpcm_t::residual_bits</a> bits each, most significant bit first: </p><pre class="fragment">residual i occupies payload bits [i*bits, i*bits + bits)
+</pre><p> where payload bit 0 is the most significant bit of payload byte 0. For the classic 4-bit encoding this is exactly the usual nibble packing (residual i in nibble i), so 4-bit frames are bit-for-bit unchanged; 3-bit and 2-bit frames shrink the payload to 6 and 4 bytes respectively.</p>
+<p>The mixer ucode reads the payload as four halfwords, one per group of four consecutive residuals: group j lives entirely inside the halfword starting at payload byte <a class="el" href="wav64__vadpcm__internal_8h.html#abb5d5b20da0b43a7d1f3ad5e33a96122" title="Bitstream layout of a VADPCM frame.">VADPCM_GROUP_OFFSET</a>, which is why the packing has to be dense and MSB-first. </p>
+
+</div>
+</div>
+<a id="a841a3ed5496c0456a8e61fce4abdb0a7" name="a841a3ed5496c0456a8e61fce4abdb0a7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a841a3ed5496c0456a8e61fce4abdb0a7">&#9670;&#160;</a></span>VADPCM_RESIDUAL_BITS</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define VADPCM_RESIDUAL_BITS</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">bits</td><td>)</td>
+          <td>&#160;&#160;&#160;((bits) ? (bits) : 4)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Residual width of a VADPCM stream. </p>
+<p>Files written before native sub-nibble packing leave the field at zero, which means the classic 4-bit encoding. </p>
+
+</div>
+</div>
+<a id="a4fd93d1815edb84f67fa7b5bc933c04e" name="a4fd93d1815edb84f67fa7b5bc933c04e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4fd93d1815edb84f67fa7b5bc933c04e">&#9670;&#160;</a></span>WAV64_VADPCM_FRAMES</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define WAV64_VADPCM_FRAMES</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">len</td><td>)</td>
+          <td>&#160;&#160;&#160;<a class="el" href="utils_8h.html#adecf42e26f5143647940b41d355e6a0b">DIVIDE_CEIL</a>(len, 16)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Frames the mixer can address in a waveform of <code>len</code> samples. </p>
+<p>The last frame is partial whenever the length is not a multiple of 16, but it still holds samples that have to be played. </p>
+
+</div>
+</div>
+<a id="a803b30f7f37ee0a8f871e1e790f8fb52" name="a803b30f7f37ee0a8f871e1e790f8fb52"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a803b30f7f37ee0a8f871e1e790f8fb52">&#9670;&#160;</a></span>WAV64_VADPCM_FILE_FRAMES</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define WAV64_VADPCM_FILE_FRAMES</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">len</td><td>)</td>
+          <td>&#160;&#160;&#160;(<a class="el" href="utils_8h.html#adecf42e26f5143647940b41d355e6a0b">DIVIDE_CEIL</a>(len, 32) * 2)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Frames actually stored in the file for a waveform of <code>len</code> samples. </p>
+<p>audioconv64 pads the waveform to a multiple of 32 samples before encoding, but writes the unpadded length in the header, so the file always holds a few frames more than <a class="el" href="wav64__vadpcm__internal_8h.html#a4fd93d1815edb84f67fa7b5bc933c04e" title="Frames the mixer can address in a waveform of len samples.">WAV64_VADPCM_FRAMES</a>. The padding is part of the block-planar layout of stereo files, so it must be accounted for when addressing frames in the file. </p>
+
+</div>
+</div>
+<h2 class="groupheader">Function Documentation</h2>
+<a id="a2242d2b61c476f09bcf6a9f45fa92a9d" name="a2242d2b61c476f09bcf6a9f45fa92a9d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2242d2b61c476f09bcf6a9f45fa92a9d">&#9670;&#160;</a></span>wav64_vadpcm_preload()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void wav64_vadpcm_preload </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="wav64_8h.html#structwav64__t">wav64_t</a> *&#160;</td>
+          <td class="paramname"><em>wav</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>dst</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Preload VADPCM body into a fully-planar plain-frame buffer at <code>dst</code>. </p>
+<p>Preload VADPCM body into a fully-planar plain-frame buffer at <code>dst</code>.</p>
+<p>File layout is block-planar (and possibly Huffman); <code>dst</code> receives [all L frames][all R frames] for direct MIX_CHANNEL addressing. </p>
 
 </div>
 </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jun 10 2026 22:36:48 for libdragon by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
+Generated on Fri Aug 21 2026 21:04:47 for libdragon by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
 </small></address>
 </body>
 </html>

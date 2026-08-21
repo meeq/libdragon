@@ -76,6 +76,7 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Data Structures</a> &#124;
+<a href="#define-members">Macros</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle"><div class="title">xm64.c File Reference<div class="ingroups"><a class="el" href="group__libdragon.html">libdragon</a> &raquo; <a class="el" href="group__audio.html">Audio Subsystem</a> &raquo; <a class="el" href="group__mixer.html">Audio mixer</a></div></div></div>
 </div><!--header-->
@@ -89,6 +90,13 @@ Data Structures</h2></td></tr>
 <tr class="memitem:structxm64__header__t" id="r_structxm64__header__t"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xm64_8c.html#structxm64__header__t">xm64_header_t</a></td></tr>
 <tr class="memdesc:structxm64__header__t"><td class="mdescLeft">&#160;</td><td class="mdescRight">Header of the XM64 file.  <a href="xm64_8c.html#structxm64__header__t">More...</a><br /></td></tr>
 <tr class="separator:structxm64__header__t"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:a17ad202a3eae1a1ca1fe80ccc60ef718" id="r_a17ad202a3eae1a1ca1fe80ccc60ef718"><td class="memItemLeft" align="right" valign="top"><a id="a17ad202a3eae1a1ca1fe80ccc60ef718" name="a17ad202a3eae1a1ca1fe80ccc60ef718"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>XM64_VOL_RAMP_SAMPLES</b>&#160;&#160;&#160;128</td></tr>
+<tr class="memdesc:a17ad202a3eae1a1ca1fe80ccc60ef718"><td class="mdescLeft">&#160;</td><td class="mdescRight">Length of the ramp that walks a volume change across a few milliseconds. XM volumes jump on every tick (envelopes, slides, global volume, mute), and a hard step is heard as a click; this is short enough that nothing sounds delayed, and long enough to kill the discontinuity. <br /></td></tr>
+<tr class="separator:a17ad202a3eae1a1ca1fe80ccc60ef718"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
@@ -522,6 +530,7 @@ metadata_size</td>
 </div><div class="memdoc">
 
 <p>Configure the directory where external samples are stored. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000541">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>This function is used to set the directory where the external samples are stored. It is only used for XM64 files that use external samples.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -535,7 +544,7 @@ metadata_size</td>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jun 10 2026 22:36:48 for libdragon by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
+Generated on Fri Aug 21 2026 21:04:47 for libdragon by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
 </small></address>
 </body>
 </html>

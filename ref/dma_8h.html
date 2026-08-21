@@ -75,6 +75,7 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#nested-classes">Data Structures</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle"><div class="title">dma.h File Reference<div class="ingroups"><a class="el" href="group__libdragon.html">libdragon</a> &raquo; <a class="el" href="group__lowlevel.html">Low Level Hardware Interfaces</a> &raquo; <a class="el" href="group__dma.html">DMA Controller</a></div></div></div>
 </div><!--header-->
@@ -85,6 +86,12 @@ $(function() {
 
 <p><a href="dma_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+Data Structures</h2></td></tr>
+<tr class="memitem:structpi__dom__timings__t" id="r_structpi__dom__timings__t"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dma.html#structpi__dom__timings__t">pi_dom_timings_t</a></td></tr>
+<tr class="memdesc:structpi__dom__timings__t"><td class="mdescLeft">&#160;</td><td class="mdescRight">PI BSD domain bus timing parameters.  <a href="group__dma.html#structpi__dom__timings__t">More...</a><br /></td></tr>
+<tr class="separator:structpi__dom__timings__t"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
 Macros</h2></td></tr>
 <tr><td colspan="2"><div class="groupHeader">PI Register Definitions</div></td></tr>
@@ -123,25 +130,37 @@ Macros</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ga67d17e6db260e0b0b2632d52e7f5b15b" id="r_ga67d17e6db260e0b0b2632d52e7f5b15b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dma.html#ga67d17e6db260e0b0b2632d52e7f5b15b">dma_write_raw_async</a> (const void *ram_address, <a class="el" href="n64types_8h.html#abbde255c6ff18b478f46cb7fdf1357e6">pi_addr_t</a> pi_address, unsigned long len)</td></tr>
-<tr class="memdesc:ga67d17e6db260e0b0b2632d52e7f5b15b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Start writing data to a peripheral through PI DMA (low-level)  <br /></td></tr>
-<tr class="separator:ga67d17e6db260e0b0b2632d52e7f5b15b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae3fe8657f79a8ab068d2c3d7e0e9402e" id="r_gae3fe8657f79a8ab068d2c3d7e0e9402e"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dma.html#gae3fe8657f79a8ab068d2c3d7e0e9402e">dma_write_raw_async</a> (const void *ram_address, <a class="el" href="n64types_8h.html#abbde255c6ff18b478f46cb7fdf1357e6">pi_addr_t</a> pi_address, unsigned long len)</td></tr>
+<tr class="memdesc:gae3fe8657f79a8ab068d2c3d7e0e9402e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Start writing data to a peripheral through PI DMA (low-level)  <br /></td></tr>
+<tr class="separator:gae3fe8657f79a8ab068d2c3d7e0e9402e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaba28e5db067d400f6134c90daf0757c9" id="r_gaba28e5db067d400f6134c90daf0757c9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dma.html#gaba28e5db067d400f6134c90daf0757c9">dma_write</a> (const void *ram_address, <a class="el" href="n64types_8h.html#abbde255c6ff18b478f46cb7fdf1357e6">pi_addr_t</a> pi_address, unsigned long len)</td></tr>
 <tr class="memdesc:gaba28e5db067d400f6134c90daf0757c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write to a peripheral.  <br /></td></tr>
 <tr class="separator:gaba28e5db067d400f6134c90daf0757c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga9c8b37c1669126aa6c94670a5f6497d7" id="r_ga9c8b37c1669126aa6c94670a5f6497d7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dma.html#ga9c8b37c1669126aa6c94670a5f6497d7">dma_read_raw_async</a> (void *ram_address, <a class="el" href="n64types_8h.html#abbde255c6ff18b478f46cb7fdf1357e6">pi_addr_t</a> pi_address, unsigned long len)</td></tr>
-<tr class="memdesc:ga9c8b37c1669126aa6c94670a5f6497d7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Start reading data from a peripheral through PI DMA (low-level)  <br /></td></tr>
-<tr class="separator:ga9c8b37c1669126aa6c94670a5f6497d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gae6c194a1d50206b2db28ec4b88661abb" id="r_gae6c194a1d50206b2db28ec4b88661abb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dma.html#gae6c194a1d50206b2db28ec4b88661abb">dma_read_async</a> (void *ram_pointer, <a class="el" href="n64types_8h.html#abbde255c6ff18b478f46cb7fdf1357e6">pi_addr_t</a> pi_address, unsigned long len)</td></tr>
-<tr class="memdesc:gae6c194a1d50206b2db28ec4b88661abb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Start reading data from a peripheral through PI DMA.  <br /></td></tr>
-<tr class="separator:gae6c194a1d50206b2db28ec4b88661abb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga58e99647072f0a5383e1ed8245f73cf4" id="r_ga58e99647072f0a5383e1ed8245f73cf4"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dma.html#ga58e99647072f0a5383e1ed8245f73cf4">dma_read_raw_async</a> (void *ram_address, <a class="el" href="n64types_8h.html#abbde255c6ff18b478f46cb7fdf1357e6">pi_addr_t</a> pi_address, unsigned long len)</td></tr>
+<tr class="memdesc:ga58e99647072f0a5383e1ed8245f73cf4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Start reading data from a peripheral through PI DMA (low-level)  <br /></td></tr>
+<tr class="separator:ga58e99647072f0a5383e1ed8245f73cf4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaacc6804fc7b10281712970d48fc3fb53" id="r_gaacc6804fc7b10281712970d48fc3fb53"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dma.html#gaacc6804fc7b10281712970d48fc3fb53">dma_read_async</a> (void *ram_pointer, <a class="el" href="n64types_8h.html#abbde255c6ff18b478f46cb7fdf1357e6">pi_addr_t</a> pi_address, unsigned long len)</td></tr>
+<tr class="memdesc:gaacc6804fc7b10281712970d48fc3fb53"><td class="mdescLeft">&#160;</td><td class="mdescRight">Start reading data from a peripheral through PI DMA.  <br /></td></tr>
+<tr class="separator:gaacc6804fc7b10281712970d48fc3fb53"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga9c79d4f41eacb14335a0fac57fecf0a0" id="r_ga9c79d4f41eacb14335a0fac57fecf0a0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dma.html#ga9c79d4f41eacb14335a0fac57fecf0a0">dma_read</a> (void *ram_address, <a class="el" href="n64types_8h.html#abbde255c6ff18b478f46cb7fdf1357e6">pi_addr_t</a> pi_address, unsigned long len)</td></tr>
 <tr class="memdesc:ga9c79d4f41eacb14335a0fac57fecf0a0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read data from a peripheral through PI DMA, waiting for completion.  <br /></td></tr>
 <tr class="separator:ga9c79d4f41eacb14335a0fac57fecf0a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga89a297ad5b901919cc3c44f08d16dfb0" id="r_ga89a297ad5b901919cc3c44f08d16dfb0"><td class="memItemLeft" align="right" valign="top">
 void&#160;</td><td class="memItemRight" valign="bottom"><b>dma_wait</b> (void)</td></tr>
-<tr class="memdesc:ga89a297ad5b901919cc3c44f08d16dfb0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wait until an async DMA or I/O transfer is finished. <br /></td></tr>
+<tr class="memdesc:ga89a297ad5b901919cc3c44f08d16dfb0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wait until all queued async DMA transfers are finished. <br /></td></tr>
 <tr class="separator:ga89a297ad5b901919cc3c44f08d16dfb0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gad5f8c7cdd46e879778bc142e9054fb33" id="r_gad5f8c7cdd46e879778bc142e9054fb33"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dma.html#gad5f8c7cdd46e879778bc142e9054fb33">dma_wait_started</a> (uint64_t ticket)</td></tr>
+<tr class="memdesc:gad5f8c7cdd46e879778bc142e9054fb33"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wait until an async DMA transfer has started.  <br /></td></tr>
+<tr class="separator:gad5f8c7cdd46e879778bc142e9054fb33"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga5e22937b9cd56ffde40cd3f281f78336" id="r_ga5e22937b9cd56ffde40cd3f281f78336"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dma.html#ga5e22937b9cd56ffde40cd3f281f78336">dma_wait_finished</a> (uint64_t ticket)</td></tr>
+<tr class="memdesc:ga5e22937b9cd56ffde40cd3f281f78336"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wait until an async DMA transfer is finished.  <br /></td></tr>
+<tr class="separator:ga5e22937b9cd56ffde40cd3f281f78336"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga5b40928c61f769085b2c43f159f4c178" id="r_ga5b40928c61f769085b2c43f159f4c178"><td class="memItemLeft" align="right" valign="top">unsigned long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dma.html#ga5b40928c61f769085b2c43f159f4c178">dma_get_progress</a> (uint64_t ticket)</td></tr>
+<tr class="memdesc:ga5b40928c61f769085b2c43f159f4c178"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the progress of an async DMA transfer.  <br /></td></tr>
+<tr class="separator:ga5b40928c61f769085b2c43f159f4c178"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga1c93c6157d4aafa629d7ad83f0f0b079" id="r_ga1c93c6157d4aafa629d7ad83f0f0b079"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dma.html#ga1c93c6157d4aafa629d7ad83f0f0b079">dma_finished</a> (uint64_t ticket)</td></tr>
+<tr class="memdesc:ga1c93c6157d4aafa629d7ad83f0f0b079"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check whether an async DMA transfer is finished.  <br /></td></tr>
+<tr class="separator:ga1c93c6157d4aafa629d7ad83f0f0b079"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga3888b19d3c25fd2d4a7a44dba1b165fc" id="r_ga3888b19d3c25fd2d4a7a44dba1b165fc"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dma.html#ga3888b19d3c25fd2d4a7a44dba1b165fc">io_read</a> (<a class="el" href="n64types_8h.html#abbde255c6ff18b478f46cb7fdf1357e6">pi_addr_t</a> pi_address)</td></tr>
 <tr class="memdesc:ga3888b19d3c25fd2d4a7a44dba1b165fc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read a 32 bit integer from a peripheral on the PI bus using the CPU.  <br /></td></tr>
 <tr class="separator:ga3888b19d3c25fd2d4a7a44dba1b165fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -163,7 +182,7 @@ thekovic <a href="https://github.com/thekovic">https://github.com/thekovic</a> <
 </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jun 10 2026 22:36:47 for libdragon by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
+Generated on Fri Aug 21 2026 21:04:46 for libdragon by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
 </small></address>
 </body>
 </html>

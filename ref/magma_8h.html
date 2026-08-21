@@ -178,6 +178,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Initialize the magma library. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000246">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>This function must be called before any other functions of this library are used. It is safe to call this function multiple times. If the library is already initialized, this function has no effect. </p>
 
 </div>
@@ -199,6 +200,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Shut down the magma library. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000247">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>It is safe to call this function multiple times. If the library is not initialized, this function has no effect. </p>
 
 </div>
@@ -220,6 +222,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Creates a new pipeline from a vertex shader and vertex layout. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000248">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>A copy of the ucode will be created internally, which is then patched automatically to work with the specified vertex layout (provided it is compatible).</p>
 <p>See <a class="el" href="magma__types_8h.html#structmg__pipeline__parms__t" title="Parameters for mg_pipeline_create.">mg_pipeline_parms_t</a> and <a class="el" href="magma__types_8h.html#structmg__vertex__layout__t" title="Configuration of a pipeline&#39;s vertex layout.">mg_vertex_layout_t</a> for more details. Must be freed with <a class="el" href="magma_8h.html#a64c4e547c052e79e50b804b9c850fe81" title="Destructs and frees a pipeline.">mg_pipeline_free</a>.</p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -254,6 +257,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Destructs and frees a pipeline. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000249">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>Must not be called while any drawing operations using this pipeline are still ongoing.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -291,6 +295,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Returns a struct describing the uniform with the given binding number. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000250">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>The struct can be used directly to load uniform values using <a class="el" href="magma_8h.html#ac8a7aa2825f4f114464de54ee4cb478b" title="Load data from the given pointer into a uniform.">mg_uniform_load</a> or <a class="el" href="magma_8h.html#a1d289e36a9fedf0ffd1dcbaa5d000ccf" title="Load inline data into a uniform.">mg_uniform_load_inline</a> This function crashes if no uniform with the given binding number exists in the pipeline. Note that binding numbers are not required to be contiguous.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -333,6 +338,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Checks if a uniform is compatible with the pipeline. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000251">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>If the uniform has been queried from the pipeline using <a class="el" href="magma_8h.html#a0198fbaa6303c60ad75f0ebcd9d7147b" title="Returns a struct describing the uniform with the given binding number.">mg_pipeline_get_uniform</a>, it is by definition always compatible.</p>
 <p>If the uniform has been queried from a different pipeline that was created with the same vertex shader, it is guaranteed to be compatible.</p>
 <p>Uniforms from other pipelines that do not share vertex shaders may still be compatible if this pipeline contains a uniform with the same binding number which is located in the same region of memory.</p>
@@ -365,6 +371,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Bind the pipeline for subsequent use. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000252">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>All following drawing commands will use the newly bound pipeline for transforming vertices. This function must be called at least once before any drawing commands are issued.</p>
 <p>Binding a pipeline will invalidate any previously loaded uniforms that are not compatible with the pipeline. This compatibility can be checked using <a class="el" href="magma_8h.html#a5defd6491acfbc819c34ee31ea247422" title="Checks if a uniform is compatible with the pipeline.">mg_pipeline_is_uniform_compatible</a>. Inversely this means that compatible uniforms will not be invalidated and their values will be preserved after binding the new pipeline.</p>
 <p>Can be recorded into blocks.</p>
@@ -463,6 +470,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Load data from the given pointer into uniform memory. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000253">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>This function works like <a class="el" href="magma_8h.html#ac8a7aa2825f4f114464de54ee4cb478b" title="Load data from the given pointer into a uniform.">mg_uniform_load</a> but takes the offset and size of the memory region to be loaded into directly. It should be used with care, since it is possible to corrupt the system's state permanently and cause crashes by specifying an invalid region. The region must not exceed the size of the pipeline's uniform memory, which is defined as the offset plus size of the pipeline's "last" uniform. Note that the last uniform is that with the largest offset, and not necessarily that with the largest binding number.</p>
 <p>Can be recorded into blocks.</p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -557,6 +565,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Load inline data into uniform memory. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000254">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>This works just like <a class="el" href="magma_8h.html#a5a171ff0836016d788f8fca1678bfe62" title="Load data from the given pointer into uniform memory.">mg_uniform_load_raw</a>, except that the data is read immediately and embedded into the internal stream of commands. This means there is no need to keep the data around until the asynchronous loading operation is complete. However, this function comes with more performance overhead compared to <a class="el" href="magma_8h.html#a5a171ff0836016d788f8fca1678bfe62" title="Load data from the given pointer into uniform memory.">mg_uniform_load_raw</a>.</p>
 <p>Can be recorded into blocks.</p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -662,6 +671,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Set the viewport, which is the region in screen space that geometry will be drawn to. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000255">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>Can be recorded into blocks.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -808,6 +818,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Begin a batch of drawing commands. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000256">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>This function must be called before a batch of drawing commands that use the same render modes. Use <a class="el" href="magma_8h.html#a7ec9dcc5e4de91b3e924cf39628da025" title="End a batch of drawing commands.">mg_draw_end</a> to end this batch.</p>
 <p>Render modes are configured using the <a class="el" href="group__rdpq.html">RDPQ: Hardware-accelerated drawing API</a> library. Magma's fixed function settings such as <a class="el" href="magma_8h.html#a89d1c4b896c0bbec4a8efafd193038f1" title="Set the geometry flags for 3D geometry.">mg_set_geometry_flags</a> are not required to be separated from drawing batches. There are some exceptions in rdpq as well, such as <a class="el" href="rdpq_8c.html#ad25a8b6c5eb35fb2253f601c3be24867" title="Set the RDP PRIM combiner register (color only) (RDP command: SET_PRIM_COLOR)">rdpq_set_prim_color</a>.</p>
 <p>To ensure proper synchronization of render modes, these rules should be followed:</p><ul>
@@ -836,6 +847,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>End a batch of drawing commands. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000257">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>This function must be called after a batch of drawing commands that use the same render modes. See <a class="el" href="magma_8h.html#a1470c1b59310b3574585a1647288102d" title="Begin a batch of drawing commands.">mg_draw_begin</a> for more details.</p>
 <p>Can be recorded into blocks.</p>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="magma_8h.html#a1470c1b59310b3574585a1647288102d" title="Begin a batch of drawing commands.">mg_draw_begin</a> </dd></dl>
@@ -875,6 +887,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Load vertices from the vertex buffer, run the current pipeline's vertex shader on them, and save the result to the vertex cache. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000258">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>The source vertex data will be read starting from the specified index into the vertex buffer. The transformed vertices will be stored at the specified index into the vertex cache.</p>
 <p>After the transformed vertices have been stored into the cache, they can be used to draw triangles by issuing drawing commands (see <a class="el" href="magma_8h.html#ade2152beca84c12d50c3b0763bba53ce" title="Draw a triangle with vertices that have previously been stored in the vertex cache.">mg_draw_triangle</a>).</p>
 <p>The cache index plus the vertex count must not exceed the maximum number of vertices that can be held by the vertex cache, which is <a class="el" href="magma__constants_8h.html#a9118f17575b75f9f0b26d39952edce3f" title="The maximum number of vertices that the vertex cache can hold.">MG_VERTEX_CACHE_COUNT</a>.</p>
@@ -927,6 +940,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Draw a triangle with vertices that have previously been stored in the vertex cache. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000259">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>The values of all indices must be less than the maximum number of vertices that can be held by the vertex cache, which is <a class="el" href="magma__constants_8h.html#a9118f17575b75f9f0b26d39952edce3f" title="The maximum number of vertices that the vertex cache can hold.">MG_VERTEX_CACHE_COUNT</a>.</p>
 <p>Use <a class="el" href="magma_8h.html#ac7e18b386f78066d653a29fa70b03e83" title="Load vertices from the vertex buffer, run the current pipeline&#39;s vertex shader on them,...">mg_load_vertices</a> to populate the vertex cache.</p>
 <p>This is a drawing command and must be placed between a pair of calls to <a class="el" href="magma_8h.html#a1470c1b59310b3574585a1647288102d" title="Begin a batch of drawing commands.">mg_draw_begin</a> and <a class="el" href="magma_8h.html#a7ec9dcc5e4de91b3e924cf39628da025" title="End a batch of drawing commands.">mg_draw_end</a>.</p>
@@ -982,6 +996,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Draw multiple triangles from consecutive vertices in the vertex buffer. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000260">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>The exact algorithm that is used to construct these triangles is specified by <a class="el" href="magma__types_8h.html#structmg__input__assembly__parms__t" title="Describes how primitives are assembled from a list of indices.">mg_input_assembly_parms_t</a>. This function will feed a linear sequence of indices to that algorithm, which starts at the specified first vertex and has the specified length. In effect this means that triangles are constructed from vertices in the same order in which they appear in the vertex buffer.</p>
 <p>The algorithm will translate the list of indices to a sequence of multiple vertex loading and triangle drawing commands. This translation is optimized for efficient loading, as opposed to run time of the algorithm itself. Therefore it is advised to record the generated commands into a block whenever possible, to avoid the translation to be reduntantly computed on every frame, even though the result will always be the same.</p>
 <p>This is a drawing command and must be placed between a pair of calls to <a class="el" href="magma_8h.html#a1470c1b59310b3574585a1647288102d" title="Begin a batch of drawing commands.">mg_draw_begin</a> and <a class="el" href="magma_8h.html#a7ec9dcc5e4de91b3e924cf39628da025" title="End a batch of drawing commands.">mg_draw_end</a>.</p>
@@ -1041,6 +1056,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Draw multiple triangles from a list of indices that specify offsets into the vertex buffer. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000261">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>The exact algorithm that is used to construct these triangles is specified by <a class="el" href="magma__types_8h.html#structmg__input__assembly__parms__t" title="Describes how primitives are assembled from a list of indices.">mg_input_assembly_parms_t</a>. This function will read the specified number of indices from the list and feed them to the algorithm in the order in which they appear in the list. Optionally, a constant offset can be applied to each index.</p>
 <p>The algorithm will translate the list of indices to a sequence of multiple vertex loading and triangle drawing commands. This translation is optimized for efficient loading, as opposed to run time of the algorithm itself. Therefore it is advised to record the generated commands into a block whenever possible, to avoid the translation to be reduntantly computed on every frame, even though the result will always be the same.</p>
 <p>This is a drawing command and must be placed between a pair of calls to <a class="el" href="magma_8h.html#a1470c1b59310b3574585a1647288102d" title="Begin a batch of drawing commands.">mg_draw_begin</a> and <a class="el" href="magma_8h.html#a7ec9dcc5e4de91b3e924cf39628da025" title="End a batch of drawing commands.">mg_draw_end</a>.</p>
@@ -1065,7 +1081,7 @@ Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jun 10 2026 22:36:47 for libdragon by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
+Generated on Fri Aug 21 2026 21:04:46 for libdragon by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
 </small></address>
 </body>
 </html>

@@ -1,20 +1,14 @@
 var searchData=
 [
-  ['tile0_0',['TILE0',['../rdpq_8h.html#a8d34f311d2e71435652a57adb1d6931ea65f7d9bde93f125384f419cc6e9b27a7',1,'rdpq.h']]],
-  ['tile1_1',['TILE1',['../rdpq_8h.html#a8d34f311d2e71435652a57adb1d6931ea97e11b4a557d4bf23f6b0d5f29f7689f',1,'rdpq.h']]],
-  ['tile2_2',['TILE2',['../rdpq_8h.html#a8d34f311d2e71435652a57adb1d6931eadb7ac46392b285fc6cbac9404f189cc1',1,'rdpq.h']]],
-  ['tile3_3',['TILE3',['../rdpq_8h.html#a8d34f311d2e71435652a57adb1d6931ea1d3ee6fecc8468786f86c5a0c46e1dd3',1,'rdpq.h']]],
-  ['tile4_4',['TILE4',['../rdpq_8h.html#a8d34f311d2e71435652a57adb1d6931ea1ef734aa501cdfd04e4c0f02691d1da5',1,'rdpq.h']]],
-  ['tile5_5',['TILE5',['../rdpq_8h.html#a8d34f311d2e71435652a57adb1d6931ea1c02a9d0d4f1d1b326fff44360d21858',1,'rdpq.h']]],
-  ['tile6_6',['TILE6',['../rdpq_8h.html#a8d34f311d2e71435652a57adb1d6931eaac17661e798cfcf6c0af989502bd1a3c',1,'rdpq.h']]],
-  ['tile7_7',['TILE7',['../rdpq_8h.html#a8d34f311d2e71435652a57adb1d6931ea2e070660f28cdcb513b468d68d0e46d4',1,'rdpq.h']]],
-  ['tlut_5fia16_8',['TLUT_IA16',['../rdpq__mode_8h.html#af94fffeeb6056f4af25fc52405e7d38ca6fff859af2ac6dff2ffa85096575b31f',1,'rdpq_mode.h']]],
-  ['tlut_5fnone_9',['TLUT_NONE',['../rdpq__mode_8h.html#af94fffeeb6056f4af25fc52405e7d38cadcd0d631b69f6d5507291056dc803195',1,'rdpq_mode.h']]],
-  ['tlut_5frgba16_10',['TLUT_RGBA16',['../rdpq__mode_8h.html#af94fffeeb6056f4af25fc52405e7d38ca0c26d11bb22dd97c703fdf567d6c4ded',1,'rdpq_mode.h']]],
-  ['tv_5fmpal_11',['TV_MPAL',['../group__n64sys.html#gga7f74bd3e9215d217f484cb5441a04e09a18303db5564bcb8858b073fd71299266',1,'n64sys.h']]],
-  ['tv_5fntsc_12',['TV_NTSC',['../group__n64sys.html#gga7f74bd3e9215d217f484cb5441a04e09aa448059c396de3096b7f2cb91213effb',1,'n64sys.h']]],
-  ['tv_5fpal_13',['TV_PAL',['../group__n64sys.html#gga7f74bd3e9215d217f484cb5441a04e09a848a03bb41e5831799bcddab1e084d77',1,'n64sys.h']]],
-  ['type_5fany_14',['TYPE_ANY',['../dragonfs_8c.html#abc6126af1d45847bc59afa0aa3216b04af173f42b16daa16262e56c2e12fb11b3',1,'dragonfs.c']]],
-  ['type_5fdir_15',['TYPE_DIR',['../dragonfs_8c.html#abc6126af1d45847bc59afa0aa3216b04a5b5f3036729530d8011e6f1ea2207aac',1,'dragonfs.c']]],
-  ['type_5ffile_16',['TYPE_FILE',['../dragonfs_8c.html#abc6126af1d45847bc59afa0aa3216b04a30351c278162a6e7dbdb10570ae8782e',1,'dragonfs.c']]]
+  ['sf64_5fmode_5fgm1_0',['SF64_MODE_GM1',['../sf64__synth_8h.html#af4d80ef4405da4fcef92bea0d1d90963acec9bcf186e269ec86fdec09df96ea47',1,'sf64_synth.h']]],
+  ['sf64_5fmode_5fnative_1',['SF64_MODE_NATIVE',['../sf64__synth_8h.html#af4d80ef4405da4fcef92bea0d1d90963aa634508f609083125324f2a8e5499880',1,'sf64_synth.h']]],
+  ['sf64_5fvoice_5fattack_2',['SF64_VOICE_ATTACK',['../sf64__synth__internal_8h.html#a3b2394ec3821f19be03f72ff98c52453ac8dce01aa0364da930cfa629ae4d34c5',1,'sf64_synth_internal.h']]],
+  ['sf64_5fvoice_5fdecay_3',['SF64_VOICE_DECAY',['../sf64__synth__internal_8h.html#a3b2394ec3821f19be03f72ff98c52453a70212a3ad923850f486e7f746346a950',1,'sf64_synth_internal.h']]],
+  ['sf64_5fvoice_5fdelay_4',['SF64_VOICE_DELAY',['../sf64__synth__internal_8h.html#a3b2394ec3821f19be03f72ff98c52453a1910e0b3487674dc2b3b5863c5611b83',1,'sf64_synth_internal.h']]],
+  ['sf64_5fvoice_5fhold_5',['SF64_VOICE_HOLD',['../sf64__synth__internal_8h.html#a3b2394ec3821f19be03f72ff98c52453aa476818d2e6c48780440cce92b914a3b',1,'sf64_synth_internal.h']]],
+  ['sf64_5fvoice_5foff_6',['SF64_VOICE_OFF',['../sf64__synth__internal_8h.html#a3b2394ec3821f19be03f72ff98c52453aeebe9278916da13a8e9e73138a86fc12',1,'sf64_synth_internal.h']]],
+  ['sf64_5fvoice_5frelease_7',['SF64_VOICE_RELEASE',['../sf64__synth__internal_8h.html#a3b2394ec3821f19be03f72ff98c52453af33043fe6f21b7eda5f773c3474a4456',1,'sf64_synth_internal.h']]],
+  ['sf64_5fvoice_5fsustain_8',['SF64_VOICE_SUSTAIN',['../sf64__synth__internal_8h.html#a3b2394ec3821f19be03f72ff98c52453aa4f8437731a8c2bc1a2e45214f9d50a7',1,'sf64_synth_internal.h']]],
+  ['sgb_5fenhanced_9',['SGB_ENHANCED',['../tpak_8h.html#a65a36b9bf504ca51cd9b616a61fe75afa89d9f2399cee9f63c7c2b0225a9c4c11',1,'tpak.h']]],
+  ['sgb_5fnot_5fenhanced_10',['SGB_NOT_ENHANCED',['../tpak_8h.html#a65a36b9bf504ca51cd9b616a61fe75afa9fd96c7c94db63ead48d322e86395e9f',1,'tpak.h']]]
 ];

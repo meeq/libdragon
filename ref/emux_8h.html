@@ -624,6 +624,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Detect if EMUX is present and which features are supported. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000078">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>If this function returns zero, EMUX is not present. Otherwise, the returned bitmask contains the supported features (see EMUX_FEAT_* defines).</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -631,7 +632,7 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>uint64_t Bitmask of supported EMUX features (see EMUX_FEAT_*) </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Bitmask of supported EMUX features (see EMUX_FEAT_*) </dd></dl>
 
 </div>
 </div>
@@ -660,6 +661,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Trigger an immediate breakpoint. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000079">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>When this function is called, if an EMUX-compatible emulator is running, execution will break immediately, allowing to inspect the current state of the emulated system. </p>
 
 </div>
@@ -689,6 +691,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Log an UTF-8 string to the emulator. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000080">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>This function sends the provided UTF-8 string to the emulator logging system. The string must be 0-terminated.</p>
 <p>Notice that the emulator is allowed to perform line-buffering, so the logged string may not appear immediately in the logging output if it does not end with a newline character.</p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -735,6 +738,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Log a non-zero-terminated UTF-8 string to the emulator. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000081">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>This function sends the provided UTF-8 string to the emulator logging system. The string is not required to be 0-terminated; its length is provided as a separate parameter.</p>
 <p>Notice that the emulator is allowed to perform line-buffering, so the logged string may not appear immediately in the logging output if it does not end with a newline character.</p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -782,6 +786,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Do a hexdump log to the emulator. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000082">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>The emulator will log the provided string as a hexdump, showing the hexadecimal values of each byte in the string (and possibly also its ASCII representation).</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -818,6 +823,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Ask the emulator to exit. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000083">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>When this function is called, if an EMUX-compatible emulator is running, it will exit the emulation immediately.</p>
 <p>This is useful mainly for automated test ROMs, to save the user the hassle of closing the emulator window manually after the ROM has finished running. </p>
 
@@ -848,6 +854,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Set the emulator to fast mode. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000084">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>When this function is called, if an EMUX-compatible emulator is running, it will switch to fast mode, where the emulation runs as fast as possible (unlimited framerate).</p>
 <p>This is useful to quickly skip to the point that you want to test/debug. </p>
 
@@ -878,6 +885,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Set the emulator to slow mode. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000085">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>When this function is called, if an EMUX-compatible emulator is running, it will switch to slow mode, where the emulation runs at real N64 speed (capped framerate). </p>
 
 </div>
@@ -907,6 +915,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Pause the emulator. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000086">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>When this function is called, if an EMUX-compatible emulator is running, it will pause the emulation until resumed by the user.</p>
 <p>This can be useful to show the user a specific state/frame of the emulation for inspection. </p>
 
@@ -937,6 +946,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Start profiling on a slot. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000087">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>When this function is called, if an EMUX-compatible emulator is running, it will start profiling on the specified slot.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -972,6 +982,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Stop profiling on a slot. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000088">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>When this function is called, if an EMUX-compatible emulator is running, it will stop profiling on the specified slot.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -1007,6 +1018,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Clear profiling data on a slot. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000089">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>When this function is called, if an EMUX-compatible emulator is running, it will clear profiling data on the specified slot.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -1042,6 +1054,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Reset all profiling data. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000090">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>When this function is called, if an EMUX-compatible emulator is running, it will reset all profiling data on all slots. </p>
 
 </div>
@@ -1081,6 +1094,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Read a profiling metric from a slot. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000091">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>When this function is called, if an EMUX-compatible emulator is running, it will read the specified profiling metric from the specified slot.</p>
 <p>This is useful to extract profiling data programmatically from within the emulated program. Emulators can also expose profiling data via their own user interface.</p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -1090,7 +1104,7 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>uint64_t Value of the requested metric in the slot </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Value of the requested metric in the slot </dd></dl>
 
 </div>
 </div>
@@ -1119,6 +1133,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Activate emux exceptions. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000092">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>This function allows to configure the emux exception mask, that tells the emulator which special exceptions should be generated.</p>
 <p>Emux exceptions are generated by the emulator as an alternative of properly emulating hardware freezes, to provide a better development experience.</p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -1133,7 +1148,7 @@ Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jun 10 2026 22:36:47 for libdragon by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
+Generated on Fri Aug 21 2026 21:04:46 for libdragon by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
 </small></address>
 </body>
 </html>

@@ -146,9 +146,8 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>__rdpq_xform_close</b
 <tr class="memitem:a93016c6eeb4c4a505c7e4a71e354b8c4" id="r_a93016c6eeb4c4a505c7e4a71e354b8c4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rdpq__xform_8c.html#a93016c6eeb4c4a505c7e4a71e354b8c4">rdpq_xform_mult_srt</a> (float x, float y, float theta, float scale_x, float scale_y)</td></tr>
 <tr class="memdesc:a93016c6eeb4c4a505c7e4a71e354b8c4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Multiply current transformation matrix by a combined scale, rotation and translation matrix.  <br /></td></tr>
 <tr class="separator:a93016c6eeb4c4a505c7e4a71e354b8c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abe7e71e48551292f5b341f3906f74456" id="r_abe7e71e48551292f5b341f3906f74456"><td class="memItemLeft" align="right" valign="top"><a id="abe7e71e48551292f5b341f3906f74456" name="abe7e71e48551292f5b341f3906f74456"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>rdpq_xform_push</b> (void)</td></tr>
-<tr class="memdesc:abe7e71e48551292f5b341f3906f74456"><td class="mdescLeft">&#160;</td><td class="mdescRight">Push current matrix to matrix stack. <br /></td></tr>
+<tr class="memitem:abe7e71e48551292f5b341f3906f74456" id="r_abe7e71e48551292f5b341f3906f74456"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rdpq__xform_8c.html#abe7e71e48551292f5b341f3906f74456">rdpq_xform_push</a> (void)</td></tr>
+<tr class="memdesc:abe7e71e48551292f5b341f3906f74456"><td class="mdescLeft">&#160;</td><td class="mdescRight">Push current matrix to matrix stack.  <br /></td></tr>
 <tr class="separator:abe7e71e48551292f5b341f3906f74456"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad439af4643601fd716a22057bc50320e" id="r_ad439af4643601fd716a22057bc50320e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rdpq__xform_8c.html#ad439af4643601fd716a22057bc50320e">rdpq_xform_pop</a> (void)</td></tr>
 <tr class="memdesc:ad439af4643601fd716a22057bc50320e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pop from matrix stack.  <br /></td></tr>
@@ -244,6 +243,7 @@ Type of transformation. </td></tr>
 </div><div class="memdoc">
 
 <p>Replace current transformation matrix with another 3x3 matrix. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000377">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">mtx</td><td>Pointer to 3x3 matrix to load </td></tr>
@@ -270,6 +270,7 @@ Type of transformation. </td></tr>
 </div><div class="memdoc">
 
 <p>Multiply current transformation matrix by another 3x3 matrix. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000378">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">mtx</td><td>Pointer to 3x3 matrix to multiply by </td></tr>
@@ -296,6 +297,7 @@ Type of transformation. </td></tr>
 </div><div class="memdoc">
 
 <p>Replace current transformation matrix with the identity matrix. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000379">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>This clears any transformations that may have been applied. </p>
 
 </div>
@@ -317,6 +319,7 @@ Type of transformation. </td></tr>
 </div><div class="memdoc">
 
 <p>Multiplies current transformation matrix by rotation matrix. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000380">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">theta</td><td>Counterclockwise angle to rotate by in radians </td></tr>
@@ -353,6 +356,7 @@ Type of transformation. </td></tr>
 </div><div class="memdoc">
 
 <p>Multiplies current transformation matrix by translation matrix. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000381">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">x</td><td>X component of translation vector </td></tr>
@@ -390,6 +394,7 @@ Type of transformation. </td></tr>
 </div><div class="memdoc">
 
 <p>Multiplies current transformation matrix by scaling matrix. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000382">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">x</td><td>Scaling factor along X axis </td></tr>
@@ -445,6 +450,7 @@ Type of transformation. </td></tr>
 </div><div class="memdoc">
 
 <p>Replace current transformation matrix with a combined rotation, scale and translation matrix. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000387">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>It is equivalent to loading an identity matrix followed by multiplying by a rotation, a scale, and a translation matrix in that order.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -504,6 +510,7 @@ Type of transformation. </td></tr>
 </div><div class="memdoc">
 
 <p>Multiply current transformation matrix by a combined rotation, scale and translation matrix. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000388">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>It is equivalent to multiplying by a rotation, a scale, and a translation matrix in that order.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -563,6 +570,7 @@ Type of transformation. </td></tr>
 </div><div class="memdoc">
 
 <p>Replace current transformation matrix with a combined scale, rotation and translation matrix. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000385">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>It is equivalent to loading an identity matrix followed by multiplying by a scale, a rotation, and a translation matrix in that order.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -622,6 +630,7 @@ Type of transformation. </td></tr>
 </div><div class="memdoc">
 
 <p>Multiply current transformation matrix by a combined scale, rotation and translation matrix. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000386">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>It is equivalent to multiplying by a scale, a rotation, and a translation matrix in that order.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -633,6 +642,27 @@ Type of transformation. </td></tr>
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a id="abe7e71e48551292f5b341f3906f74456" name="abe7e71e48551292f5b341f3906f74456"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abe7e71e48551292f5b341f3906f74456">&#9670;&#160;</a></span>rdpq_xform_push()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void rdpq_xform_push </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Push current matrix to matrix stack. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000383">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it. </dd></dl>
 
 </div>
 </div>
@@ -653,6 +683,7 @@ Type of transformation. </td></tr>
 </div><div class="memdoc">
 
 <p>Pop from matrix stack. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000384">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>This replaces the current matrix with the matrix one below it on the stack. </p>
 
 </div>
@@ -696,6 +727,7 @@ Type of transformation. </td></tr>
 </div><div class="memdoc">
 
 <p>Draw a filled rectangle with the current transformation applied. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000389">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>This function works as a replacement for <a class="el" href="rdpq__rect_8h.html#a9c6405f89d2fe70046330964c21ba124" title="Draw a filled rectangle (RDP command: FILL_RECTANGLE)">rdpq_fill_rectangle</a> in contexts where a transformation should be applied. </p>
 
 </div>
@@ -757,6 +789,7 @@ Type of transformation. </td></tr>
 </div><div class="memdoc">
 
 <p>Draw a filled rectangle with the current transformation applied. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000390">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>This function works as a replacement for <a class="el" href="rdpq__rect_8h.html#a7196362c567172a2012f414c8a412743" title="Draw a textured rectangle (RDP command: TEXTURE_RECTANGLE)">rdpq_texture_rectangle</a> in contexts where a transformation should be applied. </p>
 
 </div>
@@ -830,6 +863,7 @@ Type of transformation. </td></tr>
 </div><div class="memdoc">
 
 <p>Draw a textured rectangle with the current transformation applied and scaling applied. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000391">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>This function works as a replacement for <a class="el" href="rdpq__rect_8h.html#ac00bd2edd99d2555cc90fdad865195f2" title="Draw a textured rectangle with scaling (RDP command: TEXTURE_RECTANGLE)">rdpq_texture_rectangle_scaled</a> in contexts where a transformation should be applied. </p>
 
 </div>
@@ -873,6 +907,7 @@ Type of transformation. </td></tr>
 </div><div class="memdoc">
 
 <p>Draw a triangle with the current transformation applied. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000392">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>This function works as a replacement for <a class="el" href="rdpq__tri_8c.html#afb11d915a7ce8903b2b3e5ed9ef7936e" title="Draw a triangle (RDP command: TRI_*)">rdpq_triangle</a> in contexts where a transformation should be applied. </p>
 
 </div>
@@ -880,7 +915,7 @@ Type of transformation. </td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jun 10 2026 22:36:48 for libdragon by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
+Generated on Fri Aug 21 2026 21:04:47 for libdragon by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
 </small></address>
 </body>
 </html>

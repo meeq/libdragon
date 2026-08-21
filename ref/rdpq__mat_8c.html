@@ -123,9 +123,8 @@ Functions</h2></td></tr>
 <tr class="memitem:a9e0deee80bb3db2fcaf52d3fefe91b78" id="r_a9e0deee80bb3db2fcaf52d3fefe91b78"><td class="memItemLeft" align="right" valign="top"><a class="el" href="rdpq__mat__internal_8h.html#structrdpq__matdb__t">rdpq_matdb_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rdpq__mat_8c.html#a9e0deee80bb3db2fcaf52d3fefe91b78">rdpq_matdb_open</a> (const char *filename)</td></tr>
 <tr class="memdesc:a9e0deee80bb3db2fcaf52d3fefe91b78"><td class="mdescLeft">&#160;</td><td class="mdescRight">Open a material DB file and load it into memory.  <br /></td></tr>
 <tr class="separator:a9e0deee80bb3db2fcaf52d3fefe91b78"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af4759a45cc8917bff49ef6f4ecc60677" id="r_af4759a45cc8917bff49ef6f4ecc60677"><td class="memItemLeft" align="right" valign="top"><a id="af4759a45cc8917bff49ef6f4ecc60677" name="af4759a45cc8917bff49ef6f4ecc60677"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>rdpq_matdb_close</b> (<a class="el" href="rdpq__mat__internal_8h.html#structrdpq__matdb__t">rdpq_matdb_t</a> *mdb)</td></tr>
-<tr class="memdesc:af4759a45cc8917bff49ef6f4ecc60677"><td class="mdescLeft">&#160;</td><td class="mdescRight">Close a material database. <br /></td></tr>
+<tr class="memitem:af4759a45cc8917bff49ef6f4ecc60677" id="r_af4759a45cc8917bff49ef6f4ecc60677"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rdpq__mat_8c.html#af4759a45cc8917bff49ef6f4ecc60677">rdpq_matdb_close</a> (<a class="el" href="rdpq__mat__internal_8h.html#structrdpq__matdb__t">rdpq_matdb_t</a> *mdb)</td></tr>
+<tr class="memdesc:af4759a45cc8917bff49ef6f4ecc60677"><td class="mdescLeft">&#160;</td><td class="mdescRight">Close a material database.  <br /></td></tr>
 <tr class="separator:af4759a45cc8917bff49ef6f4ecc60677"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa172ffc8672665fc7a2fd39a4045a669" id="r_aa172ffc8672665fc7a2fd39a4045a669"><td class="memItemLeft" align="right" valign="top">rdpq_mat_t *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rdpq__mat_8c.html#aa172ffc8672665fc7a2fd39a4045a669">rdpq_matdb_load</a> (<a class="el" href="rdpq__mat__internal_8h.html#structrdpq__matdb__t">rdpq_matdb_t</a> *mdb, const char *mat_name)</td></tr>
 <tr class="memdesc:aa172ffc8672665fc7a2fd39a4045a669"><td class="mdescLeft">&#160;</td><td class="mdescRight">Load a material from the material database.  <br /></td></tr>
@@ -287,6 +286,7 @@ Ext binary format</h2>
 </div><div class="memdoc">
 
 <p>Set the path in which the texture DB is stored. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000373">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>The texture database is a directory in an accessible filesystem (normally, in ROM) where all the textures using the rdpq material system are stored. The database is created by mkmaterial while processing materials.</p>
 <p>This function informs the rdpq_mat library where the database can be accessed.</p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -315,6 +315,7 @@ Ext binary format</h2>
 </div><div class="memdoc">
 
 <p>Open a material DB file and load it into memory. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000366">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>This function loads a Material DB file. By default, textures are not loaded into RDRAM until requested by the user. This is done to save memory when the material database is large.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -322,7 +323,28 @@ Ext binary format</h2>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>rdpq_matdb_t* Pointer to the material database </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Pointer to the material database </dd></dl>
+
+</div>
+</div>
+<a id="af4759a45cc8917bff49ef6f4ecc60677" name="af4759a45cc8917bff49ef6f4ecc60677"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af4759a45cc8917bff49ef6f4ecc60677">&#9670;&#160;</a></span>rdpq_matdb_close()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void rdpq_matdb_close </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="rdpq__mat__internal_8h.html#structrdpq__matdb__t">rdpq_matdb_t</a> *&#160;</td>
+          <td class="paramname"><em>mdb</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Close a material database. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000367">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it. </dd></dl>
 
 </div>
 </div>
@@ -353,6 +375,7 @@ Ext binary format</h2>
 </div><div class="memdoc">
 
 <p>Load a material from the material database. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000368">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>This function retrieves a material from the material database by its name. If the material does not exist, it returns NULL.</p>
 <p>Textures associated with the material are also loaded into RDRAM.</p>
 <p>Make sure to call <a class="el" href="rdpq__mat_8h.html#ac135a91b365bf88bdb8037eed8f7b613" title="Free a material loaded with rdpq_matdb_load or rdpq_mat_load_buf.">rdpq_mat_free</a> when done with the material,</p>
@@ -363,7 +386,7 @@ Ext binary format</h2>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>rdpq_mat_t* Pointer to the material, or NULL if not found </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Pointer to the material, or NULL if not found </dd></dl>
 
 </div>
 </div>
@@ -394,6 +417,7 @@ Ext binary format</h2>
 </div><div class="memdoc">
 
 <p>Load a single material from a raw buffer. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000369">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>This function is useful to load a material from its raw binary representation, stored outside of a material database. The raw representation is created by mkmaterial when using the &ndash;raw-material option, and can be used to embed the material as part of a larger bundle (eg: a mesh file).</p>
 <p>If you use a material database (.mdb) you don't need this function; use <a class="el" href="rdpq__mat_8h.html#aa172ffc8672665fc7a2fd39a4045a669" title="Load a material from the material database.">rdpq_matdb_load</a> instead.</p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -424,6 +448,7 @@ Ext binary format</h2>
 </div><div class="memdoc">
 
 <p>Activate a material by configuring the RDP state and uploading textures to TMEM. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000370">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>This function configures the RDP to prepare drawing primitives (triangles or rectangles) with the material specified by <code>mat</code>. It sets the RDP state to the one specified in the material, and uploads textures to TMEM.</p>
 <p>After drawing the primitives with this material, you must call <a class="el" href="rdpq__mat_8h.html#a89221bdf04e68e02d365e52d6d5e5506" title="Deactivate a material after drawing with it.">rdpq_mat_draw_end</a> to restore the previous RDP state. In fact, the rdpq material system allows for render mode overrides; for instance, a single material might need Z writes to be disabled, but then any further material would need to simply revert back to the previous state configured for the scene.</p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -453,6 +478,7 @@ Ext binary format</h2>
 </div><div class="memdoc">
 
 <p>Deactivate a material after drawing with it. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000371">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>This function ends the use of the specified material and restores the previous RDP state.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -480,6 +506,7 @@ Ext binary format</h2>
 </div><div class="memdoc">
 
 <p>Free a material loaded with <a class="el" href="rdpq__mat_8h.html#aa172ffc8672665fc7a2fd39a4045a669" title="Load a material from the material database.">rdpq_matdb_load</a> or <a class="el" href="rdpq__mat_8h.html#a2d703c175dee2e4c8de6dd852a096ce5" title="Load a single material from a raw buffer.">rdpq_mat_load_buf</a>. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000372">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>This function releases the textures associated with the material. Notice that the material itself is not freed: in fact, it is either part of the material database (that will be freed via <a class="el" href="rdpq__mat_8h.html#af4759a45cc8917bff49ef6f4ecc60677" title="Close a material database.">rdpq_matdb_close</a>), or it is a standalone material loaded with <a class="el" href="rdpq__mat_8h.html#a2d703c175dee2e4c8de6dd852a096ce5" title="Load a single material from a raw buffer.">rdpq_mat_load_buf</a> and the caller will be responsible for freeing the memory.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -512,7 +539,7 @@ Ext binary format</h2>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jun 10 2026 22:36:48 for libdragon by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
+Generated on Fri Aug 21 2026 21:04:47 for libdragon by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
 </small></address>
 </body>
 </html>

@@ -88,34 +88,41 @@ $(document).ready(function() { init_codefold(0); });
 <div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#include &lt;stddef.h&gt;</span></div>
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor">#include &lt;stdbool.h&gt;</span></div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="preprocessor">#ifdef __cplusplus</span></div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="keyword">extern</span> <span class="stringliteral">&quot;C&quot;</span> {</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="preprocessor">#endif</span></div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno"><a class="line" href="sram_8h.html#af149c0ba4838fce20c42bf1aefeb2b36">   22</a></span><span class="preprocessor">#define SRAM_ADDRESS 0x08000000 </span></div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="keywordtype">void</span> <a class="code hl_function" href="sram_8h.html#a95a334ecab578f183f77e75f8ab52bbe">sram_init</a>(<span class="keywordtype">void</span>);</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="keywordtype">int</span> <a class="code hl_function" href="sram_8h.html#acf8c2b7522905a5dd4bd367641bcc225">sram_detect</a>(<span class="keywordtype">void</span>);</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span><span class="keywordtype">int</span> <a class="code hl_function" href="sram_8h.html#ad80f24b8f72b224a26d07c258817be92">sram_read</a>(<span class="keywordtype">void</span>* dst, <span class="keywordtype">size_t</span> offset, <span class="keywordtype">size_t</span> len);</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span> </div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span><span class="keywordtype">int</span> <a class="code hl_function" href="sram_8h.html#a6eeafeff1176f7ee4a2ccef498d64c4c">sram_write</a>(<span class="keyword">const</span> <span class="keywordtype">void</span>* src, <span class="keywordtype">size_t</span> offset, <span class="keywordtype">size_t</span> len);</div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span> </div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span><span class="preprocessor">#ifdef __cplusplus</span></div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>}</div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span><span class="preprocessor">#endif</span></div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span> </div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span><span class="preprocessor">#endif</span></div>
-<div class="ttc" id="asram_8h_html_a6eeafeff1176f7ee4a2ccef498d64c4c"><div class="ttname"><a href="sram_8h.html#a6eeafeff1176f7ee4a2ccef498d64c4c">sram_write</a></div><div class="ttdeci">int sram_write(const void *src, size_t offset, size_t len)</div><div class="ttdoc">Write data to SRAM.</div><div class="ttdef"><b>Definition</b> sram.c:79</div></div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="preprocessor">#include &quot;<a class="code" href="preview_8h.html">preview.h</a>&quot;</span></div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="preprocessor">#ifdef __cplusplus</span></div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="keyword">extern</span> <span class="stringliteral">&quot;C&quot;</span> {</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="sram_8h.html#af149c0ba4838fce20c42bf1aefeb2b36">   23</a></span><span class="preprocessor">#define SRAM_ADDRESS 0x08000000 </span></div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span><a class="code hl_define" href="preview_8h.html#ab1912250c8ac23a2fa1af9360cb533bd">LIBDRAGON_PREVIEW_API</a></div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="keywordtype">void</span> <a class="code hl_function" href="sram_8h.html#a95a334ecab578f183f77e75f8ab52bbe">sram_init</a>(<span class="keywordtype">void</span>);</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span><a class="code hl_define" href="preview_8h.html#ab1912250c8ac23a2fa1af9360cb533bd">LIBDRAGON_PREVIEW_API</a></div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span><span class="keywordtype">int</span> <a class="code hl_function" href="sram_8h.html#acf8c2b7522905a5dd4bd367641bcc225">sram_detect</a>(<span class="keywordtype">void</span>);</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span><a class="code hl_define" href="preview_8h.html#ab1912250c8ac23a2fa1af9360cb533bd">LIBDRAGON_PREVIEW_API</a></div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span><span class="keywordtype">int</span> <a class="code hl_function" href="sram_8h.html#ad80f24b8f72b224a26d07c258817be92">sram_read</a>(<span class="keywordtype">void</span>* dst, <span class="keywordtype">size_t</span> offset, <span class="keywordtype">size_t</span> len);</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span> </div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span><a class="code hl_define" href="preview_8h.html#ab1912250c8ac23a2fa1af9360cb533bd">LIBDRAGON_PREVIEW_API</a></div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span><span class="keywordtype">int</span> <a class="code hl_function" href="sram_8h.html#a6eeafeff1176f7ee4a2ccef498d64c4c">sram_write</a>(<span class="keyword">const</span> <span class="keywordtype">void</span>* src, <span class="keywordtype">size_t</span> offset, <span class="keywordtype">size_t</span> len);</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span> </div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span><span class="preprocessor">#ifdef __cplusplus</span></div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>}</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span> </div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span><span class="preprocessor">#endif</span></div>
+<div class="ttc" id="apreview_8h_html"><div class="ttname"><a href="preview_8h.html">preview.h</a></div><div class="ttdoc">Preview APIs.</div></div>
+<div class="ttc" id="apreview_8h_html_ab1912250c8ac23a2fa1af9360cb533bd"><div class="ttname"><a href="preview_8h.html#ab1912250c8ac23a2fa1af9360cb533bd">LIBDRAGON_PREVIEW_API</a></div><div class="ttdeci">#define LIBDRAGON_PREVIEW_API</div><div class="ttdoc">Mark a function as preview.</div><div class="ttdef"><b>Definition</b> preview.h:149</div></div>
+<div class="ttc" id="asram_8h_html_a6eeafeff1176f7ee4a2ccef498d64c4c"><div class="ttname"><a href="sram_8h.html#a6eeafeff1176f7ee4a2ccef498d64c4c">sram_write</a></div><div class="ttdeci">int sram_write(const void *src, size_t offset, size_t len)</div><div class="ttdoc">Write data to SRAM.</div><div class="ttdef"><b>Definition</b> sram.c:82</div></div>
 <div class="ttc" id="asram_8h_html_a95a334ecab578f183f77e75f8ab52bbe"><div class="ttname"><a href="sram_8h.html#a95a334ecab578f183f77e75f8ab52bbe">sram_init</a></div><div class="ttdeci">void sram_init(void)</div><div class="ttdoc">Initialize the SRAM subsystem.</div><div class="ttdef"><b>Definition</b> sram.c:27</div></div>
 <div class="ttc" id="asram_8h_html_acf8c2b7522905a5dd4bd367641bcc225"><div class="ttname"><a href="sram_8h.html#acf8c2b7522905a5dd4bd367641bcc225">sram_detect</a></div><div class="ttdeci">int sram_detect(void)</div><div class="ttdoc">Detect if SRAM is present in the cartridge.</div><div class="ttdef"><b>Definition</b> sram.c:43</div></div>
 <div class="ttc" id="asram_8h_html_ad80f24b8f72b224a26d07c258817be92"><div class="ttname"><a href="sram_8h.html#ad80f24b8f72b224a26d07c258817be92">sram_read</a></div><div class="ttdeci">int sram_read(void *dst, size_t offset, size_t len)</div><div class="ttdoc">Read data from SRAM.</div><div class="ttdef"><b>Definition</b> sram.c:61</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jun 10 2026 22:36:47 for libdragon by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
+Generated on Fri Aug 21 2026 21:04:46 for libdragon by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
 </small></address>
 </body>
 </html>

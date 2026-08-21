@@ -251,6 +251,7 @@ YUV colorspace for the video. <p>YUV pictures can be encoded with different colo
 </div><div class="memdoc">
 
 <p>Register a video codec. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000529">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>This function registers a video codec into the video subsystem. It is necessary to call this function for each codec that the video subsystem must support, before calling <a class="el" href="video_8h.html#a75dd059a81124d5e2e2222c0e0258a07" title="Open a video file and decode its header info.">video_open</a>.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -288,6 +289,7 @@ YUV colorspace for the video. <p>YUV pictures can be encoded with different colo
 </div><div class="memdoc">
 
 <p>Open a video file and decode its header info. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000530">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>This function opens a video file and returns a handle to it. The video file will be handled by the appropriate codec, based on the file extension.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -296,7 +298,7 @@ YUV colorspace for the video. <p>YUV pictures can be encoded with different colo
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>video_t* Handle to the opened video </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Handle to the opened video </dd></dl>
 
 </div>
 </div>
@@ -317,6 +319,7 @@ YUV colorspace for the video. <p>YUV pictures can be encoded with different colo
 </div><div class="memdoc">
 
 <p>Get information about the video. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000531">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>This function retrieves information about the opened video, such as its width, height, framerate, aspect ratio, and colorspace. It is useful to configure the display subsystem before starting playback.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -324,7 +327,7 @@ YUV colorspace for the video. <p>YUV pictures can be encoded with different colo
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd><a class="el" href="video_8h.html#structvideo__info__t" title="Information about a video stream.">video_info_t</a> Information about the video </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Information about the video </dd></dl>
 
 </div>
 </div>
@@ -345,6 +348,7 @@ YUV colorspace for the video. <p>YUV pictures can be encoded with different colo
 </div><div class="memdoc">
 
 <p>Move to the next frame in the video stream. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000532">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>This function decodes the next frame in the video stream. If the frame is successfully decoded, it can be retrieved with <a class="el" href="video_8h.html#a444eb4b15aebe4dbd21c5fe269d76a58" title="Retrieve the last fully-decoded frame.">video_get_frame</a>. Otherwise, the stream is finished and the function will return false.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -375,6 +379,7 @@ false If the stream is finished </dd></dl>
 </div><div class="memdoc">
 
 <p>Retrieve the last fully-decoded frame. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000533">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>This function returns the last frame decoded by <a class="el" href="video_8h.html#a45e0b4ff8f51e236a0423d948aa4af83" title="Do some work of video decoding.">video_poll</a> or <a class="el" href="video_8h.html#a0a99ace5f06728f653d92f4aa79638e2" title="Move to the next frame in the video stream.">video_next_frame</a>. The frame is returned as a <a class="el" href="yuv_8h.html#structyuv__frame__t" title="A YUV frame, made of three distinct planes.">yuv_frame_t</a>, which can be used to display the frame on the screen via the <a class="el" href="yuv_8h.html" title="Hardware accelerated YUV conversion.">yuv.h</a> library.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -382,12 +387,12 @@ false If the stream is finished </dd></dl>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd><a class="el" href="yuv_8h.html#structyuv__frame__t" title="A YUV frame, made of three distinct planes.">yuv_frame_t</a> The current decoded frame</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The current decoded frame</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="yuv_8h.html#a3bbd485f18a92a9c5d93d4cee60e4ce3" title="Blit a 3-planes YUV frame into the current RDP framebuffer.">yuv_tex_blit</a> </dd>
 <dd>
 <a class="el" href="yuv_8h.html#a148a50a467fcb547b0237c38ff58c775" title="Create a YUV blitter optimized for FMV drawing (full screen movie player)">yuv_blitter_new_fmv</a> </dd>
 <dd>
-<a class="el" href="yuv_8h.html#a8e309e399dc5297577e0dca8c9860912" title="Create a YUV blitter optimized for rendering multiple frames with some possible transformation.">yuv_blitter_new</a> </dd></dl>
+<a class="el" href="yuv_8h.html#a8e309e399dc5297577e0dca8c9860912" title="Create a YUV blitter optimized for rendering multiple frames with.">yuv_blitter_new</a> </dd></dl>
 
 </div>
 </div>
@@ -408,6 +413,7 @@ false If the stream is finished </dd></dl>
 </div><div class="memdoc">
 
 <p>Do some work of video decoding. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000534">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>This function tells the video decoder to do a chunk of work, and keep decoding the video stream ahead. It can be used for scenarios where the client needs to perform other tasks while the video is being decoded.</p>
 <p>Usage of this function is totally optionally. A client can simply call <a class="el" href="video_8h.html#a0a99ace5f06728f653d92f4aa79638e2" title="Move to the next frame in the video stream.">video_next_frame</a> repeatedly to decode the video stream frame by frame. It is however useful to make use of idle CPU time to buffer ahead. Depending on the exact video encoding parameters and how the codec is written, this function can decode multiple frames ahead of time.</p>
 <p>For <a class="el" href="video_8h.html#a45e0b4ff8f51e236a0423d948aa4af83" title="Do some work of video decoding.">video_poll</a> to decode ahead, <a class="el" href="video_8h.html#af412a19de30f8a21246a36d8ae079b6b" title="Number of fully decoded pictures the decoder is allowed to keep buffered.">video_parms_t::buffered_pics</a> must be greater than 0 (when video_open is called). In fact this is the number of pictures that the decoder is allowed to keep buffered.</p>
@@ -443,6 +449,7 @@ false If the stream is finished </dd></dl>
 </div><div class="memdoc">
 
 <p>Rewind the video to the beginning. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000535">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">v</td><td>Handle to the video </td></tr>
@@ -479,6 +486,7 @@ false If the stream is finished </dd></dl>
 </div><div class="memdoc">
 
 <p>Seek the video to a specific frame index. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000536">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>In general, video codecs only allow fast seeking to keyframes. If the specified frame index is not a keyframe, the videoplayer will seek to the closest previous keyframe. In that case, the client will need to call <a class="el" href="video_8h.html#a0a99ace5f06728f653d92f4aa79638e2" title="Move to the next frame in the video stream.">video_next_frame</a> repeatedly until the desired frame index is reached.</p>
 <p>Seeking can be done instantly if the seek index has been generated at build time (using videoconv64 &ndash;seek). The seek index is stored in a file with the same name as the video, but with .seek extension. If no seek index file is found, seeking will be performed by linearly scanning the video, and will thus be slower.</p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -488,7 +496,7 @@ false If the stream is finished </dd></dl>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>int Actual frame index seeked to, or -1 if the codec does not support seeking (with or without the seektable). </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Actual frame index seeked to, or -1 if the codec does not support seeking (with or without the seektable). </dd></dl>
 
 </div>
 </div>
@@ -519,6 +527,7 @@ false If the stream is finished </dd></dl>
 </div><div class="memdoc">
 
 <p>Check if a frame index is a seekpoint (keyframe) according to the seektable. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000537">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>This function returns true only if a seek index (.seek file) has been loaded for the specified video and the specified frame index is an exact entry in that table. If no seek index is available, the function returns false.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -550,6 +559,7 @@ false Otherwise (including missing seektable) </dd></dl>
 </div><div class="memdoc">
 
 <p>Close the video file. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000538">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">v</td><td>Handle to the video </td></tr>
@@ -562,7 +572,7 @@ false Otherwise (including missing seektable) </dd></dl>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jun 10 2026 22:36:48 for libdragon by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
+Generated on Fri Aug 21 2026 21:04:46 for libdragon by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
 </small></address>
 </body>
 </html>

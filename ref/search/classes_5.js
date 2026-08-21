@@ -10,7 +10,8 @@ var searchData=
   ['dir_5ft_7',['dir_t',['../group__system.html#structdir__t',1,'']]],
   ['directory_5fentry_8',['directory_entry',['../group__dfs.html#structdirectory__entry',1,'']]],
   ['dl_5finfo_9',['Dl_info',['../dlfcn_8h.html#structDl__info',1,'']]],
-  ['dso_5fmodule_5ft_10',['dso_module_t',['../dso__format_8h.html#structdso__module__t',1,'']]],
-  ['dso_5freloc_5ft_11',['dso_reloc_t',['../dso__format_8h.html#structdso__reloc__t',1,'']]],
-  ['dso_5fsym_5ft_12',['dso_sym_t',['../dso__format_8h.html#structdso__sym__t',1,'']]]
+  ['dso_5ffile_5fheader_5ft_10',['dso_file_header_t',['../dso__format_8h.html#structdso__file__header__t',1,'']]],
+  ['dso_5fmodule_5ft_11',['dso_module_t',['../dso__format_8h.html#structdso__module__t',1,'']]],
+  ['dso_5freloc_5ft_12',['dso_reloc_t',['../dso__format_8h.html#structdso__reloc__t',1,'']]],
+  ['dso_5fsym_5ft_13',['dso_sym_t',['../dso__format_8h.html#structdso__sym__t',1,'']]]
 ];

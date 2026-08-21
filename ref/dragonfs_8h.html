@@ -98,9 +98,8 @@ Macros</h2></td></tr>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>MAX_DIRECTORY_DEPTH</b>&#160;&#160;&#160;100</td></tr>
 <tr class="memdesc:gae77323fbbbedb3ec4f495c7156b0344f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum depth of directories supported. <br /></td></tr>
 <tr class="separator:gae77323fbbbedb3ec4f495c7156b0344f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaeda2c7261c444629775aab1fb8312e53" id="r_gaeda2c7261c444629775aab1fb8312e53"><td class="memItemLeft" align="right" valign="top">
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>IODFS_GET_ROM_BASE</b>&#160;&#160;&#160;<a class="el" href="ioctl_8h.html#a840d10d2fed07b8a85f260031f2fa47b">_IO</a>('D', 0)</td></tr>
-<tr class="memdesc:gaeda2c7261c444629775aab1fb8312e53"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base ROM Address Request ioctl Command Code. <br /></td></tr>
+<tr class="memitem:gaeda2c7261c444629775aab1fb8312e53" id="r_gaeda2c7261c444629775aab1fb8312e53"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dfs.html#gaeda2c7261c444629775aab1fb8312e53">IODFS_GET_ROM_BASE</a>&#160;&#160;&#160;<a class="el" href="ioctl_8h.html#a840d10d2fed07b8a85f260031f2fa47b">_IO</a>('D', 0)</td></tr>
+<tr class="memdesc:gaeda2c7261c444629775aab1fb8312e53"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the PI address of an open DragonFS file.  <br /></td></tr>
 <tr class="separator:gaeda2c7261c444629775aab1fb8312e53"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga935cf104eafb75f357c5469f0e2e4c95" id="r_ga935cf104eafb75f357c5469f0e2e4c95"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dfs.html#ga935cf104eafb75f357c5469f0e2e4c95">FILETYPE</a>(x)&#160;&#160;&#160;((x) &amp; 3)</td></tr>
 <tr class="memdesc:ga935cf104eafb75f357c5469f0e2e4c95"><td class="mdescLeft">&#160;</td><td class="mdescRight">Macro to extract the file type from a DragonFS file flag.  <br /></td></tr>
@@ -478,16 +477,19 @@ thekovic <a href="https://github.com/thekovic">https://github.com/thekovic</a> <
 </div><div class="memdoc">
 
 <p>Return the PI address of a file (in ROM space) </p>
-<p>This function should be used for highly-specialized, high-performance use cases. Using dfs_open / dfs_read is generally acceptable performance-wise, and is easier to use rather than managing direct access to PI space.</p>
-<p>Direct access to ROM data must go through <a class="el" href="group__dma.html#ga3888b19d3c25fd2d4a7a44dba1b165fc" title="Read a 32 bit integer from a peripheral on the PI bus using the CPU.">io_read</a> or <a class="el" href="group__dma.html#ga9c79d4f41eacb14335a0fac57fecf0a0" title="Read data from a peripheral through PI DMA, waiting for completion.">dma_read</a>. Notice that the address is guranteed to be 2-byte aligned, but not necessarily 4-byte aligned, so <a class="el" href="group__dma.html#ga3888b19d3c25fd2d4a7a44dba1b165fc" title="Read a 32 bit integer from a peripheral on the PI bus using the CPU.">io_read</a> should be used with care.</p>
+<p>This function should be used for highly-specialized, high-performance use cases. Using open / fopen / read / fread is generally acceptable performance-wise, and is easier to use rather than managing direct access to PI space.</p>
+<p>Direct access to ROM data must go through <a class="el" href="group__dma.html#ga3888b19d3c25fd2d4a7a44dba1b165fc" title="Read a 32 bit integer from a peripheral on the PI bus using the CPU.">io_read</a> or <a class="el" href="group__dma.html#ga9c79d4f41eacb14335a0fac57fecf0a0" title="Read data from a peripheral through PI DMA, waiting for completion.">dma_read</a>. Notice that the address is guaranteed to be 2-byte aligned, but not necessarily 4-byte aligned, so <a class="el" href="group__dma.html#ga3888b19d3c25fd2d4a7a44dba1b165fc" title="Read a 32 bit integer from a peripheral on the PI bus using the CPU.">io_read</a> should be used with care.</p>
+<p>To obtain the address of an already-open file, use <a class="el" href="system_8c.html#a342c2eae35d44df768ec0634c76bf68b" title="Perform IO Control Request.">ioctl</a> with IODFS_GET_ROM_BASE.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">path</td><td>Name of the file</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>A pointer to the PI address of the file body, or 0 if the file was not found.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="dragonfs_8h.html#a21290370e2deb70ec5f157db307fb12f" title="Return the size of a file (in ROM data)">dfs_rom_size</a> </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The PI address of the file body, or 0 if the file was not found.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="dragonfs_8h.html#a21290370e2deb70ec5f157db307fb12f" title="Return the size of a file (in ROM data)">dfs_rom_size</a> </dd>
+<dd>
+<a class="el" href="group__dfs.html#gaeda2c7261c444629775aab1fb8312e53" title="Return the PI address of an open DragonFS file.">IODFS_GET_ROM_BASE</a> </dd></dl>
 
 </div>
 </div>
@@ -619,7 +621,7 @@ thekovic <a href="https://github.com/thekovic">https://github.com/thekovic</a> <
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jun 10 2026 22:36:47 for libdragon by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
+Generated on Fri Aug 21 2026 21:04:46 for libdragon by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
 </small></address>
 </body>
 </html>

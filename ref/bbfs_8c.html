@@ -560,6 +560,7 @@ bitmap of used blocks </td></tr>
 </div><div class="memdoc">
 
 <p>Initialize the iQue NAND filesystem library. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000019">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>This function mounts the filesystem and initializes the library. After calling this function, you can access the BBFS files using the standard C file I/O functions with the "bbfs:/" prefix.</p>
 <dl class="section return"><dt>Returns</dt><dd>0 on success, negative value on failure (see <a class="el" href="bbfs_8h.html#afa0347610a006c1f5dc718d8b2637bac" title="Filesystem errors.">bbfs_error_e</a>) </dd></dl>
 
@@ -582,6 +583,7 @@ bitmap of used blocks </td></tr>
 </div><div class="memdoc">
 
 <p>Return the indices of NAND blocks that contain the file data. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000020">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>The function lookups the specified file on the filesystem. If found, it returns a list of block indices that contain the file data. The list is dynamically allocated and must be freed by the caller.</p>
 <p>The list of block indices is terminated by a -1 value.</p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -590,7 +592,7 @@ bitmap of used blocks </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>int16_t* Allocated array of block indices, or NULL if file doesn't exist or the filesystem is corrupted </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Allocated array of block indices, or NULL if file doesn't exist or the filesystem is corrupted </dd></dl>
 
 </div>
 </div>
@@ -611,6 +613,7 @@ bitmap of used blocks </td></tr>
 </div><div class="memdoc">
 
 <p>Verify the integrity of the filesystem, and optionally try to fix it. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000021">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
 <p>This function checks the integrity of the filesystem. If the filesystem is corrupted, it can optionally try to fix it.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -625,7 +628,7 @@ bitmap of used blocks </td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jun 10 2026 22:36:48 for libdragon by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
+Generated on Fri Aug 21 2026 21:04:47 for libdragon by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
 </small></address>
 </body>
 </html>

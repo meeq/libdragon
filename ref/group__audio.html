@@ -73,6 +73,7 @@ $(function() {
   <div class="summary">
 <a href="#groups">Modules</a> &#124;
 <a href="#files">Files</a> &#124;
+<a href="#define-members">Macros</a> &#124;
 <a href="#typedef-members">Typedefs</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle"><div class="title">Audio Subsystem<div class="ingroups"><a class="el" href="group__libdragon.html">libdragon</a></div></div></div>
@@ -97,6 +98,17 @@ Files</h2></td></tr>
 <tr class="memdesc:audio_8h"><td class="mdescLeft">&#160;</td><td class="mdescRight">Audio Subsystem. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:gab21db7baca6fe3bc23cd801cd51646c6" id="r_gab21db7baca6fe3bc23cd801cd51646c6"><td class="memItemLeft" align="right" valign="top"><a id="gab21db7baca6fe3bc23cd801cd51646c6" name="gab21db7baca6fe3bc23cd801cd51646c6"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>AUDIO_INIT_LATENCY_MS</b>(ms)&#160;&#160;&#160;((ms) * 25 / 1000.0f)</td></tr>
+<tr class="memdesc:gab21db7baca6fe3bc23cd801cd51646c6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert a headroom in milliseconds to a <a class="el" href="group__audio.html#ga85a214e9d8a48388ea44d926686b36ad" title="Initialize the audio subsystem.">audio_init</a> latency argument. <br /></td></tr>
+<tr class="separator:gab21db7baca6fe3bc23cd801cd51646c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga651926a5f06094db1309a8a87308f542" id="r_ga651926a5f06094db1309a8a87308f542"><td class="memItemLeft" align="right" valign="top"><a id="ga651926a5f06094db1309a8a87308f542" name="ga651926a5f06094db1309a8a87308f542"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>AUDIO_DEFAULT_LATENCY</b>&#160;&#160;&#160;<a class="el" href="group__audio.html#gab21db7baca6fe3bc23cd801cd51646c6">AUDIO_INIT_LATENCY_MS</a>(160)</td></tr>
+<tr class="memdesc:ga651926a5f06094db1309a8a87308f542"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default <a class="el" href="group__audio.html#ga85a214e9d8a48388ea44d926686b36ad" title="Initialize the audio subsystem.">audio_init</a> latency argument (~160 ms) <br /></td></tr>
+<tr class="separator:ga651926a5f06094db1309a8a87308f542"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="typedef-members" name="typedef-members"></a>
 Typedefs</h2></td></tr>
 <tr class="memitem:gaecfbc74a751594695ce3706d199da203" id="r_gaecfbc74a751594695ce3706d199da203"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__audio.html#gaecfbc74a751594695ce3706d199da203">audio_fill_buffer_callback</a>) (short *buffer, size_t numsamples)</td></tr>
@@ -105,9 +117,12 @@ Typedefs</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ga8ef2eb966a8552f3d19526753b98427f" id="r_ga8ef2eb966a8552f3d19526753b98427f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__audio.html#ga8ef2eb966a8552f3d19526753b98427f">audio_init</a> (const int frequency, int numbuffers)</td></tr>
-<tr class="memdesc:ga8ef2eb966a8552f3d19526753b98427f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize the audio subsystem.  <br /></td></tr>
-<tr class="separator:ga8ef2eb966a8552f3d19526753b98427f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga85a214e9d8a48388ea44d926686b36ad" id="r_ga85a214e9d8a48388ea44d926686b36ad"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__audio.html#ga85a214e9d8a48388ea44d926686b36ad">audio_init</a> (const int frequency, float latency)</td></tr>
+<tr class="memdesc:ga85a214e9d8a48388ea44d926686b36ad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize the audio subsystem.  <br /></td></tr>
+<tr class="separator:ga85a214e9d8a48388ea44d926686b36ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga9d6e945ab33900dc551ae0e102fead4e" id="r_ga9d6e945ab33900dc551ae0e102fead4e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__audio.html#ga9d6e945ab33900dc551ae0e102fead4e">audio_set_buffer_granularity</a> (int nsamples)</td></tr>
+<tr class="memdesc:ga9d6e945ab33900dc551ae0e102fead4e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Require AI buffer lengths to be a multiple of <code>nsamples</code>.  <br /></td></tr>
+<tr class="separator:ga9d6e945ab33900dc551ae0e102fead4e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga456542c1cf5d749b2a351778f932f7a6" id="r_ga456542c1cf5d749b2a351778f932f7a6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__audio.html#ga456542c1cf5d749b2a351778f932f7a6">audio_set_buffer_callback</a> (<a class="el" href="group__audio.html#gaecfbc74a751594695ce3706d199da203">audio_fill_buffer_callback</a> fill_buffer_callback)</td></tr>
 <tr class="memdesc:ga456542c1cf5d749b2a351778f932f7a6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Install a audio callback to fill the audio buffer when required.  <br /></td></tr>
 <tr class="separator:ga456542c1cf5d749b2a351778f932f7a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -129,6 +144,12 @@ Functions</h2></td></tr>
 <tr class="memitem:ga12decba34a007365bf749874e044b88d" id="r_ga12decba34a007365bf749874e044b88d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__audio.html#ga12decba34a007365bf749874e044b88d">audio_get_buffer_length</a> ()</td></tr>
 <tr class="memdesc:ga12decba34a007365bf749874e044b88d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the number of stereo samples that fit into an allocated buffer.  <br /></td></tr>
 <tr class="separator:ga12decba34a007365bf749874e044b88d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga422419b9ea99a8a00c65c5b07fd156d4" id="r_ga422419b9ea99a8a00c65c5b07fd156d4"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__audio.html#ga422419b9ea99a8a00c65c5b07fd156d4">audio_get_num_buffers</a> (void)</td></tr>
+<tr class="memdesc:ga422419b9ea99a8a00c65c5b07fd156d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the number of internal audio buffers.  <br /></td></tr>
+<tr class="separator:ga422419b9ea99a8a00c65c5b07fd156d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gad0b1a391239efde7694833c13da25d14" id="r_gad0b1a391239efde7694833c13da25d14"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__audio.html#gad0b1a391239efde7694833c13da25d14">audio_get_queued_buffers</a> (void)</td></tr>
+<tr class="memdesc:gad0b1a391239efde7694833c13da25d14"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the number of audio buffers currently containing data.  <br /></td></tr>
+<tr class="separator:gad0b1a391239efde7694833c13da25d14"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga8aee840f13aa6903fef4c092d0ffa704" id="r_ga8aee840f13aa6903fef4c092d0ffa704"><td class="memItemLeft" align="right" valign="top">short *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__audio.html#ga8aee840f13aa6903fef4c092d0ffa704">audio_write_begin</a> (void)</td></tr>
 <tr class="memdesc:ga8aee840f13aa6903fef4c092d0ffa704"><td class="mdescLeft">&#160;</td><td class="mdescRight">Start writing to the first free internal buffer.  <br /></td></tr>
 <tr class="separator:ga8aee840f13aa6903fef4c092d0ffa704"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -146,7 +167,7 @@ Functions</h2></td></tr>
 <p>Interface to the N64 audio hardware. </p>
 <p>The audio subsystem handles queueing up chunks of audio data for playback using the N64 audio DAC. The audio subsystem handles DMAing chunks of data to the audio DAC as well as audio callbacks when there is room for another chunk to be written. Buffer size is calculated automatically based on the requested audio frequency. The audio subsystem accomplishes this by interfacing with the audio interface (AI) registers.</p>
 <p>Because the audio DAC is timed off of the system clock of the N64, the audio subsystem needs to know what region the N64 is from. This is due to the fact that the system clock is timed differently for PAL, NTSC and MPAL regions. This is handled automatically by the audio subsystem based on settings left by the bootloader.</p>
-<p>Code attempting to output audio on the N64 should initialize the audio subsystem at the desired frequency and with the desired number of buffers using <a class="el" href="group__audio.html#ga8ef2eb966a8552f3d19526753b98427f" title="Initialize the audio subsystem.">audio_init</a>. More audio buffers allows for smaller chances of audio glitches but means that there will be more latency in sound output. When new data is available to be output, code should check to see if there is room in the output buffers using <a class="el" href="group__audio.html#gae0dc31e030d2719924538c96e93849f5" title="Return whether there is an empty buffer to write to.">audio_can_write</a>. Code can probe the current frequency and buffer size using <a class="el" href="group__audio.html#ga6892c9dfdd99e00a4285fe05058d6a37" title="Return actual frequency of audio playback.">audio_get_frequency</a> and <a class="el" href="group__audio.html#ga12decba34a007365bf749874e044b88d" title="Get the number of stereo samples that fit into an allocated buffer.">audio_get_buffer_length</a> respectively. When there is additional room, code can add new data to the output buffers using <a class="el" href="group__audio.html#gab06cc34952ebf6952af37f7080743c98" title="Write a chunk of audio data.">audio_write</a>. Be careful as this is a blocking operation, so if code doesn't check for adequate room first, this function will not return until there is room and the samples have been written. When all audio has been written, code should call <a class="el" href="group__audio.html#gad927b510bc46c3e0ebcfae81706fec06" title="Close the audio subsystem.">audio_close</a> to shut down the audio subsystem cleanly. </p>
+<p>Code attempting to output audio on the N64 should initialize the audio subsystem at the desired frequency and with the desired audio headroom using <a class="el" href="group__audio.html#ga85a214e9d8a48388ea44d926686b36ad" title="Initialize the audio subsystem.">audio_init</a>. More headroom reduces the chance of audio glitches but increases output latency. When new data is available to be output, code should check to see if there is room in the output buffers using <a class="el" href="group__audio.html#gae0dc31e030d2719924538c96e93849f5" title="Return whether there is an empty buffer to write to.">audio_can_write</a>. Code can probe the current frequency and buffer size using <a class="el" href="group__audio.html#ga6892c9dfdd99e00a4285fe05058d6a37" title="Return actual frequency of audio playback.">audio_get_frequency</a> and <a class="el" href="group__audio.html#ga12decba34a007365bf749874e044b88d" title="Get the number of stereo samples that fit into an allocated buffer.">audio_get_buffer_length</a> respectively. When there is additional room, code can add new data to the output buffers using <a class="el" href="group__audio.html#gab06cc34952ebf6952af37f7080743c98" title="Write a chunk of audio data.">audio_write</a>. Be careful as this is a blocking operation, so if code doesn't check for adequate room first, this function will not return until there is room and the samples have been written. When all audio has been written, code should call <a class="el" href="group__audio.html#gad927b510bc46c3e0ebcfae81706fec06" title="Close the audio subsystem.">audio_close</a> to shut down the audio subsystem cleanly. </p>
 <h2 class="groupheader">Typedef Documentation</h2>
 <a id="gaecfbc74a751594695ce3706d199da203" name="gaecfbc74a751594695ce3706d199da203"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#gaecfbc74a751594695ce3706d199da203">&#9670;&#160;</a></span>audio_fill_buffer_callback</h2>
@@ -173,8 +194,8 @@ Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="ga8ef2eb966a8552f3d19526753b98427f" name="ga8ef2eb966a8552f3d19526753b98427f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga8ef2eb966a8552f3d19526753b98427f">&#9670;&#160;</a></span>audio_init()</h2>
+<a id="ga85a214e9d8a48388ea44d926686b36ad" name="ga85a214e9d8a48388ea44d926686b36ad"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga85a214e9d8a48388ea44d926686b36ad">&#9670;&#160;</a></span>audio_init()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -188,8 +209,8 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>numbuffers</em>&#160;</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>latency</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -200,12 +221,41 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Initialize the audio subsystem. </p>
-<p>This function will set up the AI to play at a given frequency and allocate a number of back buffers to write data to.</p>
+<p>This function will set up the AI to play at a given frequency and allocate enough internal buffers to hold the requested amount of audio headroom. The latency argument uses a weird scale for backward compatibility. Please use <a class="el" href="group__audio.html#gab21db7baca6fe3bc23cd801cd51646c6" title="Convert a headroom in milliseconds to a audio_init latency argument.">AUDIO_INIT_LATENCY_MS</a> to specify a latency in milliseconds.</p>
 <dl class="section note"><dt>Note</dt><dd>Before re-initializing the audio subsystem to a new playback frequency, remember to call <a class="el" href="group__audio.html#gad927b510bc46c3e0ebcfae81706fec06" title="Close the audio subsystem.">audio_close</a>.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">frequency</td><td>The frequency in Hz to play back samples at </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">numbuffers</td><td>The number of buffers to allocate internally </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">latency</td><td>Desired audio headroom. Use <a class="el" href="group__audio.html#gab21db7baca6fe3bc23cd801cd51646c6" title="Convert a headroom in milliseconds to a audio_init latency argument.">AUDIO_INIT_LATENCY_MS</a> to specify a latency in milliseconds. Use <a class="el" href="group__audio.html#ga651926a5f06094db1309a8a87308f542" title="Default audio_init latency argument (~160 ms)">AUDIO_DEFAULT_LATENCY</a> for a good default. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ga9d6e945ab33900dc551ae0e102fead4e" name="ga9d6e945ab33900dc551ae0e102fead4e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga9d6e945ab33900dc551ae0e102fead4e">&#9670;&#160;</a></span>audio_set_buffer_granularity()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void audio_set_buffer_granularity </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>nsamples</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Require AI buffer lengths to be a multiple of <code>nsamples</code>. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000016">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
+<p>After this call, <a class="el" href="group__audio.html#ga12decba34a007365bf749874e044b88d" title="Get the number of stereo samples that fit into an allocated buffer.">audio_get_buffer_length</a> returns a multiple of <code>nsamples</code>, chosen closest to the default size for the current frequency. The audio headroom configured in <a class="el" href="group__audio.html#ga85a214e9d8a48388ea44d926686b36ad" title="Initialize the audio subsystem.">audio_init</a> is preserved.</p>
+<p>Must be called while no buffers are queued for playback (typically right after <a class="el" href="group__audio.html#ga85a214e9d8a48388ea44d926686b36ad" title="Initialize the audio subsystem.">audio_init</a>). <a class="el" href="mixer_8c.html#a6d0758de0074e1a44dea7cf1b8d298d5" title="Initialize the mixer.">mixer_init</a> calls this automatically.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">nsamples</td><td>Granularity in stereo samples; must be a positive multiple of 16 </td></tr>
   </table>
   </dd>
 </dl>
@@ -256,7 +306,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Pause or resume audio playback. </p>
-<p>Should only be used when a fill_buffer_callback has been set in <a class="el" href="group__audio.html#ga8ef2eb966a8552f3d19526753b98427f" title="Initialize the audio subsystem.">audio_init</a>. Silence will be generated while playback is paused. </p>
+<p>Should only be used when a fill_buffer_callback has been set in <a class="el" href="group__audio.html#ga85a214e9d8a48388ea44d926686b36ad" title="Initialize the audio subsystem.">audio_init</a>. Silence will be generated while playback is paused. </p>
 
 </div>
 </div>
@@ -317,7 +367,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Close the audio subsystem. </p>
-<p>This function closes the audio system and cleans up any internal memory allocated by <a class="el" href="group__audio.html#ga8ef2eb966a8552f3d19526753b98427f" title="Initialize the audio subsystem.">audio_init</a>. </p>
+<p>This function closes the audio system and cleans up any internal memory allocated by <a class="el" href="group__audio.html#ga85a214e9d8a48388ea44d926686b36ad" title="Initialize the audio subsystem.">audio_init</a>. </p>
 
 </div>
 </div>
@@ -359,6 +409,51 @@ Functions</h2></td></tr>
 <p>Get the number of stereo samples that fit into an allocated buffer. </p>
 <dl class="section note"><dt>Note</dt><dd>To get the number of bytes to allocate, multiply the return by 2 * sizeof( short )</dd></dl>
 <dl class="section return"><dt>Returns</dt><dd>The number of stereo samples in an allocated buffer </dd></dl>
+
+</div>
+</div>
+<a id="ga422419b9ea99a8a00c65c5b07fd156d4" name="ga422419b9ea99a8a00c65c5b07fd156d4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga422419b9ea99a8a00c65c5b07fd156d4">&#9670;&#160;</a></span>audio_get_num_buffers()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int audio_get_num_buffers </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Return the number of internal audio buffers. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000017">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Number of buffers configured by <a class="el" href="group__audio.html#ga85a214e9d8a48388ea44d926686b36ad" title="Initialize the audio subsystem.">audio_init</a>, or zero if the audio subsystem is not initialized </dd></dl>
+
+</div>
+</div>
+<a id="gad0b1a391239efde7694833c13da25d14" name="gad0b1a391239efde7694833c13da25d14"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gad0b1a391239efde7694833c13da25d14">&#9670;&#160;</a></span>audio_get_queued_buffers()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int audio_get_queued_buffers </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Return the number of audio buffers currently containing data. </p>
+<dl class="preview"><dt><b><a class="el" href="preview.html#_preview000018">Preview API:</a></b></dt><dd>This API is part of the libdragon preview: it may change without notice. Set <code>LIBDRAGON_PREVIEW=1</code> (warnings) or <code>2</code> (silent) in your Makefile to use it.</dd></dl>
+<p>The count includes buffers already submitted to AI and buffers waiting to be submitted. The value is a snapshot and may change asynchronously as the AI consumes buffers; any actual write must still be guarded by <a class="el" href="group__audio.html#gae0dc31e030d2719924538c96e93849f5" title="Return whether there is an empty buffer to write to.">audio_can_write</a>.</p>
+<dl class="section return"><dt>Returns</dt><dd>Number of currently full buffers, or zero if the audio subsystem is not initialized </dd></dl>
 
 </div>
 </div>
@@ -453,7 +548,7 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>int Number of samples pushed into output </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Number of samples pushed into output </dd></dl>
 
 </div>
 </div>
@@ -489,7 +584,7 @@ Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jun 10 2026 22:36:48 for libdragon by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
+Generated on Fri Aug 21 2026 21:04:47 for libdragon by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
 </small></address>
 </body>
 </html>
