@@ -510,6 +510,8 @@ void h264bsdRewindStorage(storage_t *pStorage)
     pStorage->currentPicId = 0;
     pStorage->pendingActivation = 0;
     pStorage->mbLayerIdx = 0;
+    for (u32 mbSyncIdx = 0; mbSyncIdx < NUM_PARALLEL_MACROBLOCKS; mbSyncIdx++)
+        pStorage->mbLayerSync[mbSyncIdx] = 0;  /* 0 == already-passed syncpoint */
 
     /* reset stream pointers and mid-slice timeslice state */
     pStorage->prevBufNotFinished = 0;
