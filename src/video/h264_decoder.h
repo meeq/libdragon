@@ -16,15 +16,14 @@
 #define OPTIMIZE_NO_DECODED_FLAG
 
 // Maximum number of macroblocks that the RSP will be able to lag behind the
-// CPU, and process in background. This basically specifies how big is the
-// mbLayers array above.
-// There is currently no explicit sync for this, this number is
-// experimental. If the number is too little, some corruption might appear on 
-// some frames, especially when the RSP is too slow. We could in theory use
-// syncpoints for this.
-// One macroblock takes about 1.5KB of memory, so 128 macroblocks is
-// about 192KB of RAM.
-#define NUM_PARALLEL_MACROBLOCKS 128
+// CPU, and process in background. This is the depth of the mbLayers ring the
+// CPU decodes coefficients into while the RSP consumes earlier slots.
+//
+// A per-slot rspq syncpoint (mbLayerSync, see h264bsd_slice_data.c) stalls the
+// CPU before it reuses a slot that the RSP has not consumed. Thus the depth
+// does not affect correctness. It only sets how far the CPU can run ahead
+// before it must wait on the syncpoint. Each slot holds one macroblock layer.
+#define NUM_PARALLEL_MACROBLOCKS 8
 
 #include "profile.h"
 #include "h264_decoder/h264bsd_decoder.h"

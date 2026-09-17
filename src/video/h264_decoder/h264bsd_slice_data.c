@@ -40,6 +40,13 @@
 
 #include "../profile.h"
 
+#ifdef H264BSD_N64
+#include "../rsph264_internal.h"
+#include "../fastcache.h"
+#include "rspq.h"   // rspq_syncpoint_new/wait for the mbLayer ring coherency guard
+
+#endif
+
 /*------------------------------------------------------------------------------
     2. External compiler flags
 --------------------------------------------------------------------------------
@@ -144,6 +151,15 @@ u32 h264bsdDecodeSliceData(strmData_t *pStrmData, storage_t *pStorage,
     do
     {
         mbLayer = &pStorage->mbLayers[pStorage->mbLayerIdx];
+#ifdef H264BSD_N64
+        /* Before reusing this ring slot, wait until the RSP has consumed its
+         * previous occupant's coefficient buffer (the dequant commands queued
+         * NUM_PARALLEL_MACROBLOCKS macroblocks ago). Otherwise, with a large
+         * RSPQ buffer, the CPU can overwrite posCoefBuf before the RSP DMAs it.
+         * The wait returns at once when the RSP has already passed the
+         * syncpoint, which the ring depth makes the common case. */
+        rspq_syncpoint_wait(pStorage->mbLayerSync[pStorage->mbLayerIdx]);
+#endif
 
 #ifndef OPTIMIZE_NO_DECODED_FLAG
       /* primary picture and already decoded macroblock -> error */
@@ -243,7 +259,14 @@ u32 h264bsdDecodeSliceData(strmData_t *pStrmData, storage_t *pStorage,
         currMbAddr = h264bsdNextMbAddress(pStorage->sliceGroupMap,
             pStorage->picSizeInMbs, currMbAddr);
         if (!prevSkipped)
+        {
+#ifdef H264BSD_N64
+            /* Record the point the RSP reaches after consuming this slot's just-
+             * queued dequant commands; the slot's next reuse waits on it. */
+            pStorage->mbLayerSync[pStorage->mbLayerIdx] = rspq_syncpoint_new();
+#endif
             pStorage->mbLayerIdx = (pStorage->mbLayerIdx+1)%NUM_PARALLEL_MACROBLOCKS;
+        }
         /* data left in the buffer but no more macroblocks for current slice
          * group -> error */
         if (moreMbs && !currMbAddr)
