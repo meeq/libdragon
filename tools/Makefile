@@ -167,6 +167,15 @@ endef
 
 $(foreach tool,$(TOOLS),$(eval $(call TOOL_template,$(tool))))
 all: $(TOOLS)
+
+rdpvalidate-test: ../build/test_tile_extents$(EXE)
+	./$<
+../build/test_tile_extents$(EXE): rdpvalidate/test_tile_extents.o
+	mkdir -p $(dir $@)
+	$(CXX) $(LDFLAGS) -o $@ $^ $(LDLIBS)
+-include rdpvalidate/test_tile_extents.d
+.PHONY: rdpvalidate-test
+
 install: $(foreach tool,$(TOOLS),$(tool)-install)
 clean: $(foreach tool,$(TOOLS),$(tool)-clean) common-clean
 	rm -f ${n64tool_OBJS} ${n64metadata_OBJS} ${n64sym_OBJS} ${n64symdump_OBJS} ${ed64romconfig_OBJS} 
