@@ -1554,18 +1554,16 @@ void rdpq_validate(uint64_t *buf, uint32_t flags, int *r_errs, int *r_warns)
         int tidx = BITS(buf[0], 24, 26);
         validate_busy_tile(tidx);
         struct tile_s *t = &rdp.tile[tidx];
-        *t = (struct tile_s){
-            .last_settile = &buf[0],
-            .last_settile_data = buf[0],
-            .fmt = BITS(buf[0], 53, 55), .size = BITS(buf[0], 51, 52),
-            .pal = BITS(buf[0], 20, 23),
-            .has_extents = false,
-            .tmem_addr = BITS(buf[0], 32, 40)*8,
-            .tmem_pitch = BITS(buf[0], 41, 49)*8,
-            .s.clamp = BIT(buf[0], 9), .t.clamp = BIT(buf[0], 19),
-            .s.mirror = BIT(buf[0], 8), .t.mirror = BIT(buf[0], 18),
-            .s.mask = BITS(buf[0], 4, 7), .t.mask = BITS(buf[0], 14, 17),
-        };
+        // SET_TILE does not change the extents set by SET_TILE_SIZE/LOAD_TILE.
+        t->last_settile = &buf[0];
+        t->last_settile_data = buf[0];
+        t->fmt = BITS(buf[0], 53, 55); t->size = BITS(buf[0], 51, 52);
+        t->pal = BITS(buf[0], 20, 23);
+        t->tmem_addr = BITS(buf[0], 32, 40)*8;
+        t->tmem_pitch = BITS(buf[0], 41, 49)*8;
+        t->s.clamp = BIT(buf[0], 9); t->t.clamp = BIT(buf[0], 19);
+        t->s.mirror = BIT(buf[0], 8); t->t.mirror = BIT(buf[0], 18);
+        t->s.mask = BITS(buf[0], 4, 7); t->t.mask = BITS(buf[0], 14, 17);
         if (t->fmt == 2 && t->size == 1)
             VALIDATE_WARN(t->pal == 0, "invalid non-zero palette for CI8 tile");
         if (t->fmt == 1 || (t->fmt == 0 && t->size == 3))  // YUV && RGBA32
