@@ -488,8 +488,15 @@ RDPQ_FixupAddress:
     #############################################################
     # RSPQCmd_RdpWaitIdle
     #
-    # Wait until RDP is idle. 
-    # 
+    # Wait until RDP is idle.
+    #
+    # On real hardware, the BUSY status bit alone is not a safe
+    # idle signal: it can read as clear while the RDP is still
+    # working through its output buffer. So this also waits for
+    # the other busy/pending flags (pipe, tmem, DMA, and a queued
+    # second buffer) to clear, and for DP_CURRENT to catch up with
+    # DP_END, before treating the RDP as idle.
+    #
     # *NOTE*: a SYNC_FULL command *must* have been already written
     # to the RDP output buffer,  otherwise this function will stall
     # forever. In fact, once the RDP is running, it never gets back
@@ -498,18 +505,25 @@ RDPQ_FixupAddress:
     #############################################################
     .func RDPQCmd_RdpWaitIdle
 RDPQCmd_RdpWaitIdle:
-    li t3, DP_STATUS_BUSY
+    li t3, DP_STATUS_BUSY | DP_STATUS_PIPE_BUSY | DP_STATUS_TMEM_BUSY | DP_STATUS_DMA_BUSY | DP_STATUS_START_VALID | DP_STATUS_END_VALID
 
 RdpWait:
 #if RSPQ_PROFILE
     mfc0 t0, COP0_DP_CLOCK
 #endif
-    mfc0 t2, COP0_DP_STATUS
 1:
-    # Wait for selected RDP status bits to become 0.
+    # Wait for all selected RDP busy/pending status bits to become 0.
+    mfc0 t2, COP0_DP_STATUS
     and t1, t2, t3
     bnez t1, 1b
-    mfc0 t2, COP0_DP_STATUS
+     nop
+    # The status bits look idle, but the RDP can still be a few commands
+    # behind: confirm it has actually caught up to the end of the buffer
+    # before declaring it idle.
+    mfc0 t1, COP0_DP_CURRENT
+    mfc0 t2, COP0_DP_END
+    bne t1, t2, 1b
+     nop
 #if RSPQ_PROFILE
     # Measure the time we have been waiting for the RDP and save it to the special "RDP idle" slot.
     # Also, subtract this time from the sample that is currently being recorded by adding it to the current start time.
