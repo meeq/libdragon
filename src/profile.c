@@ -4,6 +4,7 @@
  * @brief CPU profiler implementation.
  */
 #include "profile.h"
+#include "emux.h"
 #include "debug.h"
 #include "n64sys.h"
 #include "timer.h"
