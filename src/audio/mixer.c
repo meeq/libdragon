@@ -1277,6 +1277,9 @@ void mixer_ch_play(int ch, waveform_t *wave)
 	}
 	Mixer.start_tick[ch] = Mixer.ticks;
 	Mixer.prio[ch] = MIXER_PRIORITY_MAX;
+	// Rounds do not sync the freq ramp of a channel above hi_ch, so a ramp
+	// set while it was idle can leave step stale.
+	mixer_ch_sync_freq(ch, Mixer.ticks);
 	mixer_refresh_max_ns(ch);
 }
 
@@ -1358,6 +1361,15 @@ void mixer_ch_stop(int ch) {
 	// waveform, we will realize that by the uuid, and reuse the same
 	// samplebuffer contents.
 	c->wave = NULL;
+
+	// Every round scans up to hi_ch, so lower it past the idle channels on
+	// top: else one burst on many channels makes all later rounds slower.
+	while (Mixer.hi_ch > 0) {
+		mixer_channel_t *top = &Mixer.channels[Mixer.hi_ch-1];
+		if (top->ptr || (top->flags & CH_FLAGS_STEREO_SUB))
+			break;
+		Mixer.hi_ch--;
+	}
 }
 
 waveform_t *mixer_ch_playing_waveform(int ch) {
