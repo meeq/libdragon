@@ -862,6 +862,28 @@ static void waveform_read(void *ctx, samplebuffer_t *sbuf, int wpos, int wlen, b
 
 	if (len1 > 0)
 		wave->read(ctx, sbuf, wpos, len1, seeking);
+	if (!wave_loop && wave->format == WAVEFORM_FORMAT_PCM) {
+		// Block readers may append more than len1, even when len2 is zero.
+		int excess = sbuf->wpos + sbuf->widx - wave_len;
+		if (excess > 0) {
+			// Trim whole alignment units to preserve the producer's byte phase.
+			int trim = ROUND_DOWN(excess, pad);
+			samplebuffer_undo(sbuf, trim);
+			// Undo unspills too: wait for both the decoder and its queued copy
+			// before replacing the retained alignment slack with CPU silence.
+			if (wave->rsp_written)
+				rspq_highpri_sync();
+			samplebuffer_dma_wait(sbuf);
+			int slack = excess - trim;
+			if (slack > 0) {
+				int slot = (sbuf->head + wave_len - sbuf->wpos) % sbuf->size;
+				int n = MIN(slack, sbuf->size - slot);
+				uint8_t *base = SAMPLES_PTR(sbuf);
+				memset(base + slot * ub, 0, n * ub);
+				memset(base, 0, (slack - n) * ub);
+			}
+		}
+	}
 	if (len2 <= 0)
 		return;
 

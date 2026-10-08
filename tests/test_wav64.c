@@ -1193,6 +1193,50 @@ static waveform_t bc_wave = {
     .append_units = BC_BLOCK, .rsp_written = true,
 };
 
+// A one-shot block reader may produce past len. Keep that padding nonzero so
+// the mixer must silence it, including the last partial 8-byte append slot.
+static void bc_end_read(void *ctx, samplebuffer_t *sbuf, int wpos, int wlen, bool seeking)
+{
+    (void)ctx; (void)wpos; (void)seeking;
+    int n = ROUND_UP(wlen, BC_BLOCK);
+    int16_t *out = samplebuffer_append(sbuf, n);
+    for (int i = 0; i < n * sbuf->wave->channels; i++)
+        out[i] = 12000;
+}
+
+static bool test_mixer_block_codec_end(int channels, int len)
+{
+    mixer_ch_stop(BC_CHANNEL);
+    mixer_ch_stop(BC_CHANNEL + 1);
+    sv_mix(2048);
+    waveform_t wave = {
+        .name = "bc-end", .bits = 16, .channels = channels,
+        .frequency = audio_get_frequency(), .len = len, .read = bc_end_read,
+        .append_units = BC_BLOCK, .rsp_written = true,
+    };
+    mixer_ch_set_limits(BC_CHANNEL, 16, 48000, 0);
+    mixer_ch_play(BC_CHANNEL, &wave);
+    mixer_ch_set_vol_ramp(BC_CHANNEL, 0.5f, 0.5f, 0);
+    sv_mix(BC_LEN + 65);
+    // Unit-step Hermite returns y1, so len-2 observes the final real frame.
+    int last_l = sv_out[(len - 2) * 2], last_r = sv_out[(len - 2) * 2 + 1];
+    bool preserved = last_l > 1024 && (channels == 1 || last_r > 1024);
+    int extra = 0;
+    for (int i = len; i < BC_LEN + 65; i++)
+        if (sv_out[i * 2] || sv_out[i * 2 + 1])
+            extra++;
+    // One-shots are retired at the beginning of the following mix round.
+    sv_mix(32);
+    bool stopped = !mixer_ch_playing(BC_CHANNEL);
+    bool ok = preserved && !extra && stopped;
+    if (!ok)
+        debugf("FAILED block codec end: channels=%d len=%d last=%d/%d extra=%d stopped=%d\n",
+            channels, len, last_l, last_r, extra, stopped);
+    mixer_ch_stop(BC_CHANNEL);
+    mixer_ch_stop(BC_CHANNEL + 1);
+    return ok;
+}
+
 static bool test_mixer_block_codec_loop(float freq)
 {
     mixer_ch_stop(BC_CHANNEL);
@@ -3477,6 +3521,13 @@ int main(void)
         }
     }
 
+    for (int channels = 1; channels <= 2; channels++) {
+        for (int len = BC_LEN - 3; len <= BC_LEN; len++) {
+            total++;
+            if (!test_mixer_block_codec_end(channels, len))
+                failed++;
+        }
+    }
     const float bc_freqs[] = { 48000, 44100, 32000, 22050 };
     for (int i = 0; i < 4; i++) {
         total++;
