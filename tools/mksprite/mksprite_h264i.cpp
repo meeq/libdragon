@@ -41,7 +41,12 @@ extern "C" {
 #include "mksprite.h"
 #include "x264/x264.h"
 
-#define H264I_VERSION 5
+#define H264I_VERSION 6
+
+// Number of zero bytes after the H.264 NAL. The runtime bit reader loads up
+// to 8 bytes after the end of the stream. Must match H264BSD_STREAM_PAD in
+// src/video/h264_decoder/h264bsd_stream.h.
+#define H264I_STREAM_PAD 8
 
 // Asset-layer compression applied to the whole H264I container when it carries
 // a 1-bit alpha bitmap. LZ4 (level 1) is the only always-linked decompressor in
@@ -542,10 +547,10 @@ extern "C" int mksprite_convert_lossy(
     }
 
     // Read the temporary file back into RAM: [header][H.264 payload]. Then
-    // append the 1-bit alpha bitmap (if any) and compress through the asset
-    // layer (LZ4) only when a mask is present; opaque files stay uncompressed
-    // (level 0), matching the previous raw output and avoiding a needless
-    // decode pass at load time.
+    // append the stream pad and the 1-bit alpha bitmap (if any). Compress
+    // through the asset layer (LZ4) only when a mask is present; opaque files
+    // stay uncompressed (level 0), matching the previous raw output and
+    // avoiding a needless decode pass at load time.
     int tmpsz;
     uint8_t *raw = slurp_fp(f, &tmpsz);
     fclose(f);
@@ -558,6 +563,7 @@ extern "C" int mksprite_convert_lossy(
     }
     std::vector<uint8_t> container(raw, raw + tmpsz);
     free(raw);
+    container.resize(container.size() + H264I_STREAM_PAD, 0);
     if (any_alpha) {
         size_t base = container.size();
         container.resize(base + alpha_bitmap.size());

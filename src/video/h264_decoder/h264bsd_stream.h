@@ -40,6 +40,18 @@
     2. Module defines
 ------------------------------------------------------------------------------*/
 
+/* Number of bytes after the end of a stream buffer that the N64 bit reader
+ * can load. h264bsdShowBits32 and h264bsdShowBits64 load the 8 bytes that
+ * start at the current byte. They do not compare with pEnd, because a compare
+ * on each read makes decoding slower. While the current byte is not after
+ * pEnd, the load stays in the 8 bytes after pEnd.
+ *
+ * Each buffer that holds a stream must have H264BSD_STREAM_PAD bytes of its
+ * own memory after the stream data. If the bytes after the buffer belong to
+ * a different buffer, a cached read can load a cache line of a DMA target.
+ * The stale line can then overwrite the data that the DMA wrote. */
+#define H264BSD_STREAM_PAD  8
+
 /*------------------------------------------------------------------------------
     3. Data types
 ------------------------------------------------------------------------------*/
@@ -86,36 +98,30 @@ static inline u32 h264bsdIsByteAligned(strmData_t *pStrmData) {
     return (pStrmData->pCurr & 7) == 0;
 }
 
-__attribute__((noinline, cold))
-u64 h264bsdLoadTail64(const strmData_t *pStrmData);
-
-static inline u64 h264bsdLoad64(const strmData_t *pStrmData) {
-    // Load the 8 bytes that start at the byte of the current bitpointer.
-    // The word is not 8-byte aligned, so use byte accesses (the compiler
-    // still generates the MIPS ldl/ldr opcodes).
-    // Do not read past pEnd: the caller's buffer can end there, and a cached
-    // read of the memory after it can load a cache line that belongs to a
-    // DMA target. Near the end, h264bsdLoadTail64 reads only the bytes before
-    // pEnd.
-    u64 pos = pStrmData->pCurr & ~(u64)7;
-    if (__builtin_expect(pos + 64 > pStrmData->pEnd, 0))
-        return h264bsdLoadTail64(pStrmData);
-    u8 *pStrm = STRM_CURR_PTR(pStrmData);
-    return ((u64)pStrm[0] << 56) | ((u64)pStrm[1] << 48) |
-           ((u64)pStrm[2] << 40) | ((u64)pStrm[3] << 32) |
-           ((u64)pStrm[4] << 24) | ((u64)pStrm[5] << 16) |
-           ((u64)pStrm[6] <<  8) | ((u64)pStrm[7] <<  0);
-}
-
 static inline u32 h264bsdShowBits32(strmData_t *pStrmData) {
-    u64 val = h264bsdLoad64(pStrmData);
+    // Access the byte-aligned 64-bit word at the current bitpointer. Since the
+    // word is not 64-byte aligned, we cannot cast to u64* and instead we need 
+    // to use byte accesses (the compiler will still generate efficient
+    // code with the MIPS ldl/ldr opcodes). 
+    // Near the end of the stream this reads past pEnd, into the
+    // H264BSD_STREAM_PAD bytes that the buffer owner provides. Only the
+    // requested bits are used.
+    u8 *pStrm = STRM_CURR_PTR(pStrmData);
+    u64 val = ((u64)pStrm[0] << 56) | ((u64)pStrm[1] << 48) |
+              ((u64)pStrm[2] << 40) | ((u64)pStrm[3] << 32) |
+              ((u64)pStrm[4] << 24) | ((u64)pStrm[5] << 16) |
+              ((u64)pStrm[6] <<  8) | ((u64)pStrm[7] <<  0);
     val <<= STRM_CURR_BITOFF(pStrmData);
     val >>= 32;
     return (u32)val;
 }
 
 static inline u64 h264bsdShowBits64(strmData_t *pStrmData, u32 *bits) {
-    u64 val = h264bsdLoad64(pStrmData);
+    u8 *pStrm = STRM_CURR_PTR(pStrmData);
+    u64 val = ((u64)pStrm[0] << 56) | ((u64)pStrm[1] << 48) |
+              ((u64)pStrm[2] << 40) | ((u64)pStrm[3] << 32) |
+              ((u64)pStrm[4] << 24) | ((u64)pStrm[5] << 16) |
+              ((u64)pStrm[6] <<  8) | ((u64)pStrm[7] <<  0);
     val <<= STRM_CURR_BITOFF(pStrmData);
     *bits = 64 - STRM_CURR_BITOFF(pStrmData);
     pStrmData->pCurr &= ~7;

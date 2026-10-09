@@ -169,25 +169,6 @@ u32 h264bsdShowBits32(strmData_t *pStrmData)
 }
 #endif /* H264BSD_N64 */
 
-#ifdef H264BSD_N64
-/* Slow path of h264bsdLoad64 for the last 8 bytes of the stream. Bytes at or
- * past pEnd read as zero. A partial last byte (pEnd not byte-aligned) is still
- * inside the buffer, so it is read. */
-u64 h264bsdLoadTail64(const strmData_t *pStrmData)
-{
-    const u8 *pStrm = STRM_CURR_PTR(pStrmData);
-    const u8 *pEnd = (const u8 *)(u32)((pStrmData->pEnd + 7) >> 3);
-    u64 val = 0;
-    for (int i = 0; i < 8; i++)
-    {
-        val <<= 8;
-        if (pStrm + i < pEnd)
-            val |= pStrm[i];
-    }
-    return val;
-}
-#endif /* H264BSD_N64 */
-
 /*------------------------------------------------------------------------------
 
     Function: h264bsdFlushBits
