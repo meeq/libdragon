@@ -86,31 +86,36 @@ static inline u32 h264bsdIsByteAligned(strmData_t *pStrmData) {
     return (pStrmData->pCurr & 7) == 0;
 }
 
-static inline u32 h264bsdShowBits32(strmData_t *pStrmData) {
-    // Access the byte-aligned 64-bit word at the current bitpointer. Since the
-    // word is not 64-byte aligned, we cannot cast to u64* and instead we need 
-    // to use byte accesses (the compiler will still generate efficient
-    // code with the MIPS ldl/ldr opcodes). 
-    // Notice that this could potentially overflow the buffer (read past the
-    // end pointer), but assuming that the caller is not buggy (eg: requesting
-    // bits past the end of the buffer) it does not really matter on N64, and
-    // only the requested bits will be masked and returned anyway.
+__attribute__((noinline, cold))
+u64 h264bsdLoadTail64(const strmData_t *pStrmData);
+
+static inline u64 h264bsdLoad64(const strmData_t *pStrmData) {
+    // Load the 8 bytes that start at the byte of the current bitpointer.
+    // The word is not 8-byte aligned, so use byte accesses (the compiler
+    // still generates the MIPS ldl/ldr opcodes).
+    // Do not read past pEnd: the caller's buffer can end there, and a cached
+    // read of the memory after it can load a cache line that belongs to a
+    // DMA target. Near the end, h264bsdLoadTail64 reads only the bytes before
+    // pEnd.
+    u64 pos = pStrmData->pCurr & ~(u64)7;
+    if (__builtin_expect(pos + 64 > pStrmData->pEnd, 0))
+        return h264bsdLoadTail64(pStrmData);
     u8 *pStrm = STRM_CURR_PTR(pStrmData);
-    u64 val = ((u64)pStrm[0] << 56) | ((u64)pStrm[1] << 48) |
-              ((u64)pStrm[2] << 40) | ((u64)pStrm[3] << 32) |
-              ((u64)pStrm[4] << 24) | ((u64)pStrm[5] << 16) |
-              ((u64)pStrm[6] <<  8) | ((u64)pStrm[7] <<  0);
+    return ((u64)pStrm[0] << 56) | ((u64)pStrm[1] << 48) |
+           ((u64)pStrm[2] << 40) | ((u64)pStrm[3] << 32) |
+           ((u64)pStrm[4] << 24) | ((u64)pStrm[5] << 16) |
+           ((u64)pStrm[6] <<  8) | ((u64)pStrm[7] <<  0);
+}
+
+static inline u32 h264bsdShowBits32(strmData_t *pStrmData) {
+    u64 val = h264bsdLoad64(pStrmData);
     val <<= STRM_CURR_BITOFF(pStrmData);
     val >>= 32;
     return (u32)val;
 }
 
 static inline u64 h264bsdShowBits64(strmData_t *pStrmData, u32 *bits) {
-    u8 *pStrm = STRM_CURR_PTR(pStrmData);
-    u64 val = ((u64)pStrm[0] << 56) | ((u64)pStrm[1] << 48) |
-              ((u64)pStrm[2] << 40) | ((u64)pStrm[3] << 32) |
-              ((u64)pStrm[4] << 24) | ((u64)pStrm[5] << 16) |
-              ((u64)pStrm[6] <<  8) | ((u64)pStrm[7] <<  0);
+    u64 val = h264bsdLoad64(pStrmData);
     val <<= STRM_CURR_BITOFF(pStrmData);
     *bits = 64 - STRM_CURR_BITOFF(pStrmData);
     pStrmData->pCurr &= ~7;
