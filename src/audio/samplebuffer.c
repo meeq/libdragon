@@ -62,7 +62,7 @@ void samplebuffer_dma_wait(samplebuffer_t *buf) {
  * the bytes are already in RDRAM and a memcpy is enough (after any PI DMA).
  */
 static void samplebuffer_copy(samplebuffer_t *buf, uint8_t *dst, uint8_t *src, int nbytes) {
-	if (buf->wave && buf->wave->rsp_written) {
+	if (buf->rsp_written) {
 		// The queued copy moves whole 8-byte blocks, and the bytes past
 		// nbytes at the destination are not ours to change: stage them at the
 		// source so that the tail of the copy rewrites them unchanged.
@@ -152,7 +152,7 @@ static void samplebuffer_recalc_size(samplebuffer_t *buf) {
 	// producer needs: a waveform that does not write through the RSP can have
 	// left it anywhere.
 	buf->head %= n;
-	if (buf->wave && buf->wave->rsp_written)
+	if (buf->rsp_written)
 		buf->head = samplebuffer_align_len(buf, buf->head) % n;
 }
 
@@ -176,6 +176,7 @@ void samplebuffer_set_unit_bytes(samplebuffer_t *buf, int unit_bytes) {
 
 void samplebuffer_set_waveform(samplebuffer_t *buf, waveform_t *wave, WaveformRead read) {
 	buf->wave = wave;
+	buf->rsp_written = wave->rsp_written;
 	buf->wv_read = read;
 	assert(wave->state_size <= buf->state_size);
 
@@ -356,7 +357,7 @@ void* samplebuffer_append(samplebuffer_t *buf, int wlen) {
 	uint8_t *ret = samplebuffer_base(buf) + slot * ub;
 	// An RSP producer writes through SP DMA, which ignores the low 3 bits of
 	// the RDRAM address: an unaligned slot would silently land elsewhere.
-	assertf(!buf->wave || !buf->wave->rsp_written || ((uintptr_t)ret & 7) == 0,
+	assertf(!buf->rsp_written || ((uintptr_t)ret & 7) == 0,
 		"samplebuffer_append: unaligned slot %x for an RSP-written waveform", slot);
 	return ret;
 }
@@ -387,7 +388,7 @@ void samplebuffer_flush(samplebuffer_t *buf) {
 		// tail of a waveform, and a loop restarts right there) leaves the
 		// write cursor out of that phase. Restarting a few units further is
 		// as safe as restarting exactly where the stream stopped.
-		if (buf->wave && buf->wave->rsp_written)
+		if (buf->rsp_written)
 			head = samplebuffer_align_len(buf, head);
 		buf->head = head % buf->size;
 	}

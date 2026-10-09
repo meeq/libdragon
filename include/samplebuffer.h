@@ -159,9 +159,22 @@ typedef struct samplebuffer_s {
     /**
      * @preview
      * Waveform being played back on this sample buffer.
+     *
+     * The pointer stays set after the channel stops, and the waveform can be
+     * freed at that point. Outside playback it only identifies the last
+     * waveform, so do not dereference it there.
      */
     LIBDRAGON_PREVIEW_SYM
     waveform_t *wave;
+
+    /**
+     * @preview
+     * Copy of #waveform_t::rsp_written for #wave, taken by
+     * #samplebuffer_set_waveform. Flush and reconfiguration can run after the
+     * waveform is freed, so they read this copy.
+     */
+    LIBDRAGON_PREVIEW_SYM
+    bool rsp_written;
 
     /**
      * wv_read is invoked by samplebuffer_get whenever more samples are
