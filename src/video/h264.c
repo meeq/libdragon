@@ -268,9 +268,11 @@ static void h264_rewind(video_t *v) {
 }
 
 static video_t* h264_open(const char *fn, const video_parms_t *parms) {
-    h264_t *player = malloc(sizeof(h264_t) + H264_BUF_SIZE);
+    // The decoder reads the stream in place in player->buf, so the buffer
+    // needs H264BSD_STREAM_PAD bytes after its end.
+    h264_t *player = malloc(sizeof(h264_t) + H264_BUF_SIZE + H264BSD_STREAM_PAD);
     assertf(player, "Out of memory");
-    sys_hw_memset(player, 0, sizeof(h264_t) + H264_BUF_SIZE);
+    sys_hw_memset(player, 0, sizeof(h264_t) + H264_BUF_SIZE + H264BSD_STREAM_PAD);
     player->fd = -1;
     if (parms && parms->buffered_pics)
         player->max_buffered_pics = parms->buffered_pics;

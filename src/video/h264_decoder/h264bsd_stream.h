@@ -40,6 +40,18 @@
     2. Module defines
 ------------------------------------------------------------------------------*/
 
+/* Number of bytes after the end of a stream buffer that the N64 bit reader
+ * can load. h264bsdShowBits32 and h264bsdShowBits64 load the 8 bytes that
+ * start at the current byte. They do not compare with pEnd, because a compare
+ * on each read makes decoding slower. While the current byte is not after
+ * pEnd, the load stays in the 8 bytes after pEnd.
+ *
+ * Each buffer that holds a stream must have H264BSD_STREAM_PAD bytes of its
+ * own memory after the stream data. If the bytes after the buffer belong to
+ * a different buffer, a cached read can load a cache line of a DMA target.
+ * The stale line can then overwrite the data that the DMA wrote. */
+#define H264BSD_STREAM_PAD  8
+
 /*------------------------------------------------------------------------------
     3. Data types
 ------------------------------------------------------------------------------*/
@@ -91,10 +103,9 @@ static inline u32 h264bsdShowBits32(strmData_t *pStrmData) {
     // word is not 64-byte aligned, we cannot cast to u64* and instead we need 
     // to use byte accesses (the compiler will still generate efficient
     // code with the MIPS ldl/ldr opcodes). 
-    // Notice that this could potentially overflow the buffer (read past the
-    // end pointer), but assuming that the caller is not buggy (eg: requesting
-    // bits past the end of the buffer) it does not really matter on N64, and
-    // only the requested bits will be masked and returned anyway.
+    // Near the end of the stream this reads past pEnd, into the
+    // H264BSD_STREAM_PAD bytes that the buffer owner provides. Only the
+    // requested bits are used.
     u8 *pStrm = STRM_CURR_PTR(pStrmData);
     u64 val = ((u64)pStrm[0] << 56) | ((u64)pStrm[1] << 48) |
               ((u64)pStrm[2] << 40) | ((u64)pStrm[3] << 32) |

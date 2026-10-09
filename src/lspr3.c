@@ -38,7 +38,7 @@
 #include <stddef.h>
 
 /** @brief H264I version number. */
-#define H264I_VERSION 5
+#define H264I_VERSION 6
 
 /** @brief H264I header flag: file carries a 1-bit alpha bitmap after the H.264 payload. */
 #define LSPR3_FLAG_ALPHA1 0x01
@@ -67,9 +67,9 @@ typedef struct lspr3_header_s {
     uint8_t  pic_init_qp;            // 0..51
     int8_t   chroma_qp_index_offset; // -12..12
     uint8_t  flags;                  // bit 0 (LSPR3_FLAG_ALPHA1): 1-bit alpha bitmap present
-    uint8_t  reserved[3];            // zero in v5; also pads alpha_size to 4-byte alignment
+    uint8_t  reserved[3];            // zero; also pads alpha_size to 4-byte alignment
     uint32_t alpha_size;             // byte size of the 1bpp alpha bitmap (0 if none)
-    uint8_t  payload[];              // H.264 RBSP, followed by the alpha bitmap if present
+    uint8_t  payload[];              // H.264 NAL, then H264BSD_STREAM_PAD zero bytes, then the alpha bitmap if present
 } lspr3_header_t;
 
 // The runtime reads fields via a raw pointer cast over the file bytes, and uses
@@ -225,6 +225,7 @@ static void lspr3_decode_intra_slice(
     // before the memory is released.
     rsph264_sync();
     assertf(currMbAddr == pic_size_in_mbs, "H264I: incomplete slice");
+    assertf(strm.pCurr <= strm.pEnd, "H264I: bit reader went past the end of the stream");
     free(mb);
 
     *out_yuv = yuv;
@@ -327,14 +328,15 @@ static sprite_t *lspr3_load_buf(const void *encoded_buf, int encoded_sz) {
     assertf(sprite, "Out of memory");
     sprite->flags = SPRITE_FLAGS_OWNEDBUFFER;
 
-    // Decode the H264I bitstream into YUV planes. When a 1-bit alpha bitmap is
-    // present it is appended after the H.264 payload, so the payload itself is
-    // shorter than the whole buffer by alpha_size bytes.
+    // Decode the H264I bitstream into YUV planes. The file puts
+    // H264BSD_STREAM_PAD zero bytes after the H.264 NAL, so that the bit
+    // reader can load past the end of the NAL without a check on each read.
+    // When a 1-bit alpha bitmap is present it follows the pad.
     const lspr3_header_t *hdr = (const lspr3_header_t *)encoded_buf;
     size_t alpha_size = (hdr->flags & LSPR3_FLAG_ALPHA1) ? hdr->alpha_size : 0;
-    assertf((size_t)encoded_sz >= sizeof(lspr3_header_t) + alpha_size,
+    assertf((size_t)encoded_sz >= sizeof(lspr3_header_t) + 2 + H264BSD_STREAM_PAD + alpha_size,
         "H264I buffer truncated (sz=%d, alpha_size=%zu)", encoded_sz, alpha_size);
-    size_t payload_size = (size_t)encoded_sz - sizeof(lspr3_header_t) - alpha_size;
+    size_t payload_size = (size_t)encoded_sz - sizeof(lspr3_header_t) - H264BSD_STREAM_PAD - alpha_size;
     uint8_t *pic = NULL;
     size_t pic_size = 0;
     lspr3_decode_intra_slice(
@@ -361,7 +363,7 @@ static sprite_t *lspr3_load_buf(const void *encoded_buf, int encoded_sz) {
     if (alpha_size) {
         size_t header_bytes = ROUND_UP(sizeof(sprite_t) + sizeof(sprite_ext_t), 64);
         uint16_t *dst = (uint16_t *)((uint8_t *)sprite + header_bytes);
-        const uint8_t *bitmap = hdr->payload + payload_size;
+        const uint8_t *bitmap = hdr->payload + payload_size + H264BSD_STREAM_PAD;
         lspr3_apply_alpha1(dst, hdr->orig_width, hdr->orig_height, bitmap);
     }
 
