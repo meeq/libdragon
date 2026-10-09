@@ -52,9 +52,7 @@ SECTIONS {
    .jcr : { KEEP (*(.jcr)) } 
 
     .rodata : {
-        *(.rdata)
-        *(.rodata)
-        *(.rodata.*)
+        EXCLUDE_FILE(*libdragon.a:h264_decoder.o) *(.rdata .rodata .rodata.*)
         KEEP(*(keep.rodata.*))
         *(.gnu.linkonce.r.*)
         . = ALIGN(4);
@@ -62,6 +60,11 @@ SECTIONS {
         LONG (ALIGNOF(.tdata));
         . = ALIGN(8);
     }
+
+    /* The linker can make an empty .rel.dyn section. Put it here, with the
+     * other read-only data. Without this rule, the linker can put it between
+     * .h264_decoder_data and .sbss. */
+    .rel.dyn : { *(.rel.dyn) }
 
     /* This is important to keep __CTOR_END__ consistent */
     . = ALIGN(4);
@@ -105,8 +108,7 @@ SECTIONS {
     */
     .data : {
         __data_start = .;
-        *(.data)
-        *(.data.*)
+        EXCLUDE_FILE(*libdragon.a:h264_decoder.o) *(.data .data.*)
         KEEP(*(keep.data.*))
         *(.gnu.linkonce.d.*)
         . = ALIGN(8);
@@ -138,8 +140,7 @@ SECTIONS {
 
     .sdata : {
         _gp = . + 0x8000;
-        *(.sdata)
-        *(.sdata.*)
+        EXCLUDE_FILE(*libdragon.a:h264_decoder.o) *(.sdata .sdata.*)
         *(.gnu.linkonce.s.*)
         . = ALIGN(8);
     }
@@ -153,6 +154,20 @@ SECTIONS {
         . = ALIGN(8);
     }
 
+    /* The h264 decoder reads its tables for each macroblock. Its data is put
+     * immediately before .sbss, and the libdragon .sbss variables are put
+     * first in .sbss. Thus all of them are at fixed distances from
+     * __bss_start. A change to the application code or data cannot move them
+     * relative to each other. An application can thus put its decoder stack
+     * at a fixed data cache position relative to them. */
+    .h264_decoder_data : {
+        . = ALIGN(16);
+        __h264_decoder_data_start = .;
+        *libdragon.a:h264_decoder.o(.rdata .rodata .rodata.* .data .data.* .sdata .sdata.*)
+        . = ALIGN(16);
+        __h264_decoder_data_end = .;
+    }
+
     . = ALIGN(8);
     __data_end = .;
 
@@ -162,6 +177,7 @@ SECTIONS {
 
     .sbss : {
          __bss_start = .;
+        *libdragon.a:(.sbss .sbss.*)
         *(.sbss)
         *(.sbss.*)
         *(.gnu.linkonce.sb.*)
