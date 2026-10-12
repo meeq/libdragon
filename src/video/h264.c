@@ -147,13 +147,21 @@ static int decode_next_slice(h264_t *player, u32 mb_budget) {
     // Mid-slice resume keeps absolute pointers into player->buf; do not
     // compact/move the buffer while a slice is pending.
     if (!h264bsdIsSlicePending(&player->s) && left <= (int)player->max_slice_size) {
-        memmove(player->buf, player->buf+player->idx, left);
-        int n = read(player->fd, player->buf+left, H264_BUF_SIZE-left);
+        // DragonFS can DMA directly into the destination only when the RAM
+        // address and the file offset have the same 2-byte phase. Otherwise
+        // it copies through a small uncached buffer, which on hardware costs
+        // about 18 ms more per 64 KiB refill. Start the kept bytes at the
+        // buffer offset that keeps the phase.
+        off_t pos = lseek(player->fd, 0, SEEK_CUR);
+        assertf(pos >= 0, "h264: cannot get the stream position");
+        int phase = ((uint32_t)(player->buf + left) ^ (uint32_t)pos) & 1;
+        memmove(player->buf + phase, player->buf + player->idx, left);
+        int n = read(player->fd, player->buf + phase + left, H264_BUF_SIZE - phase - left);
         if (n < 0) n = 0;
-        player->buf_len = left + n;
-        player->idx = 0;
+        player->idx = phase;
+        player->buf_len = phase + left + n;
 
-        if (player->buf_len == 0)
+        if (left + n == 0)
             return H264BSD_EOF;
     }
 
