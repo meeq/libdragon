@@ -13,6 +13,7 @@
 #include "vi.h"
 #include "wav64.h"
 #include "mixer.h"
+#include "audio.h"
 #include "subtitles.h"
 #include "graphics.h"
 #include "rdpq.h"
@@ -121,6 +122,21 @@ void fmv_play(const char *video_fn, const fmv_parms_t *parms)
     bool paused = false;
     bool abort = false;
     video_sync_t *vsync = NULL;
+    double heard_floor_sec = 0.0;
+
+    // The mixer position includes the samples that wait in the AI queue.
+    // These samples are not audible yet. If the clock includes them, video
+    // looks late by the queue length and the sync drops frames that are on
+    // time. Remove the queued buffers to get the audible position.
+    // The result can go back by a rounding step, and video_sync asserts on
+    // a clock that goes back, so hold it at the last value.
+    double heard_time_sec(void) {
+        double mixed_sec = mixer_ch_get_pos(parms->audio_mixer_channel) / (double)audio->wave.frequency;
+        double queued_sec = audio_get_queued_buffers() * (double)audio_get_buffer_length() / (double)audio_get_frequency();
+        double heard_sec = mixed_sec - queued_sec;
+        if (heard_sec > heard_floor_sec) heard_floor_sec = heard_sec;
+        return heard_floor_sec;
+    }
 
     void ctrl_pause(fmv_control_t *ctrl, bool pause) {
         paused = pause;
@@ -149,6 +165,7 @@ void fmv_play(const char *video_fn, const fmv_parms_t *parms)
         }
         if (vsync) {
             video_sync_reset(vsync, frame_idx);
+            heard_floor_sec = 0.0;
         }
         return frame_idx;
     }
@@ -186,7 +203,7 @@ void fmv_play(const char *video_fn, const fmv_parms_t *parms)
         if (!paused) {
             if (vsync && mixer_ch_playing(parms->audio_mixer_channel)) {
                 // Decide what to do next based on the sync controller
-                double master_time_sec = mixer_ch_get_pos(parms->audio_mixer_channel) / (double)audio->wave.frequency;
+                double master_time_sec = heard_time_sec();
                 video_sync_action_t a = video_sync_step(vsync, master_time_sec, frame_idx);
 
                 if (a.kind == VIDEO_SYNC_SKIP_NEXT) {
@@ -209,7 +226,7 @@ void fmv_play(const char *video_fn, const fmv_parms_t *parms)
                     video_rewind(video);
                     if (audio) wav64_seek(audio, parms->audio_mixer_channel, 0.0);
                     if (subs) subtitles_seek(subs, 0);
-                    if (vsync) video_sync_reset(vsync, frame_idx);
+                    if (vsync) { video_sync_reset(vsync, frame_idx); heard_floor_sec = 0.0; }
                     continue;
                 } else {
                     break;
