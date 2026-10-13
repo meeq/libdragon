@@ -697,7 +697,14 @@ void display_set_fps_limit(float fps)
     disable_interrupts();
 
     min_refresh_period = 1.0f / (fps ? MIN(fps, refresh_rate) : refresh_rate);
-    frame_skip = refresh_period / min_refresh_period;
+    // Without a limit, fps_limit_ok() must accept each vblank. Do not get
+    // 1.0 from the division: -ffast-math can make it 0.99999994. With that
+    // value, the accumulator drifts down and a vblank is skipped after some
+    // minutes or hours.
+    if (!fps || fps >= refresh_rate)
+        frame_skip = 1.0f;
+    else
+        frame_skip = refresh_period / min_refresh_period;
     delta_time = min_refresh_period;
 
     // Calculate also the minimum period using a rounded refresh rate
