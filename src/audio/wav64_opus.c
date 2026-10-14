@@ -100,8 +100,11 @@ static void waveform_opus_read(void *ctx, samplebuffer_t *sbuf, int wpos, int wl
     }
 
     // Allocate stack buffer for reading compressed data. Align it to cacheline
-    // to avoid any false sharing.
-    uint8_t alignas(16) buf[ext->max_cmp_frame_size + 1];
+    // to avoid any false sharing, and round the size up to whole cachelines:
+    // the writeback-invalidate below operates on 16-byte lines, so an unpadded
+    // size would let it touch up to 15 bytes past the buffer into adjacent
+    // stack slots (flushing/discarding their cached state).
+    uint8_t alignas(16) buf[ROUND_UP(ext->max_cmp_frame_size + 1, 16)];
     int nframes = DIVIDE_CEIL(wlen + intra_skip, ext->frame_size);
 
     // Decode into one contiguous append (Opus frames are larger than the
@@ -122,6 +125,8 @@ static void waveform_opus_read(void *ctx, samplebuffer_t *sbuf, int wpos, int wl
         }
 
         // Read frame
+        assertf(ROUND_UP(aligned_frame_size, 16) <= sizeof(buf),
+            "opus cache op past buf: frame %lu, buf %u", aligned_frame_size, (unsigned)sizeof(buf));
         data_cache_hit_writeback_invalidate(buf, aligned_frame_size);
         int size = read(wav->st->current_fd, buf, aligned_frame_size);
         assertf(size == aligned_frame_size, "opus read past end: %d", size);
