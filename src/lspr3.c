@@ -46,8 +46,11 @@
 /** @brief H264I decode macroblock ring size */
 #define H264I_MB_RING 2
 
-/** @brief Required alignment of the decoded sprite buffer. */
+/** @brief Required alignment of the decoded sprite's pixel area (RDP color image). */
 #define H264I_BUF_ALIGN 64
+
+/** @brief Alignment that newlib's malloc guarantees. */
+#define H264I_MALLOC_ALIGN 8
 
 /**
  * @brief Header structure for H264I-encoded files.
@@ -92,7 +95,18 @@ static size_t lspr3_decoded_size_buf(const void *encoded_buf, int encoded_sz) {
     assertf(hdr->version == H264I_VERSION, "Invalid lossy sprite version (H264I version %d, expected %d)\nPlease regenerate your asset files", hdr->version, H264I_VERSION);
     size_t pixel_bytes = hdr->orig_width * hdr->orig_height * 2;
     size_t header_bytes = sizeof(sprite_t) + sizeof(sprite_ext_t);
-    return ROUND_UP(header_bytes, 64) + ROUND_UP(pixel_bytes, 16);
+    // The buffer comes from malloc, so the pixel area can move forward by up
+    // to (H264I_BUF_ALIGN - H264I_MALLOC_ALIGN) bytes to reach its alignment.
+    // See lspr3_pixel_offset().
+    return header_bytes + (H264I_BUF_ALIGN - H264I_MALLOC_ALIGN) + ROUND_UP(pixel_bytes, 16);
+}
+
+// Offset from the sprite start to the pixel area: the first H264I_BUF_ALIGN
+// boundary after the headers. It changes with the address malloc returns.
+static size_t lspr3_pixel_offset(const sprite_t *sprite)
+{
+    uintptr_t base = (uintptr_t)sprite;
+    return ROUND_UP(base + sizeof(sprite_t) + sizeof(sprite_ext_t), H264I_BUF_ALIGN) - base;
 }
 
 static void lspr3_decode_intra_slice(
@@ -242,7 +256,7 @@ static void lspr3_build_rgba16_sprite(
     int stride, int luma_h
 ) {
     uint8_t preserved_flags = sprite->flags & SPRITE_FLAGS_OWNEDBUFFER;
-    size_t header_bytes = ROUND_UP(sizeof(sprite_t) + sizeof(sprite_ext_t), 64);
+    size_t header_bytes = lspr3_pixel_offset(sprite);
     sys_hw_memset(sprite, 0, header_bytes);
     sprite->width = orig_w;
     sprite->height = orig_h;
@@ -321,11 +335,19 @@ static void lspr3_apply_alpha1(uint16_t *dst, uint16_t w, uint16_t h,
 }
 
 static sprite_t *lspr3_load_buf(const void *encoded_buf, int encoded_sz) {
-    // Allocate the buffer for the decoded sprite.
+    // Use malloc, not memalign. newlib's memalign asks malloc for
+    // (alignment + 16) bytes more than it needs and gives back only part of
+    // them. Thus when the blocks around a freed sprite stay in use, its hole
+    // is too small for the next sprite of the same size, and a caller that
+    // replaces one sprite with the next makes the heap grow. The pixel area moves
+    // forward inside the buffer to get its alignment (lspr3_pixel_offset).
+    // Callers release the buffer with sprite_free, which frees this pointer.
     size_t decoded_sz = lspr3_decoded_size_buf(encoded_buf, encoded_sz);
     assertf(decoded_sz > 0, "Invalid H264I buffer");
-    sprite_t *sprite = (sprite_t *)memalign(H264I_BUF_ALIGN, decoded_sz);
+    sprite_t *sprite = (sprite_t *)malloc(decoded_sz);
     assertf(sprite, "Out of memory");
+    assertf((uintptr_t)sprite % H264I_MALLOC_ALIGN == 0,
+        "H264I: malloc returned %p, which is not %d-byte aligned", sprite, H264I_MALLOC_ALIGN);
     sprite->flags = SPRITE_FLAGS_OWNEDBUFFER;
 
     // Decode the H264I bitstream into YUV planes. The file puts
@@ -337,6 +359,10 @@ static sprite_t *lspr3_load_buf(const void *encoded_buf, int encoded_sz) {
     assertf((size_t)encoded_sz >= sizeof(lspr3_header_t) + 2 + H264BSD_STREAM_PAD + alpha_size,
         "H264I buffer truncated (sz=%d, alpha_size=%zu)", encoded_sz, alpha_size);
     size_t payload_size = (size_t)encoded_sz - sizeof(lspr3_header_t) - H264BSD_STREAM_PAD - alpha_size;
+    const size_t out_px_bytes = (size_t)hdr->orig_width * hdr->orig_height * 2;
+    assertf(lspr3_pixel_offset(sprite) + out_px_bytes <= decoded_sz,
+        "H264I: pixel area overflows the sprite buffer (offset %u + %u > %u)",
+        (unsigned)lspr3_pixel_offset(sprite), (unsigned)out_px_bytes, (unsigned)decoded_sz);
     uint8_t *pic = NULL;
     size_t pic_size = 0;
     lspr3_decode_intra_slice(
@@ -361,8 +387,7 @@ static sprite_t *lspr3_load_buf(const void *encoded_buf, int encoded_sz) {
     // Re-apply the lossless 1-bit alpha mask (if any) on top of the RGBA5551
     // pixels the RDP just produced (the YUV combiner writes alpha=1 everywhere).
     if (alpha_size) {
-        size_t header_bytes = ROUND_UP(sizeof(sprite_t) + sizeof(sprite_ext_t), 64);
-        uint16_t *dst = (uint16_t *)((uint8_t *)sprite + header_bytes);
+        uint16_t *dst = (uint16_t *)((uint8_t *)sprite + lspr3_pixel_offset(sprite));
         const uint8_t *bitmap = hdr->payload + payload_size + H264BSD_STREAM_PAD;
         lspr3_apply_alpha1(dst, hdr->orig_width, hdr->orig_height, bitmap);
     }
