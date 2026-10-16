@@ -663,7 +663,10 @@ static volatile uint32_t* rspq_switch_buffer(uint32_t *new, int size, bool clear
     int terminator_words = clear && rspq_ctx == &lowpri ?
         RSPQ_LOWPRI_HANDOFF_WORDS : 2;
     assert(size >= RSPQ_MAX_COMMAND_SIZE + terminator_words);
-    if (clear) memset(new, 0, size * sizeof(uint32_t));
+    // The buffers are uncached. A CPU memset of uncached memory is slow
+    // (about 100 us for a 2 KB lowpri buffer on hardware). The MI repeat
+    // mode clears the same buffer in about 10 us.
+    if (clear) sys_hw_memset(new, 0, size * sizeof(uint32_t));
 
     // Switch to the new buffer, and calculate the new sentinel. The sentinel
     // must allow for a maximum size command (RSPQ_MAX_SHORT_COMMAND_SIZE) to
