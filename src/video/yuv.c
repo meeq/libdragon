@@ -318,6 +318,9 @@ static void yuv_tex_blit_run(int width, int height, float x0, float y0,
     // after (after "width" texels).
     rdpq_set_tile(TILE4, FMT_IA16, 0,         0, NULL);
     rdpq_set_tile(TILE5, FMT_IA16, width,     0, NULL);
+    // Tile used only for the last UV line (see below). It loads the line a
+    // third time, at the offset where the next line goes otherwise.
+    rdpq_set_tile(TILE3, FMT_IA16, width*2,   0, NULL);
 
     // Tile used to load the Y line from the Y buffer into TMEM. The Y texels
     // are stored in the upper half of TMEM, so we need to load them at offset
@@ -339,8 +342,18 @@ static void yuv_tex_blit_run(int width, int height, float x0, float y0,
             // Load one UV line two times, with two LOAD_BLOCK commands, from the
             // surface configured in lookup block 2. subsequent offsets in TMEM.
             rdpq_set_texture_image(&uvp);
-            rdpq_load_block_fx(TILE4, 0, y/2, width, 0);
-            rdpq_load_block_fx(TILE5, 0, y/2, width, 0);
+            if (y + 2 < height) {
+                rdpq_load_block_fx(TILE4, 0, y/2, width, 0);
+                rdpq_load_block_fx(TILE5, 0, y/2, width, 0);
+            } else {
+                // The last UV line has no next line. The two loads above
+                // would read one line past the end of the UV buffer, and the
+                // filter samples it for the last pixel. Load the last line
+                // three times instead, so it is repeated.
+                rdpq_load_block_fx(TILE4, 0, y/2, width/2, 0);
+                rdpq_load_block_fx(TILE5, 0, y/2, width/2, 0);
+                rdpq_load_block_fx(TILE3, 0, y/2, width/2, 0);
+            }
 
             // Configure TILE0/1 to match the two YUV lines that we prepared in TMEM.
             rdpq_set_tile_size(TILE0, 0, y,   width, y+1);
