@@ -47,8 +47,11 @@
 /** @brief H264I decode macroblock ring size */
 #define H264I_MB_RING 2
 
-/** @brief Required alignment of the decoded sprite buffer. */
+/** @brief Required alignment of the decoded sprite's pixel area (RDP color image). */
 #define H264I_BUF_ALIGN 64
+
+/** @brief Alignment that newlib's malloc guarantees. */
+#define H264I_MALLOC_ALIGN 8
 
 /** @brief Set to 1 to enable per-allocation heap/scratch trace dumps for
  *  diagnosing memory pressure during cam decodes. Off in production. */
@@ -114,7 +117,18 @@ static size_t lspr3_decoded_size_buf(const void *encoded_buf, int encoded_sz,
     size_t out_h = hdr->orig_height / y_divisor;
     size_t pixel_bytes = out_w * out_h * 2;
     size_t header_bytes = sizeof(sprite_t) + sizeof(sprite_ext_t);
-    return ROUND_UP(header_bytes, 64) + ROUND_UP(pixel_bytes, 16);
+    // The buffer comes from malloc, so the pixel area can move forward by up
+    // to (H264I_BUF_ALIGN - H264I_MALLOC_ALIGN) bytes to reach its alignment.
+    // See lspr3_pixel_offset().
+    return header_bytes + (H264I_BUF_ALIGN - H264I_MALLOC_ALIGN) + ROUND_UP(pixel_bytes, 16);
+}
+
+// Offset from the sprite start to the pixel area: the first H264I_BUF_ALIGN
+// boundary after the headers. It changes with the address malloc returns.
+static size_t lspr3_pixel_offset(const sprite_t *sprite)
+{
+    uintptr_t base = (uintptr_t)sprite;
+    return ROUND_UP(base + sizeof(sprite_t) + sizeof(sprite_ext_t), H264I_BUF_ALIGN) - base;
 }
 
 static void lspr3_decode_intra_slice(
@@ -469,7 +483,7 @@ static void lspr3_decode_intra_slice_banded(
 static uint8_t *lspr3_setup_rgba16_sprite_header(sprite_t *sprite, uint16_t out_w, uint16_t out_h)
 {
     uint8_t preserved_flags = sprite->flags & SPRITE_FLAGS_OWNEDBUFFER;
-    size_t header_bytes = ROUND_UP(sizeof(sprite_t) + sizeof(sprite_ext_t), 64);
+    size_t header_bytes = lspr3_pixel_offset(sprite);
     sys_hw_memset(sprite, 0, header_bytes);
     sprite->width = out_w;
     sprite->height = out_h;
@@ -601,12 +615,19 @@ sprite_t *lspr3_load_buf_ex(const void *encoded_buf, int encoded_sz,
     assertf(y_divisor == 1 || y_divisor == 2,
         "H264I: output_y_divisor must be 1 or 2 (got %d)", y_divisor);
 
-    // Align the owned sprite buffer so its post-header pixel area satisfies the
-    // RDP color-image alignment requirement. Callers release it with sprite_free.
+    // Use malloc, not memalign. newlib's memalign asks malloc for
+    // (alignment + 16) bytes more than it needs and gives back only part of
+    // them. Thus when the blocks around a freed sprite stay in use, its hole
+    // is too small for the next sprite of the same size, and a caller that
+    // replaces one sprite with the next makes the heap grow. The pixel area moves
+    // forward inside the buffer to get its alignment (lspr3_pixel_offset).
+    // Callers release the buffer with sprite_free, which frees this pointer.
     size_t decoded_sz = lspr3_decoded_size_buf(encoded_buf, encoded_sz, x_divisor, y_divisor);
     assertf(decoded_sz > 0, "Invalid H264I buffer");
-    sprite_t *sprite = (sprite_t *)memalign(H264I_BUF_ALIGN, decoded_sz);
+    sprite_t *sprite = (sprite_t *)malloc(decoded_sz);
     assertf(sprite, "H264I: out of memory (sprite %u)", (unsigned)decoded_sz);
+    assertf((uintptr_t)sprite % H264I_MALLOC_ALIGN == 0,
+        "H264I: malloc returned %p, which is not %d-byte aligned", sprite, H264I_MALLOC_ALIGN);
     sprite->flags = SPRITE_FLAGS_OWNEDBUFFER;
     lspr3_memdump("post-sprite-alloc");
 
@@ -626,6 +647,10 @@ sprite_t *lspr3_load_buf_ex(const void *encoded_buf, int encoded_sz,
     assertf((size_t)encoded_sz >= sizeof(lspr3_header_t) + 2 + H264BSD_STREAM_PAD + alpha_size,
         "H264I buffer truncated (sz=%d, alpha_size=%zu)", encoded_sz, alpha_size);
     size_t payload_size = (size_t)encoded_sz - sizeof(lspr3_header_t) - H264BSD_STREAM_PAD - alpha_size;
+    const size_t out_px_bytes = (size_t)(hdr->orig_width / x_divisor) * (hdr->orig_height / y_divisor) * 2;
+    assertf(lspr3_pixel_offset(sprite) + out_px_bytes <= decoded_sz,
+        "H264I: pixel area overflows the sprite buffer (offset %u + %u > %u)",
+        (unsigned)lspr3_pixel_offset(sprite), (unsigned)out_px_bytes, (unsigned)decoded_sz);
     const int mb_w = (hdr->width + 15) / 16;
     const int mb_h = (hdr->height + 15) / 16;
     const int stride = mb_w * 16;
@@ -658,7 +683,7 @@ sprite_t *lspr3_load_buf_ex(const void *encoded_buf, int encoded_sz,
     // banded converts should be identical except possibly the chroma-upsample
     // rows at band seams, so the report includes the diff count + first row.
     {
-        sprite_t *spr2 = (sprite_t*)memalign(H264I_BUF_ALIGN, decoded_sz);
+        sprite_t *spr2 = (sprite_t*)malloc(decoded_sz);
         if (spr2) {
             spr2->flags = SPRITE_FLAGS_OWNEDBUFFER;
             const int vbr = (band_rows > 0) ? 0 : LSPR3_VERIFY_BAND_ROWS;
@@ -678,10 +703,9 @@ sprite_t *lspr3_load_buf_ex(const void *encoded_buf, int encoded_sz,
                 scratch_free(p2);
             }
             unsigned us = (unsigned)TICKS_TO_US(TICKS_READ() - tv0);
-            const size_t hdr_bytes = ROUND_UP(sizeof(sprite_t) + sizeof(sprite_ext_t), 64);
             const size_t px = (size_t)sprite->width * sprite->height * 2;
-            const uint8_t *a = (const uint8_t*)sprite + hdr_bytes;
-            const uint8_t *b = (const uint8_t*)spr2 + hdr_bytes;
+            const uint8_t *a = (const uint8_t*)sprite + lspr3_pixel_offset(sprite);
+            const uint8_t *b = (const uint8_t*)spr2 + lspr3_pixel_offset(spr2);
             size_t first = 0, ndiff = 0;
             for (size_t k = 0; k < px; k++) { if (a[k] != b[k]) { if (!ndiff) first = k; ndiff++; } }
             if (ndiff) {
@@ -703,8 +727,7 @@ sprite_t *lspr3_load_buf_ex(const void *encoded_buf, int encoded_sz,
     // The mask is applied at source resolution to the final sprite, so it works
     // for both the full-frame and banded paths (divisors are ruled out above).
     if (alpha_size) {
-        size_t header_bytes = ROUND_UP(sizeof(sprite_t) + sizeof(sprite_ext_t), 64);
-        uint16_t *dst = (uint16_t *)((uint8_t *)sprite + header_bytes);
+        uint16_t *dst = (uint16_t *)((uint8_t *)sprite + lspr3_pixel_offset(sprite));
         const uint8_t *bitmap = hdr->payload + payload_size + H264BSD_STREAM_PAD;
         lspr3_apply_alpha1(dst, hdr->orig_width, hdr->orig_height, bitmap);
     }
@@ -712,7 +735,7 @@ sprite_t *lspr3_load_buf_ex(const void *encoded_buf, int encoded_sz,
     return sprite;
 }
 
-// Default decoder callback registered with sprite_load_buf: uses memalign
+// Default decoder callback registered with sprite_load_buf: uses malloc
 // for the output (callers that go through sprite_load / sprite_load_buf
 // can pass the result to sprite_free unchanged).
 static sprite_t *lspr3_load_buf(const void *encoded_buf, int encoded_sz) {
