@@ -271,6 +271,15 @@ uint32_t add_directory(const char * const base_path, const char * const path)
 
             tmp_entry = sector_to_memory(new_entry);
             tmp_entry->file_pointer = SWAPLONG(new_directory);
+
+            /* Add the directory to the lookup table too, so that a lookup
+               miss proves that a path does not exist. */
+            dfs_file_t temp_dir;
+            temp_dir.path = strdup(file+strlen(base_path)+1);
+            temp_dir.path_hash = prime_hash(temp_dir.path, DFS_LOOKUP_PRIME);
+            temp_dir.data_ofs = new_directory;
+            temp_dir.data_len = DFS_LOOKUP_DIR;
+            stbds_arrpush(dfs_files, temp_dir);
         }
 
         free(file);
@@ -335,6 +344,11 @@ void create_dfs_lookup(void)
     
     for(uint32_t i=0; i<num_files; i++) {
         uint32_t len = strlen(dfs_files[i].path)+1;
+        /* path_ofs keeps the length in 12 bits and the offset in 20 bits */
+        if (len >= (1u << 12))
+            fatal("path '%s' too long for the lookup table", dfs_files[i].path);
+        if (path_curr_ofs >= (1u << 20))
+            fatal("too many path bytes for the lookup table");
         rom_lookup->files[i].path_ofs = SWAPLONG((len << 20)|path_curr_ofs);
         path_curr_ofs += len;
         if(len % 2 != 0) {
