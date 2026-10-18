@@ -19,7 +19,7 @@
 /** @brief The special ID value in #directory_entry::next_entry defining the root sector */
 #define ROOT_NEXT_ENTRY 0xDEADBEEF
 /** @brief Special path value in #directory_entry::path defining the root sector */
-#define ROOT_PATH       "DragonFS 2.1"
+#define ROOT_PATH       "DragonFS 2.2"
 
 
 /** @brief The size of a sector */
@@ -66,9 +66,19 @@ typedef struct dfs_lookup_file_s {
     uint32_t path_ofs;
     /** @brief Data offset for file */
     uint32_t data_ofs;
-    /** @brief Data length for file */
+    /** @brief Data length for file, or #DFS_LOOKUP_DIR for a directory */
     uint32_t data_len;
 } dfs_lookup_file_t;
+
+/**
+ * @brief Value of #dfs_lookup_file_t::data_len for a directory.
+ *
+ * The lookup table has directories as well as files, so a lookup miss
+ * means that the path does not exist. For a directory, data_ofs is the
+ * offset of the first child dirent, or 0 if the directory is empty.
+ * A file size cannot have this bit set: file dirents keep only 28 bits.
+ */
+#define DFS_LOOKUP_DIR   (1u << 31)
 
 /** @brief Data for DFS file lookup used to speed up file open performance */
 typedef struct dfs_lookup_s {

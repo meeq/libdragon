@@ -729,7 +729,7 @@ static dfs_lookup_file_t *lookup_file(const char *const path)
         return NULL;
     }
     uint32_t src_path_len = strlen(path)+1;
-    for(int32_t i=index; lookup->files[i].path_hash == hash; i++) {
+    for(int32_t i=index; i < (int32_t)lookup->num_files && lookup->files[i].path_hash == hash; i++) {
         uint32_t path_ofs = lookup->files[i].path_ofs;
         uint32_t path_len = path_ofs >> 20;
         if(src_path_len != path_len) {
@@ -746,6 +746,58 @@ static dfs_lookup_file_t *lookup_file(const char *const path)
     return NULL;
 }
 
+/**
+ * @brief Find a file (not a directory) in the lookup table
+ *
+ * dfs_open, dfs_rom_addr and dfs_rom_size accept only files.
+ */
+static dfs_lookup_file_t *lookup_regular_file(const char *const path)
+{
+    dfs_lookup_file_t *entry = lookup_file(path);
+    if(entry && (entry->data_len & DFS_LOOKUP_DIR)) {
+        return NULL;
+    }
+    return entry;
+}
+
+/**
+ * @brief Check if the lookup table can answer for a path on its own
+ *
+ * The table has each file and directory under its exact path. The directory
+ * walk also accepts empty, "." and ".." components, and it cuts long
+ * components. Such paths must take the walk to get the same result.
+ */
+static bool is_plain_path(const char *path)
+{
+    int len = 0, parts = 1;
+    if(!*path) {
+        return false;
+    }
+    for(const char *p = path; ; p++) {
+        if(*p == '/' || *p == 0) {
+            if(len == 0) {
+                return false;
+            }
+            if(len == 1 && p[-1] == '.') {
+                return false;
+            }
+            if(len == 2 && p[-1] == '.' && p[-2] == '.') {
+                return false;
+            }
+            if(len > MAX_FILENAME_LEN) {
+                return false;
+            }
+            if(*p == 0) {
+                return parts < MAX_DIRECTORY_DEPTH;
+            }
+            len = 0;
+            parts++;
+        } else {
+            len++;
+        }
+    }
+}
+
 int dfs_open(const char *path)
 {
     dfs_open_file_t *file;
@@ -754,7 +806,7 @@ int dfs_open(const char *path)
         path++;
     }
     if(can_use_hash(path)) {
-        dfs_lookup_file_t *entry = lookup_file(path);
+        dfs_lookup_file_t *entry = lookup_regular_file(path);
         if(!entry)
         {
             //File not found
@@ -996,7 +1048,7 @@ pi_addr_t dfs_rom_addr(const char *path)
         path++;
     }
     if(can_use_hash(path)) {
-        dfs_lookup_file_t *entry = lookup_file(path);
+        dfs_lookup_file_t *entry = lookup_regular_file(path);
         if(!entry)
         {
             //File not found
@@ -1032,7 +1084,7 @@ int dfs_rom_size(const char *path)
     }
 
     if(can_use_hash(path)) {
-        dfs_lookup_file_t *entry = lookup_file(path);
+        dfs_lookup_file_t *entry = lookup_regular_file(path);
         if(!entry)
         {
             /* File not found */
@@ -1161,6 +1213,29 @@ static int __fstat( void *file, struct stat *st )
  */
 static int __stat( char *name, struct stat *st )
 {
+    /* The directory walk reads one dirent per PI DMA, so it is slow on a
+       large filesystem. The lookup table has every file and directory, so
+       it answers with a few DMAs. */
+    bool absolute = name[0] == '/';
+    const char *path = absolute ? name + 1 : name;
+    if((absolute || directory_top == 0) && is_plain_path(path)) {
+        dfs_lookup_file_t *entry = lookup_file(path);
+        if(!entry) {
+            __dfs_set_errno(DFS_ENOFILE);
+            return -1;
+        }
+        memset(st, 0, sizeof(struct stat));
+        st->st_nlink = 1;
+        if(entry->data_len & DFS_LOOKUP_DIR) {
+            st->st_mode = S_IFDIR;
+            st->st_size = 0;
+        } else {
+            st->st_mode = S_IFREG;
+            st->st_size = (int)(entry->data_len);
+        }
+        return DFS_ESUCCESS;
+    }
+
     pi_addr_t dirent;
     int ret = recurse_path(name, WALK_STAT, &dirent, TYPE_ANY);
 
