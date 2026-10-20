@@ -64,6 +64,10 @@ static pi_addr_t next_entry = 0;
 #define OPENFILE_TO_HANDLE(file)        ((int)PhysicalAddr(file))
 /** @brief Convert a handle to an open file pointer */
 #define HANDLE_TO_OPENFILE(handle)      ((dfs_open_file_t*)((uint32_t)(handle) | 0x80000000))
+/** @brief Allocate a sector buffer on the stack that owns its cachelines */
+#define DIRENT_ALLOCA()                 __builtin_alloca_with_align(MAX_DIRENT_SIZE, 16*8)
+
+_Static_assert(MAX_DIRENT_SIZE % 16 == 0, "MAX_DIRENT_SIZE must be a multiple of the cacheline size");
 
 /**
  * @brief Read a sector from cartspace
@@ -74,10 +78,15 @@ static pi_addr_t next_entry = 0;
  * @param[in]  cart_loc
  *             Pointer to cartridge location
  * @param[out] ram_loc
- *             Pointer to RAM buffer to place the read sector
+ *             Pointer to RAM buffer to place the read sector. It must be
+ *             aligned to the cacheline size (see DIRENT_ALLOCA).
  */
 static inline void grab_sector(pi_addr_t cart_loc, void *ram_loc)
 {
+    /* The buffer must own its cachelines. If it shares one with other data,
+       the CPU can refill that line between the invalidate and the DMA, and
+       later reads of the buffer then return stale bytes. */
+    assertf(((uint32_t)ram_loc & 15) == 0, "unaligned sector buffer %p", ram_loc);
     /* Make sure we have fresh cache */
     data_cache_hit_writeback_invalidate(ram_loc, MAX_DIRENT_SIZE);
     dma_read(ram_loc, cart_loc, MAX_DIRENT_SIZE);
@@ -325,7 +334,7 @@ static char *get_next_token(char *path, char *token)
  */
 static pi_addr_t find_dirent(char *name, pi_addr_t cur_node)
 {
-    directory_entry_t* node = alloca(MAX_DIRENT_SIZE);
+    directory_entry_t* node = DIRENT_ALLOCA();
 
     while(cur_node)
     {
@@ -436,7 +445,7 @@ static int recurse_path(const char * const path, int mode, pi_addr_t *dirent, in
             if(tmp_node)
             {
                 /* Grab node, make sure it is a directory, push subdirectory, try again! */
-                directory_entry_t* node = alloca(MAX_DIRENT_SIZE);
+                directory_entry_t* node = DIRENT_ALLOCA();
                 grab_sector(tmp_node, node);
 
                 uint32_t flags = get_flags(node);
@@ -544,7 +553,7 @@ static bool init_dfs_lookup(directory_entry_t *id_node)
 static int __dfs_init(pi_addr_t base_fs_loc)
 {
     /* Check to see if it passes the check */
-    directory_entry_t* id_node = alloca(MAX_DIRENT_SIZE);
+    directory_entry_t* id_node = DIRENT_ALLOCA();
     grab_sector(base_fs_loc, id_node);
 
     if(id_node->flags == ROOT_FLAGS && !strcmp(id_node->path, ROOT_PATH))
@@ -610,7 +619,7 @@ static int __dfs_findfirst(const char * const path, char *buf, pi_addr_t *next_e
     }
 
     /* We now have the pointer to the first entry */
-    directory_entry_t* t_node = alloca(MAX_DIRENT_SIZE);
+    directory_entry_t* t_node = DIRENT_ALLOCA();
     grab_sector(dirent, t_node);
 
     if(buf)
@@ -633,7 +642,7 @@ static int __dfs_findnext(char *buf, pi_addr_t *next_entry)
     }
 
     /* We already calculated the pointer, just grab the information */
-    directory_entry_t *t_node = alloca(MAX_DIRENT_SIZE);
+    directory_entry_t *t_node = DIRENT_ALLOCA();
     grab_sector(*next_entry, t_node);
 
     if(buf)
@@ -790,7 +799,7 @@ int dfs_open(const char *path)
         }
 
         /* We now have the pointer to the file entry */
-        directory_entry_t *t_node = alloca(MAX_DIRENT_SIZE);
+        directory_entry_t *t_node = DIRENT_ALLOCA();
         grab_sector(dirent, t_node);
 
         /* Set up file handle */
@@ -1015,7 +1024,7 @@ pi_addr_t dfs_rom_addr(const char *path)
         }
 
         /* We now have the pointer to the file entry */
-        directory_entry_t *t_node = alloca(MAX_DIRENT_SIZE);
+        directory_entry_t *t_node = DIRENT_ALLOCA();
         grab_sector(dirent, t_node);
 
         /* Return the starting location in ROM */
@@ -1054,7 +1063,7 @@ int dfs_rom_size(const char *path)
         }
 
         /* We now have the pointer to the file entry */
-        directory_entry_t *t_node = alloca(MAX_DIRENT_SIZE);
+        directory_entry_t *t_node = DIRENT_ALLOCA();
         grab_sector(dirent, t_node);
 
         /* Return the starting location in ROM */
@@ -1175,7 +1184,7 @@ static int __stat( char *name, struct stat *st )
     st->st_nlink = 1;
 
     /* We now have the pointer to the first entry */
-    directory_entry_t *t_node = alloca(MAX_DIRENT_SIZE);
+    directory_entry_t *t_node = DIRENT_ALLOCA();
     grab_sector(dirent, t_node);
 
     /* Populate the structure with the proper values */
