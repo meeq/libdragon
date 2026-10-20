@@ -87,6 +87,23 @@ typedef struct lspr3_load_parms_s {
      * frame's worth of transient YUV).
      */
     int band_rows;
+
+    /**
+     * @brief Function that the decoder calls after each macroblock row.
+     *
+     * The decode of a large image can take many video frames. Use this
+     * function for work that must continue during the decode, for example
+     * to mix audio. The decoder gives @ref row_callback_ctx to the function.
+     *
+     * The function can queue RSP work with rspq, also high-priority work.
+     * It must not use rdpq.
+     *
+     * NULL (default) = no call.
+     */
+    void (*row_callback)(void *ctx);
+
+    /** @brief Argument for @ref row_callback. */
+    void *row_callback_ctx;
 } lspr3_load_parms_t;
 
 /**

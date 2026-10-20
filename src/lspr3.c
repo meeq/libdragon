@@ -123,7 +123,9 @@ static void lspr3_decode_intra_slice(
     uint8_t pic_init_qp,
     int8_t chroma_qp_index_offset,
     uint8_t **out_yuv,
-    size_t *out_yuv_size
+    size_t *out_yuv_size,
+    void (*row_callback)(void *ctx),
+    void *row_callback_ctx
 ) {
     assertf(payload_size >= 2, "H264I: payload too small");
 
@@ -241,6 +243,7 @@ static void lspr3_decode_intra_slice(
         // to reuse once the RSP reaches this point.
         slot_sync[slot] = rspq_syncpoint_new();
         currMbAddr++;
+        if (row_callback && currMbAddr % (u32)mb_w == 0) row_callback(row_callback_ctx);
         if (!h264bsdMoreRbspData(&strm)) break;
     }
 
@@ -310,7 +313,8 @@ static void lspr3_decode_intra_slice_banded(
     uint16_t orig_w, uint16_t orig_h,
     uint8_t pic_init_qp, int8_t chroma_qp_index_offset,
     uint8_t *out_yuv, sprite_t *out_sprite, int band_rows,
-    int x_div, int y_div
+    int x_div, int y_div,
+    void (*row_callback)(void *ctx), void *row_callback_ctx
 ) {
     assertf(payload_size >= 2, "H264I-band: payload too small");
     uint8_t nal_hdr = payload[0];
@@ -422,6 +426,7 @@ static void lspr3_decode_intra_slice_banded(
             assertf(s2 == HANTRO_OK, "H264I-band: mb decode fail at %lu", (unsigned long)currMbAddr);
             slot_sync[slot] = rspq_syncpoint_new();
             currMbAddr++;
+            if (row_callback && currMbAddr % (u32)mb_w == 0) row_callback(row_callback_ctx);
         }
         rsph264_sync();   // RSP has written this band's MBs into the window
 
@@ -647,6 +652,8 @@ sprite_t *lspr3_load_buf_ex(const void *encoded_buf, int encoded_sz,
     const int stride = mb_w * 16;
     const int luma_h = mb_h * 16;
     const int band_rows = (parms && parms->band_rows > 0) ? parms->band_rows : 0;
+    void (*row_callback)(void *ctx) = parms ? parms->row_callback : NULL;
+    void *row_callback_ctx = parms ? parms->row_callback_ctx : NULL;
 
     if (band_rows > 0) {
         // Banded: reconstruct + convert band-by-band straight into the sprite;
@@ -655,14 +662,15 @@ sprite_t *lspr3_load_buf_ex(const void *encoded_buf, int encoded_sz,
             hdr->payload, payload_size, hdr->width, hdr->height,
             hdr->orig_width, hdr->orig_height,
             hdr->pic_init_qp, hdr->chroma_qp_index_offset,
-            NULL, sprite, band_rows, x_divisor, y_divisor);
+            NULL, sprite, band_rows, x_divisor, y_divisor, row_callback, row_callback_ctx);
     } else {
         // Full-frame: decode the whole frame, then convert in one pass.
         uint8_t *pic = NULL;
         size_t pic_size = 0;
         lspr3_decode_intra_slice(
             hdr->payload, payload_size, hdr->width, hdr->height,
-            hdr->pic_init_qp, hdr->chroma_qp_index_offset, &pic, &pic_size);
+            hdr->pic_init_qp, hdr->chroma_qp_index_offset, &pic, &pic_size,
+            row_callback, row_callback_ctx);
         lspr3_build_rgba16_sprite(sprite, pic, hdr->orig_width, hdr->orig_height,
                                   stride, luma_h, x_divisor, y_divisor);
         scratch_free(pic);
