@@ -160,6 +160,19 @@ void wav64_set_loop(wav64_t *wav, bool loop);
  */
 void wav64_play(wav64_t *wav, int ch);
 
+/** @brief Start playing a WAV64 file at the specified frequency.
+ *
+ * This is a simple wrapper that calls #mixer_ch_play_freq on the WAV64's
+ * waveform (wav64_t::wave). The frequency of the file is not applied, so it
+ * can be above the limit of the channel.
+ *
+ * @param   wav         Pointer to wav64_t structure
+ * @param   ch          Channel of the mixer to use for playback.
+ * @param   frequency   Playback frequency (in Hz / samples per second)
+ */
+LIBDRAGON_PREVIEW_API
+void wav64_play_freq(wav64_t *wav, int ch, float frequency);
+
 /**
  * @brief Seek a playing WAV64 to a given time position (in seconds).
  * @preview

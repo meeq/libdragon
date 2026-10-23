@@ -1041,7 +1041,12 @@ static void mixer_ch_seek(int ch) {
 		samplebuffer_flush(sbuf);
 }
 
-void mixer_ch_play(int ch, waveform_t *wave)
+/**
+ * Start @p wave on @p ch. With @p set_freq, the channel plays at @p frequency
+ * from its first sample, and the waveform frequency is never applied: it can
+ * be above the channel limit.
+ */
+static void mixer_ch_start(int ch, waveform_t *wave, bool set_freq, float frequency)
 {
 	assert(ch < Mixer.num_channels);
 	samplebuffer_t *sbuf = &Mixer.ch_buf[ch];
@@ -1208,7 +1213,8 @@ void mixer_ch_play(int ch, waveform_t *wave)
 			int bps = (wave->bits == 16 ? 1 : 0) + (wave->channels == 2 ? 1 : 0);
 			c->flags |= bps | (wave->channels == 2 ? CH_FLAGS_STEREO : 0) | (wave->bits == 16 ? CH_FLAGS_16BIT : 0);
 		}
-		mixer_ch_set_freq(ch, wave->frequency);
+		if (!set_freq)
+			mixer_ch_set_freq(ch, wave->frequency);
 
 		if (!resident && wave->start)
 			wave->start(wave->ctx, sbuf);
@@ -1222,6 +1228,8 @@ void mixer_ch_play(int ch, waveform_t *wave)
 		assertf(sbuf->wave == wave, "%s: uuid match (%ld) but pointer mismatch: %p != %p",
 			wave->name, wave->__uuid, sbuf->wave, wave);
 	}
+	if (set_freq)
+		mixer_ch_set_freq(ch, frequency);
 
 	// Restart from the beginning of the waveform, with the loop armed again:
 	// a #mixer_ch_set_loop only applies to the note that was playing.
@@ -1282,6 +1290,16 @@ void mixer_ch_play(int ch, waveform_t *wave)
 	// set while it was idle can leave step stale.
 	mixer_ch_sync_freq(ch, Mixer.ticks);
 	mixer_refresh_max_ns(ch);
+}
+
+void mixer_ch_play(int ch, waveform_t *wave)
+{
+	mixer_ch_start(ch, wave, false, 0);
+}
+
+void mixer_ch_play_freq(int ch, waveform_t *wave, float frequency)
+{
+	mixer_ch_start(ch, wave, true, frequency);
 }
 
 void mixer_ch_set_pos(int ch, double pos) {
