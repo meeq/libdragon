@@ -153,6 +153,14 @@ void *malloc_uncached_aligned(int align, size_t size)
     if (align < 16)
         align = 16;
     size = ROUND_UP(size, 16);
+
+    // When newlib's malloc grows the heap, it asks sbrk for the full request.
+    // It does not count the free chunk at the end of the heap. Many large
+    // allocations in a row (for example video frame buffers) make that free
+    // chunk bigger each time, so an allocation can fail when the memory is
+    // available. Give the free end of the heap back to sbrk first. Then the
+    // grow can use it. The trim does not move any allocation.
+    malloc_trim(0);
     void *mem = memalign(align, size);
     if (!mem) return NULL;
 
