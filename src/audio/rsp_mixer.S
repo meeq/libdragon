@@ -12,9 +12,9 @@
 	#
 	#   MIX_SETCHANNEL – record the VADPCM codebook/state pointers of one channel
 	#                  into a per-channel DMEM table.
-	#   MIX_CHANNEL  – resample one channel for up to MAX_SAMPLES_PER_ROUND
-	#                  output ticks and accumulate into a stereo DMEM buffer
-	#                  (ACCUM) in .bss. Optionally decode mono VADPCM frames
+	#   MIX_CHANNEL  – resample one channel over a span of the round (up to
+	#                  MAX_SAMPLES_PER_ROUND output ticks) and accumulate into
+	#                  a stereo DMEM buffer (ACCUM) in .bss. Optionally decode mono VADPCM frames
 	#                  into a DMEM window first (CH_FLAGS_VADPCM). Stereo
 	#                  VADPCM is two independent mono MIX_CHANNELs (L/R planes).
 	#   MIX_FLUSH    – DMA ACCUM out to RDRAM and clear it.
@@ -41,14 +41,14 @@
 	# Volume ramps
 	# ============
 	#
-	# Each MIX_CHANNEL carries the volume the channel starts the round with,
-	# the one it ends the round on and the increment between the two, per
+	# Each MIX_CHANNEL carries the volume the channel starts its span with,
+	# the one it ends the span on and the increment between the two, per
 	# block of four output samples. The mixing loop walks the volume one
 	# output sample at a time and clamps it to the two ends, so a ramp can
-	# land anywhere inside a round; a channel with no ramp sends an increment
+	# land anywhere inside a span; a channel with no ramp sends an increment
 	# of zero and the clamp simply holds the volume. None of it costs a cycle:
 	# it all fits vector slots the loop leaves empty. The CPU recomputes the
-	# three values from absolute time at every round, so rounding of the
+	# three values from absolute time at every span, so rounding of the
 	# increment cannot accumulate into drift (see mixer_ch_set_vol_ramp).
 	#
 	####################################################################
@@ -140,7 +140,7 @@
 	.data
 
 	RSPQ_BeginOverlayHeader
-		RSPQ_DefineCommand MIX_CHANNEL,       36		# 0x0
+		RSPQ_DefineCommand MIX_CHANNEL,       40		# 0x0
 		RSPQ_DefineCommand MIX_SETCHANNEL,    16		# 0x1
 		RSPQ_DefineCommand MIX_FLUSH,         16		# 0x2
 		RSPQ_DefineCommand MIX_SETSTATE,      24		# 0x3
@@ -227,6 +227,13 @@ VADPCM_K0:
 
 	.bss
 
+	# The eight ACCUM samples that follow a span which ends inside the round,
+	# and their address (0 = the span ends with the round). See ACCUM_PAD.
+	# Kept away from the end of ACCUM_PAD, which the VADPCM decoder writes.
+	.align 2
+ACCUM_TAIL:               .dcb.w (8 * 2)
+ACCUM_TAIL_ADDR:          .half  0
+
 	# Stereo int16 accumulator for one mix round (LRLR...). Lives in .bss
 	# (not saved state) — kept out of the ACCUM bank
 	# bank. All MIX_CHANNEL + MIX_FLUSH of a round are enqueued in one
@@ -234,9 +241,11 @@ VADPCM_K0:
 	# mid-round. Cleared by the first MIX_CHANNEL (CH_FLAGS_CLEAR_ACCUM)
 	# and again by MIX_FLUSH after DMA-out.
 	# The mono resampler emits whole groups of 8 samples, so it can write up
-	# to 7 samples past the end of the round. ACCUM_PAD absorbs them; it is
-	# never DMA'd out, but it is cleared together with ACCUM so that the
-	# accumulation never saturates on leftovers.
+	# to 7 samples past the end of its span. At the end of the round ACCUM_PAD
+	# absorbs them; it is never DMA'd out, but it is cleared together with
+	# ACCUM so that the accumulation never saturates on leftovers. A span that
+	# ends inside the round would write them over the samples that follow it,
+	# so those are saved to ACCUM_TAIL first and put back at the end.
 	# ACCUM_PRE is the mirror image of that: entering the mono resampler
 	# costs one pass over the group before the first real one. The pass only
 	# adds zero, but it does read and write the slots, which on the very
@@ -323,8 +332,8 @@ CH_FLAGS:                 .half  0
 CH_IDX:                   .half  0
 CH_LVOL:                  .half  0
 CH_RVOL:                  .half  0
-# Volume this command's round ends on, [left:16][right:16]. Together with
-# CH_LVOL/CH_RVOL it gives the two ends of the round, which are the bounds the
+# Volume this command's span ends on, [left:16][right:16]. Together with
+# CH_LVOL/CH_RVOL it gives the two ends of the span, which are the bounds the
 # mixing loops clamp to. Equal to CH_LVOL/CH_RVOL when no ramp is running.
 	.align 2
 CH_TVOL:                  .long  0
@@ -333,10 +342,9 @@ CH_TVOL:                  .long  0
 # volume vectors.
 	.align 2
 CH_DVOL:                  .long  0
-# Output samples of the current round. Latched by every MIX_CHANNEL from
-# a0's 9-bit nsamples/2 field; shared by every channel of the round.
+# Output samples of the current command, from a0.
 # Not a scratch: the VADPCM path spills the live tick count elsewhere.
-ROUND_NSAMPLES:           .half  0
+CH_NSAMPLES:              .half  0
 # Scratch for the live tick count across a VADPCM decode, which clobbers the
 # scalar registers that hold it.
 CH_TICKS:                 .half  0
@@ -378,22 +386,24 @@ CH_VNFRAMES_TOT:          .long  0
 ###############################################################
 # MIX_CHANNEL – resample one channel and accumulate into ACCUM.
 #
-# Command words (32 bytes):
-#   a0: [ovl+cmd:8][ch:5][flags:8][nsamples/2:9]
-#   a1: [lvol:16][rvol:16]        volume at the start of the round
+# Command words (40 bytes):
+#   a0: [ovl+cmd:8][ch:5][flags:8][pad:1][nsamples:10]
+#   a1: [lvol:16][rvol:16]        volume at the start of the span
 #   a2: pos   (fixed point, WAVEFORM_POS_FRAC_BITS)
 #   a3: step
 #   +16: len
 #   +20: loop_len
 #   +24: ptr  (0 = nothing to mix)
 #   +28: [dlvol:16][drvol:16]     volume ramp, per block of 4 samples
-#   +32: [tlvol:16][trvol:16]     volume the round ends on (= lvol/rvol if none)
+#   +32: [tlvol:16][trvol:16]     volume the span ends on (= lvol/rvol if none)
+#   +36: [offset:16][pad:15][tail:1]
 #
-# nsamples is the same for every channel of a round and is always even
-# (see mixer_round_length), so every MIX_CHANNEL latches nsamples/2 from a0
-# into ROUND_NSAMPLES (9 bits: 0..256 covers MIXER_MAX_SAMPLES_PER_ROUND).
-# Accumulator writes always start at ACCUM: the old per-command acc_offset
-# was invariably 0.
+# The command mixes the nsamples output samples of the round that start at
+# offset (0..MAX_SAMPLES_PER_ROUND). Usually that is the whole round; the CPU
+# splits a channel into several spans when it must change something in the
+# middle of a round, such as the volume (see mixer_ch_add_event). tail is set
+# when the span ends before the round does: the samples after it are then
+# kept safe from the overshoot of the resampler (see ACCUM_TAIL).
 #
 # VADPCM codebook/state/loop_state come from the per-channel table filled by
 # MIX_SETCHANNEL.
@@ -424,7 +434,7 @@ CH_VNFRAMES_TOT:          .long  0
 	# v_xvol the four samples ACCUM's first quad holds, v_xvol4 the four of
 	# the second one, four samples further along the ramp. Both are built
 	# already staggered (lane k of v_xvol is k quarters of a half-group step
-	# above the volume the round starts at) and both advance by a whole
+	# above the volume the span starts at) and both advance by a whole
 	# group at a time, which is what the loop needs the step for.
 	#
 	# The step itself is not kept anywhere: it is the difference between the
@@ -434,8 +444,8 @@ CH_VNFRAMES_TOT:          .long  0
 	# what is left of the step and goes to zero as the ramp lands.
 	#
 	# The ramp is a slope and nothing else: what stops it on the value the
-	# CPU asked for is the clamp to [v_vlo, v_vhi], the two ends of the round
-	# sorted, which is also why a round never has to be cut short at the
+	# CPU asked for is the clamp to [v_vlo, v_vhi], the two ends of the span
+	# sorted, which is also why a span never has to be cut short at the
 	# point a ramp lands. With no ramp running the two bounds coincide and
 	# the clamp simply holds the volume.
 	#
@@ -525,7 +535,7 @@ CH_VNFRAMES_TOT:          .long  0
 	.func MIX_CHANNEL
 MIX_CHANNEL:
 	# Stash command parameters into DMEM.
-	# a0: bits[23:19]=ch_idx, bits[18:11]=flags, bits[8:0]=nsamples/2
+	# a0: bits[23:19]=ch_idx, bits[18:11]=flags, bits[9:0]=nsamples
 	srl t0, a0, 19
 	andi t0, 0x1F                  # ch_idx
 	sh t0, %lo(CH_IDX)
@@ -538,15 +548,15 @@ MIX_CHANNEL:
 	sh t0, %lo(CH_RVOL)
 	sw a2, %lo(CH_POS)
 	sw a3, %lo(CH_STEP)
-	lw t0, CMD_ADDR(0x10, 0x24)
+	lw t0, CMD_ADDR(0x10, 0x28)
 	sw t0, %lo(CH_LEN)
-	lw t0, CMD_ADDR(0x14, 0x24)
+	lw t0, CMD_ADDR(0x14, 0x28)
 	sw t0, %lo(CH_LOOP_LEN)
-	lw t0, CMD_ADDR(0x18, 0x24)
+	lw t0, CMD_ADDR(0x18, 0x28)
 	sw t0, %lo(CH_PTR)
-	lw t0, CMD_ADDR(0x20, 0x24)
+	lw t0, CMD_ADDR(0x20, 0x28)
 	sw t0, %lo(CH_TVOL)
-	lw t0, CMD_ADDR(0x1C, 0x24)
+	lw t0, CMD_ADDR(0x1C, 0x28)
 	sw t0, %lo(CH_DVOL)
 	# VADPCM pointers: fetch this channel's entry from the table.
 	lh t1, %lo(CH_IDX)
@@ -562,11 +572,8 @@ MIX_CHANNEL:
 	lqv v_const1, 0,t0
 	vxor v_zero, v_zero, v_zero
 
-	# Latch nsamples from a0. Same for every channel of a round; nsamples/2
-	# needs 9 bits because MIXER_MAX_SAMPLES_PER_ROUND is 512.
-	andi t1, a0, 0x1FF
-	sll t1, 1
-	sh t1, %lo(ROUND_NSAMPLES)
+	andi t1, a0, 0x3FF
+	sh t1, %lo(CH_NSAMPLES)
 
 	# Optionally clear ACCUM (first channel of a round).
 	lh t0, %lo(CH_FLAGS)
@@ -583,7 +590,30 @@ MIX_CHANNEL:
 	addi t0, -1
 
 MIX_CHANNEL_NoClear:
-	# Splat the volume this round starts at, the one it ends on and the
+	# Point acc_ptr at the start of the span and, if the span ends inside the
+	# round, save the samples after it (see ACCUM_TAIL). This must follow the
+	# clear: the first command of a round can be a span like any other.
+	lw t0, CMD_ADDR(0x24, 0x28)
+	srl s0, t0, 16
+	sll s0, 2
+	addi acc_ptr, s0, %lo(ACCUM)
+	andi t0, 1
+	beqz t0, 2f
+	move s1, zero
+	lh t1, %lo(CH_NSAMPLES)
+	sll t1, 2
+	add s1, acc_ptr, t1
+	li s4, %lo(ACCUM_TAIL)
+	li t2, %lo(ACCUM_TAIL) + 8*4
+	move s0, s1
+1:	lw t0, 0(s0)
+	addi s4, 4
+	addi s0, 4
+	bne s4, t2, 1b
+	sw t0, -4(s4)
+2:	sh s1, %lo(ACCUM_TAIL_ADDR)
+
+	# Splat the volume this span starts at, the one it ends on and the
 	# step between two of its points into [L,R,L,R,L,R,L,R] vectors.
 	# All three are stored as adjacent halfword pairs in DMEM, so one word
 	# replicated four times does each of them.
@@ -607,13 +637,13 @@ MIX_CHANNEL_NoClear:
 	sw t1, 0x0C(s0)
 	lqv v_diffc, 0x00,s0
 
-	lh ticks, %lo(ROUND_NSAMPLES)
+	lh ticks, %lo(CH_NSAMPLES)
 	beqz ticks, MIX_CHANNEL_Done
 
-	# Sort the two ends of the round into the bounds the mixing loop clamps
+	# Sort the two ends of the span into the bounds the mixing loop clamps
 	# to. v_vlo lands in the zero vector, so it is also stashed: every path
 	# that leaves the loop wants the zero back and reloads it from there.
-	# They are the ends of the round as a whole, so they are the same for
+	# They are the ends of the span as a whole, so they are the same for
 	# every lane: the stagger below adds a fraction of one step to them, and
 	# any lane it pushes past the far end is pinned there by the clamp.
 	vlt v_vlo, v_xvol, v_vhi
@@ -629,8 +659,6 @@ MIX_CHANNEL_NoClear:
 	vmudm $v08, v_diffc, $v08
 	vadd v_xvol, v_xvol, $v08
 	vadd v_xvol4, v_xvol, v_diffc
-
-	li acc_ptr, %lo(ACCUM)
 
 	lw wv_addr, %lo(CH_PTR)
 	beqz wv_addr, MIX_CHANNEL_Done
@@ -920,13 +948,13 @@ MonoPrime:
 	# Only the first vector is rewound, the second one is rebuilt from it,
 	# because the two ends of the ramp are a step apart and that step is all
 	# the loop has to go on. This is the one place the ramp leaves the range
-	# it spans, so the rewind can saturate: a round that starts at a volume
+	# it spans, so the rewind can saturate: a span that starts at a volume
 	# less than a group below the top of the fx15 range (a fade-out from
 	# full volume) begins a fraction of a group in instead. Rebuilding the
 	# second vector is what keeps the step exact when that happens; the
 	# starting volume is off by whatever was clipped, which is a hair of the
 	# ramp unless it is steep enough to cover the range in a few groups. Only
-	# the round a ramp starts in can be in that position — every later one
+	# the span a ramp starts in can be in that position — every later one
 	# starts from a volume the ramp has already passed through.
 	#
 	# It is also the one way into the loop, so this is where the lower bound
@@ -1205,7 +1233,7 @@ VadpcmSetup:
 
 	# DMA decoder state. next_frame = floor(pos/16); the cache is empty.
 	#
-	# A round can end exactly on the loop point, and then it is the CPU that
+	# A span can end exactly on the loop point, and then it is the CPU that
 	# wraps the position, leaving behind the state of the end of the waveform
 	# instead of the one of the loop. The CPU marks the command that starts on
 	# the frame the loop starts on, which decodes from the state saved for it —
@@ -1408,9 +1436,9 @@ VadpcmTapsDone:
 
 VadpcmEpilog:
 	# The resampler mixes in whole groups of eight and can run up to seven
-	# samples past the end of the round (ACCUM_PAD absorbs them). The next
+	# samples past the end of the span (see ACCUM_PAD). The next
 	# command resumes from the position the CPU keeps, which is the one the
-	# round really ended on: rewind to it, or the state saved below would be
+	# span really ended on: rewind to it, or the state saved below would be
 	# the one of a later frame and the decode would restart from the wrong
 	# samples.
 	bgez ticks, 3f
@@ -1445,10 +1473,22 @@ VadpcmEpilog:
 
 MIX_CHANNEL_SilenceLeft:
 	# A channel that runs out of data mixes nothing for the rest of the
-	# round, and there is no state left to carry across it: the volume of
-	# every round is computed from scratch by the CPU.
+	# span, and there is no state left to carry across it: the volume of
+	# every span is computed from scratch by the CPU.
 
 MIX_CHANNEL_Done:
+	# Put back the samples that follow the span, which the resampler may
+	# have mixed into (see ACCUM_TAIL).
+	lh s0, %lo(ACCUM_TAIL_ADDR)
+	beqz s0, 2f
+	li s4, %lo(ACCUM_TAIL)
+	li t2, %lo(ACCUM_TAIL) + 8*4
+1:	lw t0, 0(s4)
+	addi s4, 4
+	addi s0, 4
+	bne s4, t2, 1b
+	sw t0, -4(s0)
+2:
 	# Hand $v00 back to the next command as the zero vector: the mixing
 	# loop borrows it for the lower bound of the volume clamp, and not
 	# every path out of it goes through a reload.

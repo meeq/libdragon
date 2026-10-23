@@ -701,6 +701,52 @@ void mixer_add_event(int64_t delay, MixerEvent cb, void *ctx);
 void mixer_remove_event(MixerEvent cb, void *ctx);
 
 /**
+ * @brief Register a time-based event that changes one channel.
+ *
+ * Register a new event that belongs to channel "ch". "delay" is the number of
+ * samples to wait before calling the event callback. "cb" is the event
+ * callback. "ctx" is an opaque pointer that will be passed to the callback
+ * when invoked.
+ *
+ * Use this function instead of #mixer_add_event for an event that only
+ * changes channel "ch", such as a volume envelope. An event registered with
+ * #mixer_add_event ends the mix round at its sample, for all the channels. An
+ * event of a channel does not: the mixer mixes that channel in two parts, and
+ * calls the event at the exact sample between them. Many such events thus
+ * cost much less than the same events registered with #mixer_add_event.
+ *
+ * The callback can change the volume and the gain of channel "ch" (also
+ * with a ramp), or stop it. It must not change the waveform or the frequency
+ * of the channel. It must not play a channel, and it must not register or
+ * deregister events. A change to another channel takes effect at the start of
+ * a mix round, not at the sample of the event. Events of different channels
+ * can be called out of order.
+ *
+ * The event stays registered when the channel stops.
+ *
+ * @param[in]   ch              Channel the event changes. It must not be the
+ *                              secondary channel of a stereo waveform.
+ * @param[in]   delay           Number of samples to wait before invoking
+ *                              the event.
+ * @param[in]   cb              Event callback to invoke
+ * @param[in]   ctx             Context opaque pointer to pass to the callback
+ */
+void mixer_ch_add_event(int ch, int64_t delay, MixerEvent cb, void *ctx);
+
+/**
+ * @brief Deregister a time-based event of a channel.
+ *
+ * Deregister an event registered with #mixer_ch_add_event. The event must
+ * exist. Notice that an event can also deregister itself by returning 0 when
+ * called.
+ *
+ * @param[in]    ch             Channel that was registered with the callback.
+ * @param[in]    cb             Callback that was registered via #mixer_ch_add_event
+ * @param[in]    ctx            Opaque pointer that was registered with the callback.
+ */
+void mixer_ch_remove_event(int ch, MixerEvent cb, void *ctx);
+
+/**
  * @brief Callback invoked after every mixer round
  *
  * A soft event does not force the mixer to split a round or poll segment.
