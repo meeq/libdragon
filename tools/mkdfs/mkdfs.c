@@ -114,11 +114,31 @@ void print_help(const char * const prog_name)
     fprintf(stderr, "  and <Directory> is the directory (including subdirectories) to include\n");
 }
 
+/* Content of a file already in the image, keyed by a hash of its bytes.
+   Files with the same bytes share one blob: DFS is read-only, so two
+   entries can point at the same data. */
+typedef struct {
+    uint64_t key;
+    uint32_t blob;
+    uint32_t size;
+    const char *file;
+} dfs_blob_t;
+
+static dfs_blob_t *dfs_blobs = NULL;
+
+static uint64_t fnv1a64(const uint8_t *data, uint32_t size)
+{
+    uint64_t hash = 0xcbf29ce484222325ull;
+    for (uint32_t i = 0; i < size; i++) {
+        hash ^= data[i];
+        hash *= 0x100000001b3ull;
+    }
+    return hash;
+}
+
 uint32_t add_file(const char * const file, uint32_t *size)
 {
     FILE *fp;
-
-    printf("Adding '%s' to filesystem image.\n", file);
 
     fp = fopen(file, "rb");
     if(!fp) fatal("cannot open file '%s' for read", file);
@@ -130,12 +150,33 @@ uint32_t add_file(const char * const file, uint32_t *size)
     if (*size > 0x0FFFFFFF)
         fatal("file '%s' too big for the filesystem", file);
 
-    uint32_t blob = new_blob(*size);
-    uint8_t *data = sector_to_memory(blob);
-
+    uint8_t *data = malloc(*size ? *size : 1);
+    if (!data) fatal("out of memory");
     if (fread(data, 1, *size, fp) != *size)
         fatal("cannot read all contents of file '%s'", file);
     fclose(fp);
+
+    /* The size is part of the key, so a hit only needs a byte compare. */
+    uint64_t key = fnv1a64(data, *size) ^ ((uint64_t)*size << 32);
+    ptrdiff_t idx = stbds_hmgeti(dfs_blobs, key);
+    if (idx >= 0 && dfs_blobs[idx].size == *size &&
+        memcmp(sector_to_memory(dfs_blobs[idx].blob), data, *size) == 0)
+    {
+        printf("Adding '%s' to filesystem image (same data as '%s').\n", file, dfs_blobs[idx].file);
+        free(data);
+        return dfs_blobs[idx].blob;
+    }
+
+    printf("Adding '%s' to filesystem image.\n", file);
+
+    uint32_t blob = new_blob(*size);
+    memcpy(sector_to_memory(blob), data, *size);
+    free(data);
+
+    if (idx < 0) {
+        dfs_blob_t entry = { .key = key, .blob = blob, .size = *size, .file = strdup(file) };
+        stbds_hmputs(dfs_blobs, entry);
+    }
     return blob;
 }
 
