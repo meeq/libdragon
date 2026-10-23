@@ -369,6 +369,10 @@ void wav64_close(wav64_t *wav)
 	if (!heap)
 		return;
 
+	// The round being built may still read the waveform: end it here, so
+	// that the sync below covers it.
+	__mixer_round_cut();
+
 	// Stop playing the waveform on all channels
 	for (int i=0; i<MIXER_MAX_CHANNELS; i++) {
 		if (mixer_ch_playing_waveform(i) == &wav->wave)

@@ -136,10 +136,10 @@ static void emit_channel_target(int ch, uint32_t flags, int16_t lvol, int16_t rv
     int16_t dlvol, int16_t drvol, int16_t tlvol, int16_t trvol, uint32_t pos,
     uint32_t step, uint32_t len, uint32_t loop_len, void *ptr, int nsamples)
 {
-    assert((nsamples & 1) == 0 && nsamples >= 0 && nsamples <= 512);
-    rspq_write_t w = rspq_write_begin(__mixer_overlay_id, MIXER_CMD_CHANNEL, 9);
-    // a0: ch<<19 | flags<<11 | nsamples/2  (9 bits: nsamples up to 512)
-    rspq_write_arg(&w, ((uint32_t)ch << 19) | ((flags & 0xFF) << 11) | ((uint32_t)nsamples >> 1));
+    assert(nsamples >= 0 && nsamples <= 512);
+    rspq_write_t w = rspq_write_begin(__mixer_overlay_id, MIXER_CMD_CHANNEL, 10);
+    // a0: ch<<19 | flags<<11 | exp<<10 | nsamples   [5|8|1|10 bits]
+    rspq_write_arg(&w, ((uint32_t)ch << 19) | ((flags & 0xFF) << 11) | (uint32_t)nsamples);
     rspq_write_arg(&w, ((uint32_t)(uint16_t)lvol << 16) | (uint16_t)rvol);
     rspq_write_arg(&w, pos);
     rspq_write_arg(&w, step);
@@ -148,6 +148,8 @@ static void emit_channel_target(int ch, uint32_t flags, int16_t lvol, int16_t rv
     rspq_write_arg(&w, PhysicalAddr(ptr));
     rspq_write_arg(&w, ((uint32_t)(uint16_t)dlvol << 16) | (uint16_t)drvol);
     rspq_write_arg(&w, ((uint32_t)(uint16_t)tlvol << 16) | (uint16_t)trvol);
+    // The span starts at sample 0 and covers the whole round (no tail flag).
+    rspq_write_arg(&w, 0);
     rspq_write_end(&w);
 }
 

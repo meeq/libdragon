@@ -700,6 +700,12 @@ typedef int (*MixerEvent)(void* ctx);
  * Register a new event into the mixer. "delay" is the number of samples to
  * wait before calling the event callback. "cb" is the event callback. "ctx"
  * is an opaque pointer that will be passed to the callback when invoked.
+ *
+ * The callback is called at its sample, rounded up to an even sample, and a
+ * change it makes to a channel takes effect at that sample. To play, seek or
+ * change the frequency of a channel, or to change the master volume, the
+ * mixer ends the mix round at that sample, for all the channels. Other
+ * changes, such as volumes or stops, do not end the round.
  * 
  * @param[in]   delay           Number of samples to wait before invoking
  *                              the event.
@@ -721,15 +727,59 @@ void mixer_add_event(int64_t delay, MixerEvent cb, void *ctx);
 void mixer_remove_event(MixerEvent cb, void *ctx);
 
 /**
+ * @brief Register a time-based event that changes one channel.
+ *
+ * Register a new event that belongs to channel "ch". "delay" is the number of
+ * samples to wait before calling the event callback. "cb" is the event
+ * callback. "ctx" is an opaque pointer that will be passed to the callback
+ * when invoked.
+ *
+ * Use this function instead of #mixer_add_event for an event that only
+ * changes channel "ch", such as a volume envelope. The mixer calls it at its
+ * exact sample, odd or even, and checks that it keeps to what it can do
+ * there.
+ *
+ * The callback can change the volume and the gain of channel "ch" (also
+ * with a ramp), or stop it. It must not change the waveform or the frequency
+ * of the channel. It must not play a channel, and it must not register or
+ * deregister events. The events of all the channels are called in time
+ * order.
+ *
+ * The event stays registered when the channel stops.
+ *
+ * @param[in]   ch              Channel the event changes. It must not be the
+ *                              secondary channel of a stereo waveform.
+ * @param[in]   delay           Number of samples to wait before invoking
+ *                              the event.
+ * @param[in]   cb              Event callback to invoke
+ * @param[in]   ctx             Context opaque pointer to pass to the callback
+ */
+void mixer_ch_add_event(int ch, int64_t delay, MixerEvent cb, void *ctx);
+
+/**
+ * @brief Deregister a time-based event of a channel.
+ *
+ * Deregister an event registered with #mixer_ch_add_event. The event must
+ * exist. Notice that an event can also deregister itself by returning 0 when
+ * called.
+ *
+ * @param[in]    ch             Channel that was registered with the callback.
+ * @param[in]    cb             Callback that was registered via #mixer_ch_add_event
+ * @param[in]    ctx            Opaque pointer that was registered with the callback.
+ */
+void mixer_ch_remove_event(int ch, MixerEvent cb, void *ctx);
+
+/**
  * @brief Callback invoked after every mixer round
  *
  * A soft event does not force the mixer to split a round or poll segment.
- * After each round of @p round_ns output samples has been mixed, every
- * registered soft callback is invoked with that length so clients can advance
- * their own clocks (envelopes, sequencers) without affecting mix granularity.
+ * At the end of each round, and before each event registered with
+ * #mixer_add_event, every registered soft callback is invoked with the
+ * output samples mixed since its last call, so clients can advance their own
+ * clocks (envelopes, sequencers) without affecting mix granularity.
  *
  * @param[in]   ctx             Opaque pointer from #mixer_add_soft_event
- * @param[in]   round_ns        Output samples mixed in the round that just ended
+ * @param[in]   round_ns        Output samples mixed since the last call
  */
 typedef void (*MixerSoftEvent)(void *ctx, int round_ns);
 

@@ -94,7 +94,7 @@ DEFINE_RSP_UCODE(rsp_mixer);
 #define CH_FLAGS_STEREO     	(1<<3)   ///< Set if the channel is stereo (left)
 #define CH_FLAGS_STEREO_SUB 	(1<<4)   ///< The channel is the second half of a stereo (right)
 #define CH_FLAGS_VADPCM     	(1<<5)   ///< In-mixer VADPCM mono (wire + CPU)
-#define CH_FLAGS_VLOOP_STATE 	(1<<6)   ///< VADPCM: decode from the loop-start state (wire only, see mixer_emit_channel)
+#define CH_FLAGS_VLOOP_STATE 	(1<<6)   ///< VADPCM: decode from the loop-start state (wire only, see mixer_stage_span)
 #define CH_FLAGS_CLEAR_ACCUM 	(1<<7)   ///< Zero ACCUM before mixing (first MIX_CHANNEL of a round)
 #define CH_FLAGS_RESIDENT       (1<<8)   ///< Channel plays from waveform->mem (no samplebuffer)
 #define CH_FLAGS_LOOP_CACHED    (1<<10)  ///< Streamed loop pinned in the samplebuffer; RSP wraps
@@ -166,6 +166,8 @@ typedef struct {
 	float inv_duration;    ///< 1 / #duration (valid while #duration > 0)
 	float k;               ///< Exp curve: log2(end/start); silence asymptote if end≤0
 	mixer_ramp_fn_t fn;    ///< Curve (ignored when #duration is 0)
+	int16_t exp_p1;        ///< Exp decay: factor per output sample (0.15), else 0
+	int16_t exp_p8;        ///< Exp decay: factor per 8 output samples (0.15), else 0
 } mixer_ramp_t;
 
 /** Fade-to-silence exponent for #mixer_ramp_exp when the target is 0. */
@@ -194,6 +196,10 @@ float mixer_ramp_exp(float start, float end, float u)
  * the ramp, which is what lets a ramp end in the middle of a round. With no
  * ramp running the target equals the starting volume and the clamp holds it
  * there.
+ *
+ * With #exp set the walk is geometric: both volumes are multiplied by one
+ * factor at each sample. Then #dl holds the factor per sample and #dr the
+ * factor per 8 samples (both 0.15), for both sides.
  */
 typedef struct {
 	mixer_fx15_t l;        ///< Left volume at the first sample of the round
@@ -202,6 +208,7 @@ typedef struct {
 	mixer_fx15_t dr;       ///< Right increment per block of 4 samples
 	mixer_fx15_t tl;       ///< Left volume the round ends on
 	mixer_fx15_t tr;       ///< Right volume the round ends on
+	bool exp;              ///< Geometric walk (see above)
 } mixer_round_vol_t;
 
 /**
@@ -257,6 +264,14 @@ typedef struct {
 	void *ctx;              ///< Opaque context pointer to pass to the callback
 } mixer_event_t;
 
+/** @brief Event of one channel (see #mixer_ch_add_event) */
+typedef struct {
+	int64_t ticks;          ///< Absolute time at which the event will trigger (ticks = output samples)
+	MixerEvent cb;          ///< Callback for the event
+	void *ctx;              ///< Opaque context pointer to pass to the callback
+	int ch;                 ///< Channel the event belongs to
+} mixer_ch_event_t;
+
 /** @brief Per-round soft callback (does not split mix rounds) */
 typedef struct {
 	MixerSoftEvent cb;
@@ -274,6 +289,9 @@ static struct {
 	int64_t ticks;
 	int num_events;
 	mixer_event_t events[MAX_EVENTS];
+	int num_ch_events;
+	mixer_ch_event_t ch_events[MAX_EVENTS];
+	bool in_ch_event;       ///< A channel event callback is running
 	int num_soft;
 	mixer_soft_event_t soft[MAX_SOFT_EVENTS];
 
@@ -305,6 +323,54 @@ static struct {
 	uint32_t poll_count;    ///< Polls done so far (indexes #poll_round)
 
 } Mixer;
+
+/** @brief Most commands one round can stage (see #mixer_staged_t). */
+#define MIXER_MAX_STAGED    128
+/** @brief End of a list of staged commands. */
+#define MIXER_STAGED_NONE   0xFF
+
+/**
+ * @brief A command of the round being built.
+ *
+ * The commands of a round are only written to the queue when the round is
+ * closed, all in one go (see #mixer_round_write). This keeps the RSP out of
+ * the high-priority queue while the CPU builds the round, and lets an event
+ * cut a span of a channel after the spans of the channels above it are known.
+ */
+typedef struct {
+	uint32_t w[10];         ///< Command words, without the overlay and command id
+	uint8_t cmd;            ///< MIXER_CMD_*
+	uint8_t nw;             ///< Number of words in #w
+	uint8_t next;           ///< Next command of the same list, or #MIXER_STAGED_NONE
+} mixer_staged_t;
+
+/**
+ * @brief The round being mixed.
+ *
+ * The global events that fall inside a round run inside it (see
+ * #mixer_round_events): a channel the event changes is mixed in spans, cut
+ * where the change happens, and the other channels are not affected. A change
+ * that the spans cannot express (a waveform that starts, a seek, a new step)
+ * ends the round instead (see #mixer_round_cut).
+ */
+static struct {
+	bool active;            ///< Inside a round: changes to a channel cut its span
+	bool cut;               ///< The round was ended early by #mixer_round_cut
+	int64_t tick;           ///< Tick of the first sample of the round
+	int ns;                 ///< Samples in the round
+	int now;                ///< Offset of the last event that fired (never decreases)
+	int soft_done;          ///< Samples already reported to the soft events
+	mixer_fx16_t gvol;      ///< Global volume of the round
+	int32_t *out;           ///< Where the round writes its samples
+	int16_t s0[MIXER_MAX_CHANNELS];     ///< Offset of the first sample not yet staged, per owner
+	uint8_t head[MIXER_MAX_CHANNELS];   ///< First staged command, per owner
+	uint8_t tail[MIXER_MAX_CHANNELS];   ///< Last staged command, per owner
+	uint8_t pre_head;       ///< First staged command that goes before all the channels
+	uint8_t pre_tail;       ///< Last staged command that goes before all the channels
+	uint32_t owners;        ///< Owners with staged commands
+	int num_staged;
+	mixer_staged_t staged[MIXER_MAX_STAGED];
+} Round;
 
 uint32_t __mixer_overlay_id;
 
@@ -347,8 +413,12 @@ static void mixer_refresh_max_ns(int ch);
 
 static inline int mixer_initialized(void) { return Mixer.num_channels != 0; }
 
+static void mixer_round_clear(void);
+
 void mixer_init(int num_channels) {
 	memset(&Mixer, 0, sizeof(Mixer));
+	memset(&Round, 0, sizeof(Round));
+	mixer_round_clear();
 
 	Mixer.num_channels = num_channels;
 	Mixer.sample_rate = audio_get_frequency();  // actual sample rate obtained via DAC clock
@@ -392,7 +462,7 @@ void mixer_init(int num_channels) {
  * moment for each plane of a stereo pair. That makes the buffer unusable for
  * the seeds the CPU produces, so those live in a buffer of their own
  * (#mixer_channel_t.codec_state, written by the codec) and reach the RSP
- * through #mixer_emit_setstate, which orders them against those saves.
+ * through #mixer_stage_setstate, which orders them against those saves.
  */
 static inline void *mixer_vstate(int ch)
 {
@@ -510,12 +580,19 @@ static int mixer_margin_bytes(waveform_t *wave, int ub)
 	return samplebuffer_margin_units(wave->append_units) * ub;
 }
 
+static void mixer_round_cut(void);
+static void mixer_ch_split(int ch);
+
 void mixer_set_vol(float vol) {
+	// A round is mixed with one global volume.
+	if (vol != Mixer.vol)
+		mixer_round_cut();
 	Mixer.vol = vol;
 }
 
 void mixer_close(void) {
 	assert(mixer_initialized());
+	assertf(!Round.active, "mixer_close: called from a mixer event");
 
 	rspq_highpri_sync();
 
@@ -574,10 +651,17 @@ static void mixer_ramp_to(mixer_ramp_t *rmp, float *end, float target,
 	if (duration && cur != target) {
 		assertf(fn, "mixer ramp: NULL curve with duration %d", duration);
 		float k = 0.0f;
+		int16_t p1 = 0, p8 = 0;
 		if (fn == mixer_ramp_exp && cur > 0.0f) {
 			k = (target <= 0.0f)
 				? -(MIXER_RAMP_EXP_SILENCE * MIXER_LOG2E)
 				: log2f(target / cur);
+			// A decay can be walked by the RSP (see mixer_channel_volumes).
+			// The factors are rounded once here, from the exact curve.
+			if (k < 0.0f) {
+				p1 = MIN(lround(exp2((double)k / duration) * 32768.0), 32767);
+				p8 = MIN(lround(exp2((double)k * 8.0 / duration) * 32768.0), 32767);
+			}
 		}
 		*rmp = (mixer_ramp_t){
 			.start = cur,
@@ -586,6 +670,8 @@ static void mixer_ramp_to(mixer_ramp_t *rmp, float *end, float target,
 			.inv_duration = 1.0f / (float)duration,
 			.k = k,
 			.fn = fn,
+			.exp_p1 = p1,
+			.exp_p8 = p8,
 		};
 	} else {
 		rmp->duration = 0;
@@ -602,6 +688,15 @@ static bool mixer_ramp_active(mixer_ramp_t *rmp, int64_t t)
 		return true;
 	rmp->duration = 0;
 	return false;
+}
+
+/** True if #mixer_ramp_to with these arguments would leave every value of
+ * @p rmp unchanged. */
+static bool mixer_ramp_noop(const mixer_ramp_t *rmp, float end, float target,
+	int started_ago)
+{
+	return end == target && (!rmp->duration ||
+		Mixer.ticks - started_ago >= rmp->start_tick + rmp->duration);
 }
 
 /** Push @p frequency (Hz) into #mixer_channel_t::step for channel @p ch. */
@@ -634,13 +729,45 @@ static void mixer_ch_sync_freq(int ch, int64_t tick)
 	mixer_ch_apply_freq(ch, f);
 }
 
+static void mixer_ch_freq_to(int ch, float frequency, int duration,
+	mixer_ramp_fn_t curve, int started_ago)
+{
+	mixer_ramp_to(&Mixer.freq_ramp[ch], &Mixer.freq[ch], frequency, duration, curve,
+		started_ago);
+	mixer_ch_apply_freq(ch,
+		mixer_ramp_at(&Mixer.freq_ramp[ch], Mixer.freq[ch], Mixer.ticks));
+}
+
+// Set the frequency of @p ch. Inside a round, a channel is mixed with one step
+// per round: a new step ends the round where it is set. A ramp that leaves
+// the step as it is gets sampled at the start of the next round, like any
+// running ramp.
+static void mixer_ch_set_freq_at(int ch, float frequency, int duration,
+	mixer_ramp_fn_t curve, int started_ago)
+{
+	mixer_channel_t *c = &Mixer.channels[ch];
+	if (Round.active && c->ptr) {
+		mixer_ramp_t ramp = Mixer.freq_ramp[ch];
+		float freq = Mixer.freq[ch];
+		mixer_fx64_t step = c->step;
+		int max_round_ns = c->max_round_ns;
+		mixer_ch_freq_to(ch, frequency, duration, curve, started_ago);
+		if (c->step == step)
+			return;
+		Mixer.freq_ramp[ch] = ramp;
+		Mixer.freq[ch] = freq;
+		c->step = step;
+		c->max_round_ns = max_round_ns;
+		mixer_round_cut();
+	}
+	mixer_ch_freq_to(ch, frequency, duration, curve, started_ago);
+}
+
 void mixer_ch_set_freq(int ch, float frequency)
 {
 	mixer_channel_t *c = &Mixer.channels[ch];
 	assertf(!(c->flags & CH_FLAGS_STEREO_SUB), "cannot call on secondary stereo channel %d", ch);
-	mixer_ramp_to(&Mixer.freq_ramp[ch], &Mixer.freq[ch], frequency, 0,
-		mixer_ramp_linear, 0);
-	mixer_ch_apply_freq(ch, Mixer.freq[ch]);
+	mixer_ch_set_freq_at(ch, frequency, 0, mixer_ramp_linear, 0);
 }
 
 void mixer_ch_set_freq_ramp(int ch, float frequency, int duration,
@@ -653,10 +780,7 @@ void mixer_ch_set_freq_ramp(int ch, float frequency, int duration,
 		"mixer_ch_set_freq_ramp: negative duration %d on channel %d", duration, ch);
 	assertf(started_ago >= 0,
 		"mixer_ch_set_freq_ramp: negative started_ago %d on channel %d", started_ago, ch);
-	mixer_ramp_to(&Mixer.freq_ramp[ch], &Mixer.freq[ch], frequency, duration, curve,
-		started_ago);
-	mixer_ch_apply_freq(ch,
-		mixer_ramp_at(&Mixer.freq_ramp[ch], Mixer.freq[ch], Mixer.ticks));
+	mixer_ch_set_freq_at(ch, frequency, duration, curve, started_ago);
 }
 
 /** Forget the end volumes of channel @p ch and of its stereo sub channel. */
@@ -682,6 +806,13 @@ static void mixer_ch_vol_to(int ch, float l, float r, int duration)
 	if (l > 1.0f) l = 1.0f;
 	if (r < -1.0f) r = -1.0f;
 	if (r > 1.0f) r = 1.0f;
+	// A change that leaves every value as it is must not touch the ramps
+	// either. Retiring a ramp that ended before now would also change the
+	// span of the round that is not staged yet.
+	if (mixer_ramp_noop(&Mixer.lvol_ramp[ch], Mixer.lvol[ch], l, 0) &&
+		mixer_ramp_noop(&Mixer.rvol_ramp[ch], Mixer.rvol[ch], r, 0))
+		return;
+	mixer_ch_split(ch);
 	mixer_vol_cache_drop(ch);
 	mixer_ramp_to(&Mixer.lvol_ramp[ch], &Mixer.lvol[ch], l, duration,
 		mixer_ramp_linear, 0);
@@ -709,6 +840,10 @@ void mixer_ch_set_gain(int ch, float gain)
 		"mixer_ch_set_gain: cannot call on secondary stereo channel %d", ch);
 	if (gain < 0.0f) gain = 0.0f;
 	if (gain > 1.0f) gain = 1.0f;
+	// See #mixer_ch_vol_to.
+	if (mixer_ramp_noop(&Mixer.gain_ramp[ch], Mixer.gain[ch], gain, 0))
+		return;
+	mixer_ch_split(ch);
 	mixer_vol_cache_drop(ch);
 	mixer_ramp_to(&Mixer.gain_ramp[ch], &Mixer.gain[ch], gain, 0,
 		mixer_ramp_linear, 0);
@@ -726,6 +861,10 @@ void mixer_ch_set_gain_ramp(int ch, float gain, int duration,
 		"mixer_ch_set_gain_ramp: negative started_ago %d on channel %d", started_ago, ch);
 	if (gain < 0.0f) gain = 0.0f;
 	if (gain > 1.0f) gain = 1.0f;
+	// See #mixer_ch_vol_to.
+	if (mixer_ramp_noop(&Mixer.gain_ramp[ch], Mixer.gain[ch], gain, started_ago))
+		return;
+	mixer_ch_split(ch);
 	mixer_vol_cache_drop(ch);
 	mixer_ramp_to(&Mixer.gain_ramp[ch], &Mixer.gain[ch], gain, duration, curve,
 		started_ago);
@@ -737,6 +876,8 @@ void mixer_ch_set_vol_pan(int ch, float vol, float pan) {
 
 void mixer_ch_set_force_mono(int ch, bool enable) {
 	assert(ch < Mixer.num_channels);
+	if (enable != ((Mixer.channels[ch].flags & CH_FLAGS_FORCE_MONO) != 0))
+		mixer_ch_split(ch);
 	if (enable) Mixer.channels[ch].flags |=  CH_FLAGS_FORCE_MONO;
 	else        Mixer.channels[ch].flags &= ~CH_FLAGS_FORCE_MONO;
 }
@@ -824,7 +965,7 @@ static void waveform_read(void *ctx, samplebuffer_t *sbuf, int wpos, int wlen, b
 	waveform_t *wave = sbuf->wave;
 	// A seek that restarts the ring is the CPU moving playback where the
 	// stream does not go on its own, so the state the codec writes for it has
-	// to reach the RSP (see #mixer_emit_setstate). The refill that follows the
+	// to reach the RSP (see #mixer_stage_setstate). The refill that follows the
 	// end of a looping waveform arrives as a seek too, but there the ring
 	// keeps its live window: the RSP is still decoding the frames before the
 	// loop, and the state of the loop start only becomes the one it needs once
@@ -957,7 +1098,7 @@ static bool mixer_wave_fits(int ch);
  * wrapped the position between two rounds (see #mixer_advance), where the RSP
  * is still holding the one of the end of the waveform. That frame is the loop
  * start, whose state every looping asset carries, so it can just be handed
- * over (see #mixer_emit_setstate).
+ * over (see #mixer_stage_setstate).
  */
 static void mixer_vadpcm_resume(int ch) {
 	mixer_channel_t *c = &Mixer.channels[ch];
@@ -1083,6 +1224,11 @@ static void mixer_ch_start(int ch, waveform_t *wave, bool set_freq, float freque
 	samplebuffer_t *sbuf = &Mixer.ch_buf[ch];
 	mixer_channel_t *c = &Mixer.channels[ch];
 	assertf(!(c->flags & CH_FLAGS_STEREO_SUB), "mixer_ch_play: cannot call on secondary stereo channel %d", ch);
+	// The round being emitted has already passed over the channels before the
+	// one of the event, and would never mix the start of the waveform.
+	assertf(!Mixer.in_ch_event, "mixer_ch_play: called from a channel event");
+	// A round mixes the waveforms it started with: end it here.
+	mixer_round_cut();
 
 	// Initialize uuid for this waveform if it wasn't already
 	if (wave->__uuid == 0) 
@@ -1339,6 +1485,8 @@ void mixer_ch_set_pos(int ch, double pos) {
 	mixer_fx64_t p = MIXER_FX64(pos);
 	if (!(c->flags & CH_FLAGS_VADPCM))
 		p <<= (c->flags & CH_FLAGS_BPS_SHIFT);
+	if (c->ptr)
+		mixer_round_cut();
 	c->pos = p;
 	PROFILE_START(PS_MIXER_SEEK);
 	mixer_ch_seek(ch);
@@ -1354,6 +1502,7 @@ void mixer_ch_set_loop(int ch, bool enable) {
 	if (enable == (c->loop_len != 0))
 		return;
 
+	mixer_round_cut();
 	mixer_ch_bounds(c, c->wave, enable);
 	// The ring holds the loop unrolled: whatever it cached past the loop end
 	// was taken from the loop start, and a pinned loop is not even addressed
@@ -1363,10 +1512,22 @@ void mixer_ch_set_loop(int ch, bool enable) {
 	tracef("mixer_ch_set_loop: ch=%d enable=%d len=%llx\n", ch, enable, (uint64_t)c->len);
 }
 
+// The position of channel @p c after @p s samples of the current round.
+static inline mixer_fx64_t mixer_ch_pos_at(mixer_channel_t *c, int s) {
+	mixer_fx64_t pos = c->pos + c->step * (uint64_t)s;
+	if (c->loop_len && (c->flags & (CH_FLAGS_RESIDENT | CH_FLAGS_LOOP_CACHED)))
+		while (pos >= c->len)
+			pos -= c->loop_len;
+	return pos;
+}
+
 double mixer_ch_get_pos(int ch) {
 	mixer_channel_t *c = &Mixer.channels[ch];
 	assertf(!(c->flags & CH_FLAGS_STEREO_SUB), "mixer_ch_get_pos: cannot call on secondary stereo channel %d", ch);
+	// Inside a round, the channel is still at the start of it.
 	uint64_t pos = c->pos;
+	if (Round.active && c->ptr)
+		pos = mixer_ch_pos_at(c, (int)(Mixer.ticks - Round.tick));
 	if (!(c->flags & CH_FLAGS_VADPCM))
 		pos >>= (c->flags & CH_FLAGS_BPS_SHIFT);
 	return (double)pos / (double)(1<<MIXER_FX64_FRAC);
@@ -1379,6 +1540,7 @@ void mixer_ch_stop(int ch) {
 		return;
 
 	tracef("mixer_ch_stop: ch=%d\n", ch);
+	mixer_ch_split(ch);
 
 	bool stereo = (c->flags & CH_FLAGS_STEREO) != 0;
 	if (stereo) {
@@ -1662,6 +1824,8 @@ void mixer_ch_set_limits(int ch, int max_bits, float max_frequency, int max_buf_
 	// Free the memory immediately, as it doesn't match the new limits anymore.
 	// We will reallocate it later lazily if needed.
 	if (samplebuffer_is_inited(&Mixer.ch_buf[ch])) {
+		// The round being built may still read the buffer.
+		mixer_round_cut();
 		rspq_highpri_sync();
 		samplebuffer_close(&Mixer.ch_buf[ch]);
 		// The waveform that was playing has to be configured again on the new
@@ -1680,30 +1844,77 @@ static inline mixer_fx15_t mixer_apply_gvol(mixer_fx15_t vol, mixer_fx16_t gvol_
 	return (mixer_fx15_t)v;
 }
 
-/** @brief Emit a MIX_CHANNEL rspq command for one channel.
+/** @brief List of #Round for the commands that go before all the channels. */
+#define MIXER_LIST_PRE      MIXER_MAX_CHANNELS
+
+/** @brief Forget the commands staged for the round. */
+static void mixer_round_clear(void) {
+	memset(Round.head, MIXER_STAGED_NONE, sizeof(Round.head));
+	memset(Round.tail, MIXER_STAGED_NONE, sizeof(Round.tail));
+	Round.pre_head = Round.pre_tail = MIXER_STAGED_NONE;
+	Round.owners = 0;
+	Round.num_staged = 0;
+}
+
+/**
+ * @brief Stage a command of @p nw words at the end of a list of the round.
  *
- * @p nsamples is latched by the ucode into DMEM (same value for every channel
- * of a round). It must be even and at most #MIXER_MAX_SAMPLES_PER_ROUND so that
- * nsamples/2 fits the 9-bit field in a0.
+ * @p list is the owner channel the command belongs to, or #MIXER_LIST_PRE.
  */
-static void mixer_emit_channel(int ch, uint32_t flags, mixer_round_vol_t vol,
+static uint32_t *mixer_stage(int list, uint32_t cmd, int nw) {
+	assertf(Round.num_staged < MIXER_MAX_STAGED,
+		"mixer: more than %d commands in one round", MIXER_MAX_STAGED);
+	assert(nw <= 10);
+	int i = Round.num_staged++;
+	mixer_staged_t *s = &Round.staged[i];
+	s->cmd = cmd;
+	s->nw = nw;
+	s->next = MIXER_STAGED_NONE;
+	uint8_t *head = list == MIXER_LIST_PRE ? &Round.pre_head : &Round.head[list];
+	uint8_t *tail = list == MIXER_LIST_PRE ? &Round.pre_tail : &Round.tail[list];
+	if (*tail == MIXER_STAGED_NONE)
+		*head = i;
+	else
+		Round.staged[*tail].next = i;
+	*tail = i;
+	if (list != MIXER_LIST_PRE)
+		Round.owners |= mixer_bit(list);
+	return s->w;
+}
+
+/** @brief Write one command to the queue. */
+static void mixer_write_cmd(uint32_t cmd, const uint32_t *words, int nw) {
+	rspq_write_t w = rspq_write_begin(__mixer_overlay_id, cmd, nw);
+	for (int i = 0; i < nw; i++)
+		rspq_write_arg(&w, words[i]);
+	rspq_write_end(&w);
+}
+
+/** @brief Stage a MIX_CHANNEL command for one channel.
+ *
+ * The command mixes the @p nsamples output samples of the round that start at
+ * @p offset. #mixer_round_write fills in the flag that tells the ucode whether
+ * they end before the round does (so that it keeps the samples after them safe
+ * from its overshoot), and the one that clears the accumulator.
+ */
+static void mixer_stage_channel(int list, int ch, uint32_t flags, mixer_round_vol_t vol,
 	uint32_t pos, uint32_t step, uint32_t len, uint32_t loop_len, void *ptr,
-	int nsamples)
+	int offset, int nsamples)
 {
 	assert(ch >= 0 && ch < MIXER_MAX_CHANNELS);
-	assert((nsamples & 1) == 0 && nsamples >= 0 && nsamples <= MIXER_MAX_SAMPLES_PER_ROUND);
-	rspq_write_t w = rspq_write_begin(__mixer_overlay_id, MIXER_CMD_CHANNEL, 9);
-	// a0: ch<<19 | flags<<11 | (nsamples/2)   [5|8|9 bits in the 24-bit payload]
-	rspq_write_arg(&w, ((uint32_t)ch << 19) | ((flags & 0xFF) << 11) | ((uint32_t)nsamples >> 1));
-	rspq_write_arg(&w, ((uint32_t)(uint16_t)vol.l << 16) | (uint16_t)vol.r);
-	rspq_write_arg(&w, pos);
-	rspq_write_arg(&w, step);
-	rspq_write_arg(&w, len);
-	rspq_write_arg(&w, loop_len);
-	rspq_write_arg(&w, ptr ? PhysicalAddr(ptr) : 0);
-	rspq_write_arg(&w, ((uint32_t)(uint16_t)vol.dl << 16) | (uint16_t)vol.dr);
-	rspq_write_arg(&w, ((uint32_t)(uint16_t)vol.tl << 16) | (uint16_t)vol.tr);
-	rspq_write_end(&w);
+	assert(offset >= 0 && nsamples > 0 && offset + nsamples <= MIXER_MAX_SAMPLES_PER_ROUND);
+	uint32_t *w = mixer_stage(list, MIXER_CMD_CHANNEL, 10);
+	// a0: ch<<19 | flags<<11 | exp<<10 | nsamples   [5|8|1|10 bits in the 24-bit payload]
+	w[0] = ((uint32_t)ch << 19) | ((flags & 0xFF) << 11) | ((uint32_t)vol.exp << 10) | (uint32_t)nsamples;
+	w[1] = ((uint32_t)(uint16_t)vol.l << 16) | (uint16_t)vol.r;
+	w[2] = pos;
+	w[3] = step;
+	w[4] = len;
+	w[5] = loop_len;
+	w[6] = ptr ? PhysicalAddr(ptr) : 0;
+	w[7] = ((uint32_t)(uint16_t)vol.dl << 16) | (uint16_t)vol.dr;
+	w[8] = ((uint32_t)(uint16_t)vol.tl << 16) | (uint16_t)vol.tr;
+	w[9] = (uint32_t)offset << 16;
 }
 
 /**
@@ -1714,13 +1925,14 @@ static void mixer_emit_channel(int ch, uint32_t flags, mixer_round_vol_t vol,
  * build the unpacking constants, and it never changes without the codebook
  * changing too.
  */
-static void mixer_emit_setchannel(int ch, void *codebook, void *state, void *loop_state, int bits)
+static void mixer_stage_setchannel(int ch, void *codebook, void *state, void *loop_state, int bits)
 {
 	assert(!codebook || ((PhysicalAddr(codebook) & 7) == 0 && bits >= 2 && bits <= 4));
-	rspq_write(__mixer_overlay_id, MIXER_CMD_SETCHANNEL, (uint32_t)ch << 16,
-		codebook ? PhysicalAddr(codebook) | (bits - 2) : 0,
-		state ? PhysicalAddr(state) : 0,
-		loop_state ? PhysicalAddr(loop_state) : 0);
+	uint32_t *w = mixer_stage(MIXER_LIST_PRE, MIXER_CMD_SETCHANNEL, 4);
+	w[0] = (uint32_t)ch << 16;
+	w[1] = codebook ? PhysicalAddr(codebook) | (bits - 2) : 0;
+	w[2] = state ? PhysicalAddr(state) : 0;
+	w[3] = loop_state ? PhysicalAddr(loop_state) : 0;
 }
 
 /**
@@ -1730,11 +1942,14 @@ static void mixer_emit_setchannel(int ch, void *codebook, void *state, void *loo
  * lands after the rounds already enqueued (whose epilog writes that same
  * buffer) and before the one that decodes from it.
  */
-static void mixer_emit_setstate(int ch)
+static void mixer_stage_setstate(int list, int ch)
 {
 	const uint32_t *src = Mixer.channels[ch].codec_state;
-	rspq_write(__mixer_overlay_id, MIXER_CMD_SETSTATE, 0,
-		PhysicalAddr(mixer_vstate(ch)), src[0], src[1], src[2], src[3]);
+	uint32_t *w = mixer_stage(list, MIXER_CMD_SETSTATE, 6);
+	w[0] = 0;
+	w[1] = PhysicalAddr(mixer_vstate(ch));
+	for (int i = 0; i < 4; i++)
+		w[2+i] = src[i];
 }
 
 /** @brief Largest block MIX_COPY can move at once (the ucode's sample cache). */
@@ -1964,7 +2179,7 @@ static void mixer_refresh_chtbl(void) {
 			continue;
 		void *state = mixer_vstate(ch);
 		*sh = (mixer_chtbl_t){ c->codebook, state, c->loop_state };
-		mixer_emit_setchannel(ch, c->codebook, state, c->loop_state, c->vbits);
+		mixer_stage_setchannel(ch, c->codebook, state, c->loop_state, c->vbits);
 	}
 }
 
@@ -2174,9 +2389,24 @@ static mixer_round_vol_t mixer_channel_volumes(int ch, uint32_t flags, bool sub,
 		mixer_fold_volumes(flags, sub, gvol,
 			mixer_fx15_scale(el, g1), mixer_fx15_scale(er, g1),
 			&vol.tl, &vol.tr);
-		int nblocks = MAX(DIVIDE_CEIL((int)(last - tick), 4), 1);
-		vol.dl = mixer_ramp_step(vol.tl - vol.l, nblocks);
-		vol.dr = mixer_ramp_step(vol.tr - vol.r, nblocks);
+		// A geometric gain decay alone scales both volumes by its own factor
+		// per sample, so the RSP can walk the curve itself. A straight line
+		// between the ends of the round would sag above the curve by up to
+		// several dB on a steep decay. The walk starts from the exact volume
+		// at each round, so its rounding never builds up past one round.
+		const mixer_ramp_t *gr = &Mixer.gain_ramp[och];
+		if (gain_ramping && !l_ramping && !r_ramping &&
+			gr->fn == mixer_ramp_exp && gr->k < 0.0f && gr->start > 0.0f &&
+			vol.l >= 0 && vol.r >= 0 && (vol.l | vol.r) &&
+			vol.tl <= vol.l && vol.tr <= vol.r) {
+			vol.exp = true;
+			vol.dl = gr->exp_p1;
+			vol.dr = gr->exp_p8;
+		} else {
+			int nblocks = MAX(DIVIDE_CEIL((int)(last - tick), 4), 1);
+			vol.dl = mixer_ramp_step(vol.tl - vol.l, nblocks);
+			vol.dr = mixer_ramp_step(vol.tr - vol.r, nblocks);
+		}
 	}
 	*vc = (mixer_vol_cache_t){
 		.tick = tick + ns,
@@ -2192,12 +2422,13 @@ static mixer_round_vol_t mixer_channel_volumes(int ch, uint32_t flags, bool sub,
 	return vol;
 }
 
-// Waveform bounds to send to the RSP. The top bit of pos and len is a wrap
-// flag: when the two differ the position is past the end of the waveform, and
-// the RSP must not compare against len. @p wrap is false for the loops that
-// the CPU wraps by itself between rounds.
-static void mixer_rsp_bounds(mixer_channel_t *c, bool wrap, uint32_t *len, uint32_t *loop_len) {
-	if (c->pos>>31 != c->len>>31) {
+// Waveform bounds to send to the RSP for a command that starts at @p pos. The
+// top bit of pos and len is a wrap flag: when the two differ the position is
+// past the end of the waveform, and the RSP must not compare against len.
+// @p wrap is false for the loops that the CPU wraps by itself between rounds.
+static void mixer_rsp_bounds(const mixer_channel_t *c, mixer_fx64_t pos, bool wrap,
+	uint32_t *len, uint32_t *loop_len) {
+	if (pos>>31 != c->len>>31) {
 		*len = 0xFFFFFFFF;
 		*loop_len = 0;
 	} else {
@@ -2210,9 +2441,10 @@ static void mixer_rsp_bounds(mixer_channel_t *c, bool wrap, uint32_t *len, uint3
 // only receives the low 31 bits of the position, so a streamed channel (whose
 // position grows with the stream instead of wrapping) must carry everything
 // above that bit in the base pointer. VADPCM positions count samples, and the
-// ucode addresses one compressed frame every 16 of them.
-static int32_t mixer_pos_fold(const mixer_channel_t *c) {
-	int64_t high = c->pos & ~(int64_t)0x7FFFFFFF;
+// ucode addresses one compressed frame every 16 of them. @p pos is where the
+// command starts.
+static int32_t mixer_pos_fold(const mixer_channel_t *c, mixer_fx64_t pos) {
+	int64_t high = pos & ~(int64_t)0x7FFFFFFF;
 	if (c->flags & CH_FLAGS_VADPCM)
 		return (high >> (MIXER_FX64_FRAC+4)) * VADPCM_FRAME_BYTES(c->vbits);
 	return high >> MIXER_FX64_FRAC;
@@ -2321,147 +2553,223 @@ static void mixer_wait_channel_dma(int ch) {
 		samplebuffer_dma_wait(&Mixer.ch_buf[bufch]);
 }
 
-// Emit one mix round: a MIX_CHANNEL per active channel, plus the flush that
-// writes the accumulator out to @p out.
-//
-// Phase A kicks all streamed fetches so PI DMAs pipeline across channels;
-// Phase B waits for each channel's DMA only when about to emit its command.
-static void mixer_emit_round(int32_t *out, int ns, mixer_fx16_t gvol, int64_t tick) {
-	bool clear_accum = true;
+// First sample of the span [s0,s1) of the round at which a volume ramp of
+// @p och ends while another one runs on, or @p s1 if there is none.
+// #mixer_channel_volumes walks one line to the later end of the ramps, so a
+// short ramp (a declick) under a long one would play at the slope of the long
+// one. Cut there, each part walks one ramp to its own end.
+static int mixer_span_ramp_split(int och, int s0, int s1)
+{
+	const mixer_ramp_t *ramps[3] = {
+		&Mixer.lvol_ramp[och], &Mixer.rvol_ramp[och], &Mixer.gain_ramp[och] };
+	int64_t t0 = Round.tick + s0, t1 = Round.tick + s1;
+	int64_t first = INT64_MAX, last = t0;
+	for (int i = 0; i < 3; i++) {
+		if (!ramps[i]->duration)
+			continue;
+		int64_t e = ramps[i]->start_tick + ramps[i]->duration;
+		if (e <= t0)
+			continue;
+		first = MIN(first, e);
+		last = MAX(last, e);
+	}
+	if (first < t1 && first < last)
+		return (int)(first - Round.tick);
+	return s1;
+}
 
-	// The windows fetched below belong to this round, and stay live until the
-	// RSP publishes its id back (see MIX_FLUSH / #__mixer_round_done).
-	uint32_t round_id = ++Mixer.round_id;
-
-	PROFILE_SCOPE(PS_MIXER_FETCH) {
-		// Frequency ramps are piecewise-constant per round: sample Hz at @p tick
-		// into step before sizing fetches and emitting MIX_CHANNEL.
-		for (int ch = 0; ch < Mixer.hi_ch; ch++)
-			mixer_ch_sync_freq(ch, tick);
-
-		// Phase A: enqueue all PI DMAs back-to-back.
-		for (int ch = 0; ch < Mixer.hi_ch; ch++) {
-			mixer_channel_t *c = &Mixer.channels[ch];
-			mixer_channel_t *owner = (c->flags & CH_FLAGS_STEREO_SUB) ? c-1 : c;
-			if (!owner->ptr || (owner->flags & (CH_FLAGS_RESIDENT | CH_FLAGS_LOOP_CACHED)))
-				continue;
-			if (c->flags & CH_FLAGS_STEREO_SUB) {
-				if (!(owner->flags & CH_FLAGS_VADPCM))
-					continue; // PCM R shares the owner's fetch
-				c->pos = owner->pos;
-				c->step = owner->step;
-				c->len = owner->len;
-				c->loop_len = owner->loop_len;
-			}
-			mixer_fetch_window(ch, ns);
-		}
+// Stage the MIX_CHANNEL of the span [s0,s1) of the round. @p ch is a channel
+// or the stereo sub channel of one, and its command goes to the list of the
+// owner.
+static void mixer_stage_span(int ch, int s0, int s1)
+{
+	int split = mixer_span_ramp_split(
+		(Mixer.channels[ch].flags & CH_FLAGS_STEREO_SUB) ? ch-1 : ch, s0, s1);
+	if (split < s1) {
+		mixer_stage_span(ch, s0, split);
+		mixer_stage_span(ch, split, s1);
+		return;
 	}
 
-	// Phase B: emit, syncing each channel's DMA at the last moment.
-	PROFILE_SCOPE(PS_MIXER_CMD) {
+	mixer_channel_t *c = &Mixer.channels[ch];
+	bool sub = (c->flags & CH_FLAGS_STEREO_SUB) != 0;
+	mixer_channel_t *owner = sub ? c-1 : c;
+	int list = sub ? ch-1 : ch;
+	assert(s0 >= 0 && s0 < s1 && s1 <= Round.ns);
+	assert(owner->ptr && (!sub || (owner->flags & CH_FLAGS_STEREO)));
+	uint32_t flags = c->flags & (CH_FLAGS_BPS_SHIFT | CH_FLAGS_16BIT |
+		CH_FLAGS_STEREO | CH_FLAGS_STEREO_SUB | CH_FLAGS_VADPCM);
+	mixer_round_vol_t vol;
+	void *ptr;
+	uint32_t len = 0xFFFFFFFF, loop_len = 0;
+
+	// The position the span starts at. The RSP wraps the loops of resident
+	// waveforms by itself, so a span can start past such a loop: wrap it the
+	// same way. The CPU never lets a round cross the loop of a streamed one.
+	mixer_fx64_t pos64 = mixer_ch_pos_at(owner, s0);
+	uint32_t pos = (uint32_t)pos64 & 0x7FFFFFFF;
+	uint32_t step = (uint32_t)owner->step & 0x7FFFFFFF;
+
+	PROFILE_SCOPE(PS_MIXER_VOL) {
+		vol = mixer_channel_volumes(ch, owner->flags, sub, Round.gvol, Round.tick + s0, s1 - s0);
+	}
+
+	if (sub && !(owner->flags & CH_FLAGS_VADPCM)) {
+		// PCM interleaved: extract R from the owner's sample stream.
+		flags = (owner->flags & (CH_FLAGS_BPS_SHIFT | CH_FLAGS_16BIT | CH_FLAGS_STEREO)) | CH_FLAGS_STEREO_SUB;
+		ptr = (uint8_t*)owner->ptr + mixer_pos_fold(owner, pos64);
+		mixer_rsp_bounds(owner, pos64, true, &len, &loop_len);
+	} else if (sub) {
+		// Stereo VADPCM R: timing already synced in Phase A when streamed.
+		c->pos = owner->pos;
+		c->step = owner->step;
+		c->len = owner->len;
+		c->loop_len = owner->loop_len;
+		flags = CH_FLAGS_VADPCM | CH_FLAGS_16BIT;
+		if (owner->flags & (CH_FLAGS_RESIDENT | CH_FLAGS_LOOP_CACHED)) {
+			ptr = c->ptr;
+			mixer_rsp_bounds(c, pos64, true, &len, &loop_len);
+		} else {
+			ptr = (uint8_t*)c->ptr + mixer_pos_fold(c, pos64);
+		}
+	} else if (c->flags & (CH_FLAGS_RESIDENT | CH_FLAGS_LOOP_CACHED)) {
+		ptr = c->ptr;
+		mixer_rsp_bounds(c, pos64, true, &len, &loop_len);
+	} else {
+		ptr = (uint8_t*)c->ptr + mixer_pos_fold(c, pos64);
+		// Small loops are pinned by mixer_update_loops, large ones are
+		// wrapped by the CPU between rounds: either way the RSP is
+		// never allowed to wrap a streamed channel.
+		if (!c->loop_len)
+			mixer_rsp_bounds(c, pos64, false, &len, &loop_len);
+	}
+
+	PROFILE_SCOPE(PS_MIXER_DMAWAIT) {
+		mixer_wait_channel_dma(ch);
+	}
+
+	PROFILE_SCOPE(PS_MIXER_RSPQ) {
+		// A state the CPU re-seeded rides with the first round that needs it,
+		// which is where it belongs in the queue.
+		if (Mixer.vstate_dirty & mixer_bit(ch)) {
+			Mixer.vstate_dirty &= ~mixer_bit(ch);
+			if ((c->flags & CH_FLAGS_VADPCM) && c->codec_state)
+				mixer_stage_setstate(list, ch);
+		}
+
+		// A command that starts on the frame the loop starts on must decode
+		// from the state saved for that frame: the one the stream left behind
+		// belongs to the end of the waveform, since it is the CPU that wraps
+		// the position between rounds. The ucode has no cheap way to tell,
+		// while here it is a comparison on values already at hand.
+		if ((flags & CH_FLAGS_VADPCM) && loop_len && Mixer.chtbl[ch].loop_state &&
+			(pos >> (MIXER_FX64_FRAC+4)) == ((len - loop_len) >> (MIXER_FX64_FRAC+4)))
+			flags |= CH_FLAGS_VLOOP_STATE;
+
+		mixer_stage_channel(list, ch, flags, vol, pos, step, len, loop_len, ptr,
+			s0, s1 - s0);
+	}
+}
+
+// Run a channel event at @p at, inside the round being built. The spans of
+// the channel before it are already staged, and the ones after it are
+// staged with what it leaves behind, so it can change the volumes of its own
+// channel or stop it, but not what the round already fetched for it.
+static void mixer_ch_fire_event(mixer_ch_event_t *e, int64_t at) {
+	mixer_channel_t *c = &Mixer.channels[e->ch];
+	void *ptr = c->ptr;
+	uint64_t step = c->step;
+	uint32_t flags = c->flags;
+	int64_t now = Mixer.ticks;
+
+	Mixer.ticks = at;
+	Mixer.in_ch_event = true;
+	int repeat = e->cb(e->ctx);
+	Mixer.in_ch_event = false;
+	Mixer.ticks = now;
+
+	assertf(!c->ptr || (c->ptr == ptr && c->step == step && c->flags == flags),
+		"channel %d event %p: changed the waveform or frequency of the channel",
+		e->ch, (void*)e->cb);
+	assertf(repeat >= 0, "channel %d event %p: negative delay %d", e->ch, (void*)e->cb, repeat);
+	if (repeat) {
+		e->ticks += repeat;
+	} else {
+		int i = e - Mixer.ch_events;
+		memmove(&Mixer.ch_events[i], &Mixer.ch_events[i+1],
+			sizeof(mixer_ch_event_t) * (Mixer.num_ch_events-i-1));
+		Mixer.num_ch_events--;
+	}
+}
+
+static void mixer_round_write(int ns);
+
+// Stage the spans of the channels from where each one is up to @p end, and
+// write the round of @p end samples.
+static void mixer_round_close(int end) {
 	for (int ch = 0; ch < Mixer.hi_ch; ch++) {
 		mixer_channel_t *c = &Mixer.channels[ch];
-		mixer_channel_t *owner = (c->flags & CH_FLAGS_STEREO_SUB) ? c-1 : c;
-		uint32_t flags = c->flags & (CH_FLAGS_BPS_SHIFT | CH_FLAGS_16BIT |
-			CH_FLAGS_STEREO | CH_FLAGS_STEREO_SUB | CH_FLAGS_VADPCM);
-		mixer_round_vol_t vol = {0};
-		void *ptr = NULL;
-		uint32_t pos = 0, step = 0, len = 0xFFFFFFFF, loop_len = 0;
-
-		if (!owner->ptr) {
-			// A channel with no data has nothing to mix and no state left
-			// behind on the RSP: drop it from the round entirely.
+		// A channel with no data has nothing to mix and no state left behind
+		// on the RSP: drop it from the round entirely.
+		if ((c->flags & CH_FLAGS_STEREO_SUB) || !c->ptr || Round.s0[ch] >= end)
 			continue;
-		} else if (c->flags & CH_FLAGS_STEREO_SUB) {
-			PROFILE_SCOPE(PS_MIXER_VOL) {
-				vol = mixer_channel_volumes(ch, owner->flags, true, gvol, tick, ns);
-			}
+		mixer_stage_span(ch, Round.s0[ch], end);
+		if (c->flags & CH_FLAGS_STEREO)
+			mixer_stage_span(ch+1, Round.s0[ch], end);
+		Round.s0[ch] = end;
+	}
+	mixer_round_write(end);
+}
 
-			if (!(owner->flags & CH_FLAGS_VADPCM)) {
-				// PCM interleaved: extract R from the owner's sample stream.
-				flags = (owner->flags & (CH_FLAGS_BPS_SHIFT | CH_FLAGS_16BIT | CH_FLAGS_STEREO)) | CH_FLAGS_STEREO_SUB;
-				pos = (uint32_t)owner->pos & 0x7FFFFFFF;
-				step = (uint32_t)owner->step & 0x7FFFFFFF;
-				ptr = (uint8_t*)owner->ptr + mixer_pos_fold(owner);
-				mixer_rsp_bounds(owner, true, &len, &loop_len);
-			} else {
-				// Stereo VADPCM R: timing already synced in Phase A when streamed.
-				c->pos = owner->pos;
-				c->step = owner->step;
-				c->len = owner->len;
-				c->loop_len = owner->loop_len;
-				flags = CH_FLAGS_VADPCM | CH_FLAGS_16BIT;
-				pos = (uint32_t)c->pos & 0x7FFFFFFF;
-				step = (uint32_t)c->step & 0x7FFFFFFF;
-				if (owner->flags & (CH_FLAGS_RESIDENT | CH_FLAGS_LOOP_CACHED)) {
-					ptr = c->ptr;
-					mixer_rsp_bounds(c, true, &len, &loop_len);
-				} else {
-					ptr = (uint8_t*)c->ptr + mixer_pos_fold(c);
+// Write the commands staged for the round of @p ns samples to the queue, in
+// one high-priority burst, and the flush that writes the accumulator out.
+//
+// The ucode saturates the accumulator after each command, so the order of the
+// commands is part of the output: the channels go in ascending order, and the
+// spans of each one in time order, as if the round was not cut at all.
+static void mixer_round_write(int ns) {
+	PROFILE_SCOPE(PS_MIXER_RSPQ) {
+	// The windows fetched for the round stay live until the RSP publishes its
+	// id back (see MIX_FLUSH / #__mixer_round_done).
+	uint32_t round_id = ++Mixer.round_id;
+	bool clear_accum = true;
+
+	rspq_highpri_begin();
+	for (int i = Round.pre_head; i != MIXER_STAGED_NONE; i = Round.staged[i].next)
+		mixer_write_cmd(Round.staged[i].cmd, Round.staged[i].w, Round.staged[i].nw);
+	for (uint32_t owners = Round.owners; owners; owners &= owners - 1) {
+		int list = __builtin_ctz(owners);
+		for (int i = Round.head[list]; i != MIXER_STAGED_NONE; i = Round.staged[i].next) {
+			mixer_staged_t *s = &Round.staged[i];
+			if (s->cmd == MIXER_CMD_CHANNEL) {
+				uint32_t w[10];
+				memcpy(w, s->w, sizeof(w));
+				int offset = w[9] >> 16;
+				int n = w[0] & 0x3FF;
+				assert(offset + n <= ns);
+				if (clear_accum) {
+					w[0] |= CH_FLAGS_CLEAR_ACCUM << 11;
+					clear_accum = false;
 				}
-			}
-		} else {
-			PROFILE_SCOPE(PS_MIXER_VOL) {
-				vol = mixer_channel_volumes(ch, c->flags, false, gvol, tick, ns);
-			}
-			pos = (uint32_t)c->pos & 0x7FFFFFFF;
-			step = (uint32_t)c->step & 0x7FFFFFFF;
-
-			if (c->flags & (CH_FLAGS_RESIDENT | CH_FLAGS_LOOP_CACHED)) {
-				ptr = c->ptr;
-				mixer_rsp_bounds(c, true, &len, &loop_len);
+				if (offset + n < ns)
+					w[9] |= 1;
+				mixer_write_cmd(s->cmd, w, s->nw);
 			} else {
-				ptr = (uint8_t*)c->ptr + mixer_pos_fold(c);
-				// Small loops are pinned by mixer_update_loops, large ones are
-				// wrapped by the CPU between rounds: either way the RSP is
-				// never allowed to wrap a streamed channel.
-				if (!c->loop_len)
-					mixer_rsp_bounds(c, false, &len, &loop_len);
+				mixer_write_cmd(s->cmd, s->w, s->nw);
 			}
-		}
-
-		PROFILE_SCOPE(PS_MIXER_DMAWAIT) {
-			if (owner->ptr)
-				mixer_wait_channel_dma(ch);
-		}
-
-		PROFILE_SCOPE(PS_MIXER_RSPQ) {
-			// A state the CPU re-seeded rides with the first round that needs it,
-			// which is where it belongs in the queue.
-			if (Mixer.vstate_dirty & mixer_bit(ch)) {
-				Mixer.vstate_dirty &= ~mixer_bit(ch);
-				if ((c->flags & CH_FLAGS_VADPCM) && c->codec_state)
-					mixer_emit_setstate(ch);
-			}
-
-			// A command that starts on the frame the loop starts on must decode
-			// from the state saved for that frame: the one the stream left behind
-			// belongs to the end of the waveform, since it is the CPU that wraps
-			// the position between rounds. The ucode has no cheap way to tell,
-			// while here it is a comparison on values already at hand.
-			if ((flags & CH_FLAGS_VADPCM) && loop_len && Mixer.chtbl[ch].loop_state &&
-				(pos >> (MIXER_FX64_FRAC+4)) == ((len - loop_len) >> (MIXER_FX64_FRAC+4)))
-				flags |= CH_FLAGS_VLOOP_STATE;
-
-			if (clear_accum) {
-				flags |= CH_FLAGS_CLEAR_ACCUM;
-				clear_accum = false;
-			}
-
-			mixer_emit_channel(ch, flags, vol, pos, step, len, loop_len, ptr, ns);
 		}
 	}
-
-	PROFILE_START(PS_MIXER_RSPQ, 1);
 	// All channels were silent: the accumulator must still be cleared before
 	// being flushed out.
-	if (clear_accum)
-		mixer_emit_channel(0, CH_FLAGS_CLEAR_ACCUM, (mixer_round_vol_t){0}, 0, 0, 0, 0, NULL, ns);
-
+	if (clear_accum) {
+		uint32_t w[10] = { (CH_FLAGS_CLEAR_ACCUM << 11) | (uint32_t)ns };
+		mixer_write_cmd(MIXER_CMD_CHANNEL, w, 10);
+	}
 	rspq_write(__mixer_overlay_id, MIXER_CMD_FLUSH,
-		(uint32_t)ns, PhysicalAddr(out), round_id,
+		(uint32_t)ns, PhysicalAddr(Round.out), round_id,
 		PhysicalAddr((void*)Mixer.round_done));
-	PROFILE_STOP(PS_MIXER_RSPQ, 1);
+	rspq_highpri_end();
+	mixer_round_clear();
 	}
 }
 
@@ -2489,33 +2797,229 @@ static void mixer_advance(int ns) {
 	}
 }
 
+// End the round at the current tick: the change about to be made to a channel
+// cannot be expressed as a new span. The rest of the round becomes a round of
+// its own, which #mixer_exec starts as usual.
+static void mixer_round_cut(void) {
+	if (!Round.active)
+		return;
+	assertf(!Mixer.in_ch_event, "mixer: a channel event cannot start, seek or retune a channel");
+	int at = (int)(Mixer.ticks - Round.tick);
+	assertf(at > 0 && at < Round.ns && !(at & 1), "mixer: cut at %d of a round of %d", at, Round.ns);
+	Round.active = false;
+	mixer_round_close(at);
+	mixer_advance(at);
+	Round.ns = at;
+	Round.cut = true;
+}
+
+void __mixer_round_cut(void) {
+	mixer_round_cut();
+}
+
+// Stage the span of channel @p ch up to the current tick, before a change to
+// it that the next span takes into account.
+static void mixer_ch_split(int ch) {
+	if (!Round.active)
+		return;
+	mixer_channel_t *c = &Mixer.channels[ch];
+	if (c->flags & CH_FLAGS_STEREO_SUB) {
+		ch--;
+		c--;
+	}
+	if (!c->ptr)
+		return;
+	int at = (int)(Mixer.ticks - Round.tick);
+	assertf(at >= Round.s0[ch] && at < Round.ns, "mixer: ch%d split at %d, span at %d of %d",
+		ch, at, Round.s0[ch], Round.ns);
+	if (at == Round.s0[ch])
+		return;
+	mixer_stage_span(ch, Round.s0[ch], at);
+	if (c->flags & CH_FLAGS_STEREO)
+		mixer_stage_span(ch+1, Round.s0[ch], at);
+	Round.s0[ch] = at;
+}
+
+static mixer_event_t* mixer_next_event(void);
 static void mixer_invoke_soft(int round_ns);
 
+static void mixer_fire_event(mixer_event_t *e) {
+	int64_t repeat = e->cb(e->ctx);
+	if (repeat)
+		e->ticks += repeat;
+	else
+		mixer_remove_event(e->cb, e->ctx);
+}
+
+// Run the global events due at the current tick, which is between two rounds.
+static void mixer_fire_due_events(void) {
+	for (;;) {
+		mixer_event_t *e = mixer_next_event();
+		if (!e || e->ticks > Mixer.ticks)
+			return;
+		mixer_fire_event(e);
+	}
+}
+
+// Run the channel events of the round before tick @p end, all channels
+// together in time order (ties go to the lower channel).
+static void mixer_fire_ch_events_before(int64_t end) {
+	for (;;) {
+		mixer_ch_event_t *e = NULL;
+		for (int i = 0; i < Mixer.num_ch_events; i++) {
+			mixer_ch_event_t *x = &Mixer.ch_events[i];
+			if (x->ticks < end && (!e || x->ticks < e->ticks ||
+				(x->ticks == e->ticks && x->ch < e->ch)))
+				e = x;
+		}
+		if (!e)
+			return;
+		assertf(!(Mixer.channels[e->ch].flags & CH_FLAGS_STEREO_SUB),
+			"channel %d has an event, but is now the right half of a stereo channel", e->ch);
+		int at = (int)MAX(e->ticks - Round.tick, (int64_t)Round.now);
+		Round.now = at;
+		mixer_ch_fire_event(e, Round.tick + at);
+	}
+}
+
+// Stop the channels whose waveform ended before offset @p at of the round, as
+// the start of the next round would: an event that looks for a free channel
+// finds them free.
+static void mixer_round_stop_ended(int at) {
+	for (int ch = 0; ch < Mixer.hi_ch; ch++) {
+		mixer_channel_t *c = &Mixer.channels[ch];
+		if (!c->ptr || (c->flags & CH_FLAGS_STEREO_SUB) || c->loop_len)
+			continue;
+		bool vadpcm = (c->flags & CH_FLAGS_VADPCM) != 0;
+		int bps_fx64 = (vadpcm ? 0 : (c->flags & CH_FLAGS_BPS_SHIFT)) + MIXER_FX64_FRAC;
+		if ((mixer_ch_pos_at(c, at) >> bps_fx64) >= (c->len >> bps_fx64))
+			mixer_ch_stop(ch);
+	}
+}
+
+// Run the events that fall inside the round. A global event fires at its tick
+// rounded up to an even sample, like at the end of a round, but the round goes
+// on: only what the event changes is cut (see #mixer_ch_split), unless the
+// change ends the round (see #mixer_round_cut). The soft events are told about
+// the samples up to that tick first.
+static void mixer_round_events(void) {
+	int64_t end = Round.tick + Round.ns;
+	for (;;) {
+		mixer_event_t *e = mixer_next_event();
+		if (!e)
+			break;
+		int64_t x = MAX((int64_t)ROUND_UP(e->ticks, 2), Round.tick + Round.now);
+		if (x >= end)
+			break;
+		mixer_fire_ch_events_before(x);
+		int at = (int)(x - Round.tick);
+		assert(!(at & 1));
+		Round.now = at;
+		Mixer.ticks = x;
+		if (at > Round.soft_done) {
+			mixer_invoke_soft(at - Round.soft_done);
+			Round.soft_done = at;
+		}
+		// A soft event can cut the round too: the channels are then already
+		// advanced to the tick.
+		mixer_round_stop_ended(Round.cut ? 0 : at);
+		mixer_fire_event(e);
+		if (Round.cut)
+			return;
+	}
+	mixer_fire_ch_events_before(end);
+}
+
+// The decoders that write their samples with the RSP (#waveform_t::rsp_written)
+// queue that work in the current queue, so they must run in the high-priority
+// one, ahead of the rounds that read what they write.
+static bool mixer_rsp_decoding(void) {
+	for (int ch = 0; ch < Mixer.hi_ch; ch++) {
+		mixer_channel_t *c = &Mixer.channels[ch];
+		if ((c->ptr || (c->flags & CH_FLAGS_STEREO_SUB)) &&
+			samplebuffer_is_inited(&Mixer.ch_buf[ch]) && Mixer.ch_buf[ch].rsp_written)
+			return true;
+	}
+	return false;
+}
+
+// Fetch the input windows of the round. All the streamed fetches are kicked
+// back-to-back, so that their PI DMAs pipeline across channels; each channel
+// waits for its own only when its first span is staged.
+static void mixer_round_fetch(void) {
+	// Frequency ramps are piecewise-constant per round: sample Hz at the start
+	// of the round into step before sizing fetches and staging MIX_CHANNEL.
+	for (int ch = 0; ch < Mixer.hi_ch; ch++)
+		mixer_ch_sync_freq(ch, Round.tick);
+
+	for (int ch = 0; ch < Mixer.hi_ch; ch++) {
+		mixer_channel_t *c = &Mixer.channels[ch];
+		mixer_channel_t *owner = (c->flags & CH_FLAGS_STEREO_SUB) ? c-1 : c;
+		if (!owner->ptr || (owner->flags & (CH_FLAGS_RESIDENT | CH_FLAGS_LOOP_CACHED)))
+			continue;
+		if (c->flags & CH_FLAGS_STEREO_SUB) {
+			if (!(owner->flags & CH_FLAGS_VADPCM))
+				continue; // PCM R shares the owner's fetch
+			c->pos = owner->pos;
+			c->step = owner->step;
+			c->len = owner->len;
+			c->loop_len = owner->loop_len;
+		}
+		mixer_fetch_window(ch, Round.ns);
+	}
+}
+
+// Mix @p num_samples samples into @p out, in rounds. A round is built on the
+// CPU while the RSP is free to run other work, and only reaches the RSP when
+// it is complete (see #mixer_round_write).
 static void mixer_exec(int32_t *out, int num_samples) {
 	PROFILE_SCOPE(PS_MIXER_EXEC) {
 	tracef("mixer_exec: 0x%x samples\n", num_samples);
 
-	mixer_fx16_t gvol = mixer_global_volume();
-
 	for (int offset = 0; offset < num_samples; ) {
+		assert(!(Mixer.ticks & 1));
+		mixer_fire_due_events();
+
+		int64_t tick = Mixer.ticks;
 		int ns;
-		rspq_highpri_begin();
+		bool rsp_decoding = mixer_rsp_decoding();
+		if (rsp_decoding)
+			rspq_highpri_begin();
 		PROFILE_SCOPE(PS_MIXER_PREP) {
 			mixer_update_loops();
 			mixer_refresh_chtbl();
 			ns = mixer_round_length(num_samples - offset);
 		}
+		Round.tick = tick;
+		Round.ns = ns;
+		Round.gvol = mixer_global_volume();
+		Round.out = out + offset;
+		Round.now = 0;
+		Round.soft_done = 0;
+		Round.cut = false;
+		memset(Round.s0, 0, sizeof(Round.s0));
+		PROFILE_SCOPE(PS_MIXER_FETCH) {
+			mixer_round_fetch();
+		}
+		if (rsp_decoding)
+			rspq_highpri_end();
+
 		PROFILE_SCOPE(PS_MIXER_EMIT) {
-			mixer_emit_round(out + offset, ns, gvol, Mixer.ticks);
+			Round.active = true;
+			mixer_round_events();
+			if (!Round.cut) {
+				Round.active = false;
+				mixer_round_close(ns);
+				mixer_advance(ns);
+				Mixer.ticks = tick + ns;
+			}
 		}
-		PROFILE_SCOPE(PS_MIXER_ADVANCE) {
-			mixer_advance(ns);
-			Mixer.ticks += ns;
-		}
-		rspq_highpri_end();
-		mixer_invoke_soft(ns);
+		ns = Round.ns;
+		if (ns > Round.soft_done)
+			mixer_invoke_soft(ns - Round.soft_done);
 		offset += ns;
 	}
+	mixer_fire_due_events();
 
 	PROFILE_SCOPE(PS_MIXER_PREFETCH) {
 		mixer_prefetch_next(num_samples);
@@ -2533,12 +3037,42 @@ static mixer_event_t* mixer_next_event(void) {
 }
 
 void mixer_add_event(int64_t delay, MixerEvent cb, void *ctx) {
+	assertf(!Mixer.in_ch_event, "mixer_add_event: called from a channel event");
 	assertf(Mixer.num_events < MAX_EVENTS, "too many mixer events");
 	Mixer.events[Mixer.num_events++] = (mixer_event_t){
 		.cb = cb,
 		.ctx = ctx,
 		.ticks = Mixer.ticks + delay
 	};
+}
+
+void mixer_ch_add_event(int ch, int64_t delay, MixerEvent cb, void *ctx) {
+	assertf(ch >= 0 && ch < Mixer.num_channels, "mixer_ch_add_event: invalid channel %d", ch);
+	assertf(!(Mixer.channels[ch].flags & CH_FLAGS_STEREO_SUB),
+		"mixer_ch_add_event: cannot call on secondary stereo channel %d", ch);
+	assertf(delay >= 0, "mixer_ch_add_event: negative delay %lld on channel %d", delay, ch);
+	assertf(!Mixer.in_ch_event, "mixer_ch_add_event: called from a channel event");
+	assertf(Mixer.num_ch_events < MAX_EVENTS, "too many mixer channel events");
+	Mixer.ch_events[Mixer.num_ch_events++] = (mixer_ch_event_t){
+		.cb = cb,
+		.ctx = ctx,
+		.ch = ch,
+		.ticks = Mixer.ticks + delay
+	};
+}
+
+void mixer_ch_remove_event(int ch, MixerEvent cb, void *ctx) {
+	assertf(!Mixer.in_ch_event, "mixer_ch_remove_event: called from a channel event");
+	for (int i=0;i<Mixer.num_ch_events;i++) {
+		mixer_ch_event_t *e = &Mixer.ch_events[i];
+		if (e->ch == ch && e->cb == cb && e->ctx == ctx) {
+			memmove(e, e+1, sizeof(mixer_ch_event_t) * (Mixer.num_ch_events-i-1));
+			Mixer.num_ch_events--;
+			return;
+		}
+	}
+	assertf(0, "mixer_ch_remove_event: specified event does not exist\nch:%d cb:%p ctx:%p",
+		ch, (void*)cb, ctx);
 }
 
 void mixer_remove_event(MixerEvent cb, void *ctx) {
@@ -2632,30 +3166,9 @@ void mixer_poll_async(int16_t *out16, int num_samples) {
 		memset(out + num_samples, 0, (total - num_samples) * sizeof(int32_t));
 	}
 
-	while (num_samples > 0) {
-		mixer_event_t *e = mixer_next_event();
-
-		// Stop at the next event, rounding the split up to an even number of
-		// samples. The event then fires up to one sample late, but without
-		// drifting: its schedule stays anchored to absolute ticks.
-		int ns = num_samples;
-		if (e) {
-			int64_t delay = e->ticks - Mixer.ticks;
-			ns = delay > 0 ? MIN(ns, (int)ROUND_UP(delay, 2)) : 0;
-		}
-		if (ns > 0) {
-			mixer_exec(out, ns);
-			out += ns;
-			num_samples -= ns;
-		}
-		if (e && Mixer.ticks >= e->ticks) {
-			int64_t repeat = e->cb(e->ctx);
-			if (repeat)
-				e->ticks += repeat;
-			else
-				mixer_remove_event(e->cb, e->ctx);
-		}
-	}
+	// The global events fire inside the rounds (see #mixer_round_events).
+	if (num_samples > 0)
+		mixer_exec(out, num_samples);
 
 	// Remember where this poll ended, so that #mixer_poll_would_wait /
 	// #mixer_poll_barrier can tell whether the ring space of the polls
