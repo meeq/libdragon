@@ -352,6 +352,26 @@ void mixer_set_force_mono(bool enable);
 void mixer_ch_play(int ch, waveform_t *wave);
 
 /**
+ * @brief Start playing a waveform at the specified frequency.
+ *
+ * This function is the same as #mixer_ch_play, but the channel plays at
+ * @p frequency from the first sample. The frequency of the waveform is not
+ * applied, so it can be above the limit of the channel (see
+ * #mixer_ch_set_limits). Only @p frequency must be within the limit.
+ *
+ * Use this function when the playback frequency is always set after
+ * #mixer_ch_play, for instance to play a note of an instrument sample.
+ *
+ * @param[in]   ch              Channel index
+ * @param[in]   wave            Waveform to playback
+ * @param[in]   frequency       Playback frequency (in Hz / samples per second)
+ *
+ * @see #mixer_ch_play
+ */
+LIBDRAGON_PREVIEW_API
+void mixer_ch_play_freq(int ch, waveform_t *wave, float frequency);
+
+/**
  * @brief Change the frequency for the specified channel.
  *
  * By default, the frequency is the one required by the waveform associated

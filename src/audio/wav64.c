@@ -317,6 +317,11 @@ void wav64_play(wav64_t *wav, int ch)
 	mixer_ch_play(ch, &wav->wave);
 }
 
+void wav64_play_freq(wav64_t *wav, int ch, float frequency)
+{
+	mixer_ch_play_freq(ch, &wav->wave, frequency);
+}
+
 double wav64_seek(wav64_t *wav, int ch, double time_sec)
 {
 	// Compute a target sample position (rounded to nearest integer sample)
