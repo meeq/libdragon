@@ -111,6 +111,14 @@ void __mixer_round_wait(uint32_t id);
 bool __mixer_rdram_copy(void *dst, void *src, int nbytes);
 
 /**
+ * @brief End the round being built at the current tick, if any.
+ *
+ * Call it from a mixer event before freeing memory that a channel reads: the
+ * spans already built are only queued, and so covered by a sync, after this.
+ */
+void __mixer_round_cut(void);
+
+/**
  * @brief Output samples the CPU may mix without ever waiting for the RSP.
  *
  * The span sample buffers are sized for. Callers that size their own buffers
