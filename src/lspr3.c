@@ -281,6 +281,28 @@ static void lspr3_decode_intra_slice(
 
 static uint8_t *lspr3_setup_rgba16_sprite_header(sprite_t *sprite, uint16_t out_w, uint16_t out_h);
 
+#define LSPR3_MB_RING_ROWS 2
+
+// Get the storage slot of macroblock `addr` in a ring of LSPR3_MB_RING_ROWS
+// MB-rows. The slot is cleared, so it starts in the same state as a zeroed
+// full-frame entry. Its neighbour links select the same macroblocks as
+// h264bsdInitMbNeighbours. The row above stays in the ring until the row
+// below it is complete.
+static mbStorage_t *lspr3_mb_ring_slot(mbStorage_t *ring, u32 mb_w, u32 addr)
+{
+    const u32 row = addr / mb_w;
+    const u32 col = addr % mb_w;
+    mbStorage_t *cur = ring + (row % LSPR3_MB_RING_ROWS) * mb_w;
+    mbStorage_t *up = ring + ((row + LSPR3_MB_RING_ROWS - 1) % LSPR3_MB_RING_ROWS) * mb_w;
+    mbStorage_t *pMb = cur + col;
+    memset(pMb, 0, sizeof(*pMb));
+    pMb->mbA = col ? pMb - 1 : NULL;
+    pMb->mbB = row ? up + col : NULL;
+    pMb->mbC = (row && col < mb_w - 1) ? up + col + 1 : NULL;
+    pMb->mbD = (row && col) ? up + col - 1 : NULL;
+    return pMb;
+}
+
 // Banded variant: reconstruct the frame in horizontal bands of `band_rows`
 // MB-rows into a small windowed scratch buffer, so the peak transient YUV is a
 // fraction of the full-frame path. Each completed band is either assembled into
@@ -358,10 +380,13 @@ static void lspr3_decode_intra_slice_banded(
     u32 slice_status = h264bsdDecodeSliceHeader(&strm, &slice, &sps, &pps, &nal);
     assertf(slice_status == HANTRO_OK, "H264I-band: slice header decode failed");
 
-    size_t mb_bytes = (size_t)pic_size_in_mbs * sizeof(mbStorage_t);
-    mbStorage_t *mb = (mbStorage_t*)calloc(pic_size_in_mbs, sizeof(mbStorage_t));
+    // The macroblock storage holds two MB-rows: the row that decodes and the
+    // row above it. The decoder reads only the left, top-left, top and
+    // top-right neighbours of a macroblock, and the RSP does not read this
+    // storage. Thus a slot can be used again without an RSP sync.
+    size_t mb_bytes = (size_t)LSPR3_MB_RING_ROWS * mb_w * sizeof(mbStorage_t);
+    mbStorage_t *mb = (mbStorage_t*)malloc(mb_bytes);
     assertf(mb, "H264I-band: out of memory (mb %u)", (unsigned)mb_bytes);
-    h264bsdInitMbNeighbours(mb, (u32)mb_w, pic_size_in_mbs);
 
     i32 qpY = (i32)pps.picInitQp + slice.sliceQpDelta;
     macroblockLayer_t mbLayers[H264I_MB_RING] = {0};
@@ -407,16 +432,16 @@ static void lspr3_decode_intra_slice_banded(
             u32 slot = currMbAddr % H264I_MB_RING;
             if (slot_sync[slot]) rspq_syncpoint_wait(slot_sync[slot]);
             macroblockLayer_t *mbLayer = &mbLayers[slot];
-            mbStorage_t *pMb = mb + currMbAddr;
+            mbStorage_t *pMb = lspr3_mb_ring_slot(mb, (u32)mb_w, currMbAddr);
             pMb->sliceId = 1;
             pMb->disableDeblockingFilterIdc = slice.disableDeblockingFilterIdc;
             pMb->filterOffsetA = slice.sliceAlphaC0Offset;
             pMb->filterOffsetB = slice.sliceBetaOffset;
             pMb->chromaQpIndexOffset = pps.chromaQpIndexOffset;
-            u32 s1 = h264bsdDecodeMacroblockLayer(&strm, mbLayer, mb + currMbAddr,
+            u32 s1 = h264bsdDecodeMacroblockLayer(&strm, mbLayer, pMb,
                                                   slice.sliceType, slice.numRefIdxL0Active);
             assertf(s1 == HANTRO_OK, "H264I-band: mb-layer fail at %lu", (unsigned long)currMbAddr);
-            u32 s2 = h264bsdDecodeMacroblock(mb + currMbAddr, mbLayer, &image, NULL,
+            u32 s2 = h264bsdDecodeMacroblock(pMb, mbLayer, &image, NULL,
                                              &qpY, currMbAddr, pps.constrainedIntraPredFlag, &slice);
             assertf(s2 == HANTRO_OK, "H264I-band: mb decode fail at %lu", (unsigned long)currMbAddr);
             slot_sync[slot] = rspq_syncpoint_new();
