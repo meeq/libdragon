@@ -247,7 +247,7 @@ bool samplebuffer_is_inited(samplebuffer_t *buf);
  *
  * After this call, wpos/widx/size are expressed in units of `unit_bytes`
  * each (e.g. 2 for 16-bit mono PCM, 9 for mono VADPCM frames). The buffer
- * must be empty.
+ * must be empty. Preserves the current append granularity.
  */
 void samplebuffer_set_unit_bytes(samplebuffer_t *buf, int unit_bytes);
 

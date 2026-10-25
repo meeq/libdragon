@@ -8,6 +8,7 @@
 #include "mixer.h"
 #include "mixer_internal.h"
 #include "samplebuffer.h"
+#include "samplebuffer_internal.h"
 #include "n64sys.h"
 #include "n64types.h"
 #include "dma.h"
@@ -156,10 +157,11 @@ static void samplebuffer_recalc_size(samplebuffer_t *buf) {
 		buf->head = samplebuffer_align_len(buf, buf->head) % n;
 }
 
-void samplebuffer_set_unit_bytes(samplebuffer_t *buf, int unit_bytes) {
+void samplebuffer_set_format(samplebuffer_t *buf, int unit_bytes, int append_units) {
 	assert(unit_bytes > 0);
+	assert(append_units >= 0);
 	assertf(buf->widx == 0 && buf->ridx == 0 && buf->wpos == 0,
-		"samplebuffer_set_unit_bytes can only be called on an empty samplebuffer");
+		"samplebuffer_set_format can only be called on an empty samplebuffer");
 
 	// head is an index in units. It cannot be carried across a unit-size
 	// change: the same numeric index denotes a different byte address, and an
@@ -171,7 +173,12 @@ void samplebuffer_set_unit_bytes(samplebuffer_t *buf, int unit_bytes) {
 		buf->size = 0;
 	}
 	buf->unit_bytes = (uint8_t)unit_bytes;
+	buf->append_units = append_units;
 	samplebuffer_recalc_size(buf);
+}
+
+void samplebuffer_set_unit_bytes(samplebuffer_t *buf, int unit_bytes) {
+	samplebuffer_set_format(buf, unit_bytes, buf->append_units);
 }
 
 void samplebuffer_set_waveform(samplebuffer_t *buf, waveform_t *wave, WaveformRead read) {

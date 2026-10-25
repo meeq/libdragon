@@ -13,6 +13,7 @@
 #include "rspq.h"
 #include "debug.h"
 #include "samplebuffer.h"
+#include "samplebuffer_internal.h"
 #include "audio.h"
 #include "n64sys.h"
 #include "interrupt.h"
@@ -1173,13 +1174,13 @@ void mixer_ch_play(int ch, waveform_t *wave)
 				memset(c->codec_state, 0, wave->state_size);
 			}
 		} else {
-			if (wave->format == WAVEFORM_FORMAT_VADPCM) {
-				samplebuffer_set_unit_bytes(sbuf, mixer_vadpcm_frame_bytes(wave));
-				if (stereo_vadpcm)
-					samplebuffer_set_unit_bytes(&Mixer.ch_buf[ch+1], mixer_vadpcm_frame_bytes(wave));
-			} else {
-				samplebuffer_set_bps(sbuf, wave->bits*wave->channels);
-			}
+			// Resize using only the incoming codec's geometry, never a new
+			// unit size multiplied by the previous codec's append granularity.
+			int ub = vadpcm ? mixer_vadpcm_frame_bytes(wave)
+				: (wave->bits / 8) * wave->channels;
+			samplebuffer_set_format(sbuf, ub, wave->append_units);
+			if (stereo_vadpcm)
+				samplebuffer_set_format(&Mixer.ch_buf[ch+1], ub, wave->append_units);
 			samplebuffer_set_waveform(sbuf, wave, wave->read ? waveform_read : NULL);
 			c->codec_state = sbuf->state;
 		}
