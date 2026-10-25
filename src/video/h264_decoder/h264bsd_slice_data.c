@@ -45,6 +45,19 @@
 #include "../fastcache.h"
 #include "rspq.h"   // rspq_syncpoint_new/wait for the mbLayer ring coherency guard
 
+/* Optional instrumentation for the mbLayer ring: measures the CPU cycles spent
+ * blocked on the syncpoint, waiting for the RSP, to tune the
+ * NUM_PARALLEL_MACROBLOCKS depth. Off by default (zero overhead); enable with
+ * -DH264_MBLAYER_PROFILE=1. */
+#ifndef H264_MBLAYER_PROFILE
+#define H264_MBLAYER_PROFILE 0
+#endif
+#if H264_MBLAYER_PROFILE
+#include "n64sys.h" // TICKS_READ
+volatile uint32_t g_h264SyncStallTicks = 0;
+volatile uint32_t g_h264SyncWaits = 0;
+volatile uint32_t g_h264RingDepth = NUM_PARALLEL_MACROBLOCKS;
+#endif
 #endif
 
 /*------------------------------------------------------------------------------
@@ -158,7 +171,16 @@ u32 h264bsdDecodeSliceData(strmData_t *pStrmData, storage_t *pStorage,
          * RSPQ buffer, the CPU can overwrite posCoefBuf before the RSP DMAs it.
          * The wait returns at once when the RSP has already passed the
          * syncpoint, which the ring depth makes the common case. */
+#if H264_MBLAYER_PROFILE
+        {
+            uint32_t _syncT0 = TICKS_READ();
+            rspq_syncpoint_wait(pStorage->mbLayerSync[pStorage->mbLayerIdx]);
+            g_h264SyncStallTicks += TICKS_READ() - _syncT0;
+            g_h264SyncWaits++;
+        }
+#else
         rspq_syncpoint_wait(pStorage->mbLayerSync[pStorage->mbLayerIdx]);
+#endif
 #endif
 
 #ifndef OPTIMIZE_NO_DECODED_FLAG

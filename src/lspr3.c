@@ -53,6 +53,22 @@
 /** @brief Alignment that newlib's malloc guarantees. */
 #define H264I_MALLOC_ALIGN 8
 
+/** @brief Set to 1 to log heap and scratch usage at each allocation step of a
+ *  decode, to diagnose memory pressure. Off in production. */
+#define LSPR3_TRACE_MEM 0
+
+/** @brief Set to 1 to verify the banded intra decoder bit-for-bit against the
+ *  full-frame path on every decode. This needs memory for a second sprite.
+ *  Off in production. */
+#define LSPR3_VERIFY_BANDING 0
+#define LSPR3_VERIFY_BAND_ROWS 5
+
+#if LSPR3_TRACE_MEM
+static void lspr3_memdump(const char *tag);
+#else
+#define lspr3_memdump(tag) ((void)0)
+#endif
+
 /**
  * @brief Header structure for H264I-encoded files.
  *
@@ -141,8 +157,10 @@ static void lspr3_decode_intra_slice(
     int mb_h = (height + 15) / 16;
     u32 pic_size_in_mbs = (u32)(mb_w * mb_h);
     size_t yuv_size = (size_t)pic_size_in_mbs * 256 + (size_t)pic_size_in_mbs * 64 * 2;
+    lspr3_memdump("pre-yuv");
     uint8_t *yuv = (uint8_t*)scratch_malloc_uncached(yuv_size);
     assertf(yuv, "H264I: out of memory (yuv %u)", (unsigned)yuv_size);
+    lspr3_memdump("post-yuv");
     image_t image = { .data = yuv, .width = (u32)mb_w, .height = (u32)mb_h };
 
     seqParamSet_t sps = {
@@ -189,12 +207,14 @@ static void lspr3_decode_intra_slice(
     assertf(slice.firstMbInSlice == 0, "H264I: first_mb_in_slice != 0");
     assertf(slice.picParameterSetId == 0, "H264I: unexpected PPS id");
 
+    lspr3_memdump("pre-mb");
     // mb storage is transient and the decoder requires it to be zero-initialised.
     size_t mb_bytes = (size_t)pic_size_in_mbs * sizeof(mbStorage_t);
     mbStorage_t *mb = (mbStorage_t*)calloc(pic_size_in_mbs, sizeof(mbStorage_t));
     assertf(mb, "H264I: out of memory (mb %u = %u x %u)",
         (unsigned)mb_bytes,
         (unsigned)sizeof(mbStorage_t), (unsigned)pic_size_in_mbs);
+    lspr3_memdump("post-mb");
     h264bsdInitMbNeighbours(mb, (u32)mb_w, pic_size_in_mbs);
 
     i32 qpY = (i32)pps.picInitQp + slice.sliceQpDelta;
@@ -602,9 +622,22 @@ static void lspr3_apply_alpha1(uint16_t *dst, uint16_t w, uint16_t h,
     data_cache_hit_writeback(dst, ROUND_UP((size_t)w * h * 2, 16));
 }
 
+#if LSPR3_TRACE_MEM
+static void lspr3_memdump(const char *tag) {
+    struct mallinfo mi = mallinfo();
+    scratch_stats_t ss;
+    scratch_get_stats(&ss);
+    debugf("n64: MEMF [%s] heap.uord=%u ford=%u keep=%u | scratch.live=%u resv=%u\n",
+        tag,
+        (unsigned)mi.uordblks, (unsigned)mi.fordblks, (unsigned)mi.keepcost,
+        (unsigned)ss.live_bytes, (unsigned)ss.reserved_bytes);
+}
+#endif
+
 sprite_t *lspr3_load_buf_ex(const void *encoded_buf, int encoded_sz,
                             const lspr3_load_parms_t *parms)
 {
+    lspr3_memdump("lspr3-entry");
     int x_divisor = (parms && parms->output_x_divisor > 0) ? parms->output_x_divisor : 1;
     int y_divisor = (parms && parms->output_y_divisor > 0) ? parms->output_y_divisor : 1;
     assertf(x_divisor == 1 || x_divisor == 2,
@@ -626,6 +659,7 @@ sprite_t *lspr3_load_buf_ex(const void *encoded_buf, int encoded_sz,
     assertf((uintptr_t)sprite % H264I_MALLOC_ALIGN == 0,
         "H264I: malloc returned %p, which is not %d-byte aligned", sprite, H264I_MALLOC_ALIGN);
     sprite->flags = SPRITE_FLAGS_OWNEDBUFFER;
+    lspr3_memdump("post-sprite-alloc");
 
     // Decode the H264I bitstream into YUV planes. The transient yuv +
     // macroblock-storage buffers always go through scratch — they're
@@ -675,6 +709,50 @@ sprite_t *lspr3_load_buf_ex(const void *encoded_buf, int encoded_sz,
                                   stride, luma_h, x_divisor, y_divisor);
         scratch_free(pic);
     }
+
+#if LSPR3_VERIFY_BANDING
+    // Produce the sprite the other way and compare the pixel areas. This needs
+    // heap for a second sprite. The report gives the count of different bytes
+    // and the first different row.
+    {
+        sprite_t *spr2 = (sprite_t*)malloc(decoded_sz);
+        if (spr2) {
+            spr2->flags = SPRITE_FLAGS_OWNEDBUFFER;
+            const int vbr = (band_rows > 0) ? 0 : LSPR3_VERIFY_BAND_ROWS;
+            uint32_t tv0 = TICKS_READ();
+            if (vbr > 0) {
+                lspr3_decode_intra_slice_banded(
+                    hdr->payload, payload_size, hdr->width, hdr->height,
+                    hdr->orig_width, hdr->orig_height,
+                    hdr->pic_init_qp, hdr->chroma_qp_index_offset,
+                    NULL, spr2, vbr, x_divisor, y_divisor, NULL, NULL);
+            } else {
+                uint8_t *p2 = NULL; size_t ps2 = 0;
+                lspr3_decode_intra_slice(hdr->payload, payload_size, hdr->width, hdr->height,
+                    hdr->pic_init_qp, hdr->chroma_qp_index_offset, &p2, &ps2, NULL, NULL);
+                lspr3_build_rgba16_sprite(spr2, p2, hdr->orig_width, hdr->orig_height,
+                                          stride, luma_h, x_divisor, y_divisor);
+                scratch_free(p2);
+            }
+            unsigned us = (unsigned)TICKS_TO_US(TICKS_READ() - tv0);
+            const size_t px = (size_t)sprite->width * sprite->height * 2;
+            const uint8_t *a = (const uint8_t*)sprite + lspr3_pixel_offset(sprite);
+            const uint8_t *b = (const uint8_t*)spr2 + lspr3_pixel_offset(spr2);
+            size_t first = 0, ndiff = 0;
+            for (size_t k = 0; k < px; k++) { if (a[k] != b[k]) { if (!ndiff) first = k; ndiff++; } }
+            if (ndiff) {
+                debugf("n64: *** SPRITE DIFF brPrimary=%d vbr=%d first@%u row=%u ndiff=%u/%u (%.2f%%) ***\n",
+                    band_rows, vbr, (unsigned)first, (unsigned)(first / (sprite->width * 2)),
+                    (unsigned)ndiff, (unsigned)px, 100.0 * (double)ndiff / (double)px);
+            } else {
+                debugf("n64: SPRITE OK vbr=%d (%u px-bytes identical, %uus)\n", vbr, (unsigned)px, us);
+            }
+            sprite_free(spr2);
+        } else {
+            debugf("n64: sprite-verify SKIP (no heap for 2nd sprite; need 8 MiB)\n");
+        }
+    }
+#endif
 
     // Re-apply the lossless 1-bit alpha mask (if any) on top of the RGBA5551
     // pixels the RDP just produced (the YUV combiner writes alpha=1 everywhere).
