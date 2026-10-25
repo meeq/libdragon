@@ -15,6 +15,44 @@
 
 #define SB_CHUNK       960     // append granularity of the fake codec
 
+// Reuse the same allocation across block-decoded PCM and VADPCM. Both valid
+// formats fit, but mixing a 1024-unit PCM margin with 9-byte frames does not.
+static bool sb_codec_reconfigure(void)
+{
+	static const struct {
+		int unit_bytes, append_units, size;
+	} formats[] = {
+		{2, 1024, 3328}, {9, 0, 832}, {2, 1024, 3328},
+		{4, 1024, 1152}, {5, 0, 1608}, {4, 1024, 1152},
+	};
+	void *mem = malloc_uncached(8704);
+	assertf(mem != NULL, "malloc_uncached failed");
+	samplebuffer_t sb = {0};
+	samplebuffer_init(&sb, mem, 8704, 0);
+	bool ok = true;
+	for (unsigned i = 0; i < sizeof(formats) / sizeof(formats[0]); i++) {
+		waveform_t wave = {
+			.append_units = formats[i].append_units,
+			.rsp_written = formats[i].append_units != 0,
+		};
+		samplebuffer_set_format(&sb, formats[i].unit_bytes, wave.append_units);
+		samplebuffer_set_waveform(&sb, &wave, NULL);
+		uint8_t *out = samplebuffer_append(&sb, 42);
+		int bytes = 42 * formats[i].unit_bytes;
+		memset(out, 0x5a, bytes);
+		ok = ok && sb.unit_bytes == formats[i].unit_bytes &&
+			sb.append_units == formats[i].append_units &&
+			sb.size == formats[i].size &&
+			((uintptr_t)out & 7) == 0 &&
+			out >= (uint8_t *)mem && out + bytes <= (uint8_t *)mem + 8704;
+		samplebuffer_flush(&sb);
+	}
+	printf("  %-22s %s\n", "codec reconfigure", ok ? "PASS" : "FAIL");
+	debugf("  %-22s %s\n", "codec reconfigure", ok ? "PASS" : "FAIL");
+	samplebuffer_close(&sb);
+	return ok;
+}
+
 static int sb_undo_units;      // units the producer drops from a read
 static bool sb_undo_always;    // drop on every read, not just the seeking ones
 static int sb_nwindows;
@@ -278,6 +316,9 @@ int main(void)
 	int small = (SB_CHUNK * 3 + SB_CHUNK) * 2;
 
 	int total = 0;
+	total++;
+	if (!sb_codec_reconfigure())
+		sb_failed++;
 	#define RUN(...) do { total++; if (!sb_stress(__VA_ARGS__)) sb_failed++; } while (0)
 	RUN("plain",       big,   3000, 0,   0,   false);
 	RUN("seek",        big,   3000, 97,  0,   false);

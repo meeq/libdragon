@@ -243,11 +243,24 @@ void samplebuffer_init(samplebuffer_t *buf, uint8_t *uncached_mem, int size, int
 bool samplebuffer_is_inited(samplebuffer_t *buf);
 
 /**
+ * @brief Configure the unit size and append granularity together.
+ * @preview
+ *
+ * The buffer must be empty. When reusing it for another codec, install both
+ * values before resizing the ring: the old codec's append granularity need
+ * not fit when expressed in the new codec's units. Then connect the new
+ * reader with #samplebuffer_set_waveform.
+ */
+LIBDRAGON_PREVIEW_API
+void samplebuffer_set_format(samplebuffer_t *buf, int unit_bytes, int append_units);
+
+/**
  * @brief Configure the logical unit size (bytes per wpos/widx step).
  *
  * After this call, wpos/widx/size are expressed in units of `unit_bytes`
  * each (e.g. 2 for 16-bit mono PCM, 9 for mono VADPCM frames). The buffer
- * must be empty.
+ * must be empty. Preserves the current append granularity; use
+ * #samplebuffer_set_format when changing both values.
  */
 void samplebuffer_set_unit_bytes(samplebuffer_t *buf, int unit_bytes);
 
