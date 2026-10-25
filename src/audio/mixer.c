@@ -165,6 +165,8 @@ typedef struct {
 	float inv_duration;    ///< 1 / #duration (valid while #duration > 0)
 	float k;               ///< Exp curve: log2(end/start); silence asymptote if end≤0
 	mixer_ramp_fn_t fn;    ///< Curve (ignored when #duration is 0)
+	int16_t exp_p1;        ///< Exp decay: factor per output sample (0.15), else 0
+	int16_t exp_p8;        ///< Exp decay: factor per 8 output samples (0.15), else 0
 } mixer_ramp_t;
 
 /** Fade-to-silence exponent for #mixer_ramp_exp when the target is 0. */
@@ -193,6 +195,10 @@ float mixer_ramp_exp(float start, float end, float u)
  * the ramp, which is what lets a ramp end in the middle of a round. With no
  * ramp running the target equals the starting volume and the clamp holds it
  * there.
+ *
+ * With #exp set the walk is geometric: both volumes are multiplied by one
+ * factor at each sample. Then #dl holds the factor per sample and #dr the
+ * factor per 8 samples (both 0.15), for both sides.
  */
 typedef struct {
 	mixer_fx15_t l;        ///< Left volume at the first sample of the round
@@ -201,6 +207,7 @@ typedef struct {
 	mixer_fx15_t dr;       ///< Right increment per block of 4 samples
 	mixer_fx15_t tl;       ///< Left volume the round ends on
 	mixer_fx15_t tr;       ///< Right volume the round ends on
+	bool exp;              ///< Geometric walk (see above)
 } mixer_round_vol_t;
 
 /**
@@ -643,10 +650,17 @@ static void mixer_ramp_to(mixer_ramp_t *rmp, float *end, float target,
 	if (duration && cur != target) {
 		assertf(fn, "mixer ramp: NULL curve with duration %d", duration);
 		float k = 0.0f;
+		int16_t p1 = 0, p8 = 0;
 		if (fn == mixer_ramp_exp && cur > 0.0f) {
 			k = (target <= 0.0f)
 				? -(MIXER_RAMP_EXP_SILENCE * MIXER_LOG2E)
 				: log2f(target / cur);
+			// A decay can be walked by the RSP (see mixer_channel_volumes).
+			// The factors are rounded once here, from the exact curve.
+			if (k < 0.0f) {
+				p1 = MIN(lround(exp2((double)k / duration) * 32768.0), 32767);
+				p8 = MIN(lround(exp2((double)k * 8.0 / duration) * 32768.0), 32767);
+			}
 		}
 		*rmp = (mixer_ramp_t){
 			.start = cur,
@@ -655,6 +669,8 @@ static void mixer_ramp_to(mixer_ramp_t *rmp, float *end, float target,
 			.inv_duration = 1.0f / (float)duration,
 			.k = k,
 			.fn = fn,
+			.exp_p1 = p1,
+			.exp_p8 = p8,
 		};
 	} else {
 		rmp->duration = 0;
@@ -1887,8 +1903,8 @@ static void mixer_stage_channel(int list, int ch, uint32_t flags, mixer_round_vo
 	assert(ch >= 0 && ch < MIXER_MAX_CHANNELS);
 	assert(offset >= 0 && nsamples > 0 && offset + nsamples <= MIXER_MAX_SAMPLES_PER_ROUND);
 	uint32_t *w = mixer_stage(list, MIXER_CMD_CHANNEL, 10);
-	// a0: ch<<19 | flags<<11 | nsamples   [5|8|1|10 bits in the 24-bit payload]
-	w[0] = ((uint32_t)ch << 19) | ((flags & 0xFF) << 11) | (uint32_t)nsamples;
+	// a0: ch<<19 | flags<<11 | exp<<10 | nsamples   [5|8|1|10 bits in the 24-bit payload]
+	w[0] = ((uint32_t)ch << 19) | ((flags & 0xFF) << 11) | ((uint32_t)vol.exp << 10) | (uint32_t)nsamples;
 	w[1] = ((uint32_t)(uint16_t)vol.l << 16) | (uint16_t)vol.r;
 	w[2] = pos;
 	w[3] = step;
@@ -2372,9 +2388,24 @@ static mixer_round_vol_t mixer_channel_volumes(int ch, uint32_t flags, bool sub,
 		mixer_fold_volumes(flags, sub, gvol,
 			mixer_fx15_scale(el, g1), mixer_fx15_scale(er, g1),
 			&vol.tl, &vol.tr);
-		int nblocks = MAX(DIVIDE_CEIL((int)(last - tick), 4), 1);
-		vol.dl = mixer_ramp_step(vol.tl - vol.l, nblocks);
-		vol.dr = mixer_ramp_step(vol.tr - vol.r, nblocks);
+		// A geometric gain decay alone scales both volumes by its own factor
+		// per sample, so the RSP can walk the curve itself. A straight line
+		// between the ends of the round would sag above the curve by up to
+		// several dB on a steep decay. The walk starts from the exact volume
+		// at each round, so its rounding never builds up past one round.
+		const mixer_ramp_t *gr = &Mixer.gain_ramp[och];
+		if (gain_ramping && !l_ramping && !r_ramping &&
+			gr->fn == mixer_ramp_exp && gr->k < 0.0f && gr->start > 0.0f &&
+			vol.l >= 0 && vol.r >= 0 && (vol.l | vol.r) &&
+			vol.tl <= vol.l && vol.tr <= vol.r) {
+			vol.exp = true;
+			vol.dl = gr->exp_p1;
+			vol.dr = gr->exp_p8;
+		} else {
+			int nblocks = MAX(DIVIDE_CEIL((int)(last - tick), 4), 1);
+			vol.dl = mixer_ramp_step(vol.tl - vol.l, nblocks);
+			vol.dr = mixer_ramp_step(vol.tr - vol.r, nblocks);
+		}
 	}
 	*vc = (mixer_vol_cache_t){
 		.tick = tick + ns,
