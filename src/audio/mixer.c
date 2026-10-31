@@ -2631,6 +2631,10 @@ static void mixer_stage_span(int ch, int s0, int s1)
 			mixer_rsp_bounds(c, pos64, true, &len, &loop_len);
 		} else {
 			ptr = (uint8_t*)c->ptr + mixer_pos_fold(c, pos64);
+			// Bound R like a streamed owner, or it decodes the zero frames
+			// past the end of the waveform while L stops.
+			if (!c->loop_len)
+				mixer_rsp_bounds(c, pos64, false, &len, &loop_len);
 		}
 	} else if (c->flags & (CH_FLAGS_RESIDENT | CH_FLAGS_LOOP_CACHED)) {
 		ptr = c->ptr;
