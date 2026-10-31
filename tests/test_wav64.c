@@ -1006,6 +1006,95 @@ static bool test_mixer_stereo_r_reopen(void)
 	return true;
 }
 
+//////////////////////////////////////////////////////////////////////////////
+// Stop keeps no pointer into the waveform
+//
+// The user can free a waveform as soon as no channel plays it. A stopped
+// channel keeps only the uuid and the samples in its rings. A new play of the
+// same waveform takes the pointers again, and still uses those samples: a
+// quick replay must cost no more reads than before.
+//////////////////////////////////////////////////////////////////////////////
+
+#define DW_REPLAYS  32
+
+static int dw_reads;
+
+static void dw_read(void *ctx, samplebuffer_t *sbuf, int wpos, int wlen, bool seeking)
+{
+	dw_reads++;
+	sv_read(ctx, sbuf, wpos, wlen, seeking);
+}
+
+static bool dw_check_dropped(samplebuffer_t *sbuf, int replay)
+{
+	bool ok = true;
+	for (int i = 0; i < 2; i++) {
+		if (sbuf[i].wave || sbuf[i].wv_read) {
+			printf("FAILED stop drops wave: after stop %d, ring %d keeps wave %p, read %p\n",
+				replay, i, (void *)sbuf[i].wave, (void *)sbuf[i].wv_read);
+			ok = false;
+		}
+	}
+	return ok;
+}
+
+static bool test_mixer_stop_drops_wave(void)
+{
+	waveform_t *w = &sv_wave;
+	WaveformStart prev = w->start;
+	ru_reset(w);
+	w->read = dw_read;
+
+	dw_reads = 0;
+	mixer_ch_play(SV_CHANNEL, w);
+	mixer_ch_set_vol(SV_CHANNEL, 0.5f, 0.5f);
+	samplebuffer_t *sbuf = ru_sbuf;
+	bool ok = sbuf != NULL;
+	if (!ok)
+		printf("FAILED stop drops wave: first play did not configure the ring\n");
+	sv_mix(2048);
+	int first_reads = dw_reads;
+
+	// A note retriggered faster than its length: stop, play, mix a little.
+	dw_reads = 0;
+	uint32_t play_ticks = 0, play_min = UINT32_MAX, play_max = 0;
+	bool dropped = true;
+	for (int r = 0; ok && r < DW_REPLAYS; r++) {
+		mixer_ch_stop(SV_CHANNEL);
+		// Check every stop, but keep on: the read count and the time of the
+		// replays are the same measurement on any mixer.
+		if (dropped)
+			dropped = dw_check_dropped(sbuf, r);
+		ru_sbuf = NULL;
+		uint32_t t0 = TICKS_READ();
+		mixer_ch_play(SV_CHANNEL, w);
+		uint32_t dt = TICKS_READ() - t0;
+		play_ticks += dt;
+		if (dt < play_min) play_min = dt;
+		if (dt > play_max) play_max = dt;
+		if (ru_sbuf) {
+			printf("FAILED stop drops wave: replay %d configured the channel again\n", r);
+			ok = false;
+		}
+		mixer_ch_set_vol(SV_CHANNEL, 0.5f, 0.5f);
+		sv_mix(256);
+	}
+	int replay_reads = dw_reads;
+	printf("  stop drops wave: first play %d reads; %d replays %d reads, play %lu us (min %lu, max %lu ticks)\n",
+		first_reads, DW_REPLAYS, replay_reads, (unsigned long)TICKS_TO_US(play_ticks),
+		(unsigned long)play_min, (unsigned long)play_max);
+
+	if (ok) {
+		sv_mix(4096);
+		ok = sv_check_lr("stop drops wave", 4096);
+	}
+	ok = ok && dropped;
+	mixer_ch_stop(SV_CHANNEL);
+	w->start = prev;
+	w->read = sv_read;
+	return ok;
+}
+
 // Same waveform again after the ring was closed and reinited while wave_uuid
 // was kept: the capacity_bytes < need path inside mixer_ch_play does exactly
 // that. We replay the end state here (close+init, wave pointer restored so the
@@ -3592,6 +3681,7 @@ int main(void)
     total++; if (!test_mixer_stale_unit_bytes()) failed++;
     total++; if (!test_mixer_stereo_r_reopen()) failed++;
     total++; if (!test_mixer_realloc_same_wave()) failed++;
+    total++; if (!test_mixer_stop_drops_wave()) failed++;
 
     // The same stream at the narrower widths. Frames get shorter, so every
     // size and offset the mixer derives from them changes with the width.
