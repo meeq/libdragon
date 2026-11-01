@@ -285,6 +285,20 @@ typedef int rspq_syncpoint_t;
 #define RSPQ_BLOCK_PLACEHOLDER_COUNT 7
 
 /**
+ * @brief Return the size of each low-priority queue buffer, in 32-bit words.
+ *
+ * #rspq_init calls this function once to size the two low-priority buffers.
+ * The default returns #RSPQ_DRAM_LOWPRI_BUFFER_SIZE. The default is a weak
+ * symbol, so an application can define its own version to select the size
+ * at run time, for example from the amount of available RDRAM.
+ *
+ * A larger buffer lets the CPU queue more commands ahead of the RSP before
+ * it must wait for a buffer to become free. Each word costs 8 bytes of
+ * RDRAM, because there are two buffers.
+ */
+int rspq_lowpri_buffer_size(void);
+
+/**
  * @brief Initialize the RSPQ library.
  * 
  * This should be called by the initialization functions of the higher-level

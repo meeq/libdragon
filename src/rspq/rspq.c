@@ -108,7 +108,7 @@
  * ## Buffer swapping
  * 
  * Internally, double buffering is used to implement the queue. The size of
- * each of the buffers is RSPQ_DRAM_LOWPRI_BUFFER_SIZE. When a buffer is full,
+ * each low-priority buffer is set by #rspq_lowpri_buffer_size. When a buffer is full,
  * the low-priority queue engine stages the address of the other buffer with a
  * #RSPQ_CMD_WRITE_WORD, then executes #RSPQ_CMD_SWAP_BUFFERS. The latter sets
  * the buffer-done signal and jumps to the other buffer. The signal tells
@@ -746,6 +746,11 @@ static void rspq_close_context(rspq_ctx_t *ctx)
     free_uncached(ctx->buffers[0]);
 }
 
+__attribute__((weak)) int rspq_lowpri_buffer_size(void)
+{
+    return RSPQ_DRAM_LOWPRI_BUFFER_SIZE;
+}
+
 void rspq_init(void)
 {
     // Do nothing if rspq_init has already been called
@@ -757,7 +762,10 @@ void rspq_init(void)
     rspq_cur_sentinel = NULL;
 
     // Allocate RSPQ contexts
-    rspq_init_context(&lowpri, RSPQ_DRAM_LOWPRI_BUFFER_SIZE);
+    const int lowpri_size = rspq_lowpri_buffer_size();
+    assertf(lowpri_size >= 4 * RSPQ_MAX_COMMAND_SIZE,
+        "rspq_lowpri_buffer_size() returned %d words; the minimum is %d", lowpri_size, 4 * RSPQ_MAX_COMMAND_SIZE);
+    rspq_init_context(&lowpri, lowpri_size);
     lowpri.sp_status_bufdone = SP_STATUS_SIG_BUFDONE_LOW;
     lowpri.sp_wstatus_set_bufdone = SP_WSTATUS_SET_SIG_BUFDONE_LOW;
     lowpri.sp_wstatus_clear_bufdone = SP_WSTATUS_CLEAR_SIG_BUFDONE_LOW;
