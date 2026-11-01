@@ -96,7 +96,7 @@ RDPQ_Send:
     # is currently playing. To do so, wait for the END_VALID to become 0, which means
     # that only one buffer might be peInding.
     # Also, in case there is a SYNC_FULL ongoing, we need to wait for it to finish before
-    # enqueuing a new buffer. RDPQ_SYNCFULL_ONGOING is set to DP_STATUS_BUSY in this case,
+    # enqueuing a new buffer. RDPQ_SYNCFULL_ONGOING is set to DP_STATUS_BUSY|DP_STATUS_PIPE_BUSY in this case,
     # so using that bit in the RSPQ_RdpWait wait mask will make sure we wait for the RDP
     # to be idle.
     lbu t3, %lo(RDPQ_SYNCFULL_ONGOING)
