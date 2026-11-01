@@ -96,6 +96,11 @@ void data_cache_hit_writeback(volatile const void * addr, unsigned long length)
 void data_cache_hit_invalidate(volatile void * addr, unsigned long length)
 {
     assert(((uint32_t)addr % 16) == 0 && (length % 16) == 0);
+    // Hit operations must address the cached alias of KSEG1 RDRAM.
+    // Use the boot memory size without acknowledging the expansion pak.
+    if ((uint32_t)addr >= 0xA0000000u &&
+        (uint32_t)addr < 0xA0000000u + (uint32_t)__boot_memsize)
+        addr = CachedAddr(addr);
     cache_op(build_opcode(HIT_INVALIDATE, CACHE_DATA_FLAG), CACHE_DATA_LINESIZE);
 }
 

@@ -399,6 +399,10 @@ void die(void);
  * @brief Force a data cache invalidate over a memory region
  *
  * Use this to force the N64 to update cache from RDRAM.
+ * Dirty cachelines are discarded without writing them back to RDRAM.
+ * KSEG1 (uncached) RDRAM addresses are invalidated through their cached alias;
+ * cached addresses and addresses outside KSEG1 RDRAM are used unchanged.
+ * A zero length does not invalidate any cachelines.
  *
  * The cache is made by cachelines of 16 bytes. If a memory region is invalidated
  * and the memory region is not fully aligned to cachelines, a larger area
