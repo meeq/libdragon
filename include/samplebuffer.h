@@ -33,9 +33,9 @@ typedef uint32_t sample_ptr_t;
 #define SAMPLES_PTR(buf)            ((void*)(uintptr_t)((buf)->ptr_and_flags))
 
 /**
- * Maximum window (in units) that #samplebuffer_get may request across the ring
- * wrap. Matches one MIX_CHANNEL input span plus RSP sample-cache overread.
- * Also the default size of the mirrored tail (see #samplebuffer_t::margin_units).
+ * Default contiguous window and mirrored tail size, in units. Codec-specific
+ * windows may use the configured #samplebuffer_t::margin_units, bounded by
+ * the ring size and including RSP sample-cache overread.
  */
 #define SAMPLEBUFFER_MARGIN_UNITS  128
 
@@ -69,7 +69,8 @@ inline int samplebuffer_margin_units(int append_units)
  * Layout: `[0, size)` is the circular sample area; `[size, size+margin_units)`
  * is a contiguous spill/mirror region so that any append of up to
  * #margin_units units and any #samplebuffer_get window of up to
- * #SAMPLEBUFFER_MARGIN_UNITS units is always linear in physical memory
+ * MIN(size, margin_units) units is linear in physical memory (the mirrored
+ * byte count must also fit after rounding to an 8-byte DMA word)
  * (required by RSP DMA). size * unit_bytes is kept a multiple of 8 so that
  * absolute waveform positions preserve their 2-byte phase in the samplebuffer
  * (dma_read / dfs compatibility).

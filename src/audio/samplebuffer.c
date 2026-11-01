@@ -278,14 +278,14 @@ void* samplebuffer_get(samplebuffer_t *buf, int wpos, int *wlen) {
 		*wlen = len;
 
 	int slot = samplebuffer_slot(buf, rel);
-	assertf(*wlen <= SAMPLEBUFFER_MARGIN_UNITS || slot + *wlen <= ring,
+	assertf((*wlen <= buf->margin_units && *wlen <= ring) || slot + *wlen <= ring,
 		"samplebuffer_get: window %x not contiguous (slot=%x size=%x)", *wlen, slot, ring);
 
 	// Window straddles the wrap: mirror the leading units into the margin so
 	// the RSP sees one linear DMA. wlen already includes the mixer's overread.
 	int need = slot + *wlen - ring;
 	if (need > 0) {
-		assertf(need <= buf->margin_units,
+		assertf(ROUND_UP(need * ub, 8) <= buf->margin_units * ub,
 			"samplebuffer_get: mirror %x > margin %x", need, buf->margin_units);
 		uint8_t *base = samplebuffer_base(buf);
 		samplebuffer_copy(buf, base + ring * ub, base, ROUND_UP(need * ub, 8));

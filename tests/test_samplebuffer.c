@@ -348,6 +348,47 @@ static bool sb_stress(const char *tag, int nbytes,
 	return ok;
 }
 
+// Larger codec windows cross the ring end, then stay live through another
+// refill and a seek. Exercise both immediate CPU and queued RSP copies.
+static bool sb_large_windows(bool rsp_written)
+{
+	int nbytes = (SB_CHUNK * 5 + 136) * 2;
+	void *mem = malloc_uncached(nbytes);
+	assertf(mem != NULL, "malloc_uncached failed");
+	waveform_t wave = sb_wave;
+	wave.rsp_written = rsp_written;
+	samplebuffer_t sb = {0};
+	samplebuffer_init(&sb, mem, nbytes, 0);
+	samplebuffer_set_bps(&sb, 16);
+	samplebuffer_set_waveform(&sb, &wave, sb_prod_read);
+	sb_undo_units = 0;
+	// Empty-ring fixture: force the very first full codec append to spill.
+	sb.head = sb.size - 128;
+	int len0 = 768, len1 = 768, len2 = 768;
+	rspq_highpri_begin();
+	int16_t *p0 = samplebuffer_get(&sb, 0, &len0);
+	rspq_highpri_end();
+	rspq_highpri_sync();
+	bool ok = len0 == 768 && sb_check_window(p0, 0, len0);
+	rspq_highpri_begin();
+	int16_t *p1 = samplebuffer_get(&sb, 640, &len1);
+	rspq_highpri_end();
+	rspq_highpri_sync();
+	ok = ok && len1 == 768 && sb_check_window(p1, 640, len1)
+		&& sb_check_window(p0, 0, len0);
+	samplebuffer_flush(&sb);
+	rspq_highpri_begin();
+	int16_t *p2 = samplebuffer_get(&sb, 20000, &len2);
+	rspq_highpri_end();
+	rspq_highpri_sync();
+	ok = ok && len2 == 768 && sb_check_window(p2, 20000, len2)
+		&& sb_check_window(p0, 0, len0) && sb_check_window(p1, 640, len1);
+	printf("  %-22s %s\n", rsp_written ? "large/rsp-copy" : "large/cpu-copy", ok ? "PASS" : "FAIL");
+	debugf("  %-22s %s\n", rsp_written ? "large/rsp-copy" : "large/cpu-copy", ok ? "PASS" : "FAIL");
+	free_uncached(mem);
+	return ok;
+}
+
 int main(void)
 {
 	debug_init_emulog();
@@ -403,6 +444,13 @@ int main(void)
 
 	total++;
 	if (!sb8_restart_alignment())
+		sb_failed++;
+
+	total++;
+	if (!sb_large_windows(false))
+		sb_failed++;
+	total++;
+	if (!sb_large_windows(true))
 		sb_failed++;
 
 	if (sb_failed) {

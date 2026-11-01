@@ -1281,6 +1281,35 @@ static bool test_mixer_block_codec_loop(float freq)
     return true;
 }
 
+// A wide-window finite stream must retire at the same poll boundary as the
+// default 128-unit partition, even when the last PCM samples are already zero.
+static bool test_mixer_block_codec_stop(void)
+{
+    static waveform_t wave = {
+        .name = "bc-finite", .bits = 16, .channels = 1, .frequency = 44100,
+        .len = BC_LEN, .read = bc_read,
+        .append_units = BC_BLOCK, .rsp_written = true,
+    };
+    sv_silence();
+    mixer_ch_set_limits(BC_CHANNEL, 16, 48000, 0);
+    mixer_ch_play(BC_CHANNEL, &wave);
+    mixer_ch_set_freq(BC_CHANNEL, 0);
+    mixer_ch_set_vol(BC_CHANNEL, 0.5f, 0.5f);
+    sv_mix(256); // Retire the declick ramp without advancing the stream.
+    mixer_ch_set_pos(BC_CHANNEL, BC_LEN - 201);
+    mixer_ch_set_freq(BC_CHANNEL, audio_get_frequency());
+    sv_mix(512);
+    bool stopped = !mixer_ch_playing(BC_CHANNEL);
+    double pos = mixer_ch_get_pos(BC_CHANNEL);
+    mixer_ch_stop(BC_CHANNEL);
+    if (!stopped || pos != 0) {
+        printf("FAILED block codec stop: playing=%d pos=%.2f after poll\n",
+            !stopped, pos);
+        return false;
+    }
+    return true;
+}
+
 //////////////////////////////////////////////////////////////////////////////
 // Partial VADPCM frames
 //
@@ -3536,6 +3565,7 @@ int main(void)
         if (!test_mixer_block_codec_loop(bc_freqs[i]))
             failed++;
     }
+    total++; if (!test_mixer_block_codec_stop()) failed++;
 
     printf("Streamed stereo VADPCM tests\n");
     fflush(stdout);

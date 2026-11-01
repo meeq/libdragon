@@ -2198,7 +2198,7 @@ static mixer_fx16_t mixer_global_volume(void) {
 /** Cap of output samples a streamed channel can take in one round.
  *
  * A streamed channel can only be given one contiguous window of the
- * samplebuffer, that is #SAMPLEBUFFER_MARGIN_UNITS minus the units the RSP may
+ * samplebuffer, bounded by the configured mirror and ring size minus the units the RSP may
  * overread past its end. Convert that window (16 samples per unit for VADPCM,
  * one otherwise) into output samples through the resampling step: past this
  * point the RSP would outrun what the CPU can hand it in a single piece.
@@ -2212,6 +2212,18 @@ static mixer_fx16_t mixer_global_volume(void) {
  * ceiling to frames: a span of N samples starting mid-frame covers
  * ceil((pos%16+N)/16) frames, one more than N/16 when pos is not aligned.
  */
+static int mixer_stream_max_ns(int ch, int window_units) {
+	mixer_channel_t *c = &Mixer.channels[ch];
+	bool vadpcm = (c->flags & CH_FLAGS_VADPCM) != 0;
+	int bps_fx64 = (vadpcm ? 0 : (c->flags & CH_FLAGS_BPS_SHIFT)) + MIXER_FX64_FRAC;
+	int ub = Mixer.ch_buf[ch].unit_bytes;
+	int overread = (MIXER_LOOP_OVERREAD + ub - 1) / ub;
+	int max_wlen = MAX(window_units - overread - 1, 1);
+	uint64_t units = vadpcm ? (uint64_t)max_wlen * 16 : (uint64_t)max_wlen;
+	int ns = (int)((units << bps_fx64) / c->step);
+	return MIN(MAX(ns, 1), MIXER_MAX_SAMPLES_PER_ROUND);
+}
+
 static void mixer_refresh_max_ns(int ch) {
 	mixer_channel_t *c = &Mixer.channels[ch];
 	if (!c->ptr || !c->step ||
@@ -2219,14 +2231,12 @@ static void mixer_refresh_max_ns(int ch) {
 		c->max_round_ns = MIXER_MAX_SAMPLES_PER_ROUND;
 		return;
 	}
-	bool vadpcm = (c->flags & CH_FLAGS_VADPCM) != 0;
-	int bps_fx64 = (vadpcm ? 0 : (c->flags & CH_FLAGS_BPS_SHIFT)) + MIXER_FX64_FRAC;
-	int ub = Mixer.ch_buf[ch].unit_bytes;
-	int overread = (MIXER_LOOP_OVERREAD + ub - 1) / ub;
-	int max_wlen = MAX(SAMPLEBUFFER_MARGIN_UNITS - overread - 1, 1);
-	uint64_t units = vadpcm ? (uint64_t)max_wlen * 16 : (uint64_t)max_wlen;
-	int ns = (int)((units << bps_fx64) / c->step);
-	c->max_round_ns = MIN(MAX(ns, 1), MIXER_MAX_SAMPLES_PER_ROUND);
+	samplebuffer_t *sbuf = &Mixer.ch_buf[ch];
+	int window = MIN(sbuf->margin_units, sbuf->size);
+	// Mirroring rounds the byte count to an SP DMA word.
+	int align = samplebuffer_align_units(sbuf);
+	window -= window % align;
+	c->max_round_ns = mixer_stream_max_ns(ch, window);
 }
 
 // Number of samples the next round can mix: a full round, unless a streamed
@@ -2237,7 +2247,7 @@ static void mixer_refresh_max_ns(int ch) {
 // The result is always even, so that each round advances the output pointer by
 // a multiple of 8 bytes and MIX_FLUSH can DMA the accumulator out as-is
 // (see #mixer_poll_async).
-static int mixer_round_length(int max_ns) {
+static int mixer_round_length(int max_ns, bool preserve_partition) {
 	int ns = MIN(max_ns, MIXER_MAX_SAMPLES_PER_ROUND);
 
 	for (int ch = 0; ch < Mixer.hi_ch; ch++) {
@@ -2249,7 +2259,9 @@ static int mixer_round_length(int max_ns) {
 		// unlimited so a stale zero cannot collapse the round to empty (which
 		// would spin forever in mixer_exec).
 		if (c->max_round_ns > 0)
-			ns = MIN(ns, c->max_round_ns);
+			ns = MIN(ns, preserve_partition
+				? mixer_stream_max_ns(ch, SAMPLEBUFFER_MARGIN_UNITS)
+				: c->max_round_ns);
 
 		// Stop where the CPU has to step in: the start of a small loop (pinned
 		// by mixer_update_loops before the next round), or len for a large one
@@ -2980,6 +2992,31 @@ static void mixer_exec(int32_t *out, int num_samples) {
 	PROFILE_SCOPE(PS_MIXER_EXEC) {
 	tracef("mixer_exec: 0x%x samples\n", num_samples);
 
+	// Frequency is sampled per round; volume/gain increments are quantized
+	// against each round endpoint. Keep the old partition for the entire
+	// call, including the round that retires a ramp. Soft events also
+	// observe round boundaries, and an event that fires in this call can
+	// start a ramp or a voice. Do not retire ramps during this inspection.
+	int64_t end = Mixer.ticks + num_samples;
+	bool preserve_partition = Mixer.num_soft != 0;
+	for (int i = 0; i < Mixer.num_events && !preserve_partition; i++)
+		preserve_partition = Mixer.events[i].ticks <= end;
+	for (int i = 0; i < Mixer.num_ch_events && !preserve_partition; i++)
+		preserve_partition = Mixer.ch_events[i].ticks < end;
+	for (int ch = 0; ch < Mixer.hi_ch; ch++) {
+		mixer_channel_t *c = &Mixer.channels[ch];
+		if (!c->ptr || (c->flags & CH_FLAGS_STEREO_SUB))
+			continue;
+		preserve_partition |= Mixer.freq_ramp[ch].duration != 0
+			|| Mixer.lvol_ramp[ch].duration != 0
+			|| Mixer.rvol_ramp[ch].duration != 0
+			|| Mixer.gain_ramp[ch].duration != 0;
+		// A finite voice is retired at the next round, not at MIX_FLUSH.
+		// Preserve that observable playing/cursor state at poll boundaries.
+		preserve_partition |= !c->loop_len && c->step
+			&& c->pos + c->step * (uint64_t)num_samples >= c->len;
+	}
+
 	for (int offset = 0; offset < num_samples; ) {
 		assert(!(Mixer.ticks & 1));
 		mixer_fire_due_events();
@@ -2992,7 +3029,7 @@ static void mixer_exec(int32_t *out, int num_samples) {
 		PROFILE_SCOPE(PS_MIXER_PREP) {
 			mixer_update_loops();
 			mixer_refresh_chtbl();
-			ns = mixer_round_length(num_samples - offset);
+			ns = mixer_round_length(num_samples - offset, preserve_partition);
 		}
 		Round.tick = tick;
 		Round.ns = ns;
