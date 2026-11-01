@@ -611,7 +611,10 @@ RDPQCmd_SyncFull:
     # we prevent further calls to RDPQ_Send / RSPQCmd_RdpSetBuffer / RSPQCmd_RdpAppendBuffer
     # to actually start a new RDP DMA transfer, until the SYNC_FULL is done.
     # This is done to avoid a hardware bug.
-    li t0, DP_STATUS_BUSY
+    # DP_STATUS_BUSY alone is not enough: it drops as soon as the command FIFO
+    # is empty, while SYNC_FULL can still be waiting for the last primitive to
+    # leave the pipeline. DP_STATUS_PIPE_BUSY stays set until SYNC_FULL is done.
+    li t0, DP_STATUS_BUSY | DP_STATUS_PIPE_BUSY
     sb t0, %lo(RDPQ_SYNCFULL_ONGOING)
 
     j RSPQ_Loop

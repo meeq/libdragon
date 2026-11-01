@@ -827,8 +827,8 @@ RSPQCmd_RdpSetBuffer:
     #
     # 1) If there is a SYNC_FULL ongoing, we cannot schedule a new buffer until
     #    the RDP is idle, to workaround a hardware bug. RDPQ_SYNCFULL_ONGOING
-    #    contains DP_STATUS_BUSY if a SYNC_FULL is ongoing, or 0 otherwise. SO
-    #    it can be OR'd with DP_STATUS_END_VALID.
+    #    contains DP_STATUS_BUSY|DP_STATUS_PIPE_BUSY if a SYNC_FULL is ongoing,
+    #    or 0 otherwise. So it can be OR'd with DP_STATUS_END_VALID.
     # 2) If the buffer that we are going to schedule is the same as the current
     #    one, it would be risky to put it pending: be it a static or dynamic buffer,
     #    the RSP might write to it new data, while the RDP is still reading the
