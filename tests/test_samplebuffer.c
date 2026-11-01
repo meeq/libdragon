@@ -185,6 +185,60 @@ static waveform_t sb8_wave = {
 	.len = 1 << 30, .read = sb8_prod_read,
 };
 
+static bool sb8_negative_read;
+
+static void sb8_bounded_read(void *ctx, samplebuffer_t *sbuf, int wpos, int wlen, bool seeking)
+{
+	if (wpos < 0)
+		sb8_negative_read = true;
+	if (sbuf->wave->rsp_written) {
+		wlen = (wlen + 7) & ~7;
+		int8_t *out = samplebuffer_append(sbuf, wlen);
+		for (int i = 0; i < wlen; i++)
+			out[i] = sb8_expected(wpos + i);
+	} else {
+		sb8_prod_read(ctx, sbuf, wpos, wlen, seeking);
+	}
+}
+
+// Restart after an odd-length stream. Align the destination without asking
+// the producer for sample -1 or overwriting windows handed to prior rounds.
+static bool sb8_restart_alignment(void)
+{
+	void *mem = malloc_uncached(640);
+	assertf(mem != NULL, "malloc_uncached failed");
+	bool ok = true;
+	sb8_negative_read = false;
+	for (int variant = 0; variant < 16; variant++) {
+		int used = variant % 8 + 1;
+		waveform_t wave = sb8_wave;
+		wave.rsp_written = variant >= 8;
+		for (int pos = 0; pos < 4; pos++) {
+			samplebuffer_t sb = {0};
+			samplebuffer_init(&sb, mem, 640, 0);
+			samplebuffer_set_bps(&sb, 8);
+			samplebuffer_set_waveform(&sb, &wave, sb8_bounded_read);
+			uint8_t *old = samplebuffer_append(&sb, 8);
+			memset(old, 0xa5, 8);
+			samplebuffer_undo(&sb, 8 - used);
+			samplebuffer_flush(&sb);
+			int len = 88;
+			int8_t *p = samplebuffer_get(&sb, pos, &len);
+			if (len != 88 || (((uintptr_t)p - pos) & 1))
+				ok = false;
+			for (int i = 0; i < len; i++)
+				if (p[i] != sb8_expected(pos + i)) ok = false;
+			for (int i = 0; i < used; i++)
+				if (old[i] != 0xa5) ok = false;
+		}
+	}
+	ok = ok && !sb8_negative_read;
+	printf("  %-22s %s\n", "pcm8/restart-bounds", ok ? "PASS" : "FAIL");
+	debugf("  %-22s %s\n", "pcm8/restart-bounds", ok ? "PASS" : "FAIL");
+	free_uncached(mem);
+	return ok;
+}
+
 static bool sb_check_window(const int16_t *p, int pos, int len)
 {
 	sb_nwindows++;
@@ -346,6 +400,10 @@ int main(void)
 		if (!sb8_stress("pcm8/odd-wrap", nbytes, 8000))
 			sb_failed++;
 	}
+
+	total++;
+	if (!sb8_restart_alignment())
+		sb_failed++;
 
 	if (sb_failed) {
 		printf("\n%d/%d TESTS FAILED\n", sb_failed, total);

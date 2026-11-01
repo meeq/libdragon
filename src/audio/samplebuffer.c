@@ -236,11 +236,16 @@ void* samplebuffer_get(samplebuffer_t *buf, int wpos, int *wlen) {
 		samplebuffer_flush(buf);
 		buf->wpos = wpos;
 		int len = round_len;
-		// 8-bit PCM: dma_read only accepts a source and a destination of equal
-		// parity, so the ring slot the stream restarts on has to keep the phase
-		// of its waveform position (see samplebuffer_append).
+		// 8-bit PCM: keep source and destination byte parity equal for DMA.
+		// A prefix sample preserves head alignment (also for RSP producers),
+		// except at zero: advance the empty ring instead of reading sample -1.
+		// An RSP-written ring is already 8-byte aligned at a zero restart.
 		if (ub == 1 && ((buf->head - buf->wpos) & 1)) {
-			buf->wpos--; len++;
+			if (buf->wpos == 0)
+				buf->head = (buf->head + 1) % ring;
+			else {
+				buf->wpos--; len++;
+			}
 		}
 		buf->wv_read(buf->wave->ctx, buf, buf->wpos, len, seeking);
 		samplebuffer_unspill(buf);
@@ -332,8 +337,8 @@ void* samplebuffer_append(samplebuffer_t *buf, int wlen) {
 	// PCM: the ring slot and the waveform position must keep the same byte
 	// phase, as dma_read only accepts source and destination of equal parity
 	// (see raw_waveform_read). head and wpos move together on a discard, so
-	// the phase is preserved even when both become odd; a seek resets head
-	// and has to fix wpos up (see samplebuffer_get).
+	// the phase is preserved even when both become odd; a seek fixes the phase
+	// without reading before waveform position zero (see samplebuffer_get).
 	assertf((ub & (ub - 1)) != 0 || (((buf->head - buf->wpos) * ub) & 1) == 0,
 		"buf->wpos:%x buf->head:%x", buf->wpos, buf->head);
 
