@@ -658,6 +658,50 @@ void mixer_unthrottle(void);
 void mixer_poll(int16_t *out, int nsamples);
 
 /**
+ * @brief Submit one bounded mixer poll without waiting for its output DMA.
+ * @preview
+ *
+ * Performs the same preparation and round partitioning as #mixer_poll for
+ * one existing lookahead chunk (at most twice #audio_get_buffer_length).
+ * Existing input-ring reuse waits remain: submission is not wait-free.
+ * Flushes queued work and returns the actual last emitted round in @p ticket.
+ * A fully throttled CPU-silence poll emits no round and returns the preceding
+ * round (zero before the first round); completion conservatively covers it.
+ *
+ * Returns false without changing the mixer, output or ticket if uninitialized,
+ * outside the standard RSPQ context (including block/queue recording or highpri),
+ * out/ticket is NULL or misaligned (8/4 bytes respectively), or nsamples is
+ * nonpositive, odd or larger than the chunk budget. Invalid throttle allowances
+ * that would make the existing poll produce a negative count are also rejected.
+ *
+ * Use a single foreground producer; do not submit recursively from callbacks.
+ * The caller owns 4*nsamples output bytes and separate ticket storage. Output
+ * must remain alive and untouched until #mixer_poll_complete or #mixer_poll_wait
+ * completes, and must be DMA-coherent (normally an uncached buffer). Wait before
+ * AI publication or freeing/reusing output. This API does not publish to AI.
+ * Tickets are valid only within the current initialized mixer epoch, and must
+ * be consumed within fewer than 2^31 emitted rounds. Close/reinit invalidates
+ * all tickets; callers must finish their output before closing the mixer.
+ */
+LIBDRAGON_PREVIEW_API
+bool mixer_poll_submit(int16_t *out, int nsamples, uint32_t *ticket);
+
+/** @brief Nonblocking read of genuine output completion for a valid ticket.
+ * @preview
+ * Returns false when the mixer is not initialized. See #mixer_poll_submit
+ * for ticket lifetime and output ownership requirements.
+ */
+LIBDRAGON_PREVIEW_API
+bool mixer_poll_complete(uint32_t ticket);
+
+/** @brief Wait for output completion using the existing round wait primitive.
+ * @preview
+ * Requires a valid ticket and standard foreground RSPQ context.
+ */
+LIBDRAGON_PREVIEW_API
+void mixer_poll_wait(uint32_t ticket);
+
+/**
  * @brief Request the mixer to try and write audio samples to be played,
  * @preview
  * if possible.

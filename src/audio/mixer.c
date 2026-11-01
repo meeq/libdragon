@@ -3218,6 +3218,36 @@ void mixer_poll_async(int16_t *out16, int num_samples) {
 	Mixer.poll_count++;
 }
 
+bool mixer_poll_submit(int16_t *out, int nsamples, uint32_t *ticket)
+{
+	// Admission must precede the ring barrier and all CPU preparation, even
+	// in release builds. Recorded commands cannot certify live output.
+	if (!mixer_initialized() || !Mixer.round_done || !__rspq_in_standard_context()
+		|| !out || ((uintptr_t)out & 7) || !ticket || ((uintptr_t)ticket & 3)
+		|| nsamples <= 0 || (nsamples & 1)
+		|| nsamples > __mixer_inflight_samples())
+		return false;
+	if (Mixer.throttled && Mixer.max_samples + Mixer.sample_rate / MIXER_POLL_PER_SECOND < 0)
+		return false;
+
+	mixer_poll_async(out, nsamples);
+	// No artificial round for CPU-only silence: the previous genuine marker
+	// is a conservative completion ticket, including initial marker zero.
+	*ticket = Mixer.round_id;
+	rspq_flush();
+	return true;
+}
+
+bool mixer_poll_complete(uint32_t ticket)
+{
+	return mixer_initialized() && Mixer.round_done && __mixer_round_done(ticket);
+}
+
+void mixer_poll_wait(uint32_t ticket)
+{
+	__mixer_round_wait(ticket);
+}
+
 void mixer_poll(int16_t *out16, int num_samples) {
 	// Sample buffers only span what a poll can queue (see
 	// #__mixer_inflight_samples), so a caller asking for more than that in one

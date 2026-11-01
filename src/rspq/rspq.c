@@ -398,6 +398,12 @@ static rspq_cmd_chain_t rspq_block_chain;
 /** @brief Pointer to the current queue being recorded, or NULL. */
 static rspq_queue_t *rspq_queue_recording;
 
+bool __rspq_in_standard_context(void)
+{
+    return rspq_initialized && rspq_ctx == &lowpri
+        && !rspq_block && !rspq_queue_recording;
+}
+
 /** @brief ID that will be used for the next syncpoint that will be created. */
 static int rspq_syncpoints_genid;
 /** @brief ID of the last syncpoint reached by RSP (plus padding). */

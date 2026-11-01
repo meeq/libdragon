@@ -251,6 +251,9 @@ rspq_syncpoint_t __rspq_call_deferred(void (*func)(void *), void *arg, bool wait
 /** @brief Polls the deferred calls list, calling callbacks ready to be called. */
 bool __rspq_deferred_poll(void);
 
+/** @brief Read-only admission check for the initialized standard command queue. */
+bool __rspq_in_standard_context(void);
+
 /** @brief True if we are currently in highpri mode */
 bool rspq_in_highpri(void);
 

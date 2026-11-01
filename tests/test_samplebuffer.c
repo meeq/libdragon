@@ -389,6 +389,92 @@ static bool sb_large_windows(bool rsp_written)
 	return ok;
 }
 
+// Real RSP output test. Compile this logging driver normally, and mixer.c /
+// rspq.c with NDEBUG to exercise release admission without losing diagnostics.
+static bool sb_mixer_submit(void)
+{
+	enum { NS = 256, POLLS = 24, BYTES = NS * 4 };
+	uint8_t *ref = malloc_uncached(POLLS * BYTES);
+	uint8_t *mem = malloc_uncached(2 * (BYTES + 16));
+	if (!ref || !mem) abort();
+	int16_t *out[2] = { (int16_t*)(mem + 8), (int16_t*)(mem + BYTES + 24) };
+	uint32_t ticket = 0x12345678;
+	bool ok = true;
+	#define MCHECK(c) do { if (!(c)) { \
+		debugf("mixer submit FAIL line %d: %s\n", __LINE__, #c); \
+		abort(); } } while (0)
+	memset(mem, 0xA5, 2 * (BYTES + 16));
+	bool accepted = mixer_poll_submit(out[0], NS, &ticket);
+	MCHECK(!accepted && ticket == 0x12345678 && !mixer_poll_complete(0));
+	audio_init(48000, 4);
+	waveform_t wave = sb_wave;
+	wave.frequency = audio_get_frequency();
+	wave.len = WAVEFORM_MAX_LEN;
+	mixer_init(1);
+	mixer_ch_play(0, &wave);
+	for (int i = 0; i < POLLS; i++) mixer_poll((int16_t*)(ref + i * BYTES), NS);
+	bool nonzero = false;
+	for (int i = 0; i < POLLS * BYTES; i++) nonzero |= ref[i] != 0;
+	MCHECK(nonzero);
+	mixer_close();
+	mixer_init(1);
+	mixer_ch_play(0, &wave);
+	// Every rejection leaves output, ticket and playback position untouched.
+	for (int i = 0; i < 10; i++) {
+		int16_t *p = i == 0 ? NULL : i == 1 ? out[0] + 1 : out[0];
+		uint32_t *t = i == 2 ? NULL : &ticket;
+		int n = i == 3 ? 0 : i == 4 ? -2 : i == 5 ? 3
+			: i == 6 ? audio_get_buffer_length() * 2 + 2 : NS;
+		rspq_queue_t *q = NULL;
+		if (i == 7) rspq_block_begin();
+		if (i == 8) { q = rspq_queue_create(); rspq_queue_switch(q); }
+		if (i == 9) rspq_highpri_begin();
+		accepted = mixer_poll_submit(p, n, t);
+		if (i == 7) { rspq_block_t *b = rspq_block_end(); rspq_block_free(b); }
+		if (i == 8) { rspq_queue_switch(NULL); rspq_queue_destroy(q); }
+		if (i == 9) rspq_highpri_end();
+		MCHECK(!accepted && ticket == 0x12345678 && mixer_ch_get_pos(0) == 0);
+		for (int j = 0; j < 2 * (BYTES + 16); j++) MCHECK(mem[j] == 0xA5);
+	}
+	// Sequential jobs followed by paired jobs repeatedly reuse the input ring.
+	for (int i = 0; i < POLLS; ) {
+		int count = i < 4 ? 1 : 2;
+		uint32_t tickets[2];
+		for (int j = 0; j < count; j++) {
+			memset(out[j], 0xA5, BYTES);
+			accepted = mixer_poll_submit(out[j], NS, &tickets[j]);
+			MCHECK(accepted);
+			// If already complete, PCM must already be visible (no extra sync).
+			if (mixer_poll_complete(tickets[j]))
+				MCHECK(!memcmp(out[j], ref + (i + j) * BYTES, BYTES));
+		}
+		mixer_poll_wait(tickets[count - 1]);
+		for (int j = 0; j < count; j++) {
+			MCHECK(mixer_poll_complete(tickets[j]));
+			MCHECK(!memcmp(out[j], ref + (i + j) * BYTES, BYTES));
+		}
+		for (int j = 0; j < 8; j++) {
+			MCHECK(mem[j] == 0xA5 && mem[BYTES + 8 + j] == 0xA5);
+			MCHECK(mem[BYTES + 16 + j] == 0xA5 && mem[2 * BYTES + 24 + j] == 0xA5);
+		}
+		i += count;
+	}
+	// Exact zero allowance: CPU silence, unchanged genuine last-round ticket.
+	mixer_throttle(-(float)(audio_get_frequency() / 8));
+	accepted = mixer_poll_submit(out[0], NS, &ticket);
+	MCHECK(accepted);
+	mixer_poll_wait(ticket);
+	MCHECK(mixer_poll_complete(ticket));
+	for (int i = 0; i < BYTES; i++) MCHECK(((uint8_t*)out[0])[i] == 0);
+	mixer_close();
+	audio_close();
+	free_uncached(mem);
+	free_uncached(ref);
+	debugf("mixer submit/complete PASS (nonzero PCM, sequential/pairs, ring, admission, silence)\n");
+	#undef MCHECK
+	return ok;
+}
+
 int main(void)
 {
 	debug_init_emulog();
@@ -452,6 +538,9 @@ int main(void)
 	total++;
 	if (!sb_large_windows(true))
 		sb_failed++;
+
+	total++;
+	if (!sb_mixer_submit()) sb_failed++;
 
 	if (sb_failed) {
 		printf("\n%d/%d TESTS FAILED\n", sb_failed, total);
