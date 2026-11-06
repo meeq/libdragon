@@ -86,12 +86,21 @@ void __debug_backtrace(FILE *out, bool skip_exception);
 
 /** ISViewer register for magic value (to check ISViewer presence) */
 #define ISVIEWER_MAGIC			0x13FF0000
+/** ISViewer register for circular buffer read pointer */
+#define ISVIEWER_READ_POINTER	0x13FF0004
 /** ISViewer register for circular buffer write pointer */
 #define ISVIEWER_WRITE_POINTER	0x13FF0014
 /** ISViewer buffer */
 #define ISVIEWER_BUFFER         0x13FF0020
-/** ISViewer buffer length */
-#define ISVIEWER_BUFFER_LEN     0x00000200 // Buffer size is configurable on real ISViewer, it's usually 64kB - 0x20
+/** ISViewer buffer size (the 64 KiB area, less the registers) */
+#define ISVIEWER_BUFFER_SIZE    0x0000FFE0
+/** Largest copy that happens with interrupts disabled */
+#define ISVIEWER_CHUNK_LEN      0x00000200
+/** How long to wait for the reader to free space in the buffer */
+#define ISVIEWER_TIMEOUT_MS     100
+
+/** True after a reader did not free space in time */
+static bool isviewer_stalled;
 
 static bool isviewer_init(void)
 {
@@ -104,11 +113,7 @@ static bool isviewer_init(void)
 	// write some data to the "magic" register. If we can read it
 	// back, it means that there's some memory there and we can
 	// hopefully use it.
-
-	// Magic value is different than what official ISViewer code used, but since
-	// libdragon doesn't implement correct access pattern (circular buffer)
-	// we want to differentiate our implementation from the real thing
-	const uint32_t magic = 0x12345678;
+	const uint32_t magic = 0x49533634; // "IS64"
 
 	// Write inverted magic value to check if the memory is truly writable,
 	// and to make sure there's no residual value that's equal to our magic value
@@ -117,35 +122,73 @@ static bool isviewer_init(void)
 		return false;
 	}
 
+	// A reader starts as soon as it sees the magic value, so the pointers
+	// must be valid first.
+	io_write(ISVIEWER_READ_POINTER, 0);
+	io_write(ISVIEWER_WRITE_POINTER, 0);
 	io_write(ISVIEWER_MAGIC, magic);
 	return io_read(ISVIEWER_MAGIC) == magic;
 }
 
 static void isviewer_write(const uint8_t *data, int len)
 {
+	// The buffer is circular: read the write pointer, write the data there,
+	// then move the write pointer. Emulators that print on a write to this
+	// register keep it at zero, so the same sequence works for them.
 	while (len > 0)
 	{
-		uint32_t l = len < ISVIEWER_BUFFER_LEN ? len : ISVIEWER_BUFFER_LEN;
+		disable_interrupts();
 
-		// Write 32-bit aligned words to copy the buffer. Notice that
-		// we might overflow the input buffer if it's not a multiple
-		// of 4 bytes but it doesn't matter because we are going to
-		// write the exact number of bytes later.
-		for (int i=0; i < l; i+=4)
-		{
-			uint32_t value = ((uint32_t)data[0] << 24) |
-							 ((uint32_t)data[1] << 16) |
-							 ((uint32_t)data[2] <<  8) |
-							 ((uint32_t)data[3] <<  0);
-			io_write(ISVIEWER_BUFFER + i, value);
-			data += 4;
+		uint32_t wp = io_read(ISVIEWER_WRITE_POINTER);
+		uint32_t rp = io_read(ISVIEWER_READ_POINTER);
+		assertf(wp < ISVIEWER_BUFFER_SIZE && rp < ISVIEWER_BUFFER_SIZE,
+			"invalid ISViewer pointers: %08lx %08lx", wp, rp);
+
+		// One byte stays free: equal pointers mean that the buffer is empty.
+		// A word that ends the data can hold up to 3 bytes of padding, and
+		// they must not reach bytes that the reader did not take yet.
+		uint32_t space = (rp + ISVIEWER_BUFFER_SIZE - wp - 1) % ISVIEWER_BUFFER_SIZE;
+		space = space > 3 ? space - 3 : 0;
+		if (space == 0) {
+			// A log must not stop the program when its reader goes away.
+			// After one timeout, drop what does not fit, without waiting.
+			uint32_t t0 = TICKS_READ();
+			while (!isviewer_stalled && io_read(ISVIEWER_READ_POINTER) == rp &&
+			       TICKS_SINCE(t0) < TICKS_FROM_MS(ISVIEWER_TIMEOUT_MS)) {}
+			bool moved = io_read(ISVIEWER_READ_POINTER) != rp;
+			isviewer_stalled = !moved;
+			enable_interrupts();
+			if (!moved)
+				return;
+			continue;
+		}
+		isviewer_stalled = false;
+
+		uint32_t l = len;
+		if (l > ISVIEWER_CHUNK_LEN)            l = ISVIEWER_CHUNK_LEN;
+		if (l > space)                         l = space;
+		if (l > ISVIEWER_BUFFER_SIZE - wp)     l = ISVIEWER_BUFFER_SIZE - wp;
+
+		// The buffer takes 32-bit writes, and the data can start inside a
+		// word.
+		uint32_t at = wp & ~3;
+		uint32_t i = 0;
+		uint32_t value = (wp & 3) ? io_read(ISVIEWER_BUFFER + at) : 0;
+		for (uint32_t b = wp & 3; i < l; b = 0, at += 4) {
+			for (; b < 4; b++) {
+				uint32_t shift = 24 - 8 * b;
+				uint32_t byte = i < l ? data[i++] : 0;
+				value = (value & ~(0xFFu << shift)) | (byte << shift);
+			}
+			io_write(ISVIEWER_BUFFER + at, value);
+			value = 0;
 		}
 
-		// Flush the data into the ISViewer
-		// We use write pointer register as length register,
-		// but that's fine for emulators that usually doesn't
-		// update the read and write pointers anyways.
-		io_write(ISVIEWER_WRITE_POINTER, l);
+		wp += l;
+		io_write(ISVIEWER_WRITE_POINTER, wp == ISVIEWER_BUFFER_SIZE ? 0 : wp);
+
+		enable_interrupts();
+		data += l;
 		len -= l;
 	}
 }
