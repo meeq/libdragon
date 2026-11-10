@@ -198,6 +198,12 @@ ssize_t decompress_aplib_read(void *state, void *buf, size_t len)
     return decompress_aplib_partial(d, buf, len);
 }
 
+void decompress_aplib_close(void *state)
+{
+    aplib_decompressor_t *d = state;
+    __lookahead_buf_close(&d->lb);
+}
+
 #ifdef N64
 int decompress_aplib_full_inplace(const uint8_t* in, size_t cmp_size, uint8_t *out, size_t size)
 {

@@ -111,6 +111,16 @@ void __lookahead_buf_refill(__lookahead_buf_t *lb)
     if (!buf_size) lb->eof = true;
 }
 
+void __lookahead_buf_close(__lookahead_buf_t *lb)
+{
+    #ifdef N64
+    for (int i = 0; i < 2; i++) {
+        if (lb->ticket[i])
+            dma_wait_finished(lb->ticket[i]);
+    }
+    #endif
+}
+
 void __lookahead_buf_init(__lookahead_buf_t *lb, int fd)
 {
     memset(lb, 0, sizeof(*lb));

@@ -16,6 +16,8 @@ void decompress_aplib_init(void *state, int fd, int winsize);
 ssize_t decompress_aplib_read(void *state, void *buf, size_t len);
 /** @brief Reset APLIB decompressor state */
 void decompress_aplib_reset(void *state);
+/** @brief Wait for pending reads of the APLIB decompressor before its state is freed */
+void decompress_aplib_close(void *state);
 
 #ifdef N64
 /** @brief Decompress APLIB data in-place using fast assembly implementation */

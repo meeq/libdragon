@@ -114,6 +114,14 @@ typedef struct {
 
     /** @brief Reset decompression state after rewind */
     void (*decompress_reset)(void *state);
+
+    /**
+     * @brief Release the decompression state before it is freed (optional).
+     *
+     * Algorithms that prefetch input with asynchronous DMA wait here for
+     * the pending transfers, so that they do not write freed memory.
+     */
+    void (*decompress_close)(void *state);
 } asset_compression_stream_t;
 
 /** @brief Open a file as FILE* and assert on error */

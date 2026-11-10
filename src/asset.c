@@ -74,6 +74,7 @@ void __asset_init_compression_lvl2(void)
         .decompress_init = decompress_aplib_init,
         .decompress_read = decompress_aplib_read,
         .decompress_reset = decompress_aplib_reset,
+        .decompress_close = decompress_aplib_close,
     };
 }
 
@@ -144,6 +145,8 @@ static bool decompress_full_stream(asset_compression_stream_t *algo, int fd, uin
     algo->decompress_init(state, fd, winsize);
     int n = algo->decompress_read(state, buf, size);
     assertf(n == size, "asset: decompression error: corrupted? (%d/%d)", n, (int)size);
+    if (algo->decompress_close)
+        algo->decompress_close(state);
     free(state);
     return true;
 }
@@ -371,6 +374,7 @@ typedef struct  {
     bool seeked;                    ///< True if the file has been seeked once
     int header_size;                ///< Size of the header
     void (*reset)(void *state);     ///< Reset function for the decompression state
+    void (*close)(void *state);     ///< Release function for the decompression state (optional)
     ssize_t (*read)(void *state, void *buf, size_t len); ///< Read function for the decompression state
     uint8_t alignas(16) state[];    ///< Decompression state (16-byte aligned)
 } cookie_cmp_t;
@@ -411,6 +415,8 @@ static fpos_t seekfn_cmp(void *c, fpos_t pos, int whence)
 static int closefn_cmp(void *c)
 {
     cookie_cmp_t *cookie = (cookie_cmp_t*)c;
+    if (cookie->close)
+        cookie->close(cookie->state);
     close(cookie->fd); cookie->fd = -1;
     free(cookie);
     return 0;
@@ -458,6 +464,7 @@ FILE *asset_fdopen(int fd, int *sz)
         assertf(cookie, "Out of memory");
         cookie->read = algos_stream[algo-1].decompress_read;
         cookie->reset = algos_stream[algo-1].decompress_reset;
+        cookie->close = algos_stream[algo-1].decompress_close;
         algos_stream[algo-1].decompress_init(cookie->state, fd, winsize);
         cookie->fd = fd;
         cookie->pos = 0;

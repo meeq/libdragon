@@ -96,6 +96,14 @@ void __lookahead_buf_reset(__lookahead_buf_t *lb);
 /** @brief Refill lookahead buffer when needed */
 void __lookahead_buf_refill(__lookahead_buf_t *lb);
 
+/**
+ * @brief Wait for the pending prefetch transfers of a lookahead buffer.
+ *
+ * Call this before the memory of the lookahead buffer is freed. A prefetch
+ * DMA is always in flight in ROM mode, and it writes into the buffers.
+ */
+void __lookahead_buf_close(__lookahead_buf_t *lb);
+
 /** @brief Read one byte from lookahead buffer, refilling when needed */
 static inline uint8_t __lookahead_buf_readbyte(__lookahead_buf_t *lb)
 {
