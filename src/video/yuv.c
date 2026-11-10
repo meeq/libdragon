@@ -53,6 +53,9 @@ static void resize_internal_buffer(int w, int h)
     if (internal_buffer.width != w || internal_buffer.height != h) {
         surface_free(&internal_buffer);
         internal_buffer = surface_alloc(FMT_IA16, w, h);
+        // The RSP writes the interleaved planes to this buffer. A NULL buffer
+        // would make it write to the start of RDRAM.
+        assertf(internal_buffer.buffer, "yuv: out of memory for the %dx%d UV interleave buffer", w, h);
     }
 }
 
