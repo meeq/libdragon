@@ -542,6 +542,11 @@ static bool init_dfs_lookup(directory_entry_t *id_node)
     return true;
 }
 
+const void *__dfs_lookup_table(void)
+{
+    return lookup;
+}
+
 /**
  * @brief Helper functioner to initialize the filesystem
  *

@@ -90,6 +90,14 @@ typedef struct dfs_lookup_s {
     dfs_lookup_file_t files[];
 } dfs_lookup_t;
 
+/**
+ * @brief Get the file lookup table, or NULL before #dfs_init.
+ *
+ * The table is on the heap. It holds path hashes, ROM offsets and sizes, but
+ * no pointers. Heap checks use this function to identify it.
+ */
+const void *__dfs_lookup_table(void);
+
 /** @} */ /* dfs */
 
 #endif
