@@ -199,52 +199,56 @@ static void gen_frames(uint8_t *frames, int nframes_total, int bits) {
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// Hermite reference (shared by PCM and VADPCM tests)
+// Resampler reference (shared by PCM and VADPCM tests)
 //////////////////////////////////////////////////////////////////////////////
 
-// Reference implementation of the RSP mono resampler: 4-tap Catmull-Rom
-// evaluated between the second and third tap, in the exact fixed point the
-// ucode uses.
-static int16_t hermite_ref(int16_t y0, int16_t y1, int16_t y2, int16_t y3, uint16_t x)
+// Output of vmulf/vmacf: accumulator bits 16-31, clamped. Both instructions
+// add twice the product to the accumulator, and vmulf also adds the rounding
+// bit.
+static int16_t vmacf_out(int64_t acc)
 {
-    uint16_t x2   = (uint16_t)(((uint32_t)x  * x) >> 16);
-    uint16_t x05  = (uint16_t)(((uint32_t)x  * 0x8000) >> 16);
-    uint16_t x205 = (uint16_t)(((uint32_t)x2 * 0x8000) >> 16);
-    uint16_t x3   = (uint16_t)(((uint32_t)x2 * x) >> 16);
-    uint16_t x305 = (uint16_t)(((uint32_t)x3 * 0x8000) >> 16);
-
-    // vsub against zero saturates, so -32768 negates to 32767.
-    #define NEG(v) ((int16_t)((v) == INT16_MIN ? INT16_MAX : -(v)))
-    int16_t y0n = NEG(y0), y1n = NEG(y1), y2n = NEG(y2), y3n = NEG(y3);
-    #undef NEG
-
-    int64_t acc = (int64_t)y1 << 16;
-    acc += (int64_t)y2  * x05;
-    acc += (int64_t)y0n * x05;
-    acc += (int64_t)y0  * x2;
-    acc += (int64_t)y1n * x2;
-    acc += (int64_t)y1n * x2;
-    acc += (int64_t)y1n * x205;
-    acc += (int64_t)y2  * x2;
-    acc += (int64_t)y2  * x2;
-    acc += (int64_t)y3n * x205;
-    acc += (int64_t)y0n * x305;
-    acc += (int64_t)y1  * x3;
-    acc += (int64_t)y1  * x305;
-    acc += (int64_t)y2n * x3;
-    acc += (int64_t)y2n * x305;
-    acc += (int64_t)y3  * x305;
-
     int64_t v = acc >> 16;
     if (v > INT16_MAX) v = INT16_MAX;
     if (v < INT16_MIN) v = INT16_MIN;
     return (int16_t)v;
 }
 
+// Reference implementation of the RSP mono resampler: the 4-tap cubic weights
+// of GAUSS_A/GAUSS_B in rsp_mixer.S, in the exact fixed point the ucode uses.
+static int16_t gauss_ref(int16_t y0, int16_t y1, int16_t y2, int16_t y3, uint16_t x)
+{
+    static const int16_t a[4] = { -16494, 940, 14956, 597 };
+    static const int16_t b[4] = { 19099, -20663, 25367, -3140 };
+    static const int16_t d[4] = { -7442, 22318, -22318, 7442 };
+    static const int16_t c[4] = { 4808, 22934, 4924, -26 };
+
+    int16_t x05  = (int16_t)(((uint32_t)x * 0x8000) >> 16);
+    int16_t x205 = vmacf_out(2 * x05 * x05 + 0x8000);
+    int16_t x305 = vmacf_out(2 * x205 * x05 + 0x8000);
+
+    int16_t w[4];
+    for (int k = 0; k < 4; k++) {
+        int64_t acc = 2 * (int64_t)x05 * a[k] + 0x8000;
+        acc += 2 * (int64_t)x205 * b[k];
+        if (k == 1)  // b_1 is stored as its half
+            acc += 2 * (int64_t)x205 * b[k];
+        acc += 2 * (int64_t)x305 * d[k];
+        w[k] = vmacf_out(acc);
+    }
+
+    const int16_t y[4] = { y0, y1, y2, y3 };
+    int64_t acc = 0x8000;
+    for (int k = 0; k < 4; k++)
+        acc += 2 * (int64_t)y[k] * c[k];
+    for (int k = 0; k < 4; k++)
+        acc += 2 * (int64_t)y[k] * w[k];
+    return vmacf_out(acc);
+}
+
 static bool test_vadpcm_inmixer(int nframes, uint32_t step, int nout, int seed, int bits) {
     my_srand(seed);
 
-    // Predictors + Hermite loop taps (zeros: this path does not loop).
+    // Predictors + resampler loop taps (zeros: this path does not loop).
     uint8_t *codebook_raw = malloc_uncached(VADPCM_CODEBOOK_STRIDE);
     memset(codebook_raw, 0, VADPCM_CODEBOOK_STRIDE);
     wav64_vadpcm_vector_t *codebook = (wav64_vadpcm_vector_t *)codebook_raw;
@@ -261,7 +265,7 @@ static bool test_vadpcm_inmixer(int nframes, uint32_t step, int nout, int seed, 
     gen_frames(frames, nframes, bits);
 
     int nsamples = nframes * 16;
-    // Pad decoded PCM with zeros for Hermite taps past the last sample.
+    // Pad decoded PCM with zeros for resampler taps past the last sample.
     int16_t *ref_pcm = malloc((size_t)(nsamples + 4) * sizeof(int16_t));
     memset(ref_pcm, 0, (size_t)(nsamples + 4) * sizeof(int16_t));
     vadpcm_error err = vadpcm_decode(NPREDICTORS, ORDER, codebook, &state_ref,
@@ -290,12 +294,12 @@ static bool test_vadpcm_inmixer(int nframes, uint32_t step, int nout, int seed, 
         int si = pos >> MIXER_FX64_FRAC;
         uint16_t x = (uint16_t)(pos << 4);
         int16_t y0 = ref_pcm[si], y1 = ref_pcm[si+1], y2 = ref_pcm[si+2], y3 = ref_pcm[si+3];
-        int16_t res = hermite_ref(y0, y1, y2, y3, x);
+        int16_t res = gauss_ref(y0, y1, y2, y3, x);
         int32_t v = (int32_t)(((int64_t)res * vol * 2) >> 16);
         int16_t l = stereo[i*2], r = stereo[i*2+1];
         int d0 = l - v, d1 = r - v;
         if (d0 < -2 || d0 > 2 || d1 < -2 || d1 > 2) {
-            printf("FAILED vadpcm hermite %dbit: nf=%d step=%#lx seed=%d i=%d: L=%d R=%d ref=%ld\n",
+            printf("FAILED vadpcm resample %dbit: nf=%d step=%#lx seed=%d i=%d: L=%d R=%d ref=%ld\n",
                 bits, nframes, (long)step, seed, i, l, r, (long)v);
             printf("  si=%d x=%#x taps=%d %d %d %d\n", si, x, y0, y1, y2, y3);
             ok = false;
@@ -315,7 +319,7 @@ static bool test_vadpcm_inmixer(int nframes, uint32_t step, int nout, int seed, 
     assertf(err == 0, "reference end-state decode error: %d", err);
     free(discard);
     if (ok && memcmp(state_rsp, &state_end, sizeof(state_end)) != 0) {
-        printf("FAILED vadpcm hermite %dbit: nf=%d step=%#lx seed=%d: state mismatch (end_frame=%d)\n",
+        printf("FAILED vadpcm resample %dbit: nf=%d step=%#lx seed=%d: state mismatch (end_frame=%d)\n",
             bits, nframes, (long)step, seed, end_frame);
         ok = false;
     }
@@ -371,7 +375,7 @@ static bool test_pcm_resample(bool is16, uint32_t step, int nsamples, int seed)
         int16_t y[4];
         for (int t = 0; t < 4; t++)
             y[t] = is16 ? ((int16_t*)wave)[si+t] : (int16_t)(((int8_t*)wave)[si+t] << 8);
-        int16_t res = hermite_ref(y[0], y[1], y[2], y[3], x);
+        int16_t res = gauss_ref(y[0], y[1], y[2], y[3], x);
 
         int32_t v = (int32_t)(((int64_t)res * vol * 2) >> 16);
         int16_t l = stereo[i*2], r = stereo[i*2+1];
@@ -391,7 +395,7 @@ static bool test_pcm_resample(bool is16, uint32_t step, int nsamples, int seed)
 }
 
 // Stereo PCM: interleaved L/R in the waveform, two MIX_CHANNELs (owner=L,
-// STEREO_SUB=R) that share the Hermite loop with mono.
+// STEREO_SUB=R) that share the resampler loop with mono.
 static bool test_pcm_resample_stereo(bool is16, uint32_t step, int nsamples, int seed)
 {
     my_srand(seed);
@@ -440,8 +444,8 @@ static bool test_pcm_resample_stereo(bool is16, uint32_t step, int nsamples, int
                 yr[t] = (int16_t)(((int8_t*)wave)[(fi + t) * 2 + 1] << 8);
             }
         }
-        int16_t res_l = hermite_ref(yl[0], yl[1], yl[2], yl[3], x);
-        int16_t res_r = hermite_ref(yr[0], yr[1], yr[2], yr[3], x);
+        int16_t res_l = gauss_ref(yl[0], yl[1], yl[2], yl[3], x);
+        int16_t res_r = gauss_ref(yr[0], yr[1], yr[2], yr[3], x);
         int32_t vl = (int32_t)(((int64_t)res_l * vol * 2) >> 16);
         int32_t vr = (int32_t)(((int64_t)res_r * vol * 2) >> 16);
 
@@ -611,8 +615,11 @@ static void sv_set_bits(int bits)
 // ahead of it. Games poll one audio buffer at a time (~1000 samples).
 static int sv_chunk = 1024;
 
+static int sv_len;         // samples in sv_out from the last sv_mix
+
 static void sv_mix(int nsamples)
 {
+    sv_len = nsamples;
     int16_t *out = sv_out;
     while (nsamples > 0) {
         int n = nsamples < sv_chunk ? nsamples : sv_chunk;
@@ -1220,7 +1227,8 @@ static bool test_mixer_block_codec_end(int channels, int len)
     mixer_ch_play(BC_CHANNEL, &wave);
     mixer_ch_set_vol_ramp(BC_CHANNEL, 0.5f, 0.5f, 0);
     sv_mix(BC_LEN + 65);
-    // Unit-step Hermite returns y1, so len-2 observes the final real frame.
+    // With a unit step, output i is centred on frame i, so output len-2 is
+    // inside the waveform.
     int last_l = sv_out[(len - 2) * 2], last_r = sv_out[(len - 2) * 2 + 1];
     bool preserved = last_l > 1024 && (channels == 1 || last_r > 1024);
     int extra = 0;
@@ -1367,8 +1375,8 @@ static bool test_mixer_vadpcm_partial_frame(float freq)
 // at the loop start. The VADPCM path used to hand it four zeroes there, which
 // on a short loop is a dip to silence a few hundred times a second.
 //
-// A constant waveform makes any such tap visible: Hermite reproduces a
-// constant exactly, so the output must be flat everywhere.
+// A constant waveform makes any such tap visible: the resampler weights have
+// the same sum at every fraction, so the output must be flat everywhere.
 //////////////////////////////////////////////////////////////////////////////
 
 #define LP_SHIFT     12
@@ -1414,7 +1422,7 @@ static bool test_mixer_loop_taps(waveform_t *wave, float freq, int startsample)
 {
     if (!lp_codebook) {
         // Zero predictors: sample = residual << shift. Loop taps match the
-        // constant the frames decode to so Hermite stays flat across wraps.
+        // constant the frames decode to so the output stays flat across wraps.
         int16_t flat = (int16_t)(LP_RESIDUAL << LP_SHIFT);
         lp_codebook = malloc_uncached(VADPCM_CODEBOOK_STRIDE);
         memset(lp_codebook, 0, VADPCM_CODEBOOK_STRIDE);
@@ -1459,10 +1467,10 @@ static bool test_mixer_loop_taps(waveform_t *wave, float freq, int startsample)
 //
 // The tests above play a constant, which shows samples that are dropped or
 // zeroed but not samples played at the wrong position, twice, or not at all.
-// Playing at the output rate turns the resampler into an identity (Hermite
-// with a null fraction returns the sample it interpolates from), so every
-// output sample can be matched against the waveform decoded on the CPU, with
-// the loop unrolled by hand.
+// Playing at the output rate keeps the fraction of the resampler null, so
+// every output sample is a fixed weighting of four decoded samples and can be
+// matched against the waveform decoded on the CPU, with the loop unrolled by
+// hand.
 //////////////////////////////////////////////////////////////////////////////
 
 // Instrument 5 of Arcade_S900.xm: only its loop fits the samplebuffer, so it
@@ -1553,9 +1561,9 @@ static void rf_init(int bits)
     rf_codec.bits = bits;
 }
 
-// Sample played when the position is @p pos, with the loop unrolled. The
-// resampler interpolates between its second and third tap, so a position sits
-// one sample before what it plays.
+// Sample at the second tap when the position is @p pos, with the loop
+// unrolled. The resampler interpolates between its second and third tap, so a
+// position sits one sample before that tap.
 static int rf_len, rf_loop_len;   // waveform being played
 
 static int rf_play(int pos)
@@ -1566,9 +1574,16 @@ static int rf_play(int pos)
     return pos;
 }
 
+// Output at @p pos with a null fraction: the resampler weights of the four
+// taps around it. A one-shot has silence past its end.
 static int rf_expect(int pos)
 {
-    return rf_ref[rf_play(pos)];
+    int16_t y[4];
+    for (int k = 0; k < 4; k++) {
+        int p = rf_play(pos - 1 + k);
+        y[k] = !rf_loop_len && p >= rf_len ? 0 : rf_ref[p];
+    }
+    return gauss_ref(y[0], y[1], y[2], y[3], 0);
 }
 
 static bool test_mixer_loop_exact(waveform_t *wave, int startsample)
@@ -1742,7 +1757,7 @@ static int is_expect(int w, int j, float freq)
     uint32_t step = (uint32_t)(int64_t)((freq / 44100.0f) * (1 << MIXER_FX64_FRAC));
     uint32_t pos = step * (uint32_t)j;
     const int16_t *r = is_ref[w] + (pos >> MIXER_FX64_FRAC);
-    return hermite_ref(r[0], r[1], r[2], r[3], (uint16_t)(pos << 4)) / 2;
+    return gauss_ref(r[0], r[1], r[2], r[3], (uint16_t)(pos << 4)) / 2;
 }
 
 static bool test_mixer_retrigger(bool same_wave, float freq)
@@ -1977,7 +1992,7 @@ static int16_t bl_pin_sample(int pos) {
 
 static int bl_play(int pos, int loop_end, int loop_len)
 {
-    // Hermite with a null fraction returns the second tap, one past pos.
+    // The second tap of the resampler is one past pos.
     pos++;
     if (loop_len && pos >= loop_end)
         pos = loop_end - loop_len + (pos - loop_end) % loop_len;
@@ -2098,7 +2113,17 @@ static void bl_init(void)
     bl_wave_loop_res_rel.mem = bl_resident(BL_LEN, 0);
 }
 
-// Sample-by-sample check at the output rate: Hermite is an identity there.
+// Output at @p pos with a null fraction: the resampler weights of the four
+// taps around it.
+static int bl_expect(int16_t (*sample)(int), int pos, int loop_end, int loop_len)
+{
+    int16_t y[4];
+    for (int k = 0; k < 4; k++)
+        y[k] = sample(bl_play(pos - 1 + k, loop_end, loop_len));
+    return gauss_ref(y[0], y[1], y[2], y[3], 0);
+}
+
+// Sample-by-sample check at the output rate, against bl_expect().
 // @p loop_end doubles as the physical end when there is no loop.
 // @p sample is NULL for the default bl_sample shape.
 static bool bl_check_exact(const char *tag, int start_pos, int nsamples,
@@ -2108,9 +2133,13 @@ static bool bl_check_exact(const char *tag, int start_pos, int nsamples,
     int nbad = 0, first = -1, maxdiff = 0, peak = 0;
     for (int i = 0; i < nsamples; i++) {
         int p = bl_play(start_pos + i, loop_end, loop_len);
-        if (!loop_len && p >= loop_end)
+        // Past the end of a one-shot, the taps depend on the codec and on the
+        // loop the waveform had (see VadpcmTapsHold in rsp_mixer.S), so the
+        // check stops at the last output whose second and third taps are
+        // inside the waveform.
+        if (!loop_len && p + 1 >= loop_end)
             break;
-        int want = sample(p) / 2;
+        int want = bl_expect(sample, start_pos + i, loop_end, loop_len) / 2;
         int got = sv_out[i * 2];
         int d = got - want; if (d < 0) d = -d;
         if (d > 64) {
@@ -2128,7 +2157,7 @@ static bool bl_check_exact(const char *tag, int start_pos, int nsamples,
             printf("   [%d] play=%d got %d want %d\n", i,
                 bl_play(start_pos + i, loop_end, loop_len),
                 sv_out[i * 2],
-                sample(bl_play(start_pos + i, loop_end, loop_len)) / 2);
+                bl_expect(sample, start_pos + i, loop_end, loop_len) / 2);
         return false;
     }
     if (peak < 4096) {
@@ -2600,7 +2629,10 @@ static bool test_mixer_stop_mid(void)
 //
 // The loop of the baseline asset is a square wave of constant absolute
 // amplitude, so playing it at the output rate makes the envelope of the
-// capture the channel volume itself, sample by sample.
+// capture the channel volume itself, sample by sample. The exception is the
+// two outputs on each side of an edge of the square wave, which the resampler
+// weights take from both levels: there the envelope is interpolated from the
+// nearest outputs on each level.
 //////////////////////////////////////////////////////////////////////////////
 
 // Deviation of the envelope from a straight line, and from the volume that was
@@ -2610,8 +2642,24 @@ static bool test_mixer_stop_mid(void)
 #define VR_TOL_LINE   64
 #define VR_TOL_LEVEL  128
 
-static int vr_amp(int i)   { int a = sv_out[i*2];   return a < 0 ? -a : a; }
-static int vr_amp_r(int i) { int a = sv_out[i*2+1]; return a < 0 ? -a : a; }
+static int vr_env(int i, int ch)
+{
+    #define VR_ABS(j) (sv_out[(j)*2 + ch] < 0 ? -sv_out[(j)*2 + ch] : sv_out[(j)*2 + ch])
+    #define VR_EDGE(j) ((sv_out[(j)*2 + ch] < 0) != (sv_out[(j)*2 + 2 + ch] < 0))
+    int a;
+    if (i >= 2 && i < sv_len && VR_EDGE(i - 1))
+        a = i + 1 < sv_len ? (VR_ABS(i - 2) + 2 * VR_ABS(i + 1)) / 3 : VR_ABS(i - 2);
+    else if (i >= 1 && i + 1 < sv_len && VR_EDGE(i))
+        a = i + 2 < sv_len ? (2 * VR_ABS(i - 1) + VR_ABS(i + 2)) / 3 : VR_ABS(i - 1);
+    else
+        a = VR_ABS(i);
+    #undef VR_ABS
+    #undef VR_EDGE
+    return a;
+}
+
+static int vr_amp(int i)   { return vr_env(i, 0); }
+static int vr_amp_r(int i) { return vr_env(i, 1); }
 
 static void vr_start(waveform_t *wave, float lvol, float rvol)
 {
@@ -3467,7 +3515,7 @@ int main(void)
                 for (int r = 0; r < 4; r++) {
                     uint32_t step = (uint32_t)(vad_ratios[r] * (1 << MIXER_FX64_FRAC));
                     int nwave = inmix_frames[fc] * 16;
-                    // Stay inside the waveform including Hermite overread.
+                    // Stay inside the waveform including resampler overread.
                     int nout = nwave / 2;
                     if (nout > 96) nout = 96;
                     if (nout < 8) nout = nwave > 8 ? 8 : nwave;
@@ -3655,7 +3703,7 @@ int main(void)
     SL_RUN(&bl_wave_loop_stream, SL_INSIDE, bl_sample);
     SL_RUN(&bl_wave_loop_stream, SL_NEAR_END, bl_sample);
     SL_RUN(&bl_wave_loop_stream, SL_AFTER_WRAP, bl_sample);
-    // PCM resident with release (mid-loop only: wraps would Hermite into release).
+    // PCM resident with release (mid-loop only: wraps would resample into release).
     SL_RUN(&bl_wave_loop_res_rel, SL_INSIDE, bl_sample);
     // PCM stereo streamed.
     SL_RUN(&bl_wave_loop_stereo, SL_INSIDE, bl_sample);
