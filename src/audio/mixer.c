@@ -1214,6 +1214,27 @@ static void mixer_ch_seek(int ch) {
 }
 
 /**
+ * @brief Point @p ch, and its stereo sub, at the VADPCM tables of @p wave.
+ *
+ * A stopped channel keeps no pointer into its waveform (see
+ * #mixer_ch_drop_wave), so each play takes them again.
+ */
+static void mixer_ch_set_vadpcm_tables(int ch, waveform_t *wave) {
+	mixer_channel_t *c = &Mixer.channels[ch];
+	waveform_vadpcm_t *vc = wave->codec;
+	c->codebook = vc->codebook;
+	c->loop_state = vc->loop_state;
+	c->vbits = vc->bits;
+	if (wave->channels == 2) {
+		mixer_channel_t *r = &Mixer.channels[ch+1];
+		r->codebook = (uint8_t*)vc->codebook + VADPCM_CODEBOOK_STRIDE;
+		r->loop_state = vc->loop_state ? (uint8_t*)vc->loop_state + 16 : NULL;
+		r->vbits = vc->bits;
+		r->wave = wave;
+	}
+}
+
+/**
  * Start @p wave on @p ch. With @p set_freq, the channel plays at @p frequency
  * from its first sample, and the waveform frequency is never applied: it can
  * be above the channel limit.
@@ -1307,7 +1328,7 @@ static void mixer_ch_start(int ch, waveform_t *wave, bool set_freq, float freque
 	// above, and is then no longer configured for this waveform even though the
 	// channel still remembers playing it. VADPCM residual width can also change
 	// on the same waveform object (same uuid): unit_bytes and vbits must track it.
-	bool configured = resident || (sbuf->wave == wave && sbuf->unit_bytes);
+	bool configured = resident || sbuf->unit_bytes;
 	if (configured && !resident && vadpcm) {
 		int ub = mixer_vadpcm_frame_bytes(wave);
 		int bits = ((const waveform_vadpcm_t *)wave->codec)->bits;
@@ -1373,17 +1394,10 @@ static void mixer_ch_start(int ch, waveform_t *wave, bool set_freq, float freque
 			assertf(vc->bits >= 2 && vc->bits <= 4, "waveform %s: invalid VADPCM residual width %d", wave->name, vc->bits);
 			c->flags |= CH_FLAGS_VADPCM | CH_FLAGS_16BIT;
 			if (wave->channels == 2) c->flags |= CH_FLAGS_STEREO;
-			c->codebook = vc->codebook;
-			c->loop_state = vc->loop_state;
-			c->vbits = vc->bits;
 			if (stereo_vadpcm) {
 				mixer_channel_t *r = &Mixer.channels[ch+1];
 				r->flags = (r->flags & CH_FLAGS_FORCE_MONO) | CH_FLAGS_STEREO_SUB | CH_FLAGS_VADPCM | CH_FLAGS_16BIT;
-				r->codebook = (uint8_t*)vc->codebook + VADPCM_CODEBOOK_STRIDE;
-				r->vbits = vc->bits;
 				r->codec_state = (uint8_t*)c->codec_state + 16;
-				r->loop_state = vc->loop_state ? (uint8_t*)vc->loop_state + 16 : NULL;
-				r->wave = wave;
 				r->wave_uuid = wave->__uuid;
 			}
 		} else {
@@ -1402,9 +1416,14 @@ static void mixer_ch_start(int ch, waveform_t *wave, bool set_freq, float freque
 			resident ? " [resident]" : "");
 	} else if (!resident) {
 		tracef("mixer_ch_play[old]: ch=%d wave=%s\n", ch, wave->name);
-		assertf(sbuf->wave == wave, "%s: uuid match (%ld) but pointer mismatch: %p != %p",
+		// Only a channel that still plays keeps its waveform (see
+		// #mixer_ch_drop_wave), and then it is this one: the uuids match.
+		assertf(!sbuf->wave || sbuf->wave == wave, "%s: uuid match (%ld) but pointer mismatch: %p != %p",
 			wave->name, wave->__uuid, sbuf->wave, wave);
+		samplebuffer_set_waveform(sbuf, wave, wave->read ? waveform_read : NULL);
 	}
+	if (vadpcm)
+		mixer_ch_set_vadpcm_tables(ch, wave);
 	if (set_freq)
 		mixer_ch_set_freq(ch, frequency);
 
@@ -1533,6 +1552,24 @@ double mixer_ch_get_pos(int ch) {
 	return (double)pos / (double)(1<<MIXER_FX64_FRAC);
 }
 
+/**
+ * @brief Remove every pointer into the waveform of a stopped channel.
+ *
+ * The ring keeps its samples and the channel keeps the uuid, so that a new
+ * play of the same waveform can use them again. #mixer_ch_play takes the
+ * pointers again from the waveform it gets.
+ */
+static void mixer_ch_drop_wave(int ch) {
+	mixer_channel_t *c = &Mixer.channels[ch];
+	samplebuffer_t *sbuf = &Mixer.ch_buf[ch];
+	c->wave = NULL;
+	c->codebook = NULL;
+	c->loop_state = NULL;
+	Mixer.chtbl[ch] = (mixer_chtbl_t){ NULL, NULL, NULL };
+	sbuf->wave = NULL;
+	sbuf->wv_read = NULL;
+}
+
 void mixer_ch_stop(int ch) {
 	mixer_channel_t *c = &Mixer.channels[ch];
 
@@ -1567,13 +1604,13 @@ void mixer_ch_stop(int ch) {
 	Mixer.chtbl_dirty &= ~mixer_bit(ch);
 	Mixer.vstate_dirty &= ~mixer_bit(ch);
 
-	// Invalidate the wave pointer, as it might become dangling
-	// anyway, as the user can free the waveform memory at any time after stop.
-	// Keep the uuid valid instead. This allows
-	// for an optimization: if mixer_ch_play is called again on the same
-	// waveform, we will realize that by the uuid, and reuse the same
-	// samplebuffer contents.
-	c->wave = NULL;
+	// The user can free the waveform at any time after stop, so the channel
+	// keeps no pointer into it. It keeps the uuid instead: if mixer_ch_play
+	// gets the same waveform again, the uuid shows it, and the samples that
+	// the ring holds are used again.
+	mixer_ch_drop_wave(ch);
+	if (stereo)
+		mixer_ch_drop_wave(ch+1);
 
 	// Every round scans up to hi_ch, so lower it past the idle channels on
 	// top: else one burst on many channels makes all later rounds slower.
